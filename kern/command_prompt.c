@@ -9,7 +9,8 @@ VARIABLES:	Command, commands, name, description, function_to_execute, number_of_
 FUNCTIONS:	readline, cprintf, execute_command, run_command_prompt, command_kernel_info, command_help, strcmp, strsplit, start_of_kernel, start_of_uninitialized_data_section, end_of_kernel_code_section, end_of_kernel
 =====================================================================================================================================================================================================
  */
-//here we go isa
+//here we go
+//hello
 
 #include <inc/stdio.h>
 #include <inc/string.h>
