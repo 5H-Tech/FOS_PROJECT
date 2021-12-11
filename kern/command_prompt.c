@@ -9,7 +9,7 @@ VARIABLES:	Command, commands, name, description, function_to_execute, number_of_
 FUNCTIONS:	readline, cprintf, execute_command, run_command_prompt, command_kernel_info, command_help, strcmp, strsplit, start_of_kernel, start_of_uninitialized_data_section, end_of_kernel_code_section, end_of_kernel
 =====================================================================================================================================================================================================
  */
-//her we go isa
+//here we go isa
 
 #include <inc/stdio.h>
 #include <inc/string.h>
@@ -225,7 +225,7 @@ void clearandwritecommand(int* i, int commandidx, char* buf, int *last_index) {
 		cputchar(command_history[commandidx][*i]);
 		buf[*i] = command_history[commandidx][*i];
 	}
-	*last_index = len;
+	*last_index = len;//length
 }
 
 void RoundAutoCompleteCommandWithTheSamePrefix(int old_buf_len, char* prefix_element,
