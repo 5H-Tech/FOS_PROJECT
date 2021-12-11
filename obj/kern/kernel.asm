@@ -4381,7 +4381,7 @@ f01021ef:	83 7d ec 64          	cmpl   $0x64,-0x14(%ebp)
 f01021f3:	76 19                	jbe    f010220e <CreateEnv+0x1fb>
 f01021f5:	68 98 2b 12 f0       	push   $0xf0122b98
 f01021fa:	68 dd 2b 12 f0       	push   $0xf0122bdd
-f01021ff:	68 40 03 00 00       	push   $0x340
+f01021ff:	68 41 03 00 00       	push   $0x341
 f0102204:	68 f2 2b 12 f0       	push   $0xf0122bf2
 f0102209:	e8 66 df ff ff       	call   f0100174 <_panic>
 //		{
@@ -4394,7 +4394,7 @@ f010220e:	83 7d ec 64          	cmpl   $0x64,-0x14(%ebp)
 f0102212:	76 19                	jbe    f010222d <CreateEnv+0x21a>
 f0102214:	68 98 2b 12 f0       	push   $0xf0122b98
 f0102219:	68 dd 2b 12 f0       	push   $0xf0122bdd
-f010221e:	68 57 03 00 00       	push   $0x357
+f010221e:	68 58 03 00 00       	push   $0x358
 f0102223:	68 f2 2b 12 f0       	push   $0xf0122bf2
 f0102228:	e8 47 df ff ff       	call   f0100174 <_panic>
 	env = env_create(arguments[1], pageWSSize, LRUSecondListSize, percent_WS_pages_to_remove);
@@ -6099,7 +6099,7 @@ f0102ee4:	eb 17                	jmp    f0102efd <command_test_sc_MLFQ+0xd1>
 		panic("MLFQScenario# failed\n");
 f0102ee6:	83 ec 04             	sub    $0x4,%esp
 f0102ee9:	68 a9 36 12 f0       	push   $0xf01236a9
-f0102eee:	68 6a 05 00 00       	push   $0x56a
+f0102eee:	68 6b 05 00 00       	push   $0x56b
 f0102ef3:	68 f2 2b 12 f0       	push   $0xf0122bf2
 f0102ef8:	e8 77 d2 ff ff       	call   f0100174 <_panic>
 	}
