@@ -512,10 +512,10 @@ void page_fault_handler(struct Env * curenv, uint32 fault_va)
 	//TODO: [PROJECT 2021 - [1] PAGE FAULT HANDLER]
 	int actSize = LIST_SIZE(&ActList);
 	int secSize = LIST_SIZE(&Seclist);
-	cprintf("the active list size %d\n",actSize);
-	cprintf("the second list size %d\n",secSize);
-	cprintf("the working list size %d\n",LIST_SIZE(&Worklist));
-	print_page_working_set_or_LRUlists(curenv);
+	//cprintf("the active list size %d\n",actSize);
+	//cprintf("the second list size %d\n",secSize);
+	//cprintf("the working list size %d\n",LIST_SIZE(&Worklist));
+	//print_page_working_set_or_LRUlists(curenv);
 
 	if(LIST_SIZE(&curenv->PageWorkingSetList) > 0)
 	{

@@ -15,18 +15,95 @@
 //==================================================================================//
 //============================ REQUIRED FUNCTIONS ==================================//
 //==================================================================================//
+
+uint32 last_addres=USER_HEAP_START;
+int changes=0;
+int sizeofarray=0;
+uint32 addresses[100];
+int changed[100];
 void* malloc(uint32 size)
 {
 	//TODO: [PROJECT 2021 - [2] User Heap] malloc() [User Side]
-	// Write your code here, remove the panic and write your code
-	panic("malloc() is not implemented yet...!!");
+		// Write your code here, remove the panic and write your code
+		int num = size /PAGE_SIZE;
+		uint32 return_addres;
+		if(size%PAGE_SIZE!=0)
+			num++;
+		if(last_addres==USER_HEAP_START)
+		{
+			sys_allocateMem(USER_HEAP_START,size);
+			return_addres=last_addres;
+			last_addres+=num*PAGE_SIZE;
+			addresses[sizeofarray]=last_addres;
+			changed[sizeofarray]=1;
+			sizeofarray++;
+			return (void*)return_addres;
+		}
+		else
+		{
+			if(changes==0)
+			{
+				sys_allocateMem(last_addres,size);
+				return_addres=last_addres;
+				last_addres+=num*PAGE_SIZE;
+				addresses[sizeofarray]=return_addres;
+				changed[sizeofarray]=1;
+				sizeofarray++;
+				return (void*)return_addres;
+			}
+			else{
+				int count=0;
+				int min=1000;
+				int index=-1;
+				uint32 min_addresss;
+				for(uint32 i=USER_HEAP_START;i<USER_HEAP_MAX;i+=PAGE_SIZE)
+				{
+					uint32 *pg=NULL;
+					for(int j=0;j<sizeofarray;j++)
+					{
+						if(addresses[j]==i)
+						{
+							index=j;
+							break;
+						}
+					}
 
-	//This function should find the space of the required range
-	//using the BEST FIT strategy
+					if(index==-1)
+					{
+						count++;
+					}
+					else
+					{
+						if(changed[index]==0)
+						{
+							count++;
+						}
+						else
+						{
+							if(count<min&&count>=num)
+							{
+								min=count;
+								min_addresss=i;
+							}
+							count=0;
+						}
 
-	//refer to the project presentation and documentation for details
+					}
 
-	return NULL;
+					}
+
+				sys_allocateMem(min_addresss,size);
+
+				return(void*) min_addresss;
+			}
+		}
+		//This function should find the space of the required range
+		//using the BEST FIT strategy
+
+		//refer to the project presentation and documentation for details
+
+		return NULL;
+
 }
 
 // free():
