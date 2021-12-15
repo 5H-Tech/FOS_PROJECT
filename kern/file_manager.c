@@ -328,11 +328,15 @@ int pf_read_env_page(struct Env* ptr_env, void *virtual_address)
 	uint32 *ptr_disk_page_table;
 
 	//ROUND DOWN it on 4 KB boundary in order to read the entire page starting from its first address.
-	virtual_address = (void*) ROUNDDOWN((uint32)virtual_address, PAGE_SIZE);
+	virtual_address = (void*) ROUNDDOWN((uint32)virtual_address,PAGE_SIZE);
 
 	if( ptr_env->disk_env_pgdir == 0) return E_PAGE_NOT_EXIST_IN_PF;
 
-	get_disk_page_table(ptr_env->disk_env_pgdir, virtual_address, 0, &ptr_disk_page_table);
+	get_disk_page_table(ptr_env->disk_env_pgdir,
+			            virtual_address,
+						0,
+						&ptr_disk_page_table);
+
 	if(ptr_disk_page_table == 0) return E_PAGE_NOT_EXIST_IN_PF;
 
 	uint32 dfn=ptr_disk_page_table[PTX(virtual_address)];
