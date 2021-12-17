@@ -507,172 +507,108 @@ void chage_PRESENT(struct Env * curenv, uint32 va , int val)
 #define Seclist curenv->SecondList
 #define Worklist curenv->PageWorkingSetList
 
-void page_fault_handler(struct Env * curenv, uint32 fault_va)
+void Placement(struct Env * curenv, uint32 fault_va)
 {
-	//TODO: [PROJECT 2021 - [1] PAGE FAULT HANDLER]
-	int actSize = LIST_SIZE(&ActList);
-	int secSize = LIST_SIZE(&Seclist);
-	//cprintf("the active list size %d\n",actSize);
-	//cprintf("the second list size %d\n",secSize);
-	//cprintf("the working list size %d\n",LIST_SIZE(&Worklist));
-	//print_page_working_set_or_LRUlists(curenv);
-
-	if(LIST_SIZE(&curenv->PageWorkingSetList) > 0)
+	// we will just place it in the env
+	struct WorkingSetElement * new_elemant;
+	new_elemant = LIST_LAST(&Worklist);
+	new_elemant->virtual_address = fault_va;
+	LIST_REMOVE(&Worklist,new_elemant);
+	//Allocating the fream for the page
+	struct Frame_Info* new_fram ;
+	int re= allocate_frame(&new_fram);
+	if(re == E_NO_MEM) return ;
+	re = map_frame(curenv->env_page_directory,new_fram,(void *) fault_va,PERM_WRITEABLE|PERM_USER);
+	if(re == E_NO_MEM){free_frame(new_fram);return ;}
+	// place the page in the env
+	int ret = pf_read_env_page(curenv, (void*)fault_va);
+	if (ret == E_PAGE_NOT_EXIST_IN_PF)
 	{
-		//
-		struct WorkingSetElement * ptr_WS_element ;
-		LIST_FOREACH(ptr_WS_element, &(Seclist))
+		if(fault_va < USTACKTOP && fault_va >= USTACKBOTTOM )
 		{
-			if(ptr_WS_element->virtual_address == fault_va)
-			{
-
-				struct WorkingSetElement * aim,* tmp;
-				aim = ptr_WS_element;
-				LIST_REMOVE(&Seclist,ptr_WS_element);
-				tmp = LIST_LAST(&ActList);
-				LIST_REMOVE(&ActList,tmp);
-				pt_set_page_permissions(curenv, aim->virtual_address,PERM_PRESENT,0);
-				LIST_INSERT_HEAD(&ActList,aim);
-				pt_set_page_permissions(curenv, tmp->virtual_address,0,PERM_PRESENT);
-				LIST_INSERT_HEAD(&Seclist,tmp);
-				return;
-
-				//pt_set_page_permissions(curenv, LIST_LAST(&ActList)->virtual_address,0,PERM_PRESENT);
-
-				//LIST_INSERT_HEAD(&Seclist,LIST_LAST(&ActList));
-
-				//pt_set_page_permissions(curenv, tmp->virtual_address,PERM_PRESENT,0);
-
-				//LIST_INSERT_HEAD(&ActList,tmp);
-				//return ;
-			}
-		}
-		// we will just place it in the env
-		struct WorkingSetElement * new_elemant;
-		new_elemant = LIST_FIRST(&Worklist);
-		new_elemant->virtual_address = fault_va;
-		LIST_REMOVE(&Worklist,new_elemant);
-
-		//Allocating the fream for the page
-		struct Frame_Info* new_fram ;
-		int re= allocate_frame(&new_fram);
-		if(re == E_NO_MEM)
-			return ;
-		re = map_frame(curenv->env_page_directory,new_fram,(void *) fault_va,PERM_WRITEABLE|PERM_USER);
-		if(re == E_NO_MEM)
-		{
-			free_frame(new_fram);
-			return ;
-		}
-		// place the page in the env
-		int ret = pf_read_env_page(curenv, (void*)fault_va);
-		//print_page_working_set_or_LRUlists(curenv);
-		if (ret == E_PAGE_NOT_EXIST_IN_PF)
-		{
-			if(fault_va >= USER_HEAP_MAX || fault_va >= USTACKTOP )
-			{
-				ret = pf_add_empty_env_page(curenv, fault_va , 0);
-				if (ret == E_NO_PAGE_FILE_SPACE)
-					panic("ERROR: No enough virtual space on the page file");
-			}
-			else
-			{
-				//panic("Ilegel access \n");
-				//return;
-			}
-		}
-
-
-		// insert in the head of the Active list (FIFS)
-		if(LIST_SIZE(&ActList) != curenv->ActiveListSize)
-		{
-			LIST_INSERT_HEAD(&ActList,new_elemant);
+			ret = pf_add_empty_env_page(curenv, fault_va , 0);
+			if (ret == E_NO_PAGE_FILE_SPACE)
+				panic("ERROR: No enough virtual space on the page file");
 		}
 		else
 		{
-			struct WorkingSetElement * tmp;
-			tmp =LIST_LAST(&ActList);
-			LIST_REMOVE(&ActList,tmp);
-			LIST_INSERT_HEAD(&ActList,new_elemant);
-			LIST_INSERT_HEAD(&Seclist,tmp);
-			pt_set_page_permissions(curenv,tmp->virtual_address,0,PERM_PRESENT);
+			panic("illegal access \n");
+			return;
 		}
+	}
+	if(LIST_SIZE(&ActList) < curenv->ActiveListSize)
+	{
+		LIST_INSERT_HEAD(&ActList,new_elemant);
 	}
 	else
 	{
-		// her we will do the LRU Aprix
-		//if the present bit == 0
-		cprintf("i am here!!\n");
-		struct WorkingSetElement * ptr_WS_element ;
-		int flag = 0 ;
-		LIST_FOREACH(ptr_WS_element, &(Seclist))
+		struct WorkingSetElement * tmp;
+		tmp =LIST_LAST(&ActList);
+		LIST_REMOVE(&ActList,tmp);
+		LIST_INSERT_HEAD(&ActList,new_elemant);
+		LIST_INSERT_HEAD(&Seclist,tmp);
+		pt_set_page_permissions(curenv,tmp->virtual_address,0,PERM_PRESENT);
+	}
+}
+
+void page_fault_handler(struct Env * curenv, uint32 fault_va)
+{
+	//TODO: [PROJECT 2021 - [1] PAGE FAULT HANDLER]
+	//------------------------LOGER-------------------------------
+	int actSize = LIST_SIZE(&ActList);
+	int secSize = LIST_SIZE(&Seclist);
+	cprintf("the active list size %d\n",actSize);
+	cprintf("the second list size %d\n",secSize);
+	cprintf("the working list size %d\n",LIST_SIZE(&Worklist));
+	cprintf("the faulted adders is : %x\n",fault_va);
+	print_page_working_set_or_LRUlists(curenv);
+	//----------------------------------------------------------------
+	struct WorkingSetElement * ptr_WS_element ;
+	LIST_FOREACH(ptr_WS_element, &(Seclist))
+	{
+		if(ptr_WS_element->virtual_address == fault_va)
 		{
-			if(ptr_WS_element->virtual_address== fault_va)
-			{
-				struct WorkingSetElement * aim,* tmp;
-				aim = ptr_WS_element;
-				LIST_REMOVE(&Seclist,ptr_WS_element);
-				tmp = LIST_LAST(&ActList);
-				LIST_REMOVE(&ActList,tmp);
-				pt_set_page_permissions(curenv, aim->virtual_address,PERM_PRESENT,0);
-				LIST_INSERT_HEAD(&ActList,aim);
-				pt_set_page_permissions(curenv, tmp->virtual_address,0,PERM_PRESENT);
-				LIST_INSERT_HEAD(&Seclist,tmp);
-				return;
-			}
+			struct WorkingSetElement * aim,* tmp;
+			aim = ptr_WS_element;
+			LIST_REMOVE(&Seclist,ptr_WS_element);
+			tmp = LIST_LAST(&ActList);
+			LIST_REMOVE(&ActList,tmp);
+			pt_set_page_permissions(curenv, aim->virtual_address,PERM_PRESENT,0);
+			LIST_INSERT_HEAD(&ActList,aim);
+			pt_set_page_permissions(curenv, tmp->virtual_address,0,PERM_PRESENT);
+			LIST_INSERT_HEAD(&Seclist,tmp);
+			return;
 		}
+	}
 
-		//allocting  the fream for the page
-		struct Frame_Info* new_fram ;
-		int re= allocate_frame(&new_fram);
-		if(re == E_NO_MEM)
-			return ;
-		re = map_frame(curenv->env_page_directory,new_fram,(void *) fault_va,PERM_WRITEABLE|PERM_USER);
-		if(re == E_NO_MEM)
-		{
-			free_frame(new_fram);
-			return ;
-		}
 
-		struct WorkingSetElement new_page[1];
-		new_page->virtual_address= fault_va;
-
-		uint32 victim = LIST_LAST(&Seclist)->virtual_address;
-		//set the present bit by 1 3lshan a3rf at3ml m3a el page
-		pt_set_page_permissions(curenv, victim,
-								PERM_PRESENT,	 // set Present predation to 1
-								0); 			 // set nothing to 0
-
-		//check if the page is modified
-		uint32 page_permissions = pt_get_page_permissions(curenv, victim);
+	if(LIST_SIZE(&curenv->PageWorkingSetList) > 0)
+	{
+		Placement(curenv,fault_va);
+	}
+	else
+	{
+		// RELEAS THE VICTIM
+		struct WorkingSetElement * victim ;
+		victim = LIST_LAST(&Seclist);
+		//Check if the victim modified
+		uint32 page_permissions = pt_get_page_permissions(curenv, victim->virtual_address);
 		if(page_permissions & PERM_MODIFIED)
 		{
 			//update it in the page file before release it
 			uint32 * ptr_page_table =NULL;
 			int re = get_page_table(curenv->env_page_directory,(void*)victim,&ptr_page_table);
-
 			struct Frame_Info * ptr_frame_info = get_frame_info(curenv->env_page_directory,(void*)victim,&ptr_page_table);
 			int ret = pf_update_env_page(curenv,(void*) victim, ptr_frame_info);
-
 		}
-
-		//Removing the victim
-		LIST_REMOVE(&Seclist,LIST_LAST(&Seclist));
-		//Transferring form the active to the second
-		pt_set_page_permissions(curenv,LIST_LAST(&ActList)->virtual_address,0,PERM_PRESENT);
-		LIST_INSERT_HEAD(&Seclist,LIST_LAST(&ActList));
-		LIST_INSERT_HEAD(&curenv->ActiveList,new_page);
-
-
-
-
-
+		LIST_REMOVE(&Seclist,victim); // releas the victim
+		LIST_INSERT_HEAD(&Worklist,victim);
+		unmap_frame(curenv->env_page_directory,(void*)victim->virtual_address);
+		pt_set_page_permissions(curenv,victim->virtual_address,0,PERM_PRESENT|PERM_USER|PERM_MODIFIED|PERM_WRITEABLE	);
+		Placement(curenv,fault_va);
 	}
-	//refer to the project presentation and documentation for detailsrun
 	//TODO: [PROJECT 2021 - BONUS3] O(1) Implementation of Fault Handler
-
 	//TODO: [PROJECT 2021 - BONUS4] Change WS Size according to “Program Priority”
-
 }
 
 

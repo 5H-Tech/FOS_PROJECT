@@ -15,7 +15,7 @@ void _main(void)
 
 //	cprintf("envID = %d\n",envID);
 
-	//("STEP 0: checking Initial WS entries ...\n");
+	cprintf("STEP 0: checking Initial WS entries ...\n");
 	{
 		uint32 actual_active_list[5] = {0x803000, 0x801000, 0x800000, 0xeebfd000, 0x203000};
 		uint32 actual_second_list[5] = {0x202000, 0x201000, 0x200000, 0x802000, 0x205000};
@@ -46,7 +46,7 @@ void _main(void)
 
 	//===================
 
-	//cprintf("Checking Allocation in Mem & Page File... \n");
+	cprintf("Checking Allocation in Mem & Page File... \n");
 	{
 		if( (sys_pf_calculate_allocated_pages() - usedDiskPages) !=  0) panic("Unexpected extra/less pages have been added to page file.. NOT Expected to add new pages to the page file");
 
@@ -55,7 +55,7 @@ void _main(void)
 			panic("Extra memory are wrongly allocated... It's REplacement: expected that no extra frames are allocated");
 	}
 
-	//cprintf("Checking CONTENT in Mem ... \n");
+	cprintf("Checking CONTENT in Mem ... \n");
 	{
 		for (i = 0 ; i < PAGE_SIZE*10 ; i+=PAGE_SIZE/2)
 			if( arr[i] != -1) panic("Modified page(s) not restored correctly");
