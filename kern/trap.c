@@ -507,7 +507,7 @@ void chage_PRESENT(struct Env * curenv, uint32 va , int val)
 #define Seclist curenv->SecondList
 #define Worklist curenv->PageWorkingSetList
 
-void Placement(struct Env * curenv, uint32 fault_va)
+void Placement(struct Env * curenv,uint32 fault_va)
 {
 	// we will just place it in the env
 	struct WorkingSetElement * new_elemant;
@@ -525,17 +525,17 @@ void Placement(struct Env * curenv, uint32 fault_va)
 	if (ret == E_PAGE_NOT_EXIST_IN_PF)
 	{
 		if(fault_va < USTACKTOP && fault_va >= USTACKBOTTOM )
-		{
-			ret = pf_add_empty_env_page(curenv, fault_va , 0);
-			if (ret == E_NO_PAGE_FILE_SPACE)
-				panic("ERROR: No enough virtual space on the page file");
-		}
-		else
-		{
-			panic("illegal access \n");
-			return;
-		}
-	}
+				{
+					ret = pf_add_empty_env_page(curenv, fault_va , 0);
+					if (ret == E_NO_PAGE_FILE_SPACE)
+						panic("ERROR: No enough virtual space on the page file");
+				}
+				else
+				{
+					panic("illegal access \n");
+					return;
+				}
+			}
 	if(LIST_SIZE(&ActList) < curenv->ActiveListSize)
 	{
 		LIST_INSERT_HEAD(&ActList,new_elemant);
@@ -547,22 +547,28 @@ void Placement(struct Env * curenv, uint32 fault_va)
 		LIST_REMOVE(&ActList,tmp);
 		LIST_INSERT_HEAD(&ActList,new_elemant);
 		LIST_INSERT_HEAD(&Seclist,tmp);
-		pt_set_page_permissions(curenv,tmp->virtual_address,0,PERM_PRESENT);
+		pt_set_page_permissions(curenv,tmp->virtual_address,0,PERM_PRESENT|PERM_USER|PERM_WRITEABLE);
+		pt_set_page_permissions(curenv,new_elemant->virtual_address,PERM_PRESENT|PERM_USER|PERM_WRITEABLE,0);
 	}
 }
 
 void page_fault_handler(struct Env * curenv, uint32 fault_va)
 {
+	fault_va=ROUNDDOWN(fault_va,PAGE_SIZE);
+
+	//fault_va=ROUNDDOWN(fault_va,PAGE_SIZE);
+	//cprintf("the vitual address is before rownding %x\n" , fault_va);
 	//TODO: [PROJECT 2021 - [1] PAGE FAULT HANDLER]
 	//------------------------LOGER-------------------------------
 	int actSize = LIST_SIZE(&ActList);
 	int secSize = LIST_SIZE(&Seclist);
-	cprintf("the active list size %d\n",actSize);
+	/*cprintf("the active list size %d\n",actSize);
 	cprintf("the second list size %d\n",secSize);
 	cprintf("the working list size %d\n",LIST_SIZE(&Worklist));
 	cprintf("the faulted adders is : %x\n",fault_va);
-	print_page_working_set_or_LRUlists(curenv);
+	print_page_working_set_or_LRUlists(curenv);*/
 	//----------------------------------------------------------------
+	//cprintf("the vitual address is after rownding %x\n" , fault_va);
 	struct WorkingSetElement * ptr_WS_element ;
 	LIST_FOREACH(ptr_WS_element, &(Seclist))
 	{
@@ -573,10 +579,12 @@ void page_fault_handler(struct Env * curenv, uint32 fault_va)
 			LIST_REMOVE(&Seclist,ptr_WS_element);
 			tmp = LIST_LAST(&ActList);
 			LIST_REMOVE(&ActList,tmp);
-			pt_set_page_permissions(curenv, aim->virtual_address,PERM_PRESENT,0);
+
 			LIST_INSERT_HEAD(&ActList,aim);
-			pt_set_page_permissions(curenv, tmp->virtual_address,0,PERM_PRESENT);
+
 			LIST_INSERT_HEAD(&Seclist,tmp);
+			pt_set_page_permissions(curenv, aim->virtual_address,PERM_PRESENT|PERM_USER|PERM_WRITEABLE,0);
+			pt_set_page_permissions(curenv, tmp->virtual_address,0,PERM_PRESENT|PERM_USER|PERM_WRITEABLE);
 			return;
 		}
 	}
@@ -597,9 +605,9 @@ void page_fault_handler(struct Env * curenv, uint32 fault_va)
 		{
 			//update it in the page file before release it
 			uint32 * ptr_page_table =NULL;
-			int re = get_page_table(curenv->env_page_directory,(void*)victim,&ptr_page_table);
-			struct Frame_Info * ptr_frame_info = get_frame_info(curenv->env_page_directory,(void*)victim,&ptr_page_table);
-			int ret = pf_update_env_page(curenv,(void*) victim, ptr_frame_info);
+			//int re = get_page_table(curenv->env_page_directory,(void*)victim,&ptr_page_table);
+			struct Frame_Info * ptr_frame_info = get_frame_info(curenv->env_page_directory,(void*)victim->virtual_address,&ptr_page_table);
+			int ret = pf_update_env_page(curenv,(void*) victim->virtual_address, ptr_frame_info);
 		}
 		LIST_REMOVE(&Seclist,victim); // releas the victim
 		LIST_INSERT_HEAD(&Worklist,victim);
@@ -610,9 +618,6 @@ void page_fault_handler(struct Env * curenv, uint32 fault_va)
 	//TODO: [PROJECT 2021 - BONUS3] O(1) Implementation of Fault Handler
 	//TODO: [PROJECT 2021 - BONUS4] Change WS Size according to “Program Priority”
 }
-
-
-
 void __page_fault_handler_with_buffering(struct Env * curenv, uint32 fault_va)
 {
 	panic("this function is not required...!!");

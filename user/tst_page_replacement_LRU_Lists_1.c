@@ -17,16 +17,18 @@ void _main(void)
 
 	cprintf("STEP 0: checking Initial WS entries ...\n");
 	{
+		cprintf("i am here 1");
 		uint32 actual_active_list[5] = {0x803000, 0x801000, 0x800000, 0xeebfd000, 0x203000};
 		uint32 actual_second_list[5] = {0x202000, 0x201000, 0x200000, 0x802000, 0x205000};
 		int check = sys_check_LRU_lists(actual_active_list, actual_second_list, 5, 5);
 		if(check == 0)
 			panic("INITIAL PAGE LRU LISTs entry checking failed! Review size of the LRU lists..!!");
+
 	}
 
 	int freePages = sys_calculate_free_frames();
 	int usedDiskPages = sys_pf_calculate_allocated_pages();
-
+	cprintf("i am here 2");
 	//Reading (Not Modified)
 	char garbage1 = arr[PAGE_SIZE*11-1] ;
 	char garbage2 = arr[PAGE_SIZE*12-1] ;
