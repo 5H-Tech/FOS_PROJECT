@@ -48,8 +48,8 @@ void _main(void)
   80003e:	83 ec 04             	sub    $0x4,%esp
   800041:	6a 01                	push   $0x1
   800043:	6a 04                	push   $0x4
-  800045:	68 60 1f 80 00       	push   $0x801f60
-  80004a:	e8 b9 14 00 00       	call   801508 <smalloc>
+  800045:	68 00 20 80 00       	push   $0x802000
+  80004a:	e8 4d 15 00 00       	call   80159c <smalloc>
   80004f:	83 c4 10             	add    $0x10,%esp
   800052:	89 45 f4             	mov    %eax,-0xc(%ebp)
 	*numOfFinished = 0 ;
@@ -57,15 +57,15 @@ void _main(void)
   800058:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
 
 	int freeFrames_before = sys_calculate_free_frames() ;
-  80005e:	e8 e2 16 00 00       	call   801745 <sys_calculate_free_frames>
+  80005e:	e8 76 17 00 00       	call   8017d9 <sys_calculate_free_frames>
   800063:	89 45 f0             	mov    %eax,-0x10(%ebp)
 	int usedDiskPages_before = sys_pf_calculate_allocated_pages() ;
-  800066:	e8 5d 17 00 00       	call   8017c8 <sys_pf_calculate_allocated_pages>
+  800066:	e8 f1 17 00 00       	call   80185c <sys_pf_calculate_allocated_pages>
   80006b:	89 45 ec             	mov    %eax,-0x14(%ebp)
 	cprintf("\n---# of free frames before running programs = %d\n", freeFrames_before);
   80006e:	83 ec 08             	sub    $0x8,%esp
   800071:	ff 75 f0             	pushl  -0x10(%ebp)
-  800074:	68 70 1f 80 00       	push   $0x801f70
+  800074:	68 10 20 80 00       	push   $0x802010
   800079:	e8 ea 04 00 00       	call   800568 <cprintf>
   80007e:	83 c4 10             	add    $0x10,%esp
 
@@ -73,33 +73,33 @@ void _main(void)
   800081:	6a 32                	push   $0x32
   800083:	6a 64                	push   $0x64
   800085:	68 d0 07 00 00       	push   $0x7d0
-  80008a:	68 a3 1f 80 00       	push   $0x801fa3
-  80008f:	e8 06 19 00 00       	call   80199a <sys_create_env>
+  80008a:	68 43 20 80 00       	push   $0x802043
+  80008f:	e8 9a 19 00 00       	call   801a2e <sys_create_env>
   800094:	83 c4 10             	add    $0x10,%esp
   800097:	89 45 e8             	mov    %eax,-0x18(%ebp)
 	int32 envIdProcessB = sys_create_env("ef_tshr5", 2000,100, 50);
   80009a:	6a 32                	push   $0x32
   80009c:	6a 64                	push   $0x64
   80009e:	68 d0 07 00 00       	push   $0x7d0
-  8000a3:	68 ac 1f 80 00       	push   $0x801fac
-  8000a8:	e8 ed 18 00 00       	call   80199a <sys_create_env>
+  8000a3:	68 4c 20 80 00       	push   $0x80204c
+  8000a8:	e8 81 19 00 00       	call   801a2e <sys_create_env>
   8000ad:	83 c4 10             	add    $0x10,%esp
   8000b0:	89 45 e4             	mov    %eax,-0x1c(%ebp)
 
 	sys_run_env(envIdProcessA);
   8000b3:	83 ec 0c             	sub    $0xc,%esp
   8000b6:	ff 75 e8             	pushl  -0x18(%ebp)
-  8000b9:	e8 fa 18 00 00       	call   8019b8 <sys_run_env>
+  8000b9:	e8 8e 19 00 00       	call   801a4c <sys_run_env>
   8000be:	83 c4 10             	add    $0x10,%esp
 	env_sleep(15000);
   8000c1:	83 ec 0c             	sub    $0xc,%esp
   8000c4:	68 98 3a 00 00       	push   $0x3a98
-  8000c9:	e8 68 1b 00 00       	call   801c36 <env_sleep>
+  8000c9:	e8 fc 1b 00 00       	call   801cca <env_sleep>
   8000ce:	83 c4 10             	add    $0x10,%esp
 	sys_run_env(envIdProcessB);
   8000d1:	83 ec 0c             	sub    $0xc,%esp
   8000d4:	ff 75 e4             	pushl  -0x1c(%ebp)
-  8000d7:	e8 dc 18 00 00       	call   8019b8 <sys_run_env>
+  8000d7:	e8 70 19 00 00       	call   801a4c <sys_run_env>
   8000dc:	83 c4 10             	add    $0x10,%esp
 
 	while (*numOfFinished != 2) ;
@@ -109,30 +109,30 @@ void _main(void)
   8000e5:	83 f8 02             	cmp    $0x2,%eax
   8000e8:	75 f6                	jne    8000e0 <_main+0xa8>
 	cprintf("\n---# of free frames after running programs = %d\n", sys_calculate_free_frames());
-  8000ea:	e8 56 16 00 00       	call   801745 <sys_calculate_free_frames>
+  8000ea:	e8 ea 16 00 00       	call   8017d9 <sys_calculate_free_frames>
   8000ef:	83 ec 08             	sub    $0x8,%esp
   8000f2:	50                   	push   %eax
-  8000f3:	68 b8 1f 80 00       	push   $0x801fb8
+  8000f3:	68 58 20 80 00       	push   $0x802058
   8000f8:	e8 6b 04 00 00       	call   800568 <cprintf>
   8000fd:	83 c4 10             	add    $0x10,%esp
 
 	sys_free_env(envIdProcessA);
   800100:	83 ec 0c             	sub    $0xc,%esp
   800103:	ff 75 e8             	pushl  -0x18(%ebp)
-  800106:	e8 c9 18 00 00       	call   8019d4 <sys_free_env>
+  800106:	e8 5d 19 00 00       	call   801a68 <sys_free_env>
   80010b:	83 c4 10             	add    $0x10,%esp
 	sys_free_env(envIdProcessB);
   80010e:	83 ec 0c             	sub    $0xc,%esp
   800111:	ff 75 e4             	pushl  -0x1c(%ebp)
-  800114:	e8 bb 18 00 00       	call   8019d4 <sys_free_env>
+  800114:	e8 4f 19 00 00       	call   801a68 <sys_free_env>
   800119:	83 c4 10             	add    $0x10,%esp
 
 	//Checking the number of frames after killing the created environments
 	int freeFrames_after = sys_calculate_free_frames() ;
-  80011c:	e8 24 16 00 00       	call   801745 <sys_calculate_free_frames>
+  80011c:	e8 b8 16 00 00       	call   8017d9 <sys_calculate_free_frames>
   800121:	89 45 e0             	mov    %eax,-0x20(%ebp)
 	int usedDiskPages_after = sys_pf_calculate_allocated_pages() ;
-  800124:	e8 9f 16 00 00       	call   8017c8 <sys_pf_calculate_allocated_pages>
+  800124:	e8 33 17 00 00       	call   80185c <sys_pf_calculate_allocated_pages>
   800129:	89 45 dc             	mov    %eax,-0x24(%ebp)
 
 	if ((freeFrames_after - freeFrames_before) != 0) {
@@ -142,28 +142,28 @@ void _main(void)
 		cprintf("\n---# of free frames after closing running programs not as before running = %d\n",
   800134:	83 ec 08             	sub    $0x8,%esp
   800137:	ff 75 e0             	pushl  -0x20(%ebp)
-  80013a:	68 ec 1f 80 00       	push   $0x801fec
+  80013a:	68 8c 20 80 00       	push   $0x80208c
   80013f:	e8 24 04 00 00       	call   800568 <cprintf>
   800144:	83 c4 10             	add    $0x10,%esp
 				freeFrames_after);
 		panic("env_free() does not work correctly... check it again.");
   800147:	83 ec 04             	sub    $0x4,%esp
-  80014a:	68 3c 20 80 00       	push   $0x80203c
+  80014a:	68 dc 20 80 00       	push   $0x8020dc
   80014f:	6a 23                	push   $0x23
-  800151:	68 72 20 80 00       	push   $0x802072
+  800151:	68 12 21 80 00       	push   $0x802112
   800156:	e8 6b 01 00 00       	call   8002c6 <_panic>
 	}
 
 	cprintf("\n---# of free frames after closing running programs returned back to be as before running = %d\n", freeFrames_after);
   80015b:	83 ec 08             	sub    $0x8,%esp
   80015e:	ff 75 e0             	pushl  -0x20(%ebp)
-  800161:	68 88 20 80 00       	push   $0x802088
+  800161:	68 28 21 80 00       	push   $0x802128
   800166:	e8 fd 03 00 00       	call   800568 <cprintf>
   80016b:	83 c4 10             	add    $0x10,%esp
 
 	cprintf("\n\nCongratulations!! test scenario 5_2 for envfree completed successfully.\n");
   80016e:	83 ec 0c             	sub    $0xc,%esp
-  800171:	68 e8 20 80 00       	push   $0x8020e8
+  800171:	68 88 21 80 00       	push   $0x802188
   800176:	e8 ed 03 00 00       	call   800568 <cprintf>
   80017b:	83 c4 10             	add    $0x10,%esp
 	return;
@@ -183,7 +183,7 @@ libmain(int argc, char **argv)
   800182:	89 e5                	mov    %esp,%ebp
   800184:	83 ec 18             	sub    $0x18,%esp
 	int envIndex = sys_getenvindex();
-  800187:	e8 ee 14 00 00       	call   80167a <sys_getenvindex>
+  800187:	e8 82 15 00 00       	call   80170e <sys_getenvindex>
   80018c:	89 45 f4             	mov    %eax,-0xc(%ebp)
 	myEnv = &(envs[envIndex]);
   80018f:	8b 55 f4             	mov    -0xc(%ebp),%edx
@@ -238,10 +238,10 @@ libmain(int argc, char **argv)
 
 
 	sys_disable_interrupt();
-  800204:	e8 0c 16 00 00       	call   801815 <sys_disable_interrupt>
+  800204:	e8 a0 16 00 00       	call   8018a9 <sys_disable_interrupt>
 	cprintf("**************************************\n");
   800209:	83 ec 0c             	sub    $0xc,%esp
-  80020c:	68 4c 21 80 00       	push   $0x80214c
+  80020c:	68 ec 21 80 00       	push   $0x8021ec
   800211:	e8 52 03 00 00       	call   800568 <cprintf>
   800216:	83 c4 10             	add    $0x10,%esp
 	cprintf("Num of PAGE faults = %d, modif = %d\n", myEnv->pageFaultsCounter, myEnv->nModifiedPages);
@@ -252,7 +252,7 @@ libmain(int argc, char **argv)
   80022f:	83 ec 04             	sub    $0x4,%esp
   800232:	52                   	push   %edx
   800233:	50                   	push   %eax
-  800234:	68 74 21 80 00       	push   $0x802174
+  800234:	68 14 22 80 00       	push   $0x802214
   800239:	e8 2a 03 00 00       	call   800568 <cprintf>
   80023e:	83 c4 10             	add    $0x10,%esp
 	cprintf("Num of PAGE IN (from disk) = %d, Num of PAGE OUT (on disk) = %d\n", myEnv->nPageIn, myEnv->nPageOut);
@@ -263,7 +263,7 @@ libmain(int argc, char **argv)
   800257:	83 ec 04             	sub    $0x4,%esp
   80025a:	52                   	push   %edx
   80025b:	50                   	push   %eax
-  80025c:	68 9c 21 80 00       	push   $0x80219c
+  80025c:	68 3c 22 80 00       	push   $0x80223c
   800261:	e8 02 03 00 00       	call   800568 <cprintf>
   800266:	83 c4 10             	add    $0x10,%esp
 	//cprintf("Num of freeing scarce memory = %d, freeing full working set = %d\n", myEnv->freeingScarceMemCounter, myEnv->freeingFullWSCounter);
@@ -272,16 +272,16 @@ libmain(int argc, char **argv)
   80026e:	8b 80 88 3c 01 00    	mov    0x13c88(%eax),%eax
   800274:	83 ec 08             	sub    $0x8,%esp
   800277:	50                   	push   %eax
-  800278:	68 dd 21 80 00       	push   $0x8021dd
+  800278:	68 7d 22 80 00       	push   $0x80227d
   80027d:	e8 e6 02 00 00       	call   800568 <cprintf>
   800282:	83 c4 10             	add    $0x10,%esp
 	cprintf("**************************************\n");
   800285:	83 ec 0c             	sub    $0xc,%esp
-  800288:	68 4c 21 80 00       	push   $0x80214c
+  800288:	68 ec 21 80 00       	push   $0x8021ec
   80028d:	e8 d6 02 00 00       	call   800568 <cprintf>
   800292:	83 c4 10             	add    $0x10,%esp
 	sys_enable_interrupt();
-  800295:	e8 95 15 00 00       	call   80182f <sys_enable_interrupt>
+  800295:	e8 29 16 00 00       	call   8018c3 <sys_enable_interrupt>
 
 	// exit gracefully
 	exit();
@@ -304,7 +304,7 @@ destroy(void)
 	sys_env_destroy(0);
   8002a8:	83 ec 0c             	sub    $0xc,%esp
   8002ab:	6a 00                	push   $0x0
-  8002ad:	e8 94 13 00 00       	call   801646 <sys_env_destroy>
+  8002ad:	e8 28 14 00 00       	call   8016da <sys_env_destroy>
   8002b2:	83 c4 10             	add    $0x10,%esp
 }
   8002b5:	90                   	nop
@@ -320,7 +320,7 @@ exit(void)
   8002b9:	89 e5                	mov    %esp,%ebp
   8002bb:	83 ec 08             	sub    $0x8,%esp
 	sys_env_exit();
-  8002be:	e8 e9 13 00 00       	call   8016ac <sys_env_exit>
+  8002be:	e8 7d 14 00 00       	call   801740 <sys_env_exit>
 }
   8002c3:	90                   	nop
   8002c4:	c9                   	leave  
@@ -350,7 +350,7 @@ _panic(const char *file, int line, const char *fmt,...)
   8002de:	a1 18 31 80 00       	mov    0x803118,%eax
   8002e3:	83 ec 08             	sub    $0x8,%esp
   8002e6:	50                   	push   %eax
-  8002e7:	68 f4 21 80 00       	push   $0x8021f4
+  8002e7:	68 94 22 80 00       	push   $0x802294
   8002ec:	e8 77 02 00 00       	call   800568 <cprintf>
   8002f1:	83 c4 10             	add    $0x10,%esp
 	cprintf("user panic in %s at %s:%d: ", binaryname, file, line);
@@ -358,7 +358,7 @@ _panic(const char *file, int line, const char *fmt,...)
   8002f9:	ff 75 0c             	pushl  0xc(%ebp)
   8002fc:	ff 75 08             	pushl  0x8(%ebp)
   8002ff:	50                   	push   %eax
-  800300:	68 f9 21 80 00       	push   $0x8021f9
+  800300:	68 99 22 80 00       	push   $0x802299
   800305:	e8 5e 02 00 00       	call   800568 <cprintf>
   80030a:	83 c4 10             	add    $0x10,%esp
 	vcprintf(fmt, ap);
@@ -371,7 +371,7 @@ _panic(const char *file, int line, const char *fmt,...)
 	vcprintf("\n", NULL);
   80031f:	83 ec 08             	sub    $0x8,%esp
   800322:	6a 00                	push   $0x0
-  800324:	68 15 22 80 00       	push   $0x802215
+  800324:	68 b5 22 80 00       	push   $0x8022b5
   800329:	e8 cf 01 00 00       	call   8004fd <vcprintf>
   80032e:	83 c4 10             	add    $0x10,%esp
 	// Cause a breakpoint exception
@@ -403,9 +403,9 @@ void CheckWSWithoutLastIndex(uint32 *expectedPages, int arraySize)
 	{
 		panic("number of expected pages SHOULD BE EQUAL to max WS size... review your TA!!");
   80034d:	83 ec 04             	sub    $0x4,%esp
-  800350:	68 18 22 80 00       	push   $0x802218
+  800350:	68 b8 22 80 00       	push   $0x8022b8
   800355:	6a 26                	push   $0x26
-  800357:	68 64 22 80 00       	push   $0x802264
+  800357:	68 04 23 80 00       	push   $0x802304
   80035c:	e8 65 ff ff ff       	call   8002c6 <_panic>
 	}
 	int expectedNumOfEmptyLocs = 0;
@@ -492,9 +492,9 @@ void CheckWSWithoutLastIndex(uint32 *expectedPages, int arraySize)
   800411:	75 14                	jne    800427 <CheckWSWithoutLastIndex+0xef>
 			panic(
   800413:	83 ec 04             	sub    $0x4,%esp
-  800416:	68 70 22 80 00       	push   $0x802270
+  800416:	68 10 23 80 00       	push   $0x802310
   80041b:	6a 3a                	push   $0x3a
-  80041d:	68 64 22 80 00       	push   $0x802264
+  80041d:	68 04 23 80 00       	push   $0x802304
   800422:	e8 9f fe ff ff       	call   8002c6 <_panic>
 	if (arraySize != myEnv->page_WS_max_size)
 	{
@@ -549,9 +549,9 @@ void CheckWSWithoutLastIndex(uint32 *expectedPages, int arraySize)
   80047b:	74 14                	je     800491 <CheckWSWithoutLastIndex+0x159>
 		panic(
   80047d:	83 ec 04             	sub    $0x4,%esp
-  800480:	68 c4 22 80 00       	push   $0x8022c4
+  800480:	68 64 23 80 00       	push   $0x802364
   800485:	6a 44                	push   $0x44
-  800487:	68 64 22 80 00       	push   $0x802264
+  800487:	68 04 23 80 00       	push   $0x802304
   80048c:	e8 35 fe ff ff       	call   8002c6 <_panic>
 				"PAGE WS entry checking failed... number of empty locations is not correct");
 }
@@ -596,7 +596,7 @@ static void putch(int ch, struct printbuf *b) {
   8004d7:	50                   	push   %eax
   8004d8:	51                   	push   %ecx
   8004d9:	52                   	push   %edx
-  8004da:	e8 25 11 00 00       	call   801604 <sys_cputs>
+  8004da:	e8 b9 11 00 00       	call   801698 <sys_cputs>
   8004df:	83 c4 10             	add    $0x10,%esp
 		b->idx = 0;
   8004e2:	8b 45 0c             	mov    0xc(%ebp),%eax
@@ -645,7 +645,7 @@ int vcprintf(const char *fmt, va_list ap) {
   800547:	8d 85 f0 fe ff ff    	lea    -0x110(%ebp),%eax
   80054d:	83 c0 08             	add    $0x8,%eax
   800550:	50                   	push   %eax
-  800551:	e8 ae 10 00 00       	call   801604 <sys_cputs>
+  800551:	e8 42 11 00 00       	call   801698 <sys_cputs>
   800556:	83 c4 10             	add    $0x10,%esp
 
 	printProgName = 0;
@@ -692,7 +692,7 @@ int atomic_cprintf(const char *fmt, ...) {
   800596:	89 e5                	mov    %esp,%ebp
   800598:	83 ec 18             	sub    $0x18,%esp
 	sys_disable_interrupt();
-  80059b:	e8 75 12 00 00       	call   801815 <sys_disable_interrupt>
+  80059b:	e8 09 13 00 00       	call   8018a9 <sys_disable_interrupt>
 	va_list ap;
 	int cnt;
 
@@ -710,7 +710,7 @@ int atomic_cprintf(const char *fmt, ...) {
 	va_end(ap);
 
 	sys_enable_interrupt();
-  8005bb:	e8 6f 12 00 00       	call   80182f <sys_enable_interrupt>
+  8005bb:	e8 03 13 00 00       	call   8018c3 <sys_enable_interrupt>
 	return cnt;
   8005c0:	8b 45 f0             	mov    -0x10(%ebp),%eax
 }
@@ -751,7 +751,7 @@ printnum(void (*putch)(int, void*), void *putdat,
   8005fe:	50                   	push   %eax
   8005ff:	ff 75 f4             	pushl  -0xc(%ebp)
   800602:	ff 75 f0             	pushl  -0x10(%ebp)
-  800605:	e8 e2 16 00 00       	call   801cec <__udivdi3>
+  800605:	e8 76 17 00 00       	call   801d80 <__udivdi3>
   80060a:	83 c4 10             	add    $0x10,%esp
   80060d:	83 ec 04             	sub    $0x4,%esp
   800610:	ff 75 20             	pushl  0x20(%ebp)
@@ -796,9 +796,9 @@ printnum(void (*putch)(int, void*), void *putdat,
   800652:	51                   	push   %ecx
   800653:	52                   	push   %edx
   800654:	50                   	push   %eax
-  800655:	e8 a2 17 00 00       	call   801dfc <__umoddi3>
+  800655:	e8 36 18 00 00       	call   801e90 <__umoddi3>
   80065a:	83 c4 10             	add    $0x10,%esp
-  80065d:	05 34 25 80 00       	add    $0x802534,%eax
+  80065d:	05 d4 25 80 00       	add    $0x8025d4,%eax
   800662:	8a 00                	mov    (%eax),%al
   800664:	0f be c0             	movsbl %al,%eax
   800667:	83 ec 08             	sub    $0x8,%esp
@@ -991,7 +991,7 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
   8007a4:	8d 43 dd             	lea    -0x23(%ebx),%eax
   8007a7:	83 f8 55             	cmp    $0x55,%eax
   8007aa:	0f 87 2b 03 00 00    	ja     800adb <vprintfmt+0x399>
-  8007b0:	8b 04 85 58 25 80 00 	mov    0x802558(,%eax,4),%eax
+  8007b0:	8b 04 85 f8 25 80 00 	mov    0x8025f8(,%eax,4),%eax
   8007b7:	ff e0                	jmp    *%eax
 
 		// flag to pad on the right
@@ -1137,12 +1137,12 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 			if (err > MAXERROR || (p = error_string[err]) == NULL)
   80088c:	83 fb 64             	cmp    $0x64,%ebx
   80088f:	7f 0b                	jg     80089c <vprintfmt+0x15a>
-  800891:	8b 34 9d a0 23 80 00 	mov    0x8023a0(,%ebx,4),%esi
+  800891:	8b 34 9d 40 24 80 00 	mov    0x802440(,%ebx,4),%esi
   800898:	85 f6                	test   %esi,%esi
   80089a:	75 19                	jne    8008b5 <vprintfmt+0x173>
 				printfmt(putch, putdat, "error %d", err);
   80089c:	53                   	push   %ebx
-  80089d:	68 45 25 80 00       	push   $0x802545
+  80089d:	68 e5 25 80 00       	push   $0x8025e5
   8008a2:	ff 75 0c             	pushl  0xc(%ebp)
   8008a5:	ff 75 08             	pushl  0x8(%ebp)
   8008a8:	e8 5e 02 00 00       	call   800b0b <printfmt>
@@ -1158,7 +1158,7 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 			else
 				printfmt(putch, putdat, "%s", p);
   8008b5:	56                   	push   %esi
-  8008b6:	68 4e 25 80 00       	push   $0x80254e
+  8008b6:	68 ee 25 80 00       	push   $0x8025ee
   8008bb:	ff 75 0c             	pushl  0xc(%ebp)
   8008be:	ff 75 08             	pushl  0x8(%ebp)
   8008c1:	e8 45 02 00 00       	call   800b0b <printfmt>
@@ -1178,7 +1178,7 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
   8008df:	85 f6                	test   %esi,%esi
   8008e1:	75 05                	jne    8008e8 <vprintfmt+0x1a6>
 				p = "(null)";
-  8008e3:	be 51 25 80 00       	mov    $0x802551,%esi
+  8008e3:	be f1 25 80 00       	mov    $0x8025f1,%esi
 			if (width > 0 && padc != '-')
   8008e8:	83 7d e4 00          	cmpl   $0x0,-0x1c(%ebp)
   8008ec:	7e 6d                	jle    80095b <vprintfmt+0x219>
@@ -2867,7 +2867,7 @@ void* malloc(uint32 size)
   80131c:	83 ec 08             	sub    $0x8,%esp
   80131f:	ff 75 08             	pushl  0x8(%ebp)
   801322:	68 00 00 00 80       	push   $0x80000000
-  801327:	e8 80 04 00 00       	call   8017ac <sys_allocateMem>
+  801327:	e8 14 05 00 00       	call   801840 <sys_allocateMem>
   80132c:	83 c4 10             	add    $0x10,%esp
 			return_addres=last_addres;
   80132f:	a1 04 30 80 00       	mov    0x803004,%eax
@@ -2911,7 +2911,7 @@ void* malloc(uint32 size)
   80139d:	83 ec 08             	sub    $0x8,%esp
   8013a0:	ff 75 08             	pushl  0x8(%ebp)
   8013a3:	50                   	push   %eax
-  8013a4:	e8 03 04 00 00       	call   8017ac <sys_allocateMem>
+  8013a4:	e8 97 04 00 00       	call   801840 <sys_allocateMem>
   8013a9:	83 c4 10             	add    $0x10,%esp
 				return_addres=last_addres;
   8013ac:	a1 04 30 80 00       	mov    0x803004,%eax
@@ -3044,7 +3044,7 @@ void* malloc(uint32 size)
   8014b0:	83 ec 08             	sub    $0x8,%esp
   8014b3:	ff 75 08             	pushl  0x8(%ebp)
   8014b6:	ff 75 e4             	pushl  -0x1c(%ebp)
-  8014b9:	e8 ee 02 00 00       	call   8017ac <sys_allocateMem>
+  8014b9:	e8 82 03 00 00       	call   801840 <sys_allocateMem>
   8014be:	83 c4 10             	add    $0x10,%esp
 				numOfPages[sizeofarray]=num;
   8014c1:	a1 2c 30 80 00       	mov    0x80302c,%eax
@@ -3082,1682 +3082,1749 @@ void free(void* virtual_address)
 {
   801502:	55                   	push   %ebp
   801503:	89 e5                	mov    %esp,%ebp
+  801505:	83 ec 28             	sub    $0x28,%esp
 	//TODO: [PROJECT 2021 - [2] User Heap] free() [User Side]
 	// Write your code here, remove the panic and write your code
 	//you should get the size of the given allocation using its address
+    uint32 va=(uint32)virtual_address;
+  801508:	8b 45 08             	mov    0x8(%ebp),%eax
+  80150b:	89 45 e8             	mov    %eax,-0x18(%ebp)
+    int size;
+    int is_found=0;
+  80150e:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+    int index;
+    for(int i=0;i<sizeofarray;i++){
+  801515:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%ebp)
+  80151c:	eb 30                	jmp    80154e <free+0x4c>
+    	if(addresses[i]==va&&changed[i]==1){
+  80151e:	8b 45 ec             	mov    -0x14(%ebp),%eax
+  801521:	8b 04 85 20 31 80 00 	mov    0x803120(,%eax,4),%eax
+  801528:	3b 45 e8             	cmp    -0x18(%ebp),%eax
+  80152b:	75 1e                	jne    80154b <free+0x49>
+  80152d:	8b 45 ec             	mov    -0x14(%ebp),%eax
+  801530:	8b 04 85 c0 40 80 00 	mov    0x8040c0(,%eax,4),%eax
+  801537:	83 f8 01             	cmp    $0x1,%eax
+  80153a:	75 0f                	jne    80154b <free+0x49>
+    		is_found=1;
+  80153c:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+    		index=i;
+  801543:	8b 45 ec             	mov    -0x14(%ebp),%eax
+  801546:	89 45 f0             	mov    %eax,-0x10(%ebp)
+    		break;
+  801549:	eb 0d                	jmp    801558 <free+0x56>
+	//you should get the size of the given allocation using its address
+    uint32 va=(uint32)virtual_address;
+    int size;
+    int is_found=0;
+    int index;
+    for(int i=0;i<sizeofarray;i++){
+  80154b:	ff 45 ec             	incl   -0x14(%ebp)
+  80154e:	a1 2c 30 80 00       	mov    0x80302c,%eax
+  801553:	39 45 ec             	cmp    %eax,-0x14(%ebp)
+  801556:	7c c6                	jl     80151e <free+0x1c>
+    		is_found=1;
+    		index=i;
+    		break;
+    	}
+    }
+    if(is_found==1){
+  801558:	83 7d f4 01          	cmpl   $0x1,-0xc(%ebp)
+  80155c:	75 3b                	jne    801599 <free+0x97>
+    	size=numOfPages[index]*PAGE_SIZE;
+  80155e:	8b 45 f0             	mov    -0x10(%ebp),%eax
+  801561:	8b 04 85 60 50 80 00 	mov    0x805060(,%eax,4),%eax
+  801568:	c1 e0 0c             	shl    $0xc,%eax
+  80156b:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+    	sys_freeMem(va,size);
+  80156e:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+  801571:	83 ec 08             	sub    $0x8,%esp
+  801574:	50                   	push   %eax
+  801575:	ff 75 e8             	pushl  -0x18(%ebp)
+  801578:	e8 a7 02 00 00       	call   801824 <sys_freeMem>
+  80157d:	83 c4 10             	add    $0x10,%esp
+    	changed[index]=0;
+  801580:	8b 45 f0             	mov    -0x10(%ebp),%eax
+  801583:	c7 04 85 c0 40 80 00 	movl   $0x0,0x8040c0(,%eax,4)
+  80158a:	00 00 00 00 
+    	changes++;
+  80158e:	a1 28 30 80 00       	mov    0x803028,%eax
+  801593:	40                   	inc    %eax
+  801594:	a3 28 30 80 00       	mov    %eax,0x803028
+    }
+
 
 	//refer to the project presentation and documentation for details
 }
-  801505:	90                   	nop
-  801506:	5d                   	pop    %ebp
-  801507:	c3                   	ret    
+  801599:	90                   	nop
+  80159a:	c9                   	leave  
+  80159b:	c3                   	ret    
 
-00801508 <smalloc>:
+0080159c <smalloc>:
 //==================================================================================//
 //================================ OTHER FUNCTIONS =================================//
 //==================================================================================//
 
 void* smalloc(char *sharedVarName, uint32 size, uint8 isWritable)
 {
-  801508:	55                   	push   %ebp
-  801509:	89 e5                	mov    %esp,%ebp
-  80150b:	83 ec 18             	sub    $0x18,%esp
-  80150e:	8b 45 10             	mov    0x10(%ebp),%eax
-  801511:	88 45 f4             	mov    %al,-0xc(%ebp)
+  80159c:	55                   	push   %ebp
+  80159d:	89 e5                	mov    %esp,%ebp
+  80159f:	83 ec 18             	sub    $0x18,%esp
+  8015a2:	8b 45 10             	mov    0x10(%ebp),%eax
+  8015a5:	88 45 f4             	mov    %al,-0xc(%ebp)
 	panic("this function is not required...!!");
-  801514:	83 ec 04             	sub    $0x4,%esp
-  801517:	68 b0 26 80 00       	push   $0x8026b0
-  80151c:	68 8d 00 00 00       	push   $0x8d
-  801521:	68 d3 26 80 00       	push   $0x8026d3
-  801526:	e8 9b ed ff ff       	call   8002c6 <_panic>
+  8015a8:	83 ec 04             	sub    $0x4,%esp
+  8015ab:	68 50 27 80 00       	push   $0x802750
+  8015b0:	68 9f 00 00 00       	push   $0x9f
+  8015b5:	68 73 27 80 00       	push   $0x802773
+  8015ba:	e8 07 ed ff ff       	call   8002c6 <_panic>
 
-0080152b <sget>:
+008015bf <sget>:
 	return 0;
 }
 
 void* sget(int32 ownerEnvID, char *sharedVarName)
 {
-  80152b:	55                   	push   %ebp
-  80152c:	89 e5                	mov    %esp,%ebp
-  80152e:	83 ec 08             	sub    $0x8,%esp
+  8015bf:	55                   	push   %ebp
+  8015c0:	89 e5                	mov    %esp,%ebp
+  8015c2:	83 ec 08             	sub    $0x8,%esp
 	panic("this function is not required...!!");
-  801531:	83 ec 04             	sub    $0x4,%esp
-  801534:	68 b0 26 80 00       	push   $0x8026b0
-  801539:	68 93 00 00 00       	push   $0x93
-  80153e:	68 d3 26 80 00       	push   $0x8026d3
-  801543:	e8 7e ed ff ff       	call   8002c6 <_panic>
+  8015c5:	83 ec 04             	sub    $0x4,%esp
+  8015c8:	68 50 27 80 00       	push   $0x802750
+  8015cd:	68 a5 00 00 00       	push   $0xa5
+  8015d2:	68 73 27 80 00       	push   $0x802773
+  8015d7:	e8 ea ec ff ff       	call   8002c6 <_panic>
 
-00801548 <sfree>:
+008015dc <sfree>:
 	return 0;
 }
 
 void sfree(void* virtual_address)
 {
-  801548:	55                   	push   %ebp
-  801549:	89 e5                	mov    %esp,%ebp
-  80154b:	83 ec 08             	sub    $0x8,%esp
+  8015dc:	55                   	push   %ebp
+  8015dd:	89 e5                	mov    %esp,%ebp
+  8015df:	83 ec 08             	sub    $0x8,%esp
 	panic("this function is not required...!!");
-  80154e:	83 ec 04             	sub    $0x4,%esp
-  801551:	68 b0 26 80 00       	push   $0x8026b0
-  801556:	68 99 00 00 00       	push   $0x99
-  80155b:	68 d3 26 80 00       	push   $0x8026d3
-  801560:	e8 61 ed ff ff       	call   8002c6 <_panic>
+  8015e2:	83 ec 04             	sub    $0x4,%esp
+  8015e5:	68 50 27 80 00       	push   $0x802750
+  8015ea:	68 ab 00 00 00       	push   $0xab
+  8015ef:	68 73 27 80 00       	push   $0x802773
+  8015f4:	e8 cd ec ff ff       	call   8002c6 <_panic>
 
-00801565 <realloc>:
+008015f9 <realloc>:
 }
 
 void *realloc(void *virtual_address, uint32 new_size)
 {
-  801565:	55                   	push   %ebp
-  801566:	89 e5                	mov    %esp,%ebp
-  801568:	83 ec 08             	sub    $0x8,%esp
+  8015f9:	55                   	push   %ebp
+  8015fa:	89 e5                	mov    %esp,%ebp
+  8015fc:	83 ec 08             	sub    $0x8,%esp
 	panic("this function is not required...!!");
-  80156b:	83 ec 04             	sub    $0x4,%esp
-  80156e:	68 b0 26 80 00       	push   $0x8026b0
-  801573:	68 9e 00 00 00       	push   $0x9e
-  801578:	68 d3 26 80 00       	push   $0x8026d3
-  80157d:	e8 44 ed ff ff       	call   8002c6 <_panic>
+  8015ff:	83 ec 04             	sub    $0x4,%esp
+  801602:	68 50 27 80 00       	push   $0x802750
+  801607:	68 b0 00 00 00       	push   $0xb0
+  80160c:	68 73 27 80 00       	push   $0x802773
+  801611:	e8 b0 ec ff ff       	call   8002c6 <_panic>
 
-00801582 <expand>:
+00801616 <expand>:
 	return 0;
 }
 
 void expand(uint32 newSize)
 {
-  801582:	55                   	push   %ebp
-  801583:	89 e5                	mov    %esp,%ebp
-  801585:	83 ec 08             	sub    $0x8,%esp
+  801616:	55                   	push   %ebp
+  801617:	89 e5                	mov    %esp,%ebp
+  801619:	83 ec 08             	sub    $0x8,%esp
 	panic("this function is not required...!!");
-  801588:	83 ec 04             	sub    $0x4,%esp
-  80158b:	68 b0 26 80 00       	push   $0x8026b0
-  801590:	68 a4 00 00 00       	push   $0xa4
-  801595:	68 d3 26 80 00       	push   $0x8026d3
-  80159a:	e8 27 ed ff ff       	call   8002c6 <_panic>
+  80161c:	83 ec 04             	sub    $0x4,%esp
+  80161f:	68 50 27 80 00       	push   $0x802750
+  801624:	68 b6 00 00 00       	push   $0xb6
+  801629:	68 73 27 80 00       	push   $0x802773
+  80162e:	e8 93 ec ff ff       	call   8002c6 <_panic>
 
-0080159f <shrink>:
+00801633 <shrink>:
 }
 void shrink(uint32 newSize)
 {
-  80159f:	55                   	push   %ebp
-  8015a0:	89 e5                	mov    %esp,%ebp
-  8015a2:	83 ec 08             	sub    $0x8,%esp
+  801633:	55                   	push   %ebp
+  801634:	89 e5                	mov    %esp,%ebp
+  801636:	83 ec 08             	sub    $0x8,%esp
 	panic("this function is not required...!!");
-  8015a5:	83 ec 04             	sub    $0x4,%esp
-  8015a8:	68 b0 26 80 00       	push   $0x8026b0
-  8015ad:	68 a8 00 00 00       	push   $0xa8
-  8015b2:	68 d3 26 80 00       	push   $0x8026d3
-  8015b7:	e8 0a ed ff ff       	call   8002c6 <_panic>
+  801639:	83 ec 04             	sub    $0x4,%esp
+  80163c:	68 50 27 80 00       	push   $0x802750
+  801641:	68 ba 00 00 00       	push   $0xba
+  801646:	68 73 27 80 00       	push   $0x802773
+  80164b:	e8 76 ec ff ff       	call   8002c6 <_panic>
 
-008015bc <freeHeap>:
+00801650 <freeHeap>:
 }
 
 void freeHeap(void* virtual_address)
 {
-  8015bc:	55                   	push   %ebp
-  8015bd:	89 e5                	mov    %esp,%ebp
-  8015bf:	83 ec 08             	sub    $0x8,%esp
+  801650:	55                   	push   %ebp
+  801651:	89 e5                	mov    %esp,%ebp
+  801653:	83 ec 08             	sub    $0x8,%esp
 	panic("this function is not required...!!");
-  8015c2:	83 ec 04             	sub    $0x4,%esp
-  8015c5:	68 b0 26 80 00       	push   $0x8026b0
-  8015ca:	68 ad 00 00 00       	push   $0xad
-  8015cf:	68 d3 26 80 00       	push   $0x8026d3
-  8015d4:	e8 ed ec ff ff       	call   8002c6 <_panic>
+  801656:	83 ec 04             	sub    $0x4,%esp
+  801659:	68 50 27 80 00       	push   $0x802750
+  80165e:	68 bf 00 00 00       	push   $0xbf
+  801663:	68 73 27 80 00       	push   $0x802773
+  801668:	e8 59 ec ff ff       	call   8002c6 <_panic>
 
-008015d9 <syscall>:
+0080166d <syscall>:
 #include <inc/syscall.h>
 #include <inc/lib.h>
 
 static inline uint32
 syscall(int num, uint32 a1, uint32 a2, uint32 a3, uint32 a4, uint32 a5)
 {
-  8015d9:	55                   	push   %ebp
-  8015da:	89 e5                	mov    %esp,%ebp
-  8015dc:	57                   	push   %edi
-  8015dd:	56                   	push   %esi
-  8015de:	53                   	push   %ebx
-  8015df:	83 ec 10             	sub    $0x10,%esp
+  80166d:	55                   	push   %ebp
+  80166e:	89 e5                	mov    %esp,%ebp
+  801670:	57                   	push   %edi
+  801671:	56                   	push   %esi
+  801672:	53                   	push   %ebx
+  801673:	83 ec 10             	sub    $0x10,%esp
 	//
 	// The last clause tells the assembler that this can
 	// potentially change the condition codes and arbitrary
 	// memory locations.
 
 	asm volatile("int %1\n"
-  8015e2:	8b 45 08             	mov    0x8(%ebp),%eax
-  8015e5:	8b 55 0c             	mov    0xc(%ebp),%edx
-  8015e8:	8b 4d 10             	mov    0x10(%ebp),%ecx
-  8015eb:	8b 5d 14             	mov    0x14(%ebp),%ebx
-  8015ee:	8b 7d 18             	mov    0x18(%ebp),%edi
-  8015f1:	8b 75 1c             	mov    0x1c(%ebp),%esi
-  8015f4:	cd 30                	int    $0x30
-  8015f6:	89 45 f0             	mov    %eax,-0x10(%ebp)
+  801676:	8b 45 08             	mov    0x8(%ebp),%eax
+  801679:	8b 55 0c             	mov    0xc(%ebp),%edx
+  80167c:	8b 4d 10             	mov    0x10(%ebp),%ecx
+  80167f:	8b 5d 14             	mov    0x14(%ebp),%ebx
+  801682:	8b 7d 18             	mov    0x18(%ebp),%edi
+  801685:	8b 75 1c             	mov    0x1c(%ebp),%esi
+  801688:	cd 30                	int    $0x30
+  80168a:	89 45 f0             	mov    %eax,-0x10(%ebp)
 		  "b" (a3),
 		  "D" (a4),
 		  "S" (a5)
 		: "cc", "memory");
 
 	return ret;
-  8015f9:	8b 45 f0             	mov    -0x10(%ebp),%eax
+  80168d:	8b 45 f0             	mov    -0x10(%ebp),%eax
 }
-  8015fc:	83 c4 10             	add    $0x10,%esp
-  8015ff:	5b                   	pop    %ebx
-  801600:	5e                   	pop    %esi
-  801601:	5f                   	pop    %edi
-  801602:	5d                   	pop    %ebp
-  801603:	c3                   	ret    
+  801690:	83 c4 10             	add    $0x10,%esp
+  801693:	5b                   	pop    %ebx
+  801694:	5e                   	pop    %esi
+  801695:	5f                   	pop    %edi
+  801696:	5d                   	pop    %ebp
+  801697:	c3                   	ret    
 
-00801604 <sys_cputs>:
+00801698 <sys_cputs>:
 
 void
 sys_cputs(const char *s, uint32 len, uint8 printProgName)
 {
-  801604:	55                   	push   %ebp
-  801605:	89 e5                	mov    %esp,%ebp
-  801607:	83 ec 04             	sub    $0x4,%esp
-  80160a:	8b 45 10             	mov    0x10(%ebp),%eax
-  80160d:	88 45 fc             	mov    %al,-0x4(%ebp)
+  801698:	55                   	push   %ebp
+  801699:	89 e5                	mov    %esp,%ebp
+  80169b:	83 ec 04             	sub    $0x4,%esp
+  80169e:	8b 45 10             	mov    0x10(%ebp),%eax
+  8016a1:	88 45 fc             	mov    %al,-0x4(%ebp)
 	syscall(SYS_cputs, (uint32) s, len, (uint32)printProgName, 0, 0);
-  801610:	0f b6 55 fc          	movzbl -0x4(%ebp),%edx
-  801614:	8b 45 08             	mov    0x8(%ebp),%eax
-  801617:	6a 00                	push   $0x0
-  801619:	6a 00                	push   $0x0
-  80161b:	52                   	push   %edx
-  80161c:	ff 75 0c             	pushl  0xc(%ebp)
-  80161f:	50                   	push   %eax
-  801620:	6a 00                	push   $0x0
-  801622:	e8 b2 ff ff ff       	call   8015d9 <syscall>
-  801627:	83 c4 18             	add    $0x18,%esp
+  8016a4:	0f b6 55 fc          	movzbl -0x4(%ebp),%edx
+  8016a8:	8b 45 08             	mov    0x8(%ebp),%eax
+  8016ab:	6a 00                	push   $0x0
+  8016ad:	6a 00                	push   $0x0
+  8016af:	52                   	push   %edx
+  8016b0:	ff 75 0c             	pushl  0xc(%ebp)
+  8016b3:	50                   	push   %eax
+  8016b4:	6a 00                	push   $0x0
+  8016b6:	e8 b2 ff ff ff       	call   80166d <syscall>
+  8016bb:	83 c4 18             	add    $0x18,%esp
 }
-  80162a:	90                   	nop
-  80162b:	c9                   	leave  
-  80162c:	c3                   	ret    
+  8016be:	90                   	nop
+  8016bf:	c9                   	leave  
+  8016c0:	c3                   	ret    
 
-0080162d <sys_cgetc>:
+008016c1 <sys_cgetc>:
 
 int
 sys_cgetc(void)
 {
-  80162d:	55                   	push   %ebp
-  80162e:	89 e5                	mov    %esp,%ebp
+  8016c1:	55                   	push   %ebp
+  8016c2:	89 e5                	mov    %esp,%ebp
 	return syscall(SYS_cgetc, 0, 0, 0, 0, 0);
-  801630:	6a 00                	push   $0x0
-  801632:	6a 00                	push   $0x0
-  801634:	6a 00                	push   $0x0
-  801636:	6a 00                	push   $0x0
-  801638:	6a 00                	push   $0x0
-  80163a:	6a 01                	push   $0x1
-  80163c:	e8 98 ff ff ff       	call   8015d9 <syscall>
-  801641:	83 c4 18             	add    $0x18,%esp
+  8016c4:	6a 00                	push   $0x0
+  8016c6:	6a 00                	push   $0x0
+  8016c8:	6a 00                	push   $0x0
+  8016ca:	6a 00                	push   $0x0
+  8016cc:	6a 00                	push   $0x0
+  8016ce:	6a 01                	push   $0x1
+  8016d0:	e8 98 ff ff ff       	call   80166d <syscall>
+  8016d5:	83 c4 18             	add    $0x18,%esp
 }
-  801644:	c9                   	leave  
-  801645:	c3                   	ret    
+  8016d8:	c9                   	leave  
+  8016d9:	c3                   	ret    
 
-00801646 <sys_env_destroy>:
+008016da <sys_env_destroy>:
 
 int sys_env_destroy(int32  envid)
 {
-  801646:	55                   	push   %ebp
-  801647:	89 e5                	mov    %esp,%ebp
+  8016da:	55                   	push   %ebp
+  8016db:	89 e5                	mov    %esp,%ebp
 	return syscall(SYS_env_destroy, envid, 0, 0, 0, 0);
-  801649:	8b 45 08             	mov    0x8(%ebp),%eax
-  80164c:	6a 00                	push   $0x0
-  80164e:	6a 00                	push   $0x0
-  801650:	6a 00                	push   $0x0
-  801652:	6a 00                	push   $0x0
-  801654:	50                   	push   %eax
-  801655:	6a 05                	push   $0x5
-  801657:	e8 7d ff ff ff       	call   8015d9 <syscall>
-  80165c:	83 c4 18             	add    $0x18,%esp
+  8016dd:	8b 45 08             	mov    0x8(%ebp),%eax
+  8016e0:	6a 00                	push   $0x0
+  8016e2:	6a 00                	push   $0x0
+  8016e4:	6a 00                	push   $0x0
+  8016e6:	6a 00                	push   $0x0
+  8016e8:	50                   	push   %eax
+  8016e9:	6a 05                	push   $0x5
+  8016eb:	e8 7d ff ff ff       	call   80166d <syscall>
+  8016f0:	83 c4 18             	add    $0x18,%esp
 }
-  80165f:	c9                   	leave  
-  801660:	c3                   	ret    
+  8016f3:	c9                   	leave  
+  8016f4:	c3                   	ret    
 
-00801661 <sys_getenvid>:
+008016f5 <sys_getenvid>:
 
 int32 sys_getenvid(void)
 {
-  801661:	55                   	push   %ebp
-  801662:	89 e5                	mov    %esp,%ebp
+  8016f5:	55                   	push   %ebp
+  8016f6:	89 e5                	mov    %esp,%ebp
 	 return syscall(SYS_getenvid, 0, 0, 0, 0, 0);
-  801664:	6a 00                	push   $0x0
-  801666:	6a 00                	push   $0x0
-  801668:	6a 00                	push   $0x0
-  80166a:	6a 00                	push   $0x0
-  80166c:	6a 00                	push   $0x0
-  80166e:	6a 02                	push   $0x2
-  801670:	e8 64 ff ff ff       	call   8015d9 <syscall>
-  801675:	83 c4 18             	add    $0x18,%esp
+  8016f8:	6a 00                	push   $0x0
+  8016fa:	6a 00                	push   $0x0
+  8016fc:	6a 00                	push   $0x0
+  8016fe:	6a 00                	push   $0x0
+  801700:	6a 00                	push   $0x0
+  801702:	6a 02                	push   $0x2
+  801704:	e8 64 ff ff ff       	call   80166d <syscall>
+  801709:	83 c4 18             	add    $0x18,%esp
 }
-  801678:	c9                   	leave  
-  801679:	c3                   	ret    
+  80170c:	c9                   	leave  
+  80170d:	c3                   	ret    
 
-0080167a <sys_getenvindex>:
+0080170e <sys_getenvindex>:
 
 //2017
 int32 sys_getenvindex(void)
 {
-  80167a:	55                   	push   %ebp
-  80167b:	89 e5                	mov    %esp,%ebp
+  80170e:	55                   	push   %ebp
+  80170f:	89 e5                	mov    %esp,%ebp
 	 return syscall(SYS_getenvindex, 0, 0, 0, 0, 0);
-  80167d:	6a 00                	push   $0x0
-  80167f:	6a 00                	push   $0x0
-  801681:	6a 00                	push   $0x0
-  801683:	6a 00                	push   $0x0
-  801685:	6a 00                	push   $0x0
-  801687:	6a 03                	push   $0x3
-  801689:	e8 4b ff ff ff       	call   8015d9 <syscall>
-  80168e:	83 c4 18             	add    $0x18,%esp
+  801711:	6a 00                	push   $0x0
+  801713:	6a 00                	push   $0x0
+  801715:	6a 00                	push   $0x0
+  801717:	6a 00                	push   $0x0
+  801719:	6a 00                	push   $0x0
+  80171b:	6a 03                	push   $0x3
+  80171d:	e8 4b ff ff ff       	call   80166d <syscall>
+  801722:	83 c4 18             	add    $0x18,%esp
 }
-  801691:	c9                   	leave  
-  801692:	c3                   	ret    
+  801725:	c9                   	leave  
+  801726:	c3                   	ret    
 
-00801693 <sys_getparentenvid>:
+00801727 <sys_getparentenvid>:
 
 int32 sys_getparentenvid(void)
 {
-  801693:	55                   	push   %ebp
-  801694:	89 e5                	mov    %esp,%ebp
+  801727:	55                   	push   %ebp
+  801728:	89 e5                	mov    %esp,%ebp
 	 return syscall(SYS_getparentenvid, 0, 0, 0, 0, 0);
-  801696:	6a 00                	push   $0x0
-  801698:	6a 00                	push   $0x0
-  80169a:	6a 00                	push   $0x0
-  80169c:	6a 00                	push   $0x0
-  80169e:	6a 00                	push   $0x0
-  8016a0:	6a 04                	push   $0x4
-  8016a2:	e8 32 ff ff ff       	call   8015d9 <syscall>
-  8016a7:	83 c4 18             	add    $0x18,%esp
+  80172a:	6a 00                	push   $0x0
+  80172c:	6a 00                	push   $0x0
+  80172e:	6a 00                	push   $0x0
+  801730:	6a 00                	push   $0x0
+  801732:	6a 00                	push   $0x0
+  801734:	6a 04                	push   $0x4
+  801736:	e8 32 ff ff ff       	call   80166d <syscall>
+  80173b:	83 c4 18             	add    $0x18,%esp
 }
-  8016aa:	c9                   	leave  
-  8016ab:	c3                   	ret    
+  80173e:	c9                   	leave  
+  80173f:	c3                   	ret    
 
-008016ac <sys_env_exit>:
+00801740 <sys_env_exit>:
 
 
 void sys_env_exit(void)
 {
-  8016ac:	55                   	push   %ebp
-  8016ad:	89 e5                	mov    %esp,%ebp
+  801740:	55                   	push   %ebp
+  801741:	89 e5                	mov    %esp,%ebp
 	syscall(SYS_env_exit, 0, 0, 0, 0, 0);
-  8016af:	6a 00                	push   $0x0
-  8016b1:	6a 00                	push   $0x0
-  8016b3:	6a 00                	push   $0x0
-  8016b5:	6a 00                	push   $0x0
-  8016b7:	6a 00                	push   $0x0
-  8016b9:	6a 06                	push   $0x6
-  8016bb:	e8 19 ff ff ff       	call   8015d9 <syscall>
-  8016c0:	83 c4 18             	add    $0x18,%esp
+  801743:	6a 00                	push   $0x0
+  801745:	6a 00                	push   $0x0
+  801747:	6a 00                	push   $0x0
+  801749:	6a 00                	push   $0x0
+  80174b:	6a 00                	push   $0x0
+  80174d:	6a 06                	push   $0x6
+  80174f:	e8 19 ff ff ff       	call   80166d <syscall>
+  801754:	83 c4 18             	add    $0x18,%esp
 }
-  8016c3:	90                   	nop
-  8016c4:	c9                   	leave  
-  8016c5:	c3                   	ret    
+  801757:	90                   	nop
+  801758:	c9                   	leave  
+  801759:	c3                   	ret    
 
-008016c6 <__sys_allocate_page>:
+0080175a <__sys_allocate_page>:
 
 
 int __sys_allocate_page(void *va, int perm)
 {
-  8016c6:	55                   	push   %ebp
-  8016c7:	89 e5                	mov    %esp,%ebp
+  80175a:	55                   	push   %ebp
+  80175b:	89 e5                	mov    %esp,%ebp
 	return syscall(SYS_allocate_page, (uint32) va, perm, 0 , 0, 0);
-  8016c9:	8b 55 0c             	mov    0xc(%ebp),%edx
-  8016cc:	8b 45 08             	mov    0x8(%ebp),%eax
-  8016cf:	6a 00                	push   $0x0
-  8016d1:	6a 00                	push   $0x0
-  8016d3:	6a 00                	push   $0x0
-  8016d5:	52                   	push   %edx
-  8016d6:	50                   	push   %eax
-  8016d7:	6a 07                	push   $0x7
-  8016d9:	e8 fb fe ff ff       	call   8015d9 <syscall>
-  8016de:	83 c4 18             	add    $0x18,%esp
-}
-  8016e1:	c9                   	leave  
-  8016e2:	c3                   	ret    
-
-008016e3 <__sys_map_frame>:
-
-int __sys_map_frame(int32 srcenv, void *srcva, int32 dstenv, void *dstva, int perm)
-{
-  8016e3:	55                   	push   %ebp
-  8016e4:	89 e5                	mov    %esp,%ebp
-  8016e6:	56                   	push   %esi
-  8016e7:	53                   	push   %ebx
-	return syscall(SYS_map_frame, srcenv, (uint32) srcva, dstenv, (uint32) dstva, perm);
-  8016e8:	8b 75 18             	mov    0x18(%ebp),%esi
-  8016eb:	8b 5d 14             	mov    0x14(%ebp),%ebx
-  8016ee:	8b 4d 10             	mov    0x10(%ebp),%ecx
-  8016f1:	8b 55 0c             	mov    0xc(%ebp),%edx
-  8016f4:	8b 45 08             	mov    0x8(%ebp),%eax
-  8016f7:	56                   	push   %esi
-  8016f8:	53                   	push   %ebx
-  8016f9:	51                   	push   %ecx
-  8016fa:	52                   	push   %edx
-  8016fb:	50                   	push   %eax
-  8016fc:	6a 08                	push   $0x8
-  8016fe:	e8 d6 fe ff ff       	call   8015d9 <syscall>
-  801703:	83 c4 18             	add    $0x18,%esp
-}
-  801706:	8d 65 f8             	lea    -0x8(%ebp),%esp
-  801709:	5b                   	pop    %ebx
-  80170a:	5e                   	pop    %esi
-  80170b:	5d                   	pop    %ebp
-  80170c:	c3                   	ret    
-
-0080170d <__sys_unmap_frame>:
-
-int __sys_unmap_frame(int32 envid, void *va)
-{
-  80170d:	55                   	push   %ebp
-  80170e:	89 e5                	mov    %esp,%ebp
-	return syscall(SYS_unmap_frame, envid, (uint32) va, 0, 0, 0);
-  801710:	8b 55 0c             	mov    0xc(%ebp),%edx
-  801713:	8b 45 08             	mov    0x8(%ebp),%eax
-  801716:	6a 00                	push   $0x0
-  801718:	6a 00                	push   $0x0
-  80171a:	6a 00                	push   $0x0
-  80171c:	52                   	push   %edx
-  80171d:	50                   	push   %eax
-  80171e:	6a 09                	push   $0x9
-  801720:	e8 b4 fe ff ff       	call   8015d9 <syscall>
-  801725:	83 c4 18             	add    $0x18,%esp
-}
-  801728:	c9                   	leave  
-  801729:	c3                   	ret    
-
-0080172a <sys_calculate_required_frames>:
-
-uint32 sys_calculate_required_frames(uint32 start_virtual_address, uint32 size)
-{
-  80172a:	55                   	push   %ebp
-  80172b:	89 e5                	mov    %esp,%ebp
-	return syscall(SYS_calc_req_frames, start_virtual_address, (uint32) size, 0, 0, 0);
-  80172d:	6a 00                	push   $0x0
-  80172f:	6a 00                	push   $0x0
-  801731:	6a 00                	push   $0x0
-  801733:	ff 75 0c             	pushl  0xc(%ebp)
-  801736:	ff 75 08             	pushl  0x8(%ebp)
-  801739:	6a 0a                	push   $0xa
-  80173b:	e8 99 fe ff ff       	call   8015d9 <syscall>
-  801740:	83 c4 18             	add    $0x18,%esp
-}
-  801743:	c9                   	leave  
-  801744:	c3                   	ret    
-
-00801745 <sys_calculate_free_frames>:
-
-uint32 sys_calculate_free_frames()
-{
-  801745:	55                   	push   %ebp
-  801746:	89 e5                	mov    %esp,%ebp
-	return syscall(SYS_calc_free_frames, 0, 0, 0, 0, 0);
-  801748:	6a 00                	push   $0x0
-  80174a:	6a 00                	push   $0x0
-  80174c:	6a 00                	push   $0x0
-  80174e:	6a 00                	push   $0x0
-  801750:	6a 00                	push   $0x0
-  801752:	6a 0b                	push   $0xb
-  801754:	e8 80 fe ff ff       	call   8015d9 <syscall>
-  801759:	83 c4 18             	add    $0x18,%esp
-}
-  80175c:	c9                   	leave  
-  80175d:	c3                   	ret    
-
-0080175e <sys_calculate_modified_frames>:
-uint32 sys_calculate_modified_frames()
-{
-  80175e:	55                   	push   %ebp
-  80175f:	89 e5                	mov    %esp,%ebp
-	return syscall(SYS_calc_modified_frames, 0, 0, 0, 0, 0);
-  801761:	6a 00                	push   $0x0
+  80175d:	8b 55 0c             	mov    0xc(%ebp),%edx
+  801760:	8b 45 08             	mov    0x8(%ebp),%eax
   801763:	6a 00                	push   $0x0
   801765:	6a 00                	push   $0x0
   801767:	6a 00                	push   $0x0
-  801769:	6a 00                	push   $0x0
-  80176b:	6a 0c                	push   $0xc
-  80176d:	e8 67 fe ff ff       	call   8015d9 <syscall>
+  801769:	52                   	push   %edx
+  80176a:	50                   	push   %eax
+  80176b:	6a 07                	push   $0x7
+  80176d:	e8 fb fe ff ff       	call   80166d <syscall>
   801772:	83 c4 18             	add    $0x18,%esp
 }
   801775:	c9                   	leave  
   801776:	c3                   	ret    
 
-00801777 <sys_calculate_notmod_frames>:
+00801777 <__sys_map_frame>:
 
-uint32 sys_calculate_notmod_frames()
+int __sys_map_frame(int32 srcenv, void *srcva, int32 dstenv, void *dstva, int perm)
 {
   801777:	55                   	push   %ebp
   801778:	89 e5                	mov    %esp,%ebp
-	return syscall(SYS_calc_notmod_frames, 0, 0, 0, 0, 0);
-  80177a:	6a 00                	push   $0x0
-  80177c:	6a 00                	push   $0x0
-  80177e:	6a 00                	push   $0x0
-  801780:	6a 00                	push   $0x0
-  801782:	6a 00                	push   $0x0
-  801784:	6a 0d                	push   $0xd
-  801786:	e8 4e fe ff ff       	call   8015d9 <syscall>
-  80178b:	83 c4 18             	add    $0x18,%esp
+  80177a:	56                   	push   %esi
+  80177b:	53                   	push   %ebx
+	return syscall(SYS_map_frame, srcenv, (uint32) srcva, dstenv, (uint32) dstva, perm);
+  80177c:	8b 75 18             	mov    0x18(%ebp),%esi
+  80177f:	8b 5d 14             	mov    0x14(%ebp),%ebx
+  801782:	8b 4d 10             	mov    0x10(%ebp),%ecx
+  801785:	8b 55 0c             	mov    0xc(%ebp),%edx
+  801788:	8b 45 08             	mov    0x8(%ebp),%eax
+  80178b:	56                   	push   %esi
+  80178c:	53                   	push   %ebx
+  80178d:	51                   	push   %ecx
+  80178e:	52                   	push   %edx
+  80178f:	50                   	push   %eax
+  801790:	6a 08                	push   $0x8
+  801792:	e8 d6 fe ff ff       	call   80166d <syscall>
+  801797:	83 c4 18             	add    $0x18,%esp
 }
-  80178e:	c9                   	leave  
-  80178f:	c3                   	ret    
+  80179a:	8d 65 f8             	lea    -0x8(%ebp),%esp
+  80179d:	5b                   	pop    %ebx
+  80179e:	5e                   	pop    %esi
+  80179f:	5d                   	pop    %ebp
+  8017a0:	c3                   	ret    
 
-00801790 <sys_freeMem>:
+008017a1 <__sys_unmap_frame>:
+
+int __sys_unmap_frame(int32 envid, void *va)
+{
+  8017a1:	55                   	push   %ebp
+  8017a2:	89 e5                	mov    %esp,%ebp
+	return syscall(SYS_unmap_frame, envid, (uint32) va, 0, 0, 0);
+  8017a4:	8b 55 0c             	mov    0xc(%ebp),%edx
+  8017a7:	8b 45 08             	mov    0x8(%ebp),%eax
+  8017aa:	6a 00                	push   $0x0
+  8017ac:	6a 00                	push   $0x0
+  8017ae:	6a 00                	push   $0x0
+  8017b0:	52                   	push   %edx
+  8017b1:	50                   	push   %eax
+  8017b2:	6a 09                	push   $0x9
+  8017b4:	e8 b4 fe ff ff       	call   80166d <syscall>
+  8017b9:	83 c4 18             	add    $0x18,%esp
+}
+  8017bc:	c9                   	leave  
+  8017bd:	c3                   	ret    
+
+008017be <sys_calculate_required_frames>:
+
+uint32 sys_calculate_required_frames(uint32 start_virtual_address, uint32 size)
+{
+  8017be:	55                   	push   %ebp
+  8017bf:	89 e5                	mov    %esp,%ebp
+	return syscall(SYS_calc_req_frames, start_virtual_address, (uint32) size, 0, 0, 0);
+  8017c1:	6a 00                	push   $0x0
+  8017c3:	6a 00                	push   $0x0
+  8017c5:	6a 00                	push   $0x0
+  8017c7:	ff 75 0c             	pushl  0xc(%ebp)
+  8017ca:	ff 75 08             	pushl  0x8(%ebp)
+  8017cd:	6a 0a                	push   $0xa
+  8017cf:	e8 99 fe ff ff       	call   80166d <syscall>
+  8017d4:	83 c4 18             	add    $0x18,%esp
+}
+  8017d7:	c9                   	leave  
+  8017d8:	c3                   	ret    
+
+008017d9 <sys_calculate_free_frames>:
+
+uint32 sys_calculate_free_frames()
+{
+  8017d9:	55                   	push   %ebp
+  8017da:	89 e5                	mov    %esp,%ebp
+	return syscall(SYS_calc_free_frames, 0, 0, 0, 0, 0);
+  8017dc:	6a 00                	push   $0x0
+  8017de:	6a 00                	push   $0x0
+  8017e0:	6a 00                	push   $0x0
+  8017e2:	6a 00                	push   $0x0
+  8017e4:	6a 00                	push   $0x0
+  8017e6:	6a 0b                	push   $0xb
+  8017e8:	e8 80 fe ff ff       	call   80166d <syscall>
+  8017ed:	83 c4 18             	add    $0x18,%esp
+}
+  8017f0:	c9                   	leave  
+  8017f1:	c3                   	ret    
+
+008017f2 <sys_calculate_modified_frames>:
+uint32 sys_calculate_modified_frames()
+{
+  8017f2:	55                   	push   %ebp
+  8017f3:	89 e5                	mov    %esp,%ebp
+	return syscall(SYS_calc_modified_frames, 0, 0, 0, 0, 0);
+  8017f5:	6a 00                	push   $0x0
+  8017f7:	6a 00                	push   $0x0
+  8017f9:	6a 00                	push   $0x0
+  8017fb:	6a 00                	push   $0x0
+  8017fd:	6a 00                	push   $0x0
+  8017ff:	6a 0c                	push   $0xc
+  801801:	e8 67 fe ff ff       	call   80166d <syscall>
+  801806:	83 c4 18             	add    $0x18,%esp
+}
+  801809:	c9                   	leave  
+  80180a:	c3                   	ret    
+
+0080180b <sys_calculate_notmod_frames>:
+
+uint32 sys_calculate_notmod_frames()
+{
+  80180b:	55                   	push   %ebp
+  80180c:	89 e5                	mov    %esp,%ebp
+	return syscall(SYS_calc_notmod_frames, 0, 0, 0, 0, 0);
+  80180e:	6a 00                	push   $0x0
+  801810:	6a 00                	push   $0x0
+  801812:	6a 00                	push   $0x0
+  801814:	6a 00                	push   $0x0
+  801816:	6a 00                	push   $0x0
+  801818:	6a 0d                	push   $0xd
+  80181a:	e8 4e fe ff ff       	call   80166d <syscall>
+  80181f:	83 c4 18             	add    $0x18,%esp
+}
+  801822:	c9                   	leave  
+  801823:	c3                   	ret    
+
+00801824 <sys_freeMem>:
 
 void sys_freeMem(uint32 virtual_address, uint32 size)
 {
-  801790:	55                   	push   %ebp
-  801791:	89 e5                	mov    %esp,%ebp
+  801824:	55                   	push   %ebp
+  801825:	89 e5                	mov    %esp,%ebp
 	syscall(SYS_freeMem, virtual_address, size, 0, 0, 0);
-  801793:	6a 00                	push   $0x0
-  801795:	6a 00                	push   $0x0
-  801797:	6a 00                	push   $0x0
-  801799:	ff 75 0c             	pushl  0xc(%ebp)
-  80179c:	ff 75 08             	pushl  0x8(%ebp)
-  80179f:	6a 11                	push   $0x11
-  8017a1:	e8 33 fe ff ff       	call   8015d9 <syscall>
-  8017a6:	83 c4 18             	add    $0x18,%esp
+  801827:	6a 00                	push   $0x0
+  801829:	6a 00                	push   $0x0
+  80182b:	6a 00                	push   $0x0
+  80182d:	ff 75 0c             	pushl  0xc(%ebp)
+  801830:	ff 75 08             	pushl  0x8(%ebp)
+  801833:	6a 11                	push   $0x11
+  801835:	e8 33 fe ff ff       	call   80166d <syscall>
+  80183a:	83 c4 18             	add    $0x18,%esp
 	return;
-  8017a9:	90                   	nop
+  80183d:	90                   	nop
 }
-  8017aa:	c9                   	leave  
-  8017ab:	c3                   	ret    
+  80183e:	c9                   	leave  
+  80183f:	c3                   	ret    
 
-008017ac <sys_allocateMem>:
+00801840 <sys_allocateMem>:
 
 void sys_allocateMem(uint32 virtual_address, uint32 size)
 {
-  8017ac:	55                   	push   %ebp
-  8017ad:	89 e5                	mov    %esp,%ebp
+  801840:	55                   	push   %ebp
+  801841:	89 e5                	mov    %esp,%ebp
 	syscall(SYS_allocateMem, virtual_address, size, 0, 0, 0);
-  8017af:	6a 00                	push   $0x0
-  8017b1:	6a 00                	push   $0x0
-  8017b3:	6a 00                	push   $0x0
-  8017b5:	ff 75 0c             	pushl  0xc(%ebp)
-  8017b8:	ff 75 08             	pushl  0x8(%ebp)
-  8017bb:	6a 12                	push   $0x12
-  8017bd:	e8 17 fe ff ff       	call   8015d9 <syscall>
-  8017c2:	83 c4 18             	add    $0x18,%esp
+  801843:	6a 00                	push   $0x0
+  801845:	6a 00                	push   $0x0
+  801847:	6a 00                	push   $0x0
+  801849:	ff 75 0c             	pushl  0xc(%ebp)
+  80184c:	ff 75 08             	pushl  0x8(%ebp)
+  80184f:	6a 12                	push   $0x12
+  801851:	e8 17 fe ff ff       	call   80166d <syscall>
+  801856:	83 c4 18             	add    $0x18,%esp
 	return ;
-  8017c5:	90                   	nop
+  801859:	90                   	nop
 }
-  8017c6:	c9                   	leave  
-  8017c7:	c3                   	ret    
+  80185a:	c9                   	leave  
+  80185b:	c3                   	ret    
 
-008017c8 <sys_pf_calculate_allocated_pages>:
+0080185c <sys_pf_calculate_allocated_pages>:
 
 int sys_pf_calculate_allocated_pages()
 {
-  8017c8:	55                   	push   %ebp
-  8017c9:	89 e5                	mov    %esp,%ebp
+  80185c:	55                   	push   %ebp
+  80185d:	89 e5                	mov    %esp,%ebp
 	return syscall(SYS_pf_calc_allocated_pages, 0,0,0,0,0);
-  8017cb:	6a 00                	push   $0x0
-  8017cd:	6a 00                	push   $0x0
-  8017cf:	6a 00                	push   $0x0
-  8017d1:	6a 00                	push   $0x0
-  8017d3:	6a 00                	push   $0x0
-  8017d5:	6a 0e                	push   $0xe
-  8017d7:	e8 fd fd ff ff       	call   8015d9 <syscall>
-  8017dc:	83 c4 18             	add    $0x18,%esp
+  80185f:	6a 00                	push   $0x0
+  801861:	6a 00                	push   $0x0
+  801863:	6a 00                	push   $0x0
+  801865:	6a 00                	push   $0x0
+  801867:	6a 00                	push   $0x0
+  801869:	6a 0e                	push   $0xe
+  80186b:	e8 fd fd ff ff       	call   80166d <syscall>
+  801870:	83 c4 18             	add    $0x18,%esp
 }
-  8017df:	c9                   	leave  
-  8017e0:	c3                   	ret    
+  801873:	c9                   	leave  
+  801874:	c3                   	ret    
 
-008017e1 <sys_calculate_pages_tobe_removed_ready_exit>:
+00801875 <sys_calculate_pages_tobe_removed_ready_exit>:
 
 int sys_calculate_pages_tobe_removed_ready_exit(uint32 WS_or_MEMORY_flag)
 {
-  8017e1:	55                   	push   %ebp
-  8017e2:	89 e5                	mov    %esp,%ebp
+  801875:	55                   	push   %ebp
+  801876:	89 e5                	mov    %esp,%ebp
 	return syscall(SYS_calculate_pages_tobe_removed_ready_exit, WS_or_MEMORY_flag,0,0,0,0);
-  8017e4:	6a 00                	push   $0x0
-  8017e6:	6a 00                	push   $0x0
-  8017e8:	6a 00                	push   $0x0
-  8017ea:	6a 00                	push   $0x0
-  8017ec:	ff 75 08             	pushl  0x8(%ebp)
-  8017ef:	6a 0f                	push   $0xf
-  8017f1:	e8 e3 fd ff ff       	call   8015d9 <syscall>
-  8017f6:	83 c4 18             	add    $0x18,%esp
+  801878:	6a 00                	push   $0x0
+  80187a:	6a 00                	push   $0x0
+  80187c:	6a 00                	push   $0x0
+  80187e:	6a 00                	push   $0x0
+  801880:	ff 75 08             	pushl  0x8(%ebp)
+  801883:	6a 0f                	push   $0xf
+  801885:	e8 e3 fd ff ff       	call   80166d <syscall>
+  80188a:	83 c4 18             	add    $0x18,%esp
 }
-  8017f9:	c9                   	leave  
-  8017fa:	c3                   	ret    
+  80188d:	c9                   	leave  
+  80188e:	c3                   	ret    
 
-008017fb <sys_scarce_memory>:
+0080188f <sys_scarce_memory>:
 
 void sys_scarce_memory()
 {
-  8017fb:	55                   	push   %ebp
-  8017fc:	89 e5                	mov    %esp,%ebp
+  80188f:	55                   	push   %ebp
+  801890:	89 e5                	mov    %esp,%ebp
 	syscall(SYS_scarce_memory,0,0,0,0,0);
-  8017fe:	6a 00                	push   $0x0
-  801800:	6a 00                	push   $0x0
-  801802:	6a 00                	push   $0x0
-  801804:	6a 00                	push   $0x0
-  801806:	6a 00                	push   $0x0
-  801808:	6a 10                	push   $0x10
-  80180a:	e8 ca fd ff ff       	call   8015d9 <syscall>
-  80180f:	83 c4 18             	add    $0x18,%esp
+  801892:	6a 00                	push   $0x0
+  801894:	6a 00                	push   $0x0
+  801896:	6a 00                	push   $0x0
+  801898:	6a 00                	push   $0x0
+  80189a:	6a 00                	push   $0x0
+  80189c:	6a 10                	push   $0x10
+  80189e:	e8 ca fd ff ff       	call   80166d <syscall>
+  8018a3:	83 c4 18             	add    $0x18,%esp
 }
-  801812:	90                   	nop
-  801813:	c9                   	leave  
-  801814:	c3                   	ret    
+  8018a6:	90                   	nop
+  8018a7:	c9                   	leave  
+  8018a8:	c3                   	ret    
 
-00801815 <sys_disable_interrupt>:
+008018a9 <sys_disable_interrupt>:
 
 //NEW !! 2012...
 void
 sys_disable_interrupt()
 {
-  801815:	55                   	push   %ebp
-  801816:	89 e5                	mov    %esp,%ebp
+  8018a9:	55                   	push   %ebp
+  8018aa:	89 e5                	mov    %esp,%ebp
 	syscall(SYS_disableINTR,0, 0, 0, 0, 0);
-  801818:	6a 00                	push   $0x0
-  80181a:	6a 00                	push   $0x0
-  80181c:	6a 00                	push   $0x0
-  80181e:	6a 00                	push   $0x0
-  801820:	6a 00                	push   $0x0
-  801822:	6a 14                	push   $0x14
-  801824:	e8 b0 fd ff ff       	call   8015d9 <syscall>
-  801829:	83 c4 18             	add    $0x18,%esp
+  8018ac:	6a 00                	push   $0x0
+  8018ae:	6a 00                	push   $0x0
+  8018b0:	6a 00                	push   $0x0
+  8018b2:	6a 00                	push   $0x0
+  8018b4:	6a 00                	push   $0x0
+  8018b6:	6a 14                	push   $0x14
+  8018b8:	e8 b0 fd ff ff       	call   80166d <syscall>
+  8018bd:	83 c4 18             	add    $0x18,%esp
 }
-  80182c:	90                   	nop
-  80182d:	c9                   	leave  
-  80182e:	c3                   	ret    
+  8018c0:	90                   	nop
+  8018c1:	c9                   	leave  
+  8018c2:	c3                   	ret    
 
-0080182f <sys_enable_interrupt>:
+008018c3 <sys_enable_interrupt>:
 
 
 void
 sys_enable_interrupt()
 {
-  80182f:	55                   	push   %ebp
-  801830:	89 e5                	mov    %esp,%ebp
+  8018c3:	55                   	push   %ebp
+  8018c4:	89 e5                	mov    %esp,%ebp
 	syscall(SYS_enableINTR,0, 0, 0, 0, 0);
-  801832:	6a 00                	push   $0x0
-  801834:	6a 00                	push   $0x0
-  801836:	6a 00                	push   $0x0
-  801838:	6a 00                	push   $0x0
-  80183a:	6a 00                	push   $0x0
-  80183c:	6a 15                	push   $0x15
-  80183e:	e8 96 fd ff ff       	call   8015d9 <syscall>
-  801843:	83 c4 18             	add    $0x18,%esp
+  8018c6:	6a 00                	push   $0x0
+  8018c8:	6a 00                	push   $0x0
+  8018ca:	6a 00                	push   $0x0
+  8018cc:	6a 00                	push   $0x0
+  8018ce:	6a 00                	push   $0x0
+  8018d0:	6a 15                	push   $0x15
+  8018d2:	e8 96 fd ff ff       	call   80166d <syscall>
+  8018d7:	83 c4 18             	add    $0x18,%esp
 }
-  801846:	90                   	nop
-  801847:	c9                   	leave  
-  801848:	c3                   	ret    
+  8018da:	90                   	nop
+  8018db:	c9                   	leave  
+  8018dc:	c3                   	ret    
 
-00801849 <sys_cputc>:
+008018dd <sys_cputc>:
 
 
 void
 sys_cputc(const char c)
 {
-  801849:	55                   	push   %ebp
-  80184a:	89 e5                	mov    %esp,%ebp
-  80184c:	83 ec 04             	sub    $0x4,%esp
-  80184f:	8b 45 08             	mov    0x8(%ebp),%eax
-  801852:	88 45 fc             	mov    %al,-0x4(%ebp)
+  8018dd:	55                   	push   %ebp
+  8018de:	89 e5                	mov    %esp,%ebp
+  8018e0:	83 ec 04             	sub    $0x4,%esp
+  8018e3:	8b 45 08             	mov    0x8(%ebp),%eax
+  8018e6:	88 45 fc             	mov    %al,-0x4(%ebp)
 	syscall(SYS_cputc, (uint32) c, 0, 0, 0, 0);
-  801855:	0f be 45 fc          	movsbl -0x4(%ebp),%eax
-  801859:	6a 00                	push   $0x0
-  80185b:	6a 00                	push   $0x0
-  80185d:	6a 00                	push   $0x0
-  80185f:	6a 00                	push   $0x0
-  801861:	50                   	push   %eax
-  801862:	6a 16                	push   $0x16
-  801864:	e8 70 fd ff ff       	call   8015d9 <syscall>
-  801869:	83 c4 18             	add    $0x18,%esp
+  8018e9:	0f be 45 fc          	movsbl -0x4(%ebp),%eax
+  8018ed:	6a 00                	push   $0x0
+  8018ef:	6a 00                	push   $0x0
+  8018f1:	6a 00                	push   $0x0
+  8018f3:	6a 00                	push   $0x0
+  8018f5:	50                   	push   %eax
+  8018f6:	6a 16                	push   $0x16
+  8018f8:	e8 70 fd ff ff       	call   80166d <syscall>
+  8018fd:	83 c4 18             	add    $0x18,%esp
 }
-  80186c:	90                   	nop
-  80186d:	c9                   	leave  
-  80186e:	c3                   	ret    
+  801900:	90                   	nop
+  801901:	c9                   	leave  
+  801902:	c3                   	ret    
 
-0080186f <sys_clear_ffl>:
+00801903 <sys_clear_ffl>:
 
 
 //NEW'12: BONUS2 Testing
 void
 sys_clear_ffl()
 {
-  80186f:	55                   	push   %ebp
-  801870:	89 e5                	mov    %esp,%ebp
+  801903:	55                   	push   %ebp
+  801904:	89 e5                	mov    %esp,%ebp
 	syscall(SYS_clearFFL,0, 0, 0, 0, 0);
-  801872:	6a 00                	push   $0x0
-  801874:	6a 00                	push   $0x0
-  801876:	6a 00                	push   $0x0
-  801878:	6a 00                	push   $0x0
-  80187a:	6a 00                	push   $0x0
-  80187c:	6a 17                	push   $0x17
-  80187e:	e8 56 fd ff ff       	call   8015d9 <syscall>
-  801883:	83 c4 18             	add    $0x18,%esp
+  801906:	6a 00                	push   $0x0
+  801908:	6a 00                	push   $0x0
+  80190a:	6a 00                	push   $0x0
+  80190c:	6a 00                	push   $0x0
+  80190e:	6a 00                	push   $0x0
+  801910:	6a 17                	push   $0x17
+  801912:	e8 56 fd ff ff       	call   80166d <syscall>
+  801917:	83 c4 18             	add    $0x18,%esp
 }
-  801886:	90                   	nop
-  801887:	c9                   	leave  
-  801888:	c3                   	ret    
+  80191a:	90                   	nop
+  80191b:	c9                   	leave  
+  80191c:	c3                   	ret    
 
-00801889 <sys_createSemaphore>:
+0080191d <sys_createSemaphore>:
 
 int
 sys_createSemaphore(char* semaphoreName, uint32 initialValue)
 {
-  801889:	55                   	push   %ebp
-  80188a:	89 e5                	mov    %esp,%ebp
+  80191d:	55                   	push   %ebp
+  80191e:	89 e5                	mov    %esp,%ebp
 	return syscall(SYS_create_semaphore,(uint32)semaphoreName, (uint32)initialValue, 0, 0, 0);
-  80188c:	8b 45 08             	mov    0x8(%ebp),%eax
-  80188f:	6a 00                	push   $0x0
-  801891:	6a 00                	push   $0x0
-  801893:	6a 00                	push   $0x0
-  801895:	ff 75 0c             	pushl  0xc(%ebp)
-  801898:	50                   	push   %eax
-  801899:	6a 18                	push   $0x18
-  80189b:	e8 39 fd ff ff       	call   8015d9 <syscall>
-  8018a0:	83 c4 18             	add    $0x18,%esp
+  801920:	8b 45 08             	mov    0x8(%ebp),%eax
+  801923:	6a 00                	push   $0x0
+  801925:	6a 00                	push   $0x0
+  801927:	6a 00                	push   $0x0
+  801929:	ff 75 0c             	pushl  0xc(%ebp)
+  80192c:	50                   	push   %eax
+  80192d:	6a 18                	push   $0x18
+  80192f:	e8 39 fd ff ff       	call   80166d <syscall>
+  801934:	83 c4 18             	add    $0x18,%esp
 }
-  8018a3:	c9                   	leave  
-  8018a4:	c3                   	ret    
+  801937:	c9                   	leave  
+  801938:	c3                   	ret    
 
-008018a5 <sys_getSemaphoreValue>:
+00801939 <sys_getSemaphoreValue>:
 
 int
 sys_getSemaphoreValue(int32 ownerEnvID, char* semaphoreName)
 {
-  8018a5:	55                   	push   %ebp
-  8018a6:	89 e5                	mov    %esp,%ebp
+  801939:	55                   	push   %ebp
+  80193a:	89 e5                	mov    %esp,%ebp
 	return syscall(SYS_get_semaphore_value,(uint32) ownerEnvID, (uint32)semaphoreName, 0, 0, 0);
-  8018a8:	8b 55 0c             	mov    0xc(%ebp),%edx
-  8018ab:	8b 45 08             	mov    0x8(%ebp),%eax
-  8018ae:	6a 00                	push   $0x0
-  8018b0:	6a 00                	push   $0x0
-  8018b2:	6a 00                	push   $0x0
-  8018b4:	52                   	push   %edx
-  8018b5:	50                   	push   %eax
-  8018b6:	6a 1b                	push   $0x1b
-  8018b8:	e8 1c fd ff ff       	call   8015d9 <syscall>
-  8018bd:	83 c4 18             	add    $0x18,%esp
+  80193c:	8b 55 0c             	mov    0xc(%ebp),%edx
+  80193f:	8b 45 08             	mov    0x8(%ebp),%eax
+  801942:	6a 00                	push   $0x0
+  801944:	6a 00                	push   $0x0
+  801946:	6a 00                	push   $0x0
+  801948:	52                   	push   %edx
+  801949:	50                   	push   %eax
+  80194a:	6a 1b                	push   $0x1b
+  80194c:	e8 1c fd ff ff       	call   80166d <syscall>
+  801951:	83 c4 18             	add    $0x18,%esp
 }
-  8018c0:	c9                   	leave  
-  8018c1:	c3                   	ret    
+  801954:	c9                   	leave  
+  801955:	c3                   	ret    
 
-008018c2 <sys_waitSemaphore>:
+00801956 <sys_waitSemaphore>:
 
 void
 sys_waitSemaphore(int32 ownerEnvID, char* semaphoreName)
 {
-  8018c2:	55                   	push   %ebp
-  8018c3:	89 e5                	mov    %esp,%ebp
+  801956:	55                   	push   %ebp
+  801957:	89 e5                	mov    %esp,%ebp
 	syscall(SYS_wait_semaphore,(uint32) ownerEnvID, (uint32)semaphoreName, 0, 0, 0);
-  8018c5:	8b 55 0c             	mov    0xc(%ebp),%edx
-  8018c8:	8b 45 08             	mov    0x8(%ebp),%eax
-  8018cb:	6a 00                	push   $0x0
-  8018cd:	6a 00                	push   $0x0
-  8018cf:	6a 00                	push   $0x0
-  8018d1:	52                   	push   %edx
-  8018d2:	50                   	push   %eax
-  8018d3:	6a 19                	push   $0x19
-  8018d5:	e8 ff fc ff ff       	call   8015d9 <syscall>
-  8018da:	83 c4 18             	add    $0x18,%esp
+  801959:	8b 55 0c             	mov    0xc(%ebp),%edx
+  80195c:	8b 45 08             	mov    0x8(%ebp),%eax
+  80195f:	6a 00                	push   $0x0
+  801961:	6a 00                	push   $0x0
+  801963:	6a 00                	push   $0x0
+  801965:	52                   	push   %edx
+  801966:	50                   	push   %eax
+  801967:	6a 19                	push   $0x19
+  801969:	e8 ff fc ff ff       	call   80166d <syscall>
+  80196e:	83 c4 18             	add    $0x18,%esp
 }
-  8018dd:	90                   	nop
-  8018de:	c9                   	leave  
-  8018df:	c3                   	ret    
+  801971:	90                   	nop
+  801972:	c9                   	leave  
+  801973:	c3                   	ret    
 
-008018e0 <sys_signalSemaphore>:
+00801974 <sys_signalSemaphore>:
 
 void
 sys_signalSemaphore(int32 ownerEnvID, char* semaphoreName)
 {
-  8018e0:	55                   	push   %ebp
-  8018e1:	89 e5                	mov    %esp,%ebp
+  801974:	55                   	push   %ebp
+  801975:	89 e5                	mov    %esp,%ebp
 	syscall(SYS_signal_semaphore,(uint32) ownerEnvID, (uint32)semaphoreName, 0, 0, 0);
-  8018e3:	8b 55 0c             	mov    0xc(%ebp),%edx
-  8018e6:	8b 45 08             	mov    0x8(%ebp),%eax
-  8018e9:	6a 00                	push   $0x0
-  8018eb:	6a 00                	push   $0x0
-  8018ed:	6a 00                	push   $0x0
-  8018ef:	52                   	push   %edx
-  8018f0:	50                   	push   %eax
-  8018f1:	6a 1a                	push   $0x1a
-  8018f3:	e8 e1 fc ff ff       	call   8015d9 <syscall>
-  8018f8:	83 c4 18             	add    $0x18,%esp
+  801977:	8b 55 0c             	mov    0xc(%ebp),%edx
+  80197a:	8b 45 08             	mov    0x8(%ebp),%eax
+  80197d:	6a 00                	push   $0x0
+  80197f:	6a 00                	push   $0x0
+  801981:	6a 00                	push   $0x0
+  801983:	52                   	push   %edx
+  801984:	50                   	push   %eax
+  801985:	6a 1a                	push   $0x1a
+  801987:	e8 e1 fc ff ff       	call   80166d <syscall>
+  80198c:	83 c4 18             	add    $0x18,%esp
 }
-  8018fb:	90                   	nop
-  8018fc:	c9                   	leave  
-  8018fd:	c3                   	ret    
+  80198f:	90                   	nop
+  801990:	c9                   	leave  
+  801991:	c3                   	ret    
 
-008018fe <sys_createSharedObject>:
+00801992 <sys_createSharedObject>:
 
 int
 sys_createSharedObject(char* shareName, uint32 size, uint8 isWritable, void* virtual_address)
 {
-  8018fe:	55                   	push   %ebp
-  8018ff:	89 e5                	mov    %esp,%ebp
-  801901:	83 ec 04             	sub    $0x4,%esp
-  801904:	8b 45 10             	mov    0x10(%ebp),%eax
-  801907:	88 45 fc             	mov    %al,-0x4(%ebp)
+  801992:	55                   	push   %ebp
+  801993:	89 e5                	mov    %esp,%ebp
+  801995:	83 ec 04             	sub    $0x4,%esp
+  801998:	8b 45 10             	mov    0x10(%ebp),%eax
+  80199b:	88 45 fc             	mov    %al,-0x4(%ebp)
 	return syscall(SYS_create_shared_object,(uint32)shareName, (uint32)size, isWritable, (uint32)virtual_address,  0);
-  80190a:	8b 4d 14             	mov    0x14(%ebp),%ecx
-  80190d:	0f b6 55 fc          	movzbl -0x4(%ebp),%edx
-  801911:	8b 45 08             	mov    0x8(%ebp),%eax
-  801914:	6a 00                	push   $0x0
-  801916:	51                   	push   %ecx
-  801917:	52                   	push   %edx
-  801918:	ff 75 0c             	pushl  0xc(%ebp)
-  80191b:	50                   	push   %eax
-  80191c:	6a 1c                	push   $0x1c
-  80191e:	e8 b6 fc ff ff       	call   8015d9 <syscall>
-  801923:	83 c4 18             	add    $0x18,%esp
+  80199e:	8b 4d 14             	mov    0x14(%ebp),%ecx
+  8019a1:	0f b6 55 fc          	movzbl -0x4(%ebp),%edx
+  8019a5:	8b 45 08             	mov    0x8(%ebp),%eax
+  8019a8:	6a 00                	push   $0x0
+  8019aa:	51                   	push   %ecx
+  8019ab:	52                   	push   %edx
+  8019ac:	ff 75 0c             	pushl  0xc(%ebp)
+  8019af:	50                   	push   %eax
+  8019b0:	6a 1c                	push   $0x1c
+  8019b2:	e8 b6 fc ff ff       	call   80166d <syscall>
+  8019b7:	83 c4 18             	add    $0x18,%esp
 }
-  801926:	c9                   	leave  
-  801927:	c3                   	ret    
+  8019ba:	c9                   	leave  
+  8019bb:	c3                   	ret    
 
-00801928 <sys_getSizeOfSharedObject>:
+008019bc <sys_getSizeOfSharedObject>:
 
 //2017:
 int
 sys_getSizeOfSharedObject(int32 ownerID, char* shareName)
 {
-  801928:	55                   	push   %ebp
-  801929:	89 e5                	mov    %esp,%ebp
+  8019bc:	55                   	push   %ebp
+  8019bd:	89 e5                	mov    %esp,%ebp
 	return syscall(SYS_get_size_of_shared_object,(uint32) ownerID, (uint32)shareName, 0, 0, 0);
-  80192b:	8b 55 0c             	mov    0xc(%ebp),%edx
-  80192e:	8b 45 08             	mov    0x8(%ebp),%eax
-  801931:	6a 00                	push   $0x0
-  801933:	6a 00                	push   $0x0
-  801935:	6a 00                	push   $0x0
-  801937:	52                   	push   %edx
-  801938:	50                   	push   %eax
-  801939:	6a 1d                	push   $0x1d
-  80193b:	e8 99 fc ff ff       	call   8015d9 <syscall>
-  801940:	83 c4 18             	add    $0x18,%esp
+  8019bf:	8b 55 0c             	mov    0xc(%ebp),%edx
+  8019c2:	8b 45 08             	mov    0x8(%ebp),%eax
+  8019c5:	6a 00                	push   $0x0
+  8019c7:	6a 00                	push   $0x0
+  8019c9:	6a 00                	push   $0x0
+  8019cb:	52                   	push   %edx
+  8019cc:	50                   	push   %eax
+  8019cd:	6a 1d                	push   $0x1d
+  8019cf:	e8 99 fc ff ff       	call   80166d <syscall>
+  8019d4:	83 c4 18             	add    $0x18,%esp
 }
-  801943:	c9                   	leave  
-  801944:	c3                   	ret    
+  8019d7:	c9                   	leave  
+  8019d8:	c3                   	ret    
 
-00801945 <sys_getSharedObject>:
+008019d9 <sys_getSharedObject>:
 //==========
 
 int
 sys_getSharedObject(int32 ownerID, char* shareName, void* virtual_address)
 {
-  801945:	55                   	push   %ebp
-  801946:	89 e5                	mov    %esp,%ebp
+  8019d9:	55                   	push   %ebp
+  8019da:	89 e5                	mov    %esp,%ebp
 	return syscall(SYS_get_shared_object,(uint32) ownerID, (uint32)shareName, (uint32)virtual_address, 0, 0);
-  801948:	8b 4d 10             	mov    0x10(%ebp),%ecx
-  80194b:	8b 55 0c             	mov    0xc(%ebp),%edx
-  80194e:	8b 45 08             	mov    0x8(%ebp),%eax
-  801951:	6a 00                	push   $0x0
-  801953:	6a 00                	push   $0x0
-  801955:	51                   	push   %ecx
-  801956:	52                   	push   %edx
-  801957:	50                   	push   %eax
-  801958:	6a 1e                	push   $0x1e
-  80195a:	e8 7a fc ff ff       	call   8015d9 <syscall>
-  80195f:	83 c4 18             	add    $0x18,%esp
+  8019dc:	8b 4d 10             	mov    0x10(%ebp),%ecx
+  8019df:	8b 55 0c             	mov    0xc(%ebp),%edx
+  8019e2:	8b 45 08             	mov    0x8(%ebp),%eax
+  8019e5:	6a 00                	push   $0x0
+  8019e7:	6a 00                	push   $0x0
+  8019e9:	51                   	push   %ecx
+  8019ea:	52                   	push   %edx
+  8019eb:	50                   	push   %eax
+  8019ec:	6a 1e                	push   $0x1e
+  8019ee:	e8 7a fc ff ff       	call   80166d <syscall>
+  8019f3:	83 c4 18             	add    $0x18,%esp
 }
-  801962:	c9                   	leave  
-  801963:	c3                   	ret    
+  8019f6:	c9                   	leave  
+  8019f7:	c3                   	ret    
 
-00801964 <sys_freeSharedObject>:
+008019f8 <sys_freeSharedObject>:
 
 int
 sys_freeSharedObject(int32 sharedObjectID, void *startVA)
 {
-  801964:	55                   	push   %ebp
-  801965:	89 e5                	mov    %esp,%ebp
+  8019f8:	55                   	push   %ebp
+  8019f9:	89 e5                	mov    %esp,%ebp
 	return syscall(SYS_free_shared_object,(uint32) sharedObjectID, (uint32) startVA, 0, 0, 0);
-  801967:	8b 55 0c             	mov    0xc(%ebp),%edx
-  80196a:	8b 45 08             	mov    0x8(%ebp),%eax
-  80196d:	6a 00                	push   $0x0
-  80196f:	6a 00                	push   $0x0
-  801971:	6a 00                	push   $0x0
-  801973:	52                   	push   %edx
-  801974:	50                   	push   %eax
-  801975:	6a 1f                	push   $0x1f
-  801977:	e8 5d fc ff ff       	call   8015d9 <syscall>
-  80197c:	83 c4 18             	add    $0x18,%esp
+  8019fb:	8b 55 0c             	mov    0xc(%ebp),%edx
+  8019fe:	8b 45 08             	mov    0x8(%ebp),%eax
+  801a01:	6a 00                	push   $0x0
+  801a03:	6a 00                	push   $0x0
+  801a05:	6a 00                	push   $0x0
+  801a07:	52                   	push   %edx
+  801a08:	50                   	push   %eax
+  801a09:	6a 1f                	push   $0x1f
+  801a0b:	e8 5d fc ff ff       	call   80166d <syscall>
+  801a10:	83 c4 18             	add    $0x18,%esp
 }
-  80197f:	c9                   	leave  
-  801980:	c3                   	ret    
+  801a13:	c9                   	leave  
+  801a14:	c3                   	ret    
 
-00801981 <sys_getMaxShares>:
+00801a15 <sys_getMaxShares>:
 
 uint32 	sys_getMaxShares()
 {
-  801981:	55                   	push   %ebp
-  801982:	89 e5                	mov    %esp,%ebp
+  801a15:	55                   	push   %ebp
+  801a16:	89 e5                	mov    %esp,%ebp
 	return syscall(SYS_get_max_shares,0, 0, 0, 0, 0);
-  801984:	6a 00                	push   $0x0
-  801986:	6a 00                	push   $0x0
-  801988:	6a 00                	push   $0x0
-  80198a:	6a 00                	push   $0x0
-  80198c:	6a 00                	push   $0x0
-  80198e:	6a 20                	push   $0x20
-  801990:	e8 44 fc ff ff       	call   8015d9 <syscall>
-  801995:	83 c4 18             	add    $0x18,%esp
+  801a18:	6a 00                	push   $0x0
+  801a1a:	6a 00                	push   $0x0
+  801a1c:	6a 00                	push   $0x0
+  801a1e:	6a 00                	push   $0x0
+  801a20:	6a 00                	push   $0x0
+  801a22:	6a 20                	push   $0x20
+  801a24:	e8 44 fc ff ff       	call   80166d <syscall>
+  801a29:	83 c4 18             	add    $0x18,%esp
 }
-  801998:	c9                   	leave  
-  801999:	c3                   	ret    
+  801a2c:	c9                   	leave  
+  801a2d:	c3                   	ret    
 
-0080199a <sys_create_env>:
+00801a2e <sys_create_env>:
 
 int sys_create_env(char* programName, unsigned int page_WS_size,unsigned int LRU_second_list_size,unsigned int percent_WS_pages_to_remove)
 {
-  80199a:	55                   	push   %ebp
-  80199b:	89 e5                	mov    %esp,%ebp
+  801a2e:	55                   	push   %ebp
+  801a2f:	89 e5                	mov    %esp,%ebp
 	return syscall(SYS_create_env,(uint32)programName, (uint32)page_WS_size,(uint32)LRU_second_list_size, (uint32)percent_WS_pages_to_remove, 0);
-  80199d:	8b 45 08             	mov    0x8(%ebp),%eax
-  8019a0:	6a 00                	push   $0x0
-  8019a2:	ff 75 14             	pushl  0x14(%ebp)
-  8019a5:	ff 75 10             	pushl  0x10(%ebp)
-  8019a8:	ff 75 0c             	pushl  0xc(%ebp)
-  8019ab:	50                   	push   %eax
-  8019ac:	6a 21                	push   $0x21
-  8019ae:	e8 26 fc ff ff       	call   8015d9 <syscall>
-  8019b3:	83 c4 18             	add    $0x18,%esp
+  801a31:	8b 45 08             	mov    0x8(%ebp),%eax
+  801a34:	6a 00                	push   $0x0
+  801a36:	ff 75 14             	pushl  0x14(%ebp)
+  801a39:	ff 75 10             	pushl  0x10(%ebp)
+  801a3c:	ff 75 0c             	pushl  0xc(%ebp)
+  801a3f:	50                   	push   %eax
+  801a40:	6a 21                	push   $0x21
+  801a42:	e8 26 fc ff ff       	call   80166d <syscall>
+  801a47:	83 c4 18             	add    $0x18,%esp
 }
-  8019b6:	c9                   	leave  
-  8019b7:	c3                   	ret    
+  801a4a:	c9                   	leave  
+  801a4b:	c3                   	ret    
 
-008019b8 <sys_run_env>:
+00801a4c <sys_run_env>:
 
 void
 sys_run_env(int32 envId)
 {
-  8019b8:	55                   	push   %ebp
-  8019b9:	89 e5                	mov    %esp,%ebp
+  801a4c:	55                   	push   %ebp
+  801a4d:	89 e5                	mov    %esp,%ebp
 	syscall(SYS_run_env, (int32)envId, 0, 0, 0, 0);
-  8019bb:	8b 45 08             	mov    0x8(%ebp),%eax
-  8019be:	6a 00                	push   $0x0
-  8019c0:	6a 00                	push   $0x0
-  8019c2:	6a 00                	push   $0x0
-  8019c4:	6a 00                	push   $0x0
-  8019c6:	50                   	push   %eax
-  8019c7:	6a 22                	push   $0x22
-  8019c9:	e8 0b fc ff ff       	call   8015d9 <syscall>
-  8019ce:	83 c4 18             	add    $0x18,%esp
+  801a4f:	8b 45 08             	mov    0x8(%ebp),%eax
+  801a52:	6a 00                	push   $0x0
+  801a54:	6a 00                	push   $0x0
+  801a56:	6a 00                	push   $0x0
+  801a58:	6a 00                	push   $0x0
+  801a5a:	50                   	push   %eax
+  801a5b:	6a 22                	push   $0x22
+  801a5d:	e8 0b fc ff ff       	call   80166d <syscall>
+  801a62:	83 c4 18             	add    $0x18,%esp
 }
-  8019d1:	90                   	nop
-  8019d2:	c9                   	leave  
-  8019d3:	c3                   	ret    
+  801a65:	90                   	nop
+  801a66:	c9                   	leave  
+  801a67:	c3                   	ret    
 
-008019d4 <sys_free_env>:
+00801a68 <sys_free_env>:
 
 void
 sys_free_env(int32 envId)
 {
-  8019d4:	55                   	push   %ebp
-  8019d5:	89 e5                	mov    %esp,%ebp
+  801a68:	55                   	push   %ebp
+  801a69:	89 e5                	mov    %esp,%ebp
 	syscall(SYS_free_env, (int32)envId, 0, 0, 0, 0);
-  8019d7:	8b 45 08             	mov    0x8(%ebp),%eax
-  8019da:	6a 00                	push   $0x0
-  8019dc:	6a 00                	push   $0x0
-  8019de:	6a 00                	push   $0x0
-  8019e0:	6a 00                	push   $0x0
-  8019e2:	50                   	push   %eax
-  8019e3:	6a 23                	push   $0x23
-  8019e5:	e8 ef fb ff ff       	call   8015d9 <syscall>
-  8019ea:	83 c4 18             	add    $0x18,%esp
+  801a6b:	8b 45 08             	mov    0x8(%ebp),%eax
+  801a6e:	6a 00                	push   $0x0
+  801a70:	6a 00                	push   $0x0
+  801a72:	6a 00                	push   $0x0
+  801a74:	6a 00                	push   $0x0
+  801a76:	50                   	push   %eax
+  801a77:	6a 23                	push   $0x23
+  801a79:	e8 ef fb ff ff       	call   80166d <syscall>
+  801a7e:	83 c4 18             	add    $0x18,%esp
 }
-  8019ed:	90                   	nop
-  8019ee:	c9                   	leave  
-  8019ef:	c3                   	ret    
+  801a81:	90                   	nop
+  801a82:	c9                   	leave  
+  801a83:	c3                   	ret    
 
-008019f0 <sys_get_virtual_time>:
+00801a84 <sys_get_virtual_time>:
 
 struct uint64
 sys_get_virtual_time()
 {
-  8019f0:	55                   	push   %ebp
-  8019f1:	89 e5                	mov    %esp,%ebp
-  8019f3:	83 ec 10             	sub    $0x10,%esp
+  801a84:	55                   	push   %ebp
+  801a85:	89 e5                	mov    %esp,%ebp
+  801a87:	83 ec 10             	sub    $0x10,%esp
 	struct uint64 result;
 	syscall(SYS_get_virtual_time, (uint32)&(result.low), (uint32)&(result.hi), 0, 0, 0);
-  8019f6:	8d 45 f8             	lea    -0x8(%ebp),%eax
-  8019f9:	8d 50 04             	lea    0x4(%eax),%edx
-  8019fc:	8d 45 f8             	lea    -0x8(%ebp),%eax
-  8019ff:	6a 00                	push   $0x0
-  801a01:	6a 00                	push   $0x0
-  801a03:	6a 00                	push   $0x0
-  801a05:	52                   	push   %edx
-  801a06:	50                   	push   %eax
-  801a07:	6a 24                	push   $0x24
-  801a09:	e8 cb fb ff ff       	call   8015d9 <syscall>
-  801a0e:	83 c4 18             	add    $0x18,%esp
+  801a8a:	8d 45 f8             	lea    -0x8(%ebp),%eax
+  801a8d:	8d 50 04             	lea    0x4(%eax),%edx
+  801a90:	8d 45 f8             	lea    -0x8(%ebp),%eax
+  801a93:	6a 00                	push   $0x0
+  801a95:	6a 00                	push   $0x0
+  801a97:	6a 00                	push   $0x0
+  801a99:	52                   	push   %edx
+  801a9a:	50                   	push   %eax
+  801a9b:	6a 24                	push   $0x24
+  801a9d:	e8 cb fb ff ff       	call   80166d <syscall>
+  801aa2:	83 c4 18             	add    $0x18,%esp
 	return result;
-  801a11:	8b 4d 08             	mov    0x8(%ebp),%ecx
-  801a14:	8b 45 f8             	mov    -0x8(%ebp),%eax
-  801a17:	8b 55 fc             	mov    -0x4(%ebp),%edx
-  801a1a:	89 01                	mov    %eax,(%ecx)
-  801a1c:	89 51 04             	mov    %edx,0x4(%ecx)
+  801aa5:	8b 4d 08             	mov    0x8(%ebp),%ecx
+  801aa8:	8b 45 f8             	mov    -0x8(%ebp),%eax
+  801aab:	8b 55 fc             	mov    -0x4(%ebp),%edx
+  801aae:	89 01                	mov    %eax,(%ecx)
+  801ab0:	89 51 04             	mov    %edx,0x4(%ecx)
 }
-  801a1f:	8b 45 08             	mov    0x8(%ebp),%eax
-  801a22:	c9                   	leave  
-  801a23:	c2 04 00             	ret    $0x4
+  801ab3:	8b 45 08             	mov    0x8(%ebp),%eax
+  801ab6:	c9                   	leave  
+  801ab7:	c2 04 00             	ret    $0x4
 
-00801a26 <sys_moveMem>:
+00801aba <sys_moveMem>:
 
 // 2014
 void sys_moveMem(uint32 src_virtual_address, uint32 dst_virtual_address, uint32 size)
 {
-  801a26:	55                   	push   %ebp
-  801a27:	89 e5                	mov    %esp,%ebp
+  801aba:	55                   	push   %ebp
+  801abb:	89 e5                	mov    %esp,%ebp
 	syscall(SYS_moveMem, src_virtual_address, dst_virtual_address, size, 0, 0);
-  801a29:	6a 00                	push   $0x0
-  801a2b:	6a 00                	push   $0x0
-  801a2d:	ff 75 10             	pushl  0x10(%ebp)
-  801a30:	ff 75 0c             	pushl  0xc(%ebp)
-  801a33:	ff 75 08             	pushl  0x8(%ebp)
-  801a36:	6a 13                	push   $0x13
-  801a38:	e8 9c fb ff ff       	call   8015d9 <syscall>
-  801a3d:	83 c4 18             	add    $0x18,%esp
+  801abd:	6a 00                	push   $0x0
+  801abf:	6a 00                	push   $0x0
+  801ac1:	ff 75 10             	pushl  0x10(%ebp)
+  801ac4:	ff 75 0c             	pushl  0xc(%ebp)
+  801ac7:	ff 75 08             	pushl  0x8(%ebp)
+  801aca:	6a 13                	push   $0x13
+  801acc:	e8 9c fb ff ff       	call   80166d <syscall>
+  801ad1:	83 c4 18             	add    $0x18,%esp
 	return ;
-  801a40:	90                   	nop
+  801ad4:	90                   	nop
 }
-  801a41:	c9                   	leave  
-  801a42:	c3                   	ret    
+  801ad5:	c9                   	leave  
+  801ad6:	c3                   	ret    
 
-00801a43 <sys_rcr2>:
+00801ad7 <sys_rcr2>:
 uint32 sys_rcr2()
 {
-  801a43:	55                   	push   %ebp
-  801a44:	89 e5                	mov    %esp,%ebp
+  801ad7:	55                   	push   %ebp
+  801ad8:	89 e5                	mov    %esp,%ebp
 	return syscall(SYS_rcr2, 0, 0, 0, 0, 0);
-  801a46:	6a 00                	push   $0x0
-  801a48:	6a 00                	push   $0x0
-  801a4a:	6a 00                	push   $0x0
-  801a4c:	6a 00                	push   $0x0
-  801a4e:	6a 00                	push   $0x0
-  801a50:	6a 25                	push   $0x25
-  801a52:	e8 82 fb ff ff       	call   8015d9 <syscall>
-  801a57:	83 c4 18             	add    $0x18,%esp
+  801ada:	6a 00                	push   $0x0
+  801adc:	6a 00                	push   $0x0
+  801ade:	6a 00                	push   $0x0
+  801ae0:	6a 00                	push   $0x0
+  801ae2:	6a 00                	push   $0x0
+  801ae4:	6a 25                	push   $0x25
+  801ae6:	e8 82 fb ff ff       	call   80166d <syscall>
+  801aeb:	83 c4 18             	add    $0x18,%esp
 }
-  801a5a:	c9                   	leave  
-  801a5b:	c3                   	ret    
+  801aee:	c9                   	leave  
+  801aef:	c3                   	ret    
 
-00801a5c <sys_bypassPageFault>:
+00801af0 <sys_bypassPageFault>:
 void sys_bypassPageFault(uint8 instrLength)
 {
-  801a5c:	55                   	push   %ebp
-  801a5d:	89 e5                	mov    %esp,%ebp
-  801a5f:	83 ec 04             	sub    $0x4,%esp
-  801a62:	8b 45 08             	mov    0x8(%ebp),%eax
-  801a65:	88 45 fc             	mov    %al,-0x4(%ebp)
+  801af0:	55                   	push   %ebp
+  801af1:	89 e5                	mov    %esp,%ebp
+  801af3:	83 ec 04             	sub    $0x4,%esp
+  801af6:	8b 45 08             	mov    0x8(%ebp),%eax
+  801af9:	88 45 fc             	mov    %al,-0x4(%ebp)
 	syscall(SYS_bypassPageFault, instrLength, 0, 0, 0, 0);
-  801a68:	0f b6 45 fc          	movzbl -0x4(%ebp),%eax
-  801a6c:	6a 00                	push   $0x0
-  801a6e:	6a 00                	push   $0x0
-  801a70:	6a 00                	push   $0x0
-  801a72:	6a 00                	push   $0x0
-  801a74:	50                   	push   %eax
-  801a75:	6a 26                	push   $0x26
-  801a77:	e8 5d fb ff ff       	call   8015d9 <syscall>
-  801a7c:	83 c4 18             	add    $0x18,%esp
+  801afc:	0f b6 45 fc          	movzbl -0x4(%ebp),%eax
+  801b00:	6a 00                	push   $0x0
+  801b02:	6a 00                	push   $0x0
+  801b04:	6a 00                	push   $0x0
+  801b06:	6a 00                	push   $0x0
+  801b08:	50                   	push   %eax
+  801b09:	6a 26                	push   $0x26
+  801b0b:	e8 5d fb ff ff       	call   80166d <syscall>
+  801b10:	83 c4 18             	add    $0x18,%esp
 	return ;
-  801a7f:	90                   	nop
+  801b13:	90                   	nop
 }
-  801a80:	c9                   	leave  
-  801a81:	c3                   	ret    
+  801b14:	c9                   	leave  
+  801b15:	c3                   	ret    
 
-00801a82 <rsttst>:
+00801b16 <rsttst>:
 void rsttst()
 {
-  801a82:	55                   	push   %ebp
-  801a83:	89 e5                	mov    %esp,%ebp
+  801b16:	55                   	push   %ebp
+  801b17:	89 e5                	mov    %esp,%ebp
 	syscall(SYS_rsttst, 0, 0, 0, 0, 0);
-  801a85:	6a 00                	push   $0x0
-  801a87:	6a 00                	push   $0x0
-  801a89:	6a 00                	push   $0x0
-  801a8b:	6a 00                	push   $0x0
-  801a8d:	6a 00                	push   $0x0
-  801a8f:	6a 28                	push   $0x28
-  801a91:	e8 43 fb ff ff       	call   8015d9 <syscall>
-  801a96:	83 c4 18             	add    $0x18,%esp
+  801b19:	6a 00                	push   $0x0
+  801b1b:	6a 00                	push   $0x0
+  801b1d:	6a 00                	push   $0x0
+  801b1f:	6a 00                	push   $0x0
+  801b21:	6a 00                	push   $0x0
+  801b23:	6a 28                	push   $0x28
+  801b25:	e8 43 fb ff ff       	call   80166d <syscall>
+  801b2a:	83 c4 18             	add    $0x18,%esp
 	return ;
-  801a99:	90                   	nop
+  801b2d:	90                   	nop
 }
-  801a9a:	c9                   	leave  
-  801a9b:	c3                   	ret    
+  801b2e:	c9                   	leave  
+  801b2f:	c3                   	ret    
 
-00801a9c <tst>:
+00801b30 <tst>:
 void tst(uint32 n, uint32 v1, uint32 v2, char c, int inv)
 {
-  801a9c:	55                   	push   %ebp
-  801a9d:	89 e5                	mov    %esp,%ebp
-  801a9f:	83 ec 04             	sub    $0x4,%esp
-  801aa2:	8b 45 14             	mov    0x14(%ebp),%eax
-  801aa5:	88 45 fc             	mov    %al,-0x4(%ebp)
+  801b30:	55                   	push   %ebp
+  801b31:	89 e5                	mov    %esp,%ebp
+  801b33:	83 ec 04             	sub    $0x4,%esp
+  801b36:	8b 45 14             	mov    0x14(%ebp),%eax
+  801b39:	88 45 fc             	mov    %al,-0x4(%ebp)
 	syscall(SYS_testNum, n, v1, v2, c, inv);
-  801aa8:	8b 55 18             	mov    0x18(%ebp),%edx
-  801aab:	0f be 45 fc          	movsbl -0x4(%ebp),%eax
-  801aaf:	52                   	push   %edx
-  801ab0:	50                   	push   %eax
-  801ab1:	ff 75 10             	pushl  0x10(%ebp)
-  801ab4:	ff 75 0c             	pushl  0xc(%ebp)
-  801ab7:	ff 75 08             	pushl  0x8(%ebp)
-  801aba:	6a 27                	push   $0x27
-  801abc:	e8 18 fb ff ff       	call   8015d9 <syscall>
-  801ac1:	83 c4 18             	add    $0x18,%esp
+  801b3c:	8b 55 18             	mov    0x18(%ebp),%edx
+  801b3f:	0f be 45 fc          	movsbl -0x4(%ebp),%eax
+  801b43:	52                   	push   %edx
+  801b44:	50                   	push   %eax
+  801b45:	ff 75 10             	pushl  0x10(%ebp)
+  801b48:	ff 75 0c             	pushl  0xc(%ebp)
+  801b4b:	ff 75 08             	pushl  0x8(%ebp)
+  801b4e:	6a 27                	push   $0x27
+  801b50:	e8 18 fb ff ff       	call   80166d <syscall>
+  801b55:	83 c4 18             	add    $0x18,%esp
 	return ;
-  801ac4:	90                   	nop
+  801b58:	90                   	nop
 }
-  801ac5:	c9                   	leave  
-  801ac6:	c3                   	ret    
+  801b59:	c9                   	leave  
+  801b5a:	c3                   	ret    
 
-00801ac7 <chktst>:
+00801b5b <chktst>:
 void chktst(uint32 n)
 {
-  801ac7:	55                   	push   %ebp
-  801ac8:	89 e5                	mov    %esp,%ebp
+  801b5b:	55                   	push   %ebp
+  801b5c:	89 e5                	mov    %esp,%ebp
 	syscall(SYS_chktst, n, 0, 0, 0, 0);
-  801aca:	6a 00                	push   $0x0
-  801acc:	6a 00                	push   $0x0
-  801ace:	6a 00                	push   $0x0
-  801ad0:	6a 00                	push   $0x0
-  801ad2:	ff 75 08             	pushl  0x8(%ebp)
-  801ad5:	6a 29                	push   $0x29
-  801ad7:	e8 fd fa ff ff       	call   8015d9 <syscall>
-  801adc:	83 c4 18             	add    $0x18,%esp
+  801b5e:	6a 00                	push   $0x0
+  801b60:	6a 00                	push   $0x0
+  801b62:	6a 00                	push   $0x0
+  801b64:	6a 00                	push   $0x0
+  801b66:	ff 75 08             	pushl  0x8(%ebp)
+  801b69:	6a 29                	push   $0x29
+  801b6b:	e8 fd fa ff ff       	call   80166d <syscall>
+  801b70:	83 c4 18             	add    $0x18,%esp
 	return ;
-  801adf:	90                   	nop
+  801b73:	90                   	nop
 }
-  801ae0:	c9                   	leave  
-  801ae1:	c3                   	ret    
+  801b74:	c9                   	leave  
+  801b75:	c3                   	ret    
 
-00801ae2 <inctst>:
+00801b76 <inctst>:
 
 void inctst()
 {
-  801ae2:	55                   	push   %ebp
-  801ae3:	89 e5                	mov    %esp,%ebp
+  801b76:	55                   	push   %ebp
+  801b77:	89 e5                	mov    %esp,%ebp
 	syscall(SYS_inctst, 0, 0, 0, 0, 0);
-  801ae5:	6a 00                	push   $0x0
-  801ae7:	6a 00                	push   $0x0
-  801ae9:	6a 00                	push   $0x0
-  801aeb:	6a 00                	push   $0x0
-  801aed:	6a 00                	push   $0x0
-  801aef:	6a 2a                	push   $0x2a
-  801af1:	e8 e3 fa ff ff       	call   8015d9 <syscall>
-  801af6:	83 c4 18             	add    $0x18,%esp
+  801b79:	6a 00                	push   $0x0
+  801b7b:	6a 00                	push   $0x0
+  801b7d:	6a 00                	push   $0x0
+  801b7f:	6a 00                	push   $0x0
+  801b81:	6a 00                	push   $0x0
+  801b83:	6a 2a                	push   $0x2a
+  801b85:	e8 e3 fa ff ff       	call   80166d <syscall>
+  801b8a:	83 c4 18             	add    $0x18,%esp
 	return ;
-  801af9:	90                   	nop
+  801b8d:	90                   	nop
 }
-  801afa:	c9                   	leave  
-  801afb:	c3                   	ret    
+  801b8e:	c9                   	leave  
+  801b8f:	c3                   	ret    
 
-00801afc <gettst>:
+00801b90 <gettst>:
 uint32 gettst()
 {
-  801afc:	55                   	push   %ebp
-  801afd:	89 e5                	mov    %esp,%ebp
+  801b90:	55                   	push   %ebp
+  801b91:	89 e5                	mov    %esp,%ebp
 	return syscall(SYS_gettst, 0, 0, 0, 0, 0);
-  801aff:	6a 00                	push   $0x0
-  801b01:	6a 00                	push   $0x0
-  801b03:	6a 00                	push   $0x0
-  801b05:	6a 00                	push   $0x0
-  801b07:	6a 00                	push   $0x0
-  801b09:	6a 2b                	push   $0x2b
-  801b0b:	e8 c9 fa ff ff       	call   8015d9 <syscall>
-  801b10:	83 c4 18             	add    $0x18,%esp
+  801b93:	6a 00                	push   $0x0
+  801b95:	6a 00                	push   $0x0
+  801b97:	6a 00                	push   $0x0
+  801b99:	6a 00                	push   $0x0
+  801b9b:	6a 00                	push   $0x0
+  801b9d:	6a 2b                	push   $0x2b
+  801b9f:	e8 c9 fa ff ff       	call   80166d <syscall>
+  801ba4:	83 c4 18             	add    $0x18,%esp
 }
-  801b13:	c9                   	leave  
-  801b14:	c3                   	ret    
+  801ba7:	c9                   	leave  
+  801ba8:	c3                   	ret    
 
-00801b15 <sys_isUHeapPlacementStrategyFIRSTFIT>:
+00801ba9 <sys_isUHeapPlacementStrategyFIRSTFIT>:
 
 
 //2015
 uint32 sys_isUHeapPlacementStrategyFIRSTFIT()
 {
-  801b15:	55                   	push   %ebp
-  801b16:	89 e5                	mov    %esp,%ebp
-  801b18:	83 ec 10             	sub    $0x10,%esp
+  801ba9:	55                   	push   %ebp
+  801baa:	89 e5                	mov    %esp,%ebp
+  801bac:	83 ec 10             	sub    $0x10,%esp
 	uint32 ret = syscall(SYS_get_heap_strategy, 0, 0, 0, 0, 0);
-  801b1b:	6a 00                	push   $0x0
-  801b1d:	6a 00                	push   $0x0
-  801b1f:	6a 00                	push   $0x0
-  801b21:	6a 00                	push   $0x0
-  801b23:	6a 00                	push   $0x0
-  801b25:	6a 2c                	push   $0x2c
-  801b27:	e8 ad fa ff ff       	call   8015d9 <syscall>
-  801b2c:	83 c4 18             	add    $0x18,%esp
-  801b2f:	89 45 fc             	mov    %eax,-0x4(%ebp)
+  801baf:	6a 00                	push   $0x0
+  801bb1:	6a 00                	push   $0x0
+  801bb3:	6a 00                	push   $0x0
+  801bb5:	6a 00                	push   $0x0
+  801bb7:	6a 00                	push   $0x0
+  801bb9:	6a 2c                	push   $0x2c
+  801bbb:	e8 ad fa ff ff       	call   80166d <syscall>
+  801bc0:	83 c4 18             	add    $0x18,%esp
+  801bc3:	89 45 fc             	mov    %eax,-0x4(%ebp)
 	if (ret == UHP_PLACE_FIRSTFIT)
-  801b32:	83 7d fc 01          	cmpl   $0x1,-0x4(%ebp)
-  801b36:	75 07                	jne    801b3f <sys_isUHeapPlacementStrategyFIRSTFIT+0x2a>
+  801bc6:	83 7d fc 01          	cmpl   $0x1,-0x4(%ebp)
+  801bca:	75 07                	jne    801bd3 <sys_isUHeapPlacementStrategyFIRSTFIT+0x2a>
 		return 1;
-  801b38:	b8 01 00 00 00       	mov    $0x1,%eax
-  801b3d:	eb 05                	jmp    801b44 <sys_isUHeapPlacementStrategyFIRSTFIT+0x2f>
+  801bcc:	b8 01 00 00 00       	mov    $0x1,%eax
+  801bd1:	eb 05                	jmp    801bd8 <sys_isUHeapPlacementStrategyFIRSTFIT+0x2f>
 	else
 		return 0;
-  801b3f:	b8 00 00 00 00       	mov    $0x0,%eax
+  801bd3:	b8 00 00 00 00       	mov    $0x0,%eax
 }
-  801b44:	c9                   	leave  
-  801b45:	c3                   	ret    
+  801bd8:	c9                   	leave  
+  801bd9:	c3                   	ret    
 
-00801b46 <sys_isUHeapPlacementStrategyBESTFIT>:
+00801bda <sys_isUHeapPlacementStrategyBESTFIT>:
 uint32 sys_isUHeapPlacementStrategyBESTFIT()
 {
-  801b46:	55                   	push   %ebp
-  801b47:	89 e5                	mov    %esp,%ebp
-  801b49:	83 ec 10             	sub    $0x10,%esp
+  801bda:	55                   	push   %ebp
+  801bdb:	89 e5                	mov    %esp,%ebp
+  801bdd:	83 ec 10             	sub    $0x10,%esp
 	uint32 ret = syscall(SYS_get_heap_strategy, 0, 0, 0, 0, 0);
-  801b4c:	6a 00                	push   $0x0
-  801b4e:	6a 00                	push   $0x0
-  801b50:	6a 00                	push   $0x0
-  801b52:	6a 00                	push   $0x0
-  801b54:	6a 00                	push   $0x0
-  801b56:	6a 2c                	push   $0x2c
-  801b58:	e8 7c fa ff ff       	call   8015d9 <syscall>
-  801b5d:	83 c4 18             	add    $0x18,%esp
-  801b60:	89 45 fc             	mov    %eax,-0x4(%ebp)
+  801be0:	6a 00                	push   $0x0
+  801be2:	6a 00                	push   $0x0
+  801be4:	6a 00                	push   $0x0
+  801be6:	6a 00                	push   $0x0
+  801be8:	6a 00                	push   $0x0
+  801bea:	6a 2c                	push   $0x2c
+  801bec:	e8 7c fa ff ff       	call   80166d <syscall>
+  801bf1:	83 c4 18             	add    $0x18,%esp
+  801bf4:	89 45 fc             	mov    %eax,-0x4(%ebp)
 	if (ret == UHP_PLACE_BESTFIT)
-  801b63:	83 7d fc 02          	cmpl   $0x2,-0x4(%ebp)
-  801b67:	75 07                	jne    801b70 <sys_isUHeapPlacementStrategyBESTFIT+0x2a>
+  801bf7:	83 7d fc 02          	cmpl   $0x2,-0x4(%ebp)
+  801bfb:	75 07                	jne    801c04 <sys_isUHeapPlacementStrategyBESTFIT+0x2a>
 		return 1;
-  801b69:	b8 01 00 00 00       	mov    $0x1,%eax
-  801b6e:	eb 05                	jmp    801b75 <sys_isUHeapPlacementStrategyBESTFIT+0x2f>
+  801bfd:	b8 01 00 00 00       	mov    $0x1,%eax
+  801c02:	eb 05                	jmp    801c09 <sys_isUHeapPlacementStrategyBESTFIT+0x2f>
 	else
 		return 0;
-  801b70:	b8 00 00 00 00       	mov    $0x0,%eax
+  801c04:	b8 00 00 00 00       	mov    $0x0,%eax
 }
-  801b75:	c9                   	leave  
-  801b76:	c3                   	ret    
+  801c09:	c9                   	leave  
+  801c0a:	c3                   	ret    
 
-00801b77 <sys_isUHeapPlacementStrategyNEXTFIT>:
+00801c0b <sys_isUHeapPlacementStrategyNEXTFIT>:
 uint32 sys_isUHeapPlacementStrategyNEXTFIT()
 {
-  801b77:	55                   	push   %ebp
-  801b78:	89 e5                	mov    %esp,%ebp
-  801b7a:	83 ec 10             	sub    $0x10,%esp
+  801c0b:	55                   	push   %ebp
+  801c0c:	89 e5                	mov    %esp,%ebp
+  801c0e:	83 ec 10             	sub    $0x10,%esp
 	uint32 ret = syscall(SYS_get_heap_strategy, 0, 0, 0, 0, 0);
-  801b7d:	6a 00                	push   $0x0
-  801b7f:	6a 00                	push   $0x0
-  801b81:	6a 00                	push   $0x0
-  801b83:	6a 00                	push   $0x0
-  801b85:	6a 00                	push   $0x0
-  801b87:	6a 2c                	push   $0x2c
-  801b89:	e8 4b fa ff ff       	call   8015d9 <syscall>
-  801b8e:	83 c4 18             	add    $0x18,%esp
-  801b91:	89 45 fc             	mov    %eax,-0x4(%ebp)
+  801c11:	6a 00                	push   $0x0
+  801c13:	6a 00                	push   $0x0
+  801c15:	6a 00                	push   $0x0
+  801c17:	6a 00                	push   $0x0
+  801c19:	6a 00                	push   $0x0
+  801c1b:	6a 2c                	push   $0x2c
+  801c1d:	e8 4b fa ff ff       	call   80166d <syscall>
+  801c22:	83 c4 18             	add    $0x18,%esp
+  801c25:	89 45 fc             	mov    %eax,-0x4(%ebp)
 	if (ret == UHP_PLACE_NEXTFIT)
-  801b94:	83 7d fc 03          	cmpl   $0x3,-0x4(%ebp)
-  801b98:	75 07                	jne    801ba1 <sys_isUHeapPlacementStrategyNEXTFIT+0x2a>
+  801c28:	83 7d fc 03          	cmpl   $0x3,-0x4(%ebp)
+  801c2c:	75 07                	jne    801c35 <sys_isUHeapPlacementStrategyNEXTFIT+0x2a>
 		return 1;
-  801b9a:	b8 01 00 00 00       	mov    $0x1,%eax
-  801b9f:	eb 05                	jmp    801ba6 <sys_isUHeapPlacementStrategyNEXTFIT+0x2f>
+  801c2e:	b8 01 00 00 00       	mov    $0x1,%eax
+  801c33:	eb 05                	jmp    801c3a <sys_isUHeapPlacementStrategyNEXTFIT+0x2f>
 	else
 		return 0;
-  801ba1:	b8 00 00 00 00       	mov    $0x0,%eax
+  801c35:	b8 00 00 00 00       	mov    $0x0,%eax
 }
-  801ba6:	c9                   	leave  
-  801ba7:	c3                   	ret    
+  801c3a:	c9                   	leave  
+  801c3b:	c3                   	ret    
 
-00801ba8 <sys_isUHeapPlacementStrategyWORSTFIT>:
+00801c3c <sys_isUHeapPlacementStrategyWORSTFIT>:
 uint32 sys_isUHeapPlacementStrategyWORSTFIT()
 {
-  801ba8:	55                   	push   %ebp
-  801ba9:	89 e5                	mov    %esp,%ebp
-  801bab:	83 ec 10             	sub    $0x10,%esp
+  801c3c:	55                   	push   %ebp
+  801c3d:	89 e5                	mov    %esp,%ebp
+  801c3f:	83 ec 10             	sub    $0x10,%esp
 	uint32 ret = syscall(SYS_get_heap_strategy, 0, 0, 0, 0, 0);
-  801bae:	6a 00                	push   $0x0
-  801bb0:	6a 00                	push   $0x0
-  801bb2:	6a 00                	push   $0x0
-  801bb4:	6a 00                	push   $0x0
-  801bb6:	6a 00                	push   $0x0
-  801bb8:	6a 2c                	push   $0x2c
-  801bba:	e8 1a fa ff ff       	call   8015d9 <syscall>
-  801bbf:	83 c4 18             	add    $0x18,%esp
-  801bc2:	89 45 fc             	mov    %eax,-0x4(%ebp)
+  801c42:	6a 00                	push   $0x0
+  801c44:	6a 00                	push   $0x0
+  801c46:	6a 00                	push   $0x0
+  801c48:	6a 00                	push   $0x0
+  801c4a:	6a 00                	push   $0x0
+  801c4c:	6a 2c                	push   $0x2c
+  801c4e:	e8 1a fa ff ff       	call   80166d <syscall>
+  801c53:	83 c4 18             	add    $0x18,%esp
+  801c56:	89 45 fc             	mov    %eax,-0x4(%ebp)
 	if (ret == UHP_PLACE_WORSTFIT)
-  801bc5:	83 7d fc 04          	cmpl   $0x4,-0x4(%ebp)
-  801bc9:	75 07                	jne    801bd2 <sys_isUHeapPlacementStrategyWORSTFIT+0x2a>
+  801c59:	83 7d fc 04          	cmpl   $0x4,-0x4(%ebp)
+  801c5d:	75 07                	jne    801c66 <sys_isUHeapPlacementStrategyWORSTFIT+0x2a>
 		return 1;
-  801bcb:	b8 01 00 00 00       	mov    $0x1,%eax
-  801bd0:	eb 05                	jmp    801bd7 <sys_isUHeapPlacementStrategyWORSTFIT+0x2f>
+  801c5f:	b8 01 00 00 00       	mov    $0x1,%eax
+  801c64:	eb 05                	jmp    801c6b <sys_isUHeapPlacementStrategyWORSTFIT+0x2f>
 	else
 		return 0;
-  801bd2:	b8 00 00 00 00       	mov    $0x0,%eax
+  801c66:	b8 00 00 00 00       	mov    $0x0,%eax
 }
-  801bd7:	c9                   	leave  
-  801bd8:	c3                   	ret    
+  801c6b:	c9                   	leave  
+  801c6c:	c3                   	ret    
 
-00801bd9 <sys_set_uheap_strategy>:
+00801c6d <sys_set_uheap_strategy>:
 
 void sys_set_uheap_strategy(uint32 heapStrategy)
 {
-  801bd9:	55                   	push   %ebp
-  801bda:	89 e5                	mov    %esp,%ebp
+  801c6d:	55                   	push   %ebp
+  801c6e:	89 e5                	mov    %esp,%ebp
 	syscall(SYS_set_heap_strategy, heapStrategy, 0, 0, 0, 0);
-  801bdc:	6a 00                	push   $0x0
-  801bde:	6a 00                	push   $0x0
-  801be0:	6a 00                	push   $0x0
-  801be2:	6a 00                	push   $0x0
-  801be4:	ff 75 08             	pushl  0x8(%ebp)
-  801be7:	6a 2d                	push   $0x2d
-  801be9:	e8 eb f9 ff ff       	call   8015d9 <syscall>
-  801bee:	83 c4 18             	add    $0x18,%esp
+  801c70:	6a 00                	push   $0x0
+  801c72:	6a 00                	push   $0x0
+  801c74:	6a 00                	push   $0x0
+  801c76:	6a 00                	push   $0x0
+  801c78:	ff 75 08             	pushl  0x8(%ebp)
+  801c7b:	6a 2d                	push   $0x2d
+  801c7d:	e8 eb f9 ff ff       	call   80166d <syscall>
+  801c82:	83 c4 18             	add    $0x18,%esp
 	return ;
-  801bf1:	90                   	nop
+  801c85:	90                   	nop
 }
-  801bf2:	c9                   	leave  
-  801bf3:	c3                   	ret    
+  801c86:	c9                   	leave  
+  801c87:	c3                   	ret    
 
-00801bf4 <sys_check_LRU_lists>:
+00801c88 <sys_check_LRU_lists>:
 
 //2020
 int sys_check_LRU_lists(uint32* active_list_content, uint32* second_list_content, int actual_active_list_size, int actual_second_list_size)
 {
-  801bf4:	55                   	push   %ebp
-  801bf5:	89 e5                	mov    %esp,%ebp
-  801bf7:	53                   	push   %ebx
+  801c88:	55                   	push   %ebp
+  801c89:	89 e5                	mov    %esp,%ebp
+  801c8b:	53                   	push   %ebx
 	return syscall(SYS_check_LRU_lists, (uint32)active_list_content, (uint32)second_list_content, (uint32)actual_active_list_size, (uint32)actual_second_list_size, 0);
-  801bf8:	8b 5d 14             	mov    0x14(%ebp),%ebx
-  801bfb:	8b 4d 10             	mov    0x10(%ebp),%ecx
-  801bfe:	8b 55 0c             	mov    0xc(%ebp),%edx
-  801c01:	8b 45 08             	mov    0x8(%ebp),%eax
-  801c04:	6a 00                	push   $0x0
-  801c06:	53                   	push   %ebx
-  801c07:	51                   	push   %ecx
-  801c08:	52                   	push   %edx
-  801c09:	50                   	push   %eax
-  801c0a:	6a 2e                	push   $0x2e
-  801c0c:	e8 c8 f9 ff ff       	call   8015d9 <syscall>
-  801c11:	83 c4 18             	add    $0x18,%esp
+  801c8c:	8b 5d 14             	mov    0x14(%ebp),%ebx
+  801c8f:	8b 4d 10             	mov    0x10(%ebp),%ecx
+  801c92:	8b 55 0c             	mov    0xc(%ebp),%edx
+  801c95:	8b 45 08             	mov    0x8(%ebp),%eax
+  801c98:	6a 00                	push   $0x0
+  801c9a:	53                   	push   %ebx
+  801c9b:	51                   	push   %ecx
+  801c9c:	52                   	push   %edx
+  801c9d:	50                   	push   %eax
+  801c9e:	6a 2e                	push   $0x2e
+  801ca0:	e8 c8 f9 ff ff       	call   80166d <syscall>
+  801ca5:	83 c4 18             	add    $0x18,%esp
 }
-  801c14:	8b 5d fc             	mov    -0x4(%ebp),%ebx
-  801c17:	c9                   	leave  
-  801c18:	c3                   	ret    
+  801ca8:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+  801cab:	c9                   	leave  
+  801cac:	c3                   	ret    
 
-00801c19 <sys_check_LRU_lists_free>:
+00801cad <sys_check_LRU_lists_free>:
 
 int sys_check_LRU_lists_free(uint32* list_content, int list_size)
 {
-  801c19:	55                   	push   %ebp
-  801c1a:	89 e5                	mov    %esp,%ebp
+  801cad:	55                   	push   %ebp
+  801cae:	89 e5                	mov    %esp,%ebp
 	return syscall(SYS_check_LRU_lists_free, (uint32)list_content, (uint32)list_size , 0, 0, 0);
-  801c1c:	8b 55 0c             	mov    0xc(%ebp),%edx
-  801c1f:	8b 45 08             	mov    0x8(%ebp),%eax
-  801c22:	6a 00                	push   $0x0
-  801c24:	6a 00                	push   $0x0
-  801c26:	6a 00                	push   $0x0
-  801c28:	52                   	push   %edx
-  801c29:	50                   	push   %eax
-  801c2a:	6a 2f                	push   $0x2f
-  801c2c:	e8 a8 f9 ff ff       	call   8015d9 <syscall>
-  801c31:	83 c4 18             	add    $0x18,%esp
+  801cb0:	8b 55 0c             	mov    0xc(%ebp),%edx
+  801cb3:	8b 45 08             	mov    0x8(%ebp),%eax
+  801cb6:	6a 00                	push   $0x0
+  801cb8:	6a 00                	push   $0x0
+  801cba:	6a 00                	push   $0x0
+  801cbc:	52                   	push   %edx
+  801cbd:	50                   	push   %eax
+  801cbe:	6a 2f                	push   $0x2f
+  801cc0:	e8 a8 f9 ff ff       	call   80166d <syscall>
+  801cc5:	83 c4 18             	add    $0x18,%esp
 }
-  801c34:	c9                   	leave  
-  801c35:	c3                   	ret    
+  801cc8:	c9                   	leave  
+  801cc9:	c3                   	ret    
 
-00801c36 <env_sleep>:
+00801cca <env_sleep>:
 #include <inc/lib.h>
 #include <inc/timerreg.h>
 
 void
 env_sleep(uint32 approxMilliSeconds)
 {
-  801c36:	55                   	push   %ebp
-  801c37:	89 e5                	mov    %esp,%ebp
-  801c39:	83 ec 28             	sub    $0x28,%esp
+  801cca:	55                   	push   %ebp
+  801ccb:	89 e5                	mov    %esp,%ebp
+  801ccd:	83 ec 28             	sub    $0x28,%esp
 //	cprintf("%s go to sleep...\n", myEnv->prog_name);
 	uint32 time_in_cycles=approxMilliSeconds*CYCLES_PER_MILLISEC;
-  801c3c:	8b 55 08             	mov    0x8(%ebp),%edx
-  801c3f:	89 d0                	mov    %edx,%eax
-  801c41:	c1 e0 02             	shl    $0x2,%eax
-  801c44:	01 d0                	add    %edx,%eax
-  801c46:	8d 14 85 00 00 00 00 	lea    0x0(,%eax,4),%edx
-  801c4d:	01 d0                	add    %edx,%eax
-  801c4f:	8d 14 85 00 00 00 00 	lea    0x0(,%eax,4),%edx
-  801c56:	01 d0                	add    %edx,%eax
-  801c58:	8d 14 85 00 00 00 00 	lea    0x0(,%eax,4),%edx
-  801c5f:	01 d0                	add    %edx,%eax
-  801c61:	c1 e0 04             	shl    $0x4,%eax
-  801c64:	89 45 f0             	mov    %eax,-0x10(%ebp)
+  801cd0:	8b 55 08             	mov    0x8(%ebp),%edx
+  801cd3:	89 d0                	mov    %edx,%eax
+  801cd5:	c1 e0 02             	shl    $0x2,%eax
+  801cd8:	01 d0                	add    %edx,%eax
+  801cda:	8d 14 85 00 00 00 00 	lea    0x0(,%eax,4),%edx
+  801ce1:	01 d0                	add    %edx,%eax
+  801ce3:	8d 14 85 00 00 00 00 	lea    0x0(,%eax,4),%edx
+  801cea:	01 d0                	add    %edx,%eax
+  801cec:	8d 14 85 00 00 00 00 	lea    0x0(,%eax,4),%edx
+  801cf3:	01 d0                	add    %edx,%eax
+  801cf5:	c1 e0 04             	shl    $0x4,%eax
+  801cf8:	89 45 f0             	mov    %eax,-0x10(%ebp)
 	uint32 cycles_counter =0;
-  801c67:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  801cfb:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
 
 	struct uint64 baseTime = sys_get_virtual_time() ;
-  801c6e:	8d 45 e8             	lea    -0x18(%ebp),%eax
-  801c71:	83 ec 0c             	sub    $0xc,%esp
-  801c74:	50                   	push   %eax
-  801c75:	e8 76 fd ff ff       	call   8019f0 <sys_get_virtual_time>
-  801c7a:	83 c4 0c             	add    $0xc,%esp
+  801d02:	8d 45 e8             	lea    -0x18(%ebp),%eax
+  801d05:	83 ec 0c             	sub    $0xc,%esp
+  801d08:	50                   	push   %eax
+  801d09:	e8 76 fd ff ff       	call   801a84 <sys_get_virtual_time>
+  801d0e:	83 c4 0c             	add    $0xc,%esp
 	while(cycles_counter<time_in_cycles)
-  801c7d:	eb 41                	jmp    801cc0 <env_sleep+0x8a>
+  801d11:	eb 41                	jmp    801d54 <env_sleep+0x8a>
 	{
 		struct uint64 currentTime = sys_get_virtual_time() ;
-  801c7f:	8d 45 e0             	lea    -0x20(%ebp),%eax
-  801c82:	83 ec 0c             	sub    $0xc,%esp
-  801c85:	50                   	push   %eax
-  801c86:	e8 65 fd ff ff       	call   8019f0 <sys_get_virtual_time>
-  801c8b:	83 c4 0c             	add    $0xc,%esp
+  801d13:	8d 45 e0             	lea    -0x20(%ebp),%eax
+  801d16:	83 ec 0c             	sub    $0xc,%esp
+  801d19:	50                   	push   %eax
+  801d1a:	e8 65 fd ff ff       	call   801a84 <sys_get_virtual_time>
+  801d1f:	83 c4 0c             	add    $0xc,%esp
 
 		// update the cycles_count
 		#define M32 0xffffffff
 		// subtract basetime from current time
 		struct uint64 res;
 		res.low = (currentTime.low - baseTime.low) & M32;
-  801c8e:	8b 55 e0             	mov    -0x20(%ebp),%edx
-  801c91:	8b 45 e8             	mov    -0x18(%ebp),%eax
-  801c94:	29 c2                	sub    %eax,%edx
-  801c96:	89 d0                	mov    %edx,%eax
-  801c98:	89 45 d8             	mov    %eax,-0x28(%ebp)
+  801d22:	8b 55 e0             	mov    -0x20(%ebp),%edx
+  801d25:	8b 45 e8             	mov    -0x18(%ebp),%eax
+  801d28:	29 c2                	sub    %eax,%edx
+  801d2a:	89 d0                	mov    %edx,%eax
+  801d2c:	89 45 d8             	mov    %eax,-0x28(%ebp)
 		res.hi = (currentTime.hi - baseTime.hi - (res.low > currentTime.low)) & M32;
-  801c9b:	8b 55 e4             	mov    -0x1c(%ebp),%edx
-  801c9e:	8b 45 ec             	mov    -0x14(%ebp),%eax
-  801ca1:	89 d1                	mov    %edx,%ecx
-  801ca3:	29 c1                	sub    %eax,%ecx
-  801ca5:	8b 55 d8             	mov    -0x28(%ebp),%edx
-  801ca8:	8b 45 e0             	mov    -0x20(%ebp),%eax
-  801cab:	39 c2                	cmp    %eax,%edx
-  801cad:	0f 97 c0             	seta   %al
-  801cb0:	0f b6 c0             	movzbl %al,%eax
-  801cb3:	29 c1                	sub    %eax,%ecx
-  801cb5:	89 c8                	mov    %ecx,%eax
-  801cb7:	89 45 dc             	mov    %eax,-0x24(%ebp)
+  801d2f:	8b 55 e4             	mov    -0x1c(%ebp),%edx
+  801d32:	8b 45 ec             	mov    -0x14(%ebp),%eax
+  801d35:	89 d1                	mov    %edx,%ecx
+  801d37:	29 c1                	sub    %eax,%ecx
+  801d39:	8b 55 d8             	mov    -0x28(%ebp),%edx
+  801d3c:	8b 45 e0             	mov    -0x20(%ebp),%eax
+  801d3f:	39 c2                	cmp    %eax,%edx
+  801d41:	0f 97 c0             	seta   %al
+  801d44:	0f b6 c0             	movzbl %al,%eax
+  801d47:	29 c1                	sub    %eax,%ecx
+  801d49:	89 c8                	mov    %ecx,%eax
+  801d4b:	89 45 dc             	mov    %eax,-0x24(%ebp)
 
 		//update cycles_count with result
 		cycles_counter = res.low;
-  801cba:	8b 45 d8             	mov    -0x28(%ebp),%eax
-  801cbd:	89 45 f4             	mov    %eax,-0xc(%ebp)
+  801d4e:	8b 45 d8             	mov    -0x28(%ebp),%eax
+  801d51:	89 45 f4             	mov    %eax,-0xc(%ebp)
 //	cprintf("%s go to sleep...\n", myEnv->prog_name);
 	uint32 time_in_cycles=approxMilliSeconds*CYCLES_PER_MILLISEC;
 	uint32 cycles_counter =0;
 
 	struct uint64 baseTime = sys_get_virtual_time() ;
 	while(cycles_counter<time_in_cycles)
-  801cc0:	8b 45 f4             	mov    -0xc(%ebp),%eax
-  801cc3:	3b 45 f0             	cmp    -0x10(%ebp),%eax
-  801cc6:	72 b7                	jb     801c7f <env_sleep+0x49>
+  801d54:	8b 45 f4             	mov    -0xc(%ebp),%eax
+  801d57:	3b 45 f0             	cmp    -0x10(%ebp),%eax
+  801d5a:	72 b7                	jb     801d13 <env_sleep+0x49>
 //				,cycles_counter
 //				);
 	}
 	//cprintf("%s [%d] wake up now!\n", myEnv->prog_name, myEnv->env_id);
 
 }
-  801cc8:	90                   	nop
-  801cc9:	c9                   	leave  
-  801cca:	c3                   	ret    
+  801d5c:	90                   	nop
+  801d5d:	c9                   	leave  
+  801d5e:	c3                   	ret    
 
-00801ccb <busy_wait>:
+00801d5f <busy_wait>:
 
 //2017
 uint32 busy_wait(uint32 loopMax)
 {
-  801ccb:	55                   	push   %ebp
-  801ccc:	89 e5                	mov    %esp,%ebp
-  801cce:	83 ec 10             	sub    $0x10,%esp
+  801d5f:	55                   	push   %ebp
+  801d60:	89 e5                	mov    %esp,%ebp
+  801d62:	83 ec 10             	sub    $0x10,%esp
 	uint32 i = 0 ;
-  801cd1:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%ebp)
+  801d65:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%ebp)
 	while (i < loopMax) i++;
-  801cd8:	eb 03                	jmp    801cdd <busy_wait+0x12>
-  801cda:	ff 45 fc             	incl   -0x4(%ebp)
-  801cdd:	8b 45 fc             	mov    -0x4(%ebp),%eax
-  801ce0:	3b 45 08             	cmp    0x8(%ebp),%eax
-  801ce3:	72 f5                	jb     801cda <busy_wait+0xf>
+  801d6c:	eb 03                	jmp    801d71 <busy_wait+0x12>
+  801d6e:	ff 45 fc             	incl   -0x4(%ebp)
+  801d71:	8b 45 fc             	mov    -0x4(%ebp),%eax
+  801d74:	3b 45 08             	cmp    0x8(%ebp),%eax
+  801d77:	72 f5                	jb     801d6e <busy_wait+0xf>
 	return i;
-  801ce5:	8b 45 fc             	mov    -0x4(%ebp),%eax
+  801d79:	8b 45 fc             	mov    -0x4(%ebp),%eax
 }
-  801ce8:	c9                   	leave  
-  801ce9:	c3                   	ret    
-  801cea:	66 90                	xchg   %ax,%ax
+  801d7c:	c9                   	leave  
+  801d7d:	c3                   	ret    
+  801d7e:	66 90                	xchg   %ax,%ax
 
-00801cec <__udivdi3>:
-  801cec:	55                   	push   %ebp
-  801ced:	57                   	push   %edi
-  801cee:	56                   	push   %esi
-  801cef:	53                   	push   %ebx
-  801cf0:	83 ec 1c             	sub    $0x1c,%esp
-  801cf3:	8b 5c 24 30          	mov    0x30(%esp),%ebx
-  801cf7:	8b 4c 24 34          	mov    0x34(%esp),%ecx
-  801cfb:	8b 7c 24 38          	mov    0x38(%esp),%edi
-  801cff:	89 5c 24 08          	mov    %ebx,0x8(%esp)
-  801d03:	89 ca                	mov    %ecx,%edx
-  801d05:	89 f8                	mov    %edi,%eax
-  801d07:	8b 74 24 3c          	mov    0x3c(%esp),%esi
-  801d0b:	85 f6                	test   %esi,%esi
-  801d0d:	75 2d                	jne    801d3c <__udivdi3+0x50>
-  801d0f:	39 cf                	cmp    %ecx,%edi
-  801d11:	77 65                	ja     801d78 <__udivdi3+0x8c>
-  801d13:	89 fd                	mov    %edi,%ebp
-  801d15:	85 ff                	test   %edi,%edi
-  801d17:	75 0b                	jne    801d24 <__udivdi3+0x38>
-  801d19:	b8 01 00 00 00       	mov    $0x1,%eax
-  801d1e:	31 d2                	xor    %edx,%edx
-  801d20:	f7 f7                	div    %edi
-  801d22:	89 c5                	mov    %eax,%ebp
-  801d24:	31 d2                	xor    %edx,%edx
-  801d26:	89 c8                	mov    %ecx,%eax
-  801d28:	f7 f5                	div    %ebp
-  801d2a:	89 c1                	mov    %eax,%ecx
-  801d2c:	89 d8                	mov    %ebx,%eax
-  801d2e:	f7 f5                	div    %ebp
-  801d30:	89 cf                	mov    %ecx,%edi
-  801d32:	89 fa                	mov    %edi,%edx
-  801d34:	83 c4 1c             	add    $0x1c,%esp
-  801d37:	5b                   	pop    %ebx
-  801d38:	5e                   	pop    %esi
-  801d39:	5f                   	pop    %edi
-  801d3a:	5d                   	pop    %ebp
-  801d3b:	c3                   	ret    
-  801d3c:	39 ce                	cmp    %ecx,%esi
-  801d3e:	77 28                	ja     801d68 <__udivdi3+0x7c>
-  801d40:	0f bd fe             	bsr    %esi,%edi
-  801d43:	83 f7 1f             	xor    $0x1f,%edi
-  801d46:	75 40                	jne    801d88 <__udivdi3+0x9c>
-  801d48:	39 ce                	cmp    %ecx,%esi
-  801d4a:	72 0a                	jb     801d56 <__udivdi3+0x6a>
-  801d4c:	3b 44 24 08          	cmp    0x8(%esp),%eax
-  801d50:	0f 87 9e 00 00 00    	ja     801df4 <__udivdi3+0x108>
-  801d56:	b8 01 00 00 00       	mov    $0x1,%eax
-  801d5b:	89 fa                	mov    %edi,%edx
-  801d5d:	83 c4 1c             	add    $0x1c,%esp
-  801d60:	5b                   	pop    %ebx
-  801d61:	5e                   	pop    %esi
-  801d62:	5f                   	pop    %edi
-  801d63:	5d                   	pop    %ebp
-  801d64:	c3                   	ret    
-  801d65:	8d 76 00             	lea    0x0(%esi),%esi
-  801d68:	31 ff                	xor    %edi,%edi
-  801d6a:	31 c0                	xor    %eax,%eax
-  801d6c:	89 fa                	mov    %edi,%edx
-  801d6e:	83 c4 1c             	add    $0x1c,%esp
-  801d71:	5b                   	pop    %ebx
-  801d72:	5e                   	pop    %esi
-  801d73:	5f                   	pop    %edi
-  801d74:	5d                   	pop    %ebp
-  801d75:	c3                   	ret    
-  801d76:	66 90                	xchg   %ax,%ax
-  801d78:	89 d8                	mov    %ebx,%eax
-  801d7a:	f7 f7                	div    %edi
-  801d7c:	31 ff                	xor    %edi,%edi
-  801d7e:	89 fa                	mov    %edi,%edx
-  801d80:	83 c4 1c             	add    $0x1c,%esp
-  801d83:	5b                   	pop    %ebx
-  801d84:	5e                   	pop    %esi
-  801d85:	5f                   	pop    %edi
-  801d86:	5d                   	pop    %ebp
-  801d87:	c3                   	ret    
-  801d88:	bd 20 00 00 00       	mov    $0x20,%ebp
-  801d8d:	89 eb                	mov    %ebp,%ebx
-  801d8f:	29 fb                	sub    %edi,%ebx
-  801d91:	89 f9                	mov    %edi,%ecx
-  801d93:	d3 e6                	shl    %cl,%esi
-  801d95:	89 c5                	mov    %eax,%ebp
-  801d97:	88 d9                	mov    %bl,%cl
-  801d99:	d3 ed                	shr    %cl,%ebp
-  801d9b:	89 e9                	mov    %ebp,%ecx
-  801d9d:	09 f1                	or     %esi,%ecx
-  801d9f:	89 4c 24 0c          	mov    %ecx,0xc(%esp)
-  801da3:	89 f9                	mov    %edi,%ecx
-  801da5:	d3 e0                	shl    %cl,%eax
-  801da7:	89 c5                	mov    %eax,%ebp
-  801da9:	89 d6                	mov    %edx,%esi
-  801dab:	88 d9                	mov    %bl,%cl
-  801dad:	d3 ee                	shr    %cl,%esi
-  801daf:	89 f9                	mov    %edi,%ecx
-  801db1:	d3 e2                	shl    %cl,%edx
-  801db3:	8b 44 24 08          	mov    0x8(%esp),%eax
-  801db7:	88 d9                	mov    %bl,%cl
-  801db9:	d3 e8                	shr    %cl,%eax
-  801dbb:	09 c2                	or     %eax,%edx
-  801dbd:	89 d0                	mov    %edx,%eax
-  801dbf:	89 f2                	mov    %esi,%edx
-  801dc1:	f7 74 24 0c          	divl   0xc(%esp)
-  801dc5:	89 d6                	mov    %edx,%esi
-  801dc7:	89 c3                	mov    %eax,%ebx
-  801dc9:	f7 e5                	mul    %ebp
-  801dcb:	39 d6                	cmp    %edx,%esi
-  801dcd:	72 19                	jb     801de8 <__udivdi3+0xfc>
-  801dcf:	74 0b                	je     801ddc <__udivdi3+0xf0>
-  801dd1:	89 d8                	mov    %ebx,%eax
-  801dd3:	31 ff                	xor    %edi,%edi
-  801dd5:	e9 58 ff ff ff       	jmp    801d32 <__udivdi3+0x46>
-  801dda:	66 90                	xchg   %ax,%ax
-  801ddc:	8b 54 24 08          	mov    0x8(%esp),%edx
-  801de0:	89 f9                	mov    %edi,%ecx
-  801de2:	d3 e2                	shl    %cl,%edx
-  801de4:	39 c2                	cmp    %eax,%edx
-  801de6:	73 e9                	jae    801dd1 <__udivdi3+0xe5>
-  801de8:	8d 43 ff             	lea    -0x1(%ebx),%eax
-  801deb:	31 ff                	xor    %edi,%edi
-  801ded:	e9 40 ff ff ff       	jmp    801d32 <__udivdi3+0x46>
-  801df2:	66 90                	xchg   %ax,%ax
-  801df4:	31 c0                	xor    %eax,%eax
-  801df6:	e9 37 ff ff ff       	jmp    801d32 <__udivdi3+0x46>
-  801dfb:	90                   	nop
+00801d80 <__udivdi3>:
+  801d80:	55                   	push   %ebp
+  801d81:	57                   	push   %edi
+  801d82:	56                   	push   %esi
+  801d83:	53                   	push   %ebx
+  801d84:	83 ec 1c             	sub    $0x1c,%esp
+  801d87:	8b 5c 24 30          	mov    0x30(%esp),%ebx
+  801d8b:	8b 4c 24 34          	mov    0x34(%esp),%ecx
+  801d8f:	8b 7c 24 38          	mov    0x38(%esp),%edi
+  801d93:	89 5c 24 08          	mov    %ebx,0x8(%esp)
+  801d97:	89 ca                	mov    %ecx,%edx
+  801d99:	89 f8                	mov    %edi,%eax
+  801d9b:	8b 74 24 3c          	mov    0x3c(%esp),%esi
+  801d9f:	85 f6                	test   %esi,%esi
+  801da1:	75 2d                	jne    801dd0 <__udivdi3+0x50>
+  801da3:	39 cf                	cmp    %ecx,%edi
+  801da5:	77 65                	ja     801e0c <__udivdi3+0x8c>
+  801da7:	89 fd                	mov    %edi,%ebp
+  801da9:	85 ff                	test   %edi,%edi
+  801dab:	75 0b                	jne    801db8 <__udivdi3+0x38>
+  801dad:	b8 01 00 00 00       	mov    $0x1,%eax
+  801db2:	31 d2                	xor    %edx,%edx
+  801db4:	f7 f7                	div    %edi
+  801db6:	89 c5                	mov    %eax,%ebp
+  801db8:	31 d2                	xor    %edx,%edx
+  801dba:	89 c8                	mov    %ecx,%eax
+  801dbc:	f7 f5                	div    %ebp
+  801dbe:	89 c1                	mov    %eax,%ecx
+  801dc0:	89 d8                	mov    %ebx,%eax
+  801dc2:	f7 f5                	div    %ebp
+  801dc4:	89 cf                	mov    %ecx,%edi
+  801dc6:	89 fa                	mov    %edi,%edx
+  801dc8:	83 c4 1c             	add    $0x1c,%esp
+  801dcb:	5b                   	pop    %ebx
+  801dcc:	5e                   	pop    %esi
+  801dcd:	5f                   	pop    %edi
+  801dce:	5d                   	pop    %ebp
+  801dcf:	c3                   	ret    
+  801dd0:	39 ce                	cmp    %ecx,%esi
+  801dd2:	77 28                	ja     801dfc <__udivdi3+0x7c>
+  801dd4:	0f bd fe             	bsr    %esi,%edi
+  801dd7:	83 f7 1f             	xor    $0x1f,%edi
+  801dda:	75 40                	jne    801e1c <__udivdi3+0x9c>
+  801ddc:	39 ce                	cmp    %ecx,%esi
+  801dde:	72 0a                	jb     801dea <__udivdi3+0x6a>
+  801de0:	3b 44 24 08          	cmp    0x8(%esp),%eax
+  801de4:	0f 87 9e 00 00 00    	ja     801e88 <__udivdi3+0x108>
+  801dea:	b8 01 00 00 00       	mov    $0x1,%eax
+  801def:	89 fa                	mov    %edi,%edx
+  801df1:	83 c4 1c             	add    $0x1c,%esp
+  801df4:	5b                   	pop    %ebx
+  801df5:	5e                   	pop    %esi
+  801df6:	5f                   	pop    %edi
+  801df7:	5d                   	pop    %ebp
+  801df8:	c3                   	ret    
+  801df9:	8d 76 00             	lea    0x0(%esi),%esi
+  801dfc:	31 ff                	xor    %edi,%edi
+  801dfe:	31 c0                	xor    %eax,%eax
+  801e00:	89 fa                	mov    %edi,%edx
+  801e02:	83 c4 1c             	add    $0x1c,%esp
+  801e05:	5b                   	pop    %ebx
+  801e06:	5e                   	pop    %esi
+  801e07:	5f                   	pop    %edi
+  801e08:	5d                   	pop    %ebp
+  801e09:	c3                   	ret    
+  801e0a:	66 90                	xchg   %ax,%ax
+  801e0c:	89 d8                	mov    %ebx,%eax
+  801e0e:	f7 f7                	div    %edi
+  801e10:	31 ff                	xor    %edi,%edi
+  801e12:	89 fa                	mov    %edi,%edx
+  801e14:	83 c4 1c             	add    $0x1c,%esp
+  801e17:	5b                   	pop    %ebx
+  801e18:	5e                   	pop    %esi
+  801e19:	5f                   	pop    %edi
+  801e1a:	5d                   	pop    %ebp
+  801e1b:	c3                   	ret    
+  801e1c:	bd 20 00 00 00       	mov    $0x20,%ebp
+  801e21:	89 eb                	mov    %ebp,%ebx
+  801e23:	29 fb                	sub    %edi,%ebx
+  801e25:	89 f9                	mov    %edi,%ecx
+  801e27:	d3 e6                	shl    %cl,%esi
+  801e29:	89 c5                	mov    %eax,%ebp
+  801e2b:	88 d9                	mov    %bl,%cl
+  801e2d:	d3 ed                	shr    %cl,%ebp
+  801e2f:	89 e9                	mov    %ebp,%ecx
+  801e31:	09 f1                	or     %esi,%ecx
+  801e33:	89 4c 24 0c          	mov    %ecx,0xc(%esp)
+  801e37:	89 f9                	mov    %edi,%ecx
+  801e39:	d3 e0                	shl    %cl,%eax
+  801e3b:	89 c5                	mov    %eax,%ebp
+  801e3d:	89 d6                	mov    %edx,%esi
+  801e3f:	88 d9                	mov    %bl,%cl
+  801e41:	d3 ee                	shr    %cl,%esi
+  801e43:	89 f9                	mov    %edi,%ecx
+  801e45:	d3 e2                	shl    %cl,%edx
+  801e47:	8b 44 24 08          	mov    0x8(%esp),%eax
+  801e4b:	88 d9                	mov    %bl,%cl
+  801e4d:	d3 e8                	shr    %cl,%eax
+  801e4f:	09 c2                	or     %eax,%edx
+  801e51:	89 d0                	mov    %edx,%eax
+  801e53:	89 f2                	mov    %esi,%edx
+  801e55:	f7 74 24 0c          	divl   0xc(%esp)
+  801e59:	89 d6                	mov    %edx,%esi
+  801e5b:	89 c3                	mov    %eax,%ebx
+  801e5d:	f7 e5                	mul    %ebp
+  801e5f:	39 d6                	cmp    %edx,%esi
+  801e61:	72 19                	jb     801e7c <__udivdi3+0xfc>
+  801e63:	74 0b                	je     801e70 <__udivdi3+0xf0>
+  801e65:	89 d8                	mov    %ebx,%eax
+  801e67:	31 ff                	xor    %edi,%edi
+  801e69:	e9 58 ff ff ff       	jmp    801dc6 <__udivdi3+0x46>
+  801e6e:	66 90                	xchg   %ax,%ax
+  801e70:	8b 54 24 08          	mov    0x8(%esp),%edx
+  801e74:	89 f9                	mov    %edi,%ecx
+  801e76:	d3 e2                	shl    %cl,%edx
+  801e78:	39 c2                	cmp    %eax,%edx
+  801e7a:	73 e9                	jae    801e65 <__udivdi3+0xe5>
+  801e7c:	8d 43 ff             	lea    -0x1(%ebx),%eax
+  801e7f:	31 ff                	xor    %edi,%edi
+  801e81:	e9 40 ff ff ff       	jmp    801dc6 <__udivdi3+0x46>
+  801e86:	66 90                	xchg   %ax,%ax
+  801e88:	31 c0                	xor    %eax,%eax
+  801e8a:	e9 37 ff ff ff       	jmp    801dc6 <__udivdi3+0x46>
+  801e8f:	90                   	nop
 
-00801dfc <__umoddi3>:
-  801dfc:	55                   	push   %ebp
-  801dfd:	57                   	push   %edi
-  801dfe:	56                   	push   %esi
-  801dff:	53                   	push   %ebx
-  801e00:	83 ec 1c             	sub    $0x1c,%esp
-  801e03:	8b 4c 24 30          	mov    0x30(%esp),%ecx
-  801e07:	8b 74 24 34          	mov    0x34(%esp),%esi
-  801e0b:	8b 7c 24 38          	mov    0x38(%esp),%edi
-  801e0f:	8b 44 24 3c          	mov    0x3c(%esp),%eax
-  801e13:	89 44 24 0c          	mov    %eax,0xc(%esp)
-  801e17:	89 4c 24 08          	mov    %ecx,0x8(%esp)
-  801e1b:	89 f3                	mov    %esi,%ebx
-  801e1d:	89 fa                	mov    %edi,%edx
-  801e1f:	89 4c 24 04          	mov    %ecx,0x4(%esp)
-  801e23:	89 34 24             	mov    %esi,(%esp)
-  801e26:	85 c0                	test   %eax,%eax
-  801e28:	75 1a                	jne    801e44 <__umoddi3+0x48>
-  801e2a:	39 f7                	cmp    %esi,%edi
-  801e2c:	0f 86 a2 00 00 00    	jbe    801ed4 <__umoddi3+0xd8>
-  801e32:	89 c8                	mov    %ecx,%eax
-  801e34:	89 f2                	mov    %esi,%edx
-  801e36:	f7 f7                	div    %edi
-  801e38:	89 d0                	mov    %edx,%eax
-  801e3a:	31 d2                	xor    %edx,%edx
-  801e3c:	83 c4 1c             	add    $0x1c,%esp
-  801e3f:	5b                   	pop    %ebx
-  801e40:	5e                   	pop    %esi
-  801e41:	5f                   	pop    %edi
-  801e42:	5d                   	pop    %ebp
-  801e43:	c3                   	ret    
-  801e44:	39 f0                	cmp    %esi,%eax
-  801e46:	0f 87 ac 00 00 00    	ja     801ef8 <__umoddi3+0xfc>
-  801e4c:	0f bd e8             	bsr    %eax,%ebp
-  801e4f:	83 f5 1f             	xor    $0x1f,%ebp
-  801e52:	0f 84 ac 00 00 00    	je     801f04 <__umoddi3+0x108>
-  801e58:	bf 20 00 00 00       	mov    $0x20,%edi
-  801e5d:	29 ef                	sub    %ebp,%edi
-  801e5f:	89 fe                	mov    %edi,%esi
-  801e61:	89 7c 24 0c          	mov    %edi,0xc(%esp)
-  801e65:	89 e9                	mov    %ebp,%ecx
-  801e67:	d3 e0                	shl    %cl,%eax
-  801e69:	89 d7                	mov    %edx,%edi
-  801e6b:	89 f1                	mov    %esi,%ecx
-  801e6d:	d3 ef                	shr    %cl,%edi
-  801e6f:	09 c7                	or     %eax,%edi
-  801e71:	89 e9                	mov    %ebp,%ecx
-  801e73:	d3 e2                	shl    %cl,%edx
-  801e75:	89 14 24             	mov    %edx,(%esp)
-  801e78:	89 d8                	mov    %ebx,%eax
-  801e7a:	d3 e0                	shl    %cl,%eax
-  801e7c:	89 c2                	mov    %eax,%edx
-  801e7e:	8b 44 24 08          	mov    0x8(%esp),%eax
-  801e82:	d3 e0                	shl    %cl,%eax
-  801e84:	89 44 24 04          	mov    %eax,0x4(%esp)
-  801e88:	8b 44 24 08          	mov    0x8(%esp),%eax
-  801e8c:	89 f1                	mov    %esi,%ecx
-  801e8e:	d3 e8                	shr    %cl,%eax
-  801e90:	09 d0                	or     %edx,%eax
-  801e92:	d3 eb                	shr    %cl,%ebx
-  801e94:	89 da                	mov    %ebx,%edx
-  801e96:	f7 f7                	div    %edi
-  801e98:	89 d3                	mov    %edx,%ebx
-  801e9a:	f7 24 24             	mull   (%esp)
-  801e9d:	89 c6                	mov    %eax,%esi
-  801e9f:	89 d1                	mov    %edx,%ecx
-  801ea1:	39 d3                	cmp    %edx,%ebx
-  801ea3:	0f 82 87 00 00 00    	jb     801f30 <__umoddi3+0x134>
-  801ea9:	0f 84 91 00 00 00    	je     801f40 <__umoddi3+0x144>
-  801eaf:	8b 54 24 04          	mov    0x4(%esp),%edx
-  801eb3:	29 f2                	sub    %esi,%edx
-  801eb5:	19 cb                	sbb    %ecx,%ebx
-  801eb7:	89 d8                	mov    %ebx,%eax
-  801eb9:	8a 4c 24 0c          	mov    0xc(%esp),%cl
-  801ebd:	d3 e0                	shl    %cl,%eax
-  801ebf:	89 e9                	mov    %ebp,%ecx
-  801ec1:	d3 ea                	shr    %cl,%edx
-  801ec3:	09 d0                	or     %edx,%eax
-  801ec5:	89 e9                	mov    %ebp,%ecx
-  801ec7:	d3 eb                	shr    %cl,%ebx
-  801ec9:	89 da                	mov    %ebx,%edx
-  801ecb:	83 c4 1c             	add    $0x1c,%esp
-  801ece:	5b                   	pop    %ebx
-  801ecf:	5e                   	pop    %esi
-  801ed0:	5f                   	pop    %edi
-  801ed1:	5d                   	pop    %ebp
-  801ed2:	c3                   	ret    
-  801ed3:	90                   	nop
-  801ed4:	89 fd                	mov    %edi,%ebp
-  801ed6:	85 ff                	test   %edi,%edi
-  801ed8:	75 0b                	jne    801ee5 <__umoddi3+0xe9>
-  801eda:	b8 01 00 00 00       	mov    $0x1,%eax
-  801edf:	31 d2                	xor    %edx,%edx
-  801ee1:	f7 f7                	div    %edi
-  801ee3:	89 c5                	mov    %eax,%ebp
-  801ee5:	89 f0                	mov    %esi,%eax
-  801ee7:	31 d2                	xor    %edx,%edx
-  801ee9:	f7 f5                	div    %ebp
-  801eeb:	89 c8                	mov    %ecx,%eax
-  801eed:	f7 f5                	div    %ebp
-  801eef:	89 d0                	mov    %edx,%eax
-  801ef1:	e9 44 ff ff ff       	jmp    801e3a <__umoddi3+0x3e>
-  801ef6:	66 90                	xchg   %ax,%ax
-  801ef8:	89 c8                	mov    %ecx,%eax
-  801efa:	89 f2                	mov    %esi,%edx
-  801efc:	83 c4 1c             	add    $0x1c,%esp
-  801eff:	5b                   	pop    %ebx
-  801f00:	5e                   	pop    %esi
-  801f01:	5f                   	pop    %edi
-  801f02:	5d                   	pop    %ebp
-  801f03:	c3                   	ret    
-  801f04:	3b 04 24             	cmp    (%esp),%eax
-  801f07:	72 06                	jb     801f0f <__umoddi3+0x113>
-  801f09:	3b 7c 24 04          	cmp    0x4(%esp),%edi
-  801f0d:	77 0f                	ja     801f1e <__umoddi3+0x122>
-  801f0f:	89 f2                	mov    %esi,%edx
-  801f11:	29 f9                	sub    %edi,%ecx
-  801f13:	1b 54 24 0c          	sbb    0xc(%esp),%edx
-  801f17:	89 14 24             	mov    %edx,(%esp)
-  801f1a:	89 4c 24 04          	mov    %ecx,0x4(%esp)
-  801f1e:	8b 44 24 04          	mov    0x4(%esp),%eax
-  801f22:	8b 14 24             	mov    (%esp),%edx
-  801f25:	83 c4 1c             	add    $0x1c,%esp
-  801f28:	5b                   	pop    %ebx
-  801f29:	5e                   	pop    %esi
-  801f2a:	5f                   	pop    %edi
-  801f2b:	5d                   	pop    %ebp
-  801f2c:	c3                   	ret    
-  801f2d:	8d 76 00             	lea    0x0(%esi),%esi
-  801f30:	2b 04 24             	sub    (%esp),%eax
-  801f33:	19 fa                	sbb    %edi,%edx
-  801f35:	89 d1                	mov    %edx,%ecx
-  801f37:	89 c6                	mov    %eax,%esi
-  801f39:	e9 71 ff ff ff       	jmp    801eaf <__umoddi3+0xb3>
-  801f3e:	66 90                	xchg   %ax,%ax
-  801f40:	39 44 24 04          	cmp    %eax,0x4(%esp)
-  801f44:	72 ea                	jb     801f30 <__umoddi3+0x134>
-  801f46:	89 d9                	mov    %ebx,%ecx
-  801f48:	e9 62 ff ff ff       	jmp    801eaf <__umoddi3+0xb3>
+00801e90 <__umoddi3>:
+  801e90:	55                   	push   %ebp
+  801e91:	57                   	push   %edi
+  801e92:	56                   	push   %esi
+  801e93:	53                   	push   %ebx
+  801e94:	83 ec 1c             	sub    $0x1c,%esp
+  801e97:	8b 4c 24 30          	mov    0x30(%esp),%ecx
+  801e9b:	8b 74 24 34          	mov    0x34(%esp),%esi
+  801e9f:	8b 7c 24 38          	mov    0x38(%esp),%edi
+  801ea3:	8b 44 24 3c          	mov    0x3c(%esp),%eax
+  801ea7:	89 44 24 0c          	mov    %eax,0xc(%esp)
+  801eab:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+  801eaf:	89 f3                	mov    %esi,%ebx
+  801eb1:	89 fa                	mov    %edi,%edx
+  801eb3:	89 4c 24 04          	mov    %ecx,0x4(%esp)
+  801eb7:	89 34 24             	mov    %esi,(%esp)
+  801eba:	85 c0                	test   %eax,%eax
+  801ebc:	75 1a                	jne    801ed8 <__umoddi3+0x48>
+  801ebe:	39 f7                	cmp    %esi,%edi
+  801ec0:	0f 86 a2 00 00 00    	jbe    801f68 <__umoddi3+0xd8>
+  801ec6:	89 c8                	mov    %ecx,%eax
+  801ec8:	89 f2                	mov    %esi,%edx
+  801eca:	f7 f7                	div    %edi
+  801ecc:	89 d0                	mov    %edx,%eax
+  801ece:	31 d2                	xor    %edx,%edx
+  801ed0:	83 c4 1c             	add    $0x1c,%esp
+  801ed3:	5b                   	pop    %ebx
+  801ed4:	5e                   	pop    %esi
+  801ed5:	5f                   	pop    %edi
+  801ed6:	5d                   	pop    %ebp
+  801ed7:	c3                   	ret    
+  801ed8:	39 f0                	cmp    %esi,%eax
+  801eda:	0f 87 ac 00 00 00    	ja     801f8c <__umoddi3+0xfc>
+  801ee0:	0f bd e8             	bsr    %eax,%ebp
+  801ee3:	83 f5 1f             	xor    $0x1f,%ebp
+  801ee6:	0f 84 ac 00 00 00    	je     801f98 <__umoddi3+0x108>
+  801eec:	bf 20 00 00 00       	mov    $0x20,%edi
+  801ef1:	29 ef                	sub    %ebp,%edi
+  801ef3:	89 fe                	mov    %edi,%esi
+  801ef5:	89 7c 24 0c          	mov    %edi,0xc(%esp)
+  801ef9:	89 e9                	mov    %ebp,%ecx
+  801efb:	d3 e0                	shl    %cl,%eax
+  801efd:	89 d7                	mov    %edx,%edi
+  801eff:	89 f1                	mov    %esi,%ecx
+  801f01:	d3 ef                	shr    %cl,%edi
+  801f03:	09 c7                	or     %eax,%edi
+  801f05:	89 e9                	mov    %ebp,%ecx
+  801f07:	d3 e2                	shl    %cl,%edx
+  801f09:	89 14 24             	mov    %edx,(%esp)
+  801f0c:	89 d8                	mov    %ebx,%eax
+  801f0e:	d3 e0                	shl    %cl,%eax
+  801f10:	89 c2                	mov    %eax,%edx
+  801f12:	8b 44 24 08          	mov    0x8(%esp),%eax
+  801f16:	d3 e0                	shl    %cl,%eax
+  801f18:	89 44 24 04          	mov    %eax,0x4(%esp)
+  801f1c:	8b 44 24 08          	mov    0x8(%esp),%eax
+  801f20:	89 f1                	mov    %esi,%ecx
+  801f22:	d3 e8                	shr    %cl,%eax
+  801f24:	09 d0                	or     %edx,%eax
+  801f26:	d3 eb                	shr    %cl,%ebx
+  801f28:	89 da                	mov    %ebx,%edx
+  801f2a:	f7 f7                	div    %edi
+  801f2c:	89 d3                	mov    %edx,%ebx
+  801f2e:	f7 24 24             	mull   (%esp)
+  801f31:	89 c6                	mov    %eax,%esi
+  801f33:	89 d1                	mov    %edx,%ecx
+  801f35:	39 d3                	cmp    %edx,%ebx
+  801f37:	0f 82 87 00 00 00    	jb     801fc4 <__umoddi3+0x134>
+  801f3d:	0f 84 91 00 00 00    	je     801fd4 <__umoddi3+0x144>
+  801f43:	8b 54 24 04          	mov    0x4(%esp),%edx
+  801f47:	29 f2                	sub    %esi,%edx
+  801f49:	19 cb                	sbb    %ecx,%ebx
+  801f4b:	89 d8                	mov    %ebx,%eax
+  801f4d:	8a 4c 24 0c          	mov    0xc(%esp),%cl
+  801f51:	d3 e0                	shl    %cl,%eax
+  801f53:	89 e9                	mov    %ebp,%ecx
+  801f55:	d3 ea                	shr    %cl,%edx
+  801f57:	09 d0                	or     %edx,%eax
+  801f59:	89 e9                	mov    %ebp,%ecx
+  801f5b:	d3 eb                	shr    %cl,%ebx
+  801f5d:	89 da                	mov    %ebx,%edx
+  801f5f:	83 c4 1c             	add    $0x1c,%esp
+  801f62:	5b                   	pop    %ebx
+  801f63:	5e                   	pop    %esi
+  801f64:	5f                   	pop    %edi
+  801f65:	5d                   	pop    %ebp
+  801f66:	c3                   	ret    
+  801f67:	90                   	nop
+  801f68:	89 fd                	mov    %edi,%ebp
+  801f6a:	85 ff                	test   %edi,%edi
+  801f6c:	75 0b                	jne    801f79 <__umoddi3+0xe9>
+  801f6e:	b8 01 00 00 00       	mov    $0x1,%eax
+  801f73:	31 d2                	xor    %edx,%edx
+  801f75:	f7 f7                	div    %edi
+  801f77:	89 c5                	mov    %eax,%ebp
+  801f79:	89 f0                	mov    %esi,%eax
+  801f7b:	31 d2                	xor    %edx,%edx
+  801f7d:	f7 f5                	div    %ebp
+  801f7f:	89 c8                	mov    %ecx,%eax
+  801f81:	f7 f5                	div    %ebp
+  801f83:	89 d0                	mov    %edx,%eax
+  801f85:	e9 44 ff ff ff       	jmp    801ece <__umoddi3+0x3e>
+  801f8a:	66 90                	xchg   %ax,%ax
+  801f8c:	89 c8                	mov    %ecx,%eax
+  801f8e:	89 f2                	mov    %esi,%edx
+  801f90:	83 c4 1c             	add    $0x1c,%esp
+  801f93:	5b                   	pop    %ebx
+  801f94:	5e                   	pop    %esi
+  801f95:	5f                   	pop    %edi
+  801f96:	5d                   	pop    %ebp
+  801f97:	c3                   	ret    
+  801f98:	3b 04 24             	cmp    (%esp),%eax
+  801f9b:	72 06                	jb     801fa3 <__umoddi3+0x113>
+  801f9d:	3b 7c 24 04          	cmp    0x4(%esp),%edi
+  801fa1:	77 0f                	ja     801fb2 <__umoddi3+0x122>
+  801fa3:	89 f2                	mov    %esi,%edx
+  801fa5:	29 f9                	sub    %edi,%ecx
+  801fa7:	1b 54 24 0c          	sbb    0xc(%esp),%edx
+  801fab:	89 14 24             	mov    %edx,(%esp)
+  801fae:	89 4c 24 04          	mov    %ecx,0x4(%esp)
+  801fb2:	8b 44 24 04          	mov    0x4(%esp),%eax
+  801fb6:	8b 14 24             	mov    (%esp),%edx
+  801fb9:	83 c4 1c             	add    $0x1c,%esp
+  801fbc:	5b                   	pop    %ebx
+  801fbd:	5e                   	pop    %esi
+  801fbe:	5f                   	pop    %edi
+  801fbf:	5d                   	pop    %ebp
+  801fc0:	c3                   	ret    
+  801fc1:	8d 76 00             	lea    0x0(%esi),%esi
+  801fc4:	2b 04 24             	sub    (%esp),%eax
+  801fc7:	19 fa                	sbb    %edi,%edx
+  801fc9:	89 d1                	mov    %edx,%ecx
+  801fcb:	89 c6                	mov    %eax,%esi
+  801fcd:	e9 71 ff ff ff       	jmp    801f43 <__umoddi3+0xb3>
+  801fd2:	66 90                	xchg   %ax,%ax
+  801fd4:	39 44 24 04          	cmp    %eax,0x4(%esp)
+  801fd8:	72 ea                	jb     801fc4 <__umoddi3+0x134>
+  801fda:	89 d9                	mov    %ebx,%ecx
+  801fdc:	e9 62 ff ff ff       	jmp    801f43 <__umoddi3+0xb3>

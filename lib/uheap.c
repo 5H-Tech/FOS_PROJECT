@@ -128,6 +128,24 @@ void free(void* virtual_address)
 	//TODO: [PROJECT 2021 - [2] User Heap] free() [User Side]
 	// Write your code here, remove the panic and write your code
 	//you should get the size of the given allocation using its address
+    uint32 va=(uint32)virtual_address;
+    int size;
+    int is_found=0;
+    int index;
+    for(int i=0;i<sizeofarray;i++){
+    	if(addresses[i]==va&&changed[i]==1){
+    		is_found=1;
+    		index=i;
+    		break;
+    	}
+    }
+    if(is_found==1){
+    	size=numOfPages[index]*PAGE_SIZE;
+    	sys_freeMem(va,size);
+    	changed[index]=0;
+    	changes++;
+    }
+
 
 	//refer to the project presentation and documentation for details
 }

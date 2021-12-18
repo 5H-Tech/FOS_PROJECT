@@ -78,14 +78,14 @@ f0100042:	83 ec 08             	sub    $0x8,%esp
 	// clear the uninitialized global data (BSS) section of our program, from start_of_uninitialized_data_section to end_of_kernel
 	// This ensures that all static/global variables start with zero value.
 	memset(start_of_uninitialized_data_section, 0, end_of_kernel - start_of_uninitialized_data_section);
-f0100045:	ba d0 88 b1 f0       	mov    $0xf0b188d0,%edx
-f010004a:	b8 8c 14 a9 f0       	mov    $0xf0a9148c,%eax
+f0100045:	ba d0 e8 b1 f0       	mov    $0xf0b1e8d0,%edx
+f010004a:	b8 8c 74 a9 f0       	mov    $0xf0a9748c,%eax
 f010004f:	29 c2                	sub    %eax,%edx
 f0100051:	89 d0                	mov    %edx,%eax
 f0100053:	83 ec 04             	sub    $0x4,%esp
 f0100056:	50                   	push   %eax
 f0100057:	6a 00                	push   $0x0
-f0100059:	68 8c 14 a9 f0       	push   $0xf0a9148c
+f0100059:	68 8c 74 a9 f0       	push   $0xf0a9748c
 f010005e:	e8 86 01 02 00       	call   f01201e9 <memset>
 f0100063:	83 c4 10             	add    $0x10,%esp
 
@@ -230,7 +230,7 @@ f0100177:	83 ec 18             	sub    $0x18,%esp
 	//	goto dead;
 	panicstr = fmt;
 f010017a:	8b 45 10             	mov    0x10(%ebp),%eax
-f010017d:	a3 a0 14 a9 f0       	mov    %eax,0xf0a914a0
+f010017d:	a3 a0 74 a9 f0       	mov    %eax,0xf0a974a0
 
 	va_start(ap, fmt);
 f0100182:	8d 45 10             	lea    0x10(%ebp),%eax
@@ -261,10 +261,10 @@ dead:
 	/* break into the fos scheduler */
 	//2013: Check if the panic occur when running an environment
 	if (curenv != NULL && curenv->env_status == ENV_RUNNABLE)
-f01001c3:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f01001c3:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f01001c8:	85 c0                	test   %eax,%eax
 f01001ca:	74 12                	je     f01001de <_panic+0x6a>
-f01001cc:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f01001cc:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f01001d1:	8b 40 54             	mov    0x54(%eax),%eax
 f01001d4:	83 f8 02             	cmp    $0x2,%eax
 f01001d7:	75 05                	jne    f01001de <_panic+0x6a>
@@ -295,7 +295,7 @@ f01001e6:	83 ec 18             	sub    $0x18,%esp
 	//	goto dead;
 	panicstr = fmt;
 f01001e9:	8b 45 10             	mov    0x10(%ebp),%eax
-f01001ec:	a3 a0 14 a9 f0       	mov    %eax,0xf0a914a0
+f01001ec:	a3 a0 74 a9 f0       	mov    %eax,0xf0a974a0
 
 	va_start(ap, fmt);
 f01001f1:	8d 45 10             	lea    0x10(%ebp),%eax
@@ -328,13 +328,13 @@ dead:
 	sched_exit_all_ready_envs();
 f0100232:	e8 1f a9 00 00       	call   f010ab56 <sched_exit_all_ready_envs>
 	if (curenv != NULL)
-f0100237:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0100237:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010023c:	85 c0                	test   %eax,%eax
 f010023e:	74 14                	je     f0100254 <_panic_all+0x71>
 	{
 		//cprintf("exit curenv...........\n");
 		sched_exit_env(curenv->env_id);
-f0100240:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0100240:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0100245:	8b 40 4c             	mov    0x4c(%eax),%eax
 f0100248:	83 ec 0c             	sub    $0xc,%esp
 f010024b:	50                   	push   %eax
@@ -362,7 +362,7 @@ f010025c:	83 ec 18             	sub    $0x18,%esp
 	//	goto dead;
 	panicstr = fmt;
 f010025f:	8b 45 10             	mov    0x10(%ebp),%eax
-f0100262:	a3 a0 14 a9 f0       	mov    %eax,0xf0a914a0
+f0100262:	a3 a0 74 a9 f0       	mov    %eax,0xf0a974a0
 
 	va_start(ap, fmt);
 f0100267:	8d 45 10             	lea    0x10(%ebp),%eax
@@ -393,27 +393,27 @@ dead:
 	/* break into the fos scheduler */
 	//2013: Check if the panic occur when running an environment
 	if (curenv != NULL && curenv->env_status == ENV_RUNNABLE)
-f01002a8:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f01002a8:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f01002ad:	85 c0                	test   %eax,%eax
 f01002af:	74 28                	je     f01002d9 <_panic_into_prompt+0x80>
-f01002b1:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f01002b1:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f01002b6:	8b 40 54             	mov    0x54(%eax),%eax
 f01002b9:	83 f8 02             	cmp    $0x2,%eax
 f01002bc:	75 1b                	jne    f01002d9 <_panic_into_prompt+0x80>
 	{
 		sched_insert_exit(curenv);
-f01002be:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f01002be:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f01002c3:	83 ec 0c             	sub    $0xc,%esp
 f01002c6:	50                   	push   %eax
 f01002c7:	e8 6d 9f 00 00       	call   f010a239 <sched_insert_exit>
 f01002cc:	83 c4 10             	add    $0x10,%esp
 		curenv = NULL;
-f01002cf:	c7 05 f0 16 a9 f0 00 	movl   $0x0,0xf0a916f0
+f01002cf:	c7 05 f0 76 a9 f0 00 	movl   $0x0,0xf0a976f0
 f01002d6:	00 00 00 
 	}
 
 	lcr3(phys_page_directory);
-f01002d9:	a1 d8 87 b1 f0       	mov    0xf0b187d8,%eax
+f01002d9:	a1 d8 e7 b1 f0       	mov    0xf0b1e7d8,%eax
 f01002de:	89 45 f0             	mov    %eax,-0x10(%ebp)
 }
 
@@ -425,7 +425,7 @@ f01002e1:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f01002e4:	0f 22 d8             	mov    %eax,%cr3
 
 	scheduler_status = SCH_STOPPED;
-f01002e7:	c7 05 5c a3 af f0 00 	movl   $0x0,0xf0afa35c
+f01002e7:	c7 05 5c 03 b0 f0 00 	movl   $0x0,0xf0b0035c
 f01002ee:	00 00 00 
 	while (1)
 		run_command_prompt(NULL);
@@ -534,7 +534,7 @@ f010038c:	55                   	push   %ebp
 f010038d:	89 e5                	mov    %esp,%ebp
 f010038f:	83 ec 08             	sub    $0x8,%esp
 	if (serial_exists)
-f0100392:	a1 c4 14 a9 f0       	mov    0xf0a914c4,%eax
+f0100392:	a1 c4 74 a9 f0       	mov    0xf0a974c4,%eax
 f0100397:	85 c0                	test   %eax,%eax
 f0100399:	74 10                	je     f01003ab <serial_intr+0x1f>
 		cons_intr(serial_proc_data);
@@ -618,7 +618,7 @@ f0100442:	8a 45 d5             	mov    -0x2b(%ebp),%al
 f0100445:	3c ff                	cmp    $0xff,%al
 f0100447:	0f 95 c0             	setne  %al
 f010044a:	0f b6 c0             	movzbl %al,%eax
-f010044d:	a3 c4 14 a9 f0       	mov    %eax,0xf0a914c4
+f010044d:	a3 c4 74 a9 f0       	mov    %eax,0xf0a974c4
 f0100452:	c7 45 dc fa 03 00 00 	movl   $0x3fa,-0x24(%ebp)
 
 static __inline uint8
@@ -778,7 +778,7 @@ f010055c:	74 13                	je     f0100571 <cga_init+0x3e>
 		cp = (uint16*) (KERNEL_BASE + MONO_BUF);
 f010055e:	c7 45 fc 00 00 0b f0 	movl   $0xf00b0000,-0x4(%ebp)
 		addr_6845 = MONO_BASE;
-f0100565:	c7 05 c8 14 a9 f0 b4 	movl   $0x3b4,0xf0a914c8
+f0100565:	c7 05 c8 74 a9 f0 b4 	movl   $0x3b4,0xf0a974c8
 f010056c:	03 00 00 
 f010056f:	eb 14                	jmp    f0100585 <cga_init+0x52>
 	} else {
@@ -787,20 +787,20 @@ f0100571:	8b 55 fc             	mov    -0x4(%ebp),%edx
 f0100574:	66 8b 45 fa          	mov    -0x6(%ebp),%ax
 f0100578:	66 89 02             	mov    %ax,(%edx)
 		addr_6845 = CGA_BASE;
-f010057b:	c7 05 c8 14 a9 f0 d4 	movl   $0x3d4,0xf0a914c8
+f010057b:	c7 05 c8 74 a9 f0 d4 	movl   $0x3d4,0xf0a974c8
 f0100582:	03 00 00 
 	}
 
 	/* Extract cursor location */
 	outb(addr_6845, 14);
-f0100585:	a1 c8 14 a9 f0       	mov    0xf0a914c8,%eax
+f0100585:	a1 c8 74 a9 f0       	mov    0xf0a974c8,%eax
 f010058a:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010058d:	c6 45 e0 0e          	movb   $0xe,-0x20(%ebp)
 f0100591:	8a 45 e0             	mov    -0x20(%ebp),%al
 f0100594:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0100597:	ee                   	out    %al,(%dx)
 	pos = inb(addr_6845 + 1) << 8;
-f0100598:	a1 c8 14 a9 f0       	mov    0xf0a914c8,%eax
+f0100598:	a1 c8 74 a9 f0       	mov    0xf0a974c8,%eax
 f010059d:	40                   	inc    %eax
 f010059e:	89 45 ec             	mov    %eax,-0x14(%ebp)
 
@@ -819,7 +819,7 @@ f01005ad:	0f b6 c0             	movzbl %al,%eax
 f01005b0:	c1 e0 08             	shl    $0x8,%eax
 f01005b3:	89 45 f0             	mov    %eax,-0x10(%ebp)
 	outb(addr_6845, 15);
-f01005b6:	a1 c8 14 a9 f0       	mov    0xf0a914c8,%eax
+f01005b6:	a1 c8 74 a9 f0       	mov    0xf0a974c8,%eax
 f01005bb:	89 45 e8             	mov    %eax,-0x18(%ebp)
 f01005be:	c6 45 e2 0f          	movb   $0xf,-0x1e(%ebp)
 }
@@ -832,7 +832,7 @@ f01005c2:	8a 45 e2             	mov    -0x1e(%ebp),%al
 f01005c5:	8b 55 e8             	mov    -0x18(%ebp),%edx
 f01005c8:	ee                   	out    %al,(%dx)
 	pos |= inb(addr_6845 + 1);
-f01005c9:	a1 c8 14 a9 f0       	mov    0xf0a914c8,%eax
+f01005c9:	a1 c8 74 a9 f0       	mov    0xf0a974c8,%eax
 f01005ce:	40                   	inc    %eax
 f01005cf:	89 45 e4             	mov    %eax,-0x1c(%ebp)
 
@@ -852,10 +852,10 @@ f01005e1:	09 45 f0             	or     %eax,-0x10(%ebp)
 
 	crt_buf = (uint16*) cp;
 f01005e4:	8b 45 fc             	mov    -0x4(%ebp),%eax
-f01005e7:	a3 cc 14 a9 f0       	mov    %eax,0xf0a914cc
+f01005e7:	a3 cc 74 a9 f0       	mov    %eax,0xf0a974cc
 	crt_pos = pos;
 f01005ec:	8b 45 f0             	mov    -0x10(%ebp),%eax
-f01005ef:	66 a3 d0 14 a9 f0    	mov    %ax,0xf0a914d0
+f01005ef:	66 a3 d0 74 a9 f0    	mov    %ax,0xf0a974d0
 }
 f01005f5:	90                   	nop
 f01005f6:	c9                   	leave  
@@ -902,16 +902,16 @@ f010064b:	74 5d                	je     f01006aa <cga_putc+0xb2>
 f010064d:	e9 02 01 00 00       	jmp    f0100754 <cga_putc+0x15c>
 	case '\b':
 		if (crt_pos > 0) {
-f0100652:	66 a1 d0 14 a9 f0    	mov    0xf0a914d0,%ax
+f0100652:	66 a1 d0 74 a9 f0    	mov    0xf0a974d0,%ax
 f0100658:	66 85 c0             	test   %ax,%ax
 f010065b:	0f 84 4f 01 00 00    	je     f01007b0 <cga_putc+0x1b8>
 			crt_pos--;
-f0100661:	66 a1 d0 14 a9 f0    	mov    0xf0a914d0,%ax
+f0100661:	66 a1 d0 74 a9 f0    	mov    0xf0a974d0,%ax
 f0100667:	48                   	dec    %eax
-f0100668:	66 a3 d0 14 a9 f0    	mov    %ax,0xf0a914d0
+f0100668:	66 a3 d0 74 a9 f0    	mov    %ax,0xf0a974d0
 			crt_buf[crt_pos] = (c & ~0xff) | ' ';
-f010066e:	8b 15 cc 14 a9 f0    	mov    0xf0a914cc,%edx
-f0100674:	66 a1 d0 14 a9 f0    	mov    0xf0a914d0,%ax
+f010066e:	8b 15 cc 74 a9 f0    	mov    0xf0a974cc,%edx
+f0100674:	66 a1 d0 74 a9 f0    	mov    0xf0a974d0,%ax
 f010067a:	0f b7 c0             	movzwl %ax,%eax
 f010067d:	01 c0                	add    %eax,%eax
 f010067f:	01 c2                	add    %eax,%edx
@@ -924,24 +924,24 @@ f0100689:	66 89 02             	mov    %ax,(%edx)
 f010068c:	e9 1f 01 00 00       	jmp    f01007b0 <cga_putc+0x1b8>
 	case '\n':
 		crt_pos += CRT_COLS;
-f0100691:	66 a1 d0 14 a9 f0    	mov    0xf0a914d0,%ax
+f0100691:	66 a1 d0 74 a9 f0    	mov    0xf0a974d0,%ax
 f0100697:	83 c0 50             	add    $0x50,%eax
-f010069a:	66 a3 d0 14 a9 f0    	mov    %ax,0xf0a914d0
+f010069a:	66 a3 d0 74 a9 f0    	mov    %ax,0xf0a974d0
 		text_length = 0;
-f01006a0:	c7 05 c0 14 a9 f0 00 	movl   $0x0,0xf0a914c0
+f01006a0:	c7 05 c0 74 a9 f0 00 	movl   $0x0,0xf0a974c0
 f01006a7:	00 00 00 
 		/* fallthru */
 	case '\r':
 		crt_pos -= (crt_pos % CRT_COLS);
-f01006aa:	66 8b 0d d0 14 a9 f0 	mov    0xf0a914d0,%cx
-f01006b1:	66 a1 d0 14 a9 f0    	mov    0xf0a914d0,%ax
+f01006aa:	66 8b 0d d0 74 a9 f0 	mov    0xf0a974d0,%cx
+f01006b1:	66 a1 d0 74 a9 f0    	mov    0xf0a974d0,%ax
 f01006b7:	bb 50 00 00 00       	mov    $0x50,%ebx
 f01006bc:	ba 00 00 00 00       	mov    $0x0,%edx
 f01006c1:	66 f7 f3             	div    %bx
 f01006c4:	89 d0                	mov    %edx,%eax
 f01006c6:	29 c1                	sub    %eax,%ecx
 f01006c8:	89 c8                	mov    %ecx,%eax
-f01006ca:	66 a3 d0 14 a9 f0    	mov    %ax,0xf0a914d0
+f01006ca:	66 a3 d0 74 a9 f0    	mov    %ax,0xf0a974d0
 		break;
 f01006d0:	e9 e5 00 00 00       	jmp    f01007ba <cga_putc+0x1c2>
 	case '\t':
@@ -974,24 +974,24 @@ f0100713:	83 c4 10             	add    $0x10,%esp
 f0100716:	e9 9f 00 00 00       	jmp    f01007ba <cga_putc+0x1c2>
 	case 228:
               if(crt_pos>0)
-f010071b:	66 a1 d0 14 a9 f0    	mov    0xf0a914d0,%ax
+f010071b:	66 a1 d0 74 a9 f0    	mov    0xf0a974d0,%ax
 f0100721:	66 85 c0             	test   %ax,%ax
 f0100724:	0f 84 89 00 00 00    	je     f01007b3 <cga_putc+0x1bb>
 		     crt_pos--;
-f010072a:	66 a1 d0 14 a9 f0    	mov    0xf0a914d0,%ax
+f010072a:	66 a1 d0 74 a9 f0    	mov    0xf0a974d0,%ax
 f0100730:	48                   	dec    %eax
-f0100731:	66 a3 d0 14 a9 f0    	mov    %ax,0xf0a914d0
+f0100731:	66 a3 d0 74 a9 f0    	mov    %ax,0xf0a974d0
 		     break;
 f0100737:	eb 7a                	jmp    f01007b3 <cga_putc+0x1bb>
 	case 229:
 		if (crt_pos < CRT_SIZE)
-f0100739:	66 a1 d0 14 a9 f0    	mov    0xf0a914d0,%ax
+f0100739:	66 a1 d0 74 a9 f0    	mov    0xf0a974d0,%ax
 f010073f:	66 3d cf 07          	cmp    $0x7cf,%ax
 f0100743:	77 71                	ja     f01007b6 <cga_putc+0x1be>
 			     crt_pos++;
-f0100745:	66 a1 d0 14 a9 f0    	mov    0xf0a914d0,%ax
+f0100745:	66 a1 d0 74 a9 f0    	mov    0xf0a974d0,%ax
 f010074b:	40                   	inc    %eax
-f010074c:	66 a3 d0 14 a9 f0    	mov    %ax,0xf0a914d0
+f010074c:	66 a3 d0 74 a9 f0    	mov    %ax,0xf0a974d0
 			     break;
 f0100752:	eb 62                	jmp    f01007b6 <cga_putc+0x1be>
 	default: {
@@ -1001,26 +1001,26 @@ f010075b:	74 5c                	je     f01007b9 <cga_putc+0x1c1>
 f010075d:	81 7d 08 e5 00 00 00 	cmpl   $0xe5,0x8(%ebp)
 f0100764:	74 53                	je     f01007b9 <cga_putc+0x1c1>
 		crt_buf[crt_pos++] = c;		/* write the character */
-f0100766:	8b 0d cc 14 a9 f0    	mov    0xf0a914cc,%ecx
-f010076c:	66 a1 d0 14 a9 f0    	mov    0xf0a914d0,%ax
+f0100766:	8b 0d cc 74 a9 f0    	mov    0xf0a974cc,%ecx
+f010076c:	66 a1 d0 74 a9 f0    	mov    0xf0a974d0,%ax
 f0100772:	8d 50 01             	lea    0x1(%eax),%edx
-f0100775:	66 89 15 d0 14 a9 f0 	mov    %dx,0xf0a914d0
+f0100775:	66 89 15 d0 74 a9 f0 	mov    %dx,0xf0a974d0
 f010077c:	0f b7 c0             	movzwl %ax,%eax
 f010077f:	01 c0                	add    %eax,%eax
 f0100781:	8d 14 01             	lea    (%ecx,%eax,1),%edx
 f0100784:	8b 45 08             	mov    0x8(%ebp),%eax
 f0100787:	66 89 02             	mov    %ax,(%edx)
 			if (crt_pos > 1920 + text_length)
-f010078a:	66 a1 d0 14 a9 f0    	mov    0xf0a914d0,%ax
+f010078a:	66 a1 d0 74 a9 f0    	mov    0xf0a974d0,%ax
 f0100790:	0f b7 c0             	movzwl %ax,%eax
-f0100793:	8b 15 c0 14 a9 f0    	mov    0xf0a914c0,%edx
+f0100793:	8b 15 c0 74 a9 f0    	mov    0xf0a974c0,%edx
 f0100799:	81 c2 80 07 00 00    	add    $0x780,%edx
 f010079f:	39 d0                	cmp    %edx,%eax
 f01007a1:	7e 16                	jle    f01007b9 <cga_putc+0x1c1>
 				text_length++;
-f01007a3:	a1 c0 14 a9 f0       	mov    0xf0a914c0,%eax
+f01007a3:	a1 c0 74 a9 f0       	mov    0xf0a974c0,%eax
 f01007a8:	40                   	inc    %eax
-f01007a9:	a3 c0 14 a9 f0       	mov    %eax,0xf0a914c0
+f01007a9:	a3 c0 74 a9 f0       	mov    %eax,0xf0a974c0
 		}
 		break;
 f01007ae:	eb 09                	jmp    f01007b9 <cga_putc+0x1c1>
@@ -1058,15 +1058,15 @@ f01007b9:	90                   	nop
 
 	// What is the purpose of this?
 	if (crt_pos >= CRT_SIZE) {
-f01007ba:	66 a1 d0 14 a9 f0    	mov    0xf0a914d0,%ax
+f01007ba:	66 a1 d0 74 a9 f0    	mov    0xf0a974d0,%ax
 f01007c0:	66 3d cf 07          	cmp    $0x7cf,%ax
 f01007c4:	76 58                	jbe    f010081e <cga_putc+0x226>
 		int i;
 
 		memcpy(crt_buf, crt_buf + CRT_COLS, (CRT_SIZE - CRT_COLS) * sizeof(uint16));
-f01007c6:	a1 cc 14 a9 f0       	mov    0xf0a914cc,%eax
+f01007c6:	a1 cc 74 a9 f0       	mov    0xf0a974cc,%eax
 f01007cb:	8d 90 a0 00 00 00    	lea    0xa0(%eax),%edx
-f01007d1:	a1 cc 14 a9 f0       	mov    0xf0a914cc,%eax
+f01007d1:	a1 cc 74 a9 f0       	mov    0xf0a974cc,%eax
 f01007d6:	83 ec 04             	sub    $0x4,%esp
 f01007d9:	68 00 0f 00 00       	push   $0xf00
 f01007de:	52                   	push   %edx
@@ -1077,7 +1077,7 @@ f01007e5:	83 c4 10             	add    $0x10,%esp
 f01007e8:	c7 45 f4 80 07 00 00 	movl   $0x780,-0xc(%ebp)
 f01007ef:	eb 15                	jmp    f0100806 <cga_putc+0x20e>
 			crt_buf[i] = 0x0700 | ' ';
-f01007f1:	8b 15 cc 14 a9 f0    	mov    0xf0a914cc,%edx
+f01007f1:	8b 15 cc 74 a9 f0    	mov    0xf0a974cc,%edx
 f01007f7:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f01007fa:	01 c0                	add    %eax,%eax
 f01007fc:	01 d0                	add    %edx,%eax
@@ -1093,14 +1093,14 @@ f0100806:	81 7d f4 cf 07 00 00 	cmpl   $0x7cf,-0xc(%ebp)
 f010080d:	7e e2                	jle    f01007f1 <cga_putc+0x1f9>
 			crt_buf[i] = 0x0700 | ' ';
 		crt_pos -= CRT_COLS;
-f010080f:	66 a1 d0 14 a9 f0    	mov    0xf0a914d0,%ax
+f010080f:	66 a1 d0 74 a9 f0    	mov    0xf0a974d0,%ax
 f0100815:	83 e8 50             	sub    $0x50,%eax
-f0100818:	66 a3 d0 14 a9 f0    	mov    %ax,0xf0a914d0
+f0100818:	66 a3 d0 74 a9 f0    	mov    %ax,0xf0a974d0
 	}
 
 	/* move that little blinky thing */
 	outb(addr_6845, 14);
-f010081e:	a1 c8 14 a9 f0       	mov    0xf0a914c8,%eax
+f010081e:	a1 c8 74 a9 f0       	mov    0xf0a974c8,%eax
 f0100823:	89 45 f0             	mov    %eax,-0x10(%ebp)
 f0100826:	c6 45 e0 0e          	movb   $0xe,-0x20(%ebp)
 }
@@ -1113,10 +1113,10 @@ f010082a:	8a 45 e0             	mov    -0x20(%ebp),%al
 f010082d:	8b 55 f0             	mov    -0x10(%ebp),%edx
 f0100830:	ee                   	out    %al,(%dx)
 	outb(addr_6845 + 1, crt_pos >> 8);
-f0100831:	66 a1 d0 14 a9 f0    	mov    0xf0a914d0,%ax
+f0100831:	66 a1 d0 74 a9 f0    	mov    0xf0a974d0,%ax
 f0100837:	66 c1 e8 08          	shr    $0x8,%ax
 f010083b:	0f b6 c0             	movzbl %al,%eax
-f010083e:	8b 15 c8 14 a9 f0    	mov    0xf0a914c8,%edx
+f010083e:	8b 15 c8 74 a9 f0    	mov    0xf0a974c8,%edx
 f0100844:	42                   	inc    %edx
 f0100845:	89 55 ec             	mov    %edx,-0x14(%ebp)
 f0100848:	88 45 e1             	mov    %al,-0x1f(%ebp)
@@ -1124,16 +1124,16 @@ f010084b:	8a 45 e1             	mov    -0x1f(%ebp),%al
 f010084e:	8b 55 ec             	mov    -0x14(%ebp),%edx
 f0100851:	ee                   	out    %al,(%dx)
 	outb(addr_6845, 15);
-f0100852:	a1 c8 14 a9 f0       	mov    0xf0a914c8,%eax
+f0100852:	a1 c8 74 a9 f0       	mov    0xf0a974c8,%eax
 f0100857:	89 45 e8             	mov    %eax,-0x18(%ebp)
 f010085a:	c6 45 e2 0f          	movb   $0xf,-0x1e(%ebp)
 f010085e:	8a 45 e2             	mov    -0x1e(%ebp),%al
 f0100861:	8b 55 e8             	mov    -0x18(%ebp),%edx
 f0100864:	ee                   	out    %al,(%dx)
 	outb(addr_6845 + 1, crt_pos);
-f0100865:	66 a1 d0 14 a9 f0    	mov    0xf0a914d0,%ax
+f0100865:	66 a1 d0 74 a9 f0    	mov    0xf0a974d0,%ax
 f010086b:	0f b6 c0             	movzbl %al,%eax
-f010086e:	8b 15 c8 14 a9 f0    	mov    0xf0a914c8,%edx
+f010086e:	8b 15 c8 74 a9 f0    	mov    0xf0a974c8,%edx
 f0100874:	42                   	inc    %edx
 f0100875:	89 55 e4             	mov    %edx,-0x1c(%ebp)
 f0100878:	88 45 e3             	mov    %al,-0x1d(%ebp)
@@ -1203,9 +1203,9 @@ f01008cb:	80 7d f3 e0          	cmpb   $0xe0,-0xd(%ebp)
 f01008cf:	75 17                	jne    f01008e8 <kbd_proc_data+0x60>
 		// E0 escape character
 		shift |= E0ESC;
-f01008d1:	a1 e8 16 a9 f0       	mov    0xf0a916e8,%eax
+f01008d1:	a1 e8 76 a9 f0       	mov    0xf0a976e8,%eax
 f01008d6:	83 c8 40             	or     $0x40,%eax
-f01008d9:	a3 e8 16 a9 f0       	mov    %eax,0xf0a916e8
+f01008d9:	a3 e8 76 a9 f0       	mov    %eax,0xf0a976e8
 		return 0;
 f01008de:	b8 00 00 00 00       	mov    $0x0,%eax
 f01008e3:	e9 f7 01 00 00       	jmp    f0100adf <kbd_proc_data+0x257>
@@ -1215,7 +1215,7 @@ f01008eb:	84 c0                	test   %al,%al
 f01008ed:	79 44                	jns    f0100933 <kbd_proc_data+0xab>
 		// Key released
 		data = (shift & E0ESC ? data : data & 0x7F);
-f01008ef:	a1 e8 16 a9 f0       	mov    0xf0a916e8,%eax
+f01008ef:	a1 e8 76 a9 f0       	mov    0xf0a976e8,%eax
 f01008f4:	83 e0 40             	and    $0x40,%eax
 f01008f7:	85 c0                	test   %eax,%eax
 f01008f9:	75 08                	jne    f0100903 <kbd_proc_data+0x7b>
@@ -1231,14 +1231,14 @@ f0100913:	83 c8 40             	or     $0x40,%eax
 f0100916:	0f b6 c0             	movzbl %al,%eax
 f0100919:	f7 d0                	not    %eax
 f010091b:	89 c2                	mov    %eax,%edx
-f010091d:	a1 e8 16 a9 f0       	mov    0xf0a916e8,%eax
+f010091d:	a1 e8 76 a9 f0       	mov    0xf0a976e8,%eax
 f0100922:	21 d0                	and    %edx,%eax
-f0100924:	a3 e8 16 a9 f0       	mov    %eax,0xf0a916e8
+f0100924:	a3 e8 76 a9 f0       	mov    %eax,0xf0a976e8
 		return 0;
 f0100929:	b8 00 00 00 00       	mov    $0x0,%eax
 f010092e:	e9 ac 01 00 00       	jmp    f0100adf <kbd_proc_data+0x257>
 	} else if (shift & E0ESC) {
-f0100933:	a1 e8 16 a9 f0       	mov    0xf0a916e8,%eax
+f0100933:	a1 e8 76 a9 f0       	mov    0xf0a976e8,%eax
 f0100938:	83 e0 40             	and    $0x40,%eax
 f010093b:	85 c0                	test   %eax,%eax
 f010093d:	74 11                	je     f0100950 <kbd_proc_data+0xc8>
@@ -1246,28 +1246,28 @@ f010093d:	74 11                	je     f0100950 <kbd_proc_data+0xc8>
 		data |= 0x80;
 f010093f:	80 4d f3 80          	orb    $0x80,-0xd(%ebp)
 		shift &= ~E0ESC;
-f0100943:	a1 e8 16 a9 f0       	mov    0xf0a916e8,%eax
+f0100943:	a1 e8 76 a9 f0       	mov    0xf0a976e8,%eax
 f0100948:	83 e0 bf             	and    $0xffffffbf,%eax
-f010094b:	a3 e8 16 a9 f0       	mov    %eax,0xf0a916e8
+f010094b:	a3 e8 76 a9 f0       	mov    %eax,0xf0a976e8
 	}
 
 	shift |= shiftcode[data];
 f0100950:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
 f0100954:	8a 80 20 50 16 f0    	mov    -0xfe9afe0(%eax),%al
 f010095a:	0f b6 d0             	movzbl %al,%edx
-f010095d:	a1 e8 16 a9 f0       	mov    0xf0a916e8,%eax
+f010095d:	a1 e8 76 a9 f0       	mov    0xf0a976e8,%eax
 f0100962:	09 d0                	or     %edx,%eax
-f0100964:	a3 e8 16 a9 f0       	mov    %eax,0xf0a916e8
+f0100964:	a3 e8 76 a9 f0       	mov    %eax,0xf0a976e8
 	shift ^= togglecode[data];
 f0100969:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
 f010096d:	8a 80 20 51 16 f0    	mov    -0xfe9aee0(%eax),%al
 f0100973:	0f b6 d0             	movzbl %al,%edx
-f0100976:	a1 e8 16 a9 f0       	mov    0xf0a916e8,%eax
+f0100976:	a1 e8 76 a9 f0       	mov    0xf0a976e8,%eax
 f010097b:	31 d0                	xor    %edx,%eax
-f010097d:	a3 e8 16 a9 f0       	mov    %eax,0xf0a916e8
+f010097d:	a3 e8 76 a9 f0       	mov    %eax,0xf0a976e8
 
 	c = charcode[shift & (CTL | SHIFT)][data];
-f0100982:	a1 e8 16 a9 f0       	mov    0xf0a916e8,%eax
+f0100982:	a1 e8 76 a9 f0       	mov    0xf0a976e8,%eax
 f0100987:	83 e0 03             	and    $0x3,%eax
 f010098a:	8b 14 85 20 55 16 f0 	mov    -0xfe9aae0(,%eax,4),%edx
 f0100991:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
@@ -1279,13 +1279,13 @@ f010099c:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010099f:	81 7d f4 e9 00 00 00 	cmpl   $0xe9,-0xc(%ebp)
 f01009a6:	0f 85 9c 00 00 00    	jne    f0100a48 <kbd_proc_data+0x1c0>
 		if (text_length > 0) {
-f01009ac:	a1 c0 14 a9 f0       	mov    0xf0a914c0,%eax
+f01009ac:	a1 c0 74 a9 f0       	mov    0xf0a974c0,%eax
 f01009b1:	85 c0                	test   %eax,%eax
 f01009b3:	0f 8e 85 00 00 00    	jle    f0100a3e <kbd_proc_data+0x1b6>
 			if (crt_pos == 1920 + text_length)
-f01009b9:	66 a1 d0 14 a9 f0    	mov    0xf0a914d0,%ax
+f01009b9:	66 a1 d0 74 a9 f0    	mov    0xf0a974d0,%ax
 f01009bf:	0f b7 c0             	movzwl %ax,%eax
-f01009c2:	8b 15 c0 14 a9 f0    	mov    0xf0a914c0,%edx
+f01009c2:	8b 15 c0 74 a9 f0    	mov    0xf0a974c0,%edx
 f01009c8:	81 c2 80 07 00 00    	add    $0x780,%edx
 f01009ce:	39 d0                	cmp    %edx,%eax
 f01009d0:	75 0a                	jne    f01009dc <kbd_proc_data+0x154>
@@ -1294,26 +1294,26 @@ f01009d2:	b8 00 00 00 00       	mov    $0x0,%eax
 f01009d7:	e9 03 01 00 00       	jmp    f0100adf <kbd_proc_data+0x257>
 			else {
 			text_length--;
-f01009dc:	a1 c0 14 a9 f0       	mov    0xf0a914c0,%eax
+f01009dc:	a1 c0 74 a9 f0       	mov    0xf0a974c0,%eax
 f01009e1:	48                   	dec    %eax
-f01009e2:	a3 c0 14 a9 f0       	mov    %eax,0xf0a914c0
+f01009e2:	a3 c0 74 a9 f0       	mov    %eax,0xf0a974c0
 				int crt_pos_Length = crt_pos - 1925;
-f01009e7:	66 a1 d0 14 a9 f0    	mov    0xf0a914d0,%ax
+f01009e7:	66 a1 d0 74 a9 f0    	mov    0xf0a974d0,%ax
 f01009ed:	0f b7 c0             	movzwl %ax,%eax
 f01009f0:	2d 85 07 00 00       	sub    $0x785,%eax
 f01009f5:	89 45 ec             	mov    %eax,-0x14(%ebp)
 				for (int i = crt_pos; crt_pos_Length <= text_length;
-f01009f8:	66 a1 d0 14 a9 f0    	mov    0xf0a914d0,%ax
+f01009f8:	66 a1 d0 74 a9 f0    	mov    0xf0a974d0,%ax
 f01009fe:	0f b7 c0             	movzwl %ax,%eax
 f0100a01:	89 45 e8             	mov    %eax,-0x18(%ebp)
 f0100a04:	eb 26                	jmp    f0100a2c <kbd_proc_data+0x1a4>
 						++i, crt_pos_Length++) {
 					crt_buf[i] = crt_buf[i + 1];
-f0100a06:	8b 15 cc 14 a9 f0    	mov    0xf0a914cc,%edx
+f0100a06:	8b 15 cc 74 a9 f0    	mov    0xf0a974cc,%edx
 f0100a0c:	8b 45 e8             	mov    -0x18(%ebp),%eax
 f0100a0f:	01 c0                	add    %eax,%eax
 f0100a11:	01 c2                	add    %eax,%edx
-f0100a13:	a1 cc 14 a9 f0       	mov    0xf0a914cc,%eax
+f0100a13:	a1 cc 74 a9 f0       	mov    0xf0a974cc,%eax
 f0100a18:	8b 4d e8             	mov    -0x18(%ebp),%ecx
 f0100a1b:	41                   	inc    %ecx
 f0100a1c:	01 c9                	add    %ecx,%ecx
@@ -1334,7 +1334,7 @@ f0100a29:	ff 45 ec             	incl   -0x14(%ebp)
 			text_length--;
 				int crt_pos_Length = crt_pos - 1925;
 				for (int i = crt_pos; crt_pos_Length <= text_length;
-f0100a2c:	a1 c0 14 a9 f0       	mov    0xf0a914c0,%eax
+f0100a2c:	a1 c0 74 a9 f0       	mov    0xf0a974c0,%eax
 f0100a31:	39 45 ec             	cmp    %eax,-0x14(%ebp)
 f0100a34:	7e d0                	jle    f0100a06 <kbd_proc_data+0x17e>
 						++i, crt_pos_Length++) {
@@ -1350,7 +1350,7 @@ f0100a3e:	b8 00 00 00 00       	mov    $0x0,%eax
 f0100a43:	e9 97 00 00 00       	jmp    f0100adf <kbd_proc_data+0x257>
 	}
 	if (shift & CAPSLOCK) {
-f0100a48:	a1 e8 16 a9 f0       	mov    0xf0a916e8,%eax
+f0100a48:	a1 e8 76 a9 f0       	mov    0xf0a976e8,%eax
 f0100a4d:	83 e0 08             	and    $0x8,%eax
 f0100a50:	85 c0                	test   %eax,%eax
 f0100a52:	74 22                	je     f0100a76 <kbd_proc_data+0x1ee>
@@ -1373,7 +1373,7 @@ f0100a72:	83 45 f4 20          	addl   $0x20,-0xc(%ebp)
 
 	// Process special keys
 	if ((int) shift == NUMLOCK && c >= '0' && c <= '9')
-f0100a76:	a1 e8 16 a9 f0       	mov    0xf0a916e8,%eax
+f0100a76:	a1 e8 76 a9 f0       	mov    0xf0a976e8,%eax
 f0100a7b:	83 f8 10             	cmp    $0x10,%eax
 f0100a7e:	75 13                	jne    f0100a93 <kbd_proc_data+0x20b>
 f0100a80:	83 7d f4 2f          	cmpl   $0x2f,-0xc(%ebp)
@@ -1391,7 +1391,7 @@ f0100a9c:	b8 00 00 00 00       	mov    $0x0,%eax
 f0100aa1:	eb 3c                	jmp    f0100adf <kbd_proc_data+0x257>
 	// Ctrl-Alt-Del: reboot
 	if (!(~shift & (CTL | ALT)) && c == KEY_DEL) {
-f0100aa3:	a1 e8 16 a9 f0       	mov    0xf0a916e8,%eax
+f0100aa3:	a1 e8 76 a9 f0       	mov    0xf0a976e8,%eax
 f0100aa8:	f7 d0                	not    %eax
 f0100aaa:	83 e0 06             	and    $0x6,%eax
 f0100aad:	85 c0                	test   %eax,%eax
@@ -1473,17 +1473,17 @@ f0100b0c:	75 02                	jne    f0100b10 <cons_intr+0x10>
 			continue;
 f0100b0e:	eb 2d                	jmp    f0100b3d <cons_intr+0x3d>
 		cons.buf[cons.wpos++] = c;
-f0100b10:	a1 e4 16 a9 f0       	mov    0xf0a916e4,%eax
+f0100b10:	a1 e4 76 a9 f0       	mov    0xf0a976e4,%eax
 f0100b15:	8d 50 01             	lea    0x1(%eax),%edx
-f0100b18:	89 15 e4 16 a9 f0    	mov    %edx,0xf0a916e4
+f0100b18:	89 15 e4 76 a9 f0    	mov    %edx,0xf0a976e4
 f0100b1e:	8b 55 f4             	mov    -0xc(%ebp),%edx
-f0100b21:	88 90 e0 14 a9 f0    	mov    %dl,-0xf56eb20(%eax)
+f0100b21:	88 90 e0 74 a9 f0    	mov    %dl,-0xf568b20(%eax)
 		if (cons.wpos == CONSBUFSIZE)
-f0100b27:	a1 e4 16 a9 f0       	mov    0xf0a916e4,%eax
+f0100b27:	a1 e4 76 a9 f0       	mov    0xf0a976e4,%eax
 f0100b2c:	3d 00 02 00 00       	cmp    $0x200,%eax
 f0100b31:	75 0a                	jne    f0100b3d <cons_intr+0x3d>
 			cons.wpos = 0;
-f0100b33:	c7 05 e4 16 a9 f0 00 	movl   $0x0,0xf0a916e4
+f0100b33:	c7 05 e4 76 a9 f0 00 	movl   $0x0,0xf0a976e4
 f0100b3a:	00 00 00 
 void
 cons_intr(int (*proc)(void))
@@ -1527,23 +1527,23 @@ f0100b59:	e8 83 ff ff ff       	call   f0100ae1 <kbd_intr>
 
 	// grab the next character from the input buffer.
 	if (cons.rpos != cons.wpos) {
-f0100b5e:	8b 15 e0 16 a9 f0    	mov    0xf0a916e0,%edx
-f0100b64:	a1 e4 16 a9 f0       	mov    0xf0a916e4,%eax
+f0100b5e:	8b 15 e0 76 a9 f0    	mov    0xf0a976e0,%edx
+f0100b64:	a1 e4 76 a9 f0       	mov    0xf0a976e4,%eax
 f0100b69:	39 c2                	cmp    %eax,%edx
 f0100b6b:	74 35                	je     f0100ba2 <cons_getc+0x54>
 		c = cons.buf[cons.rpos++];
-f0100b6d:	a1 e0 16 a9 f0       	mov    0xf0a916e0,%eax
+f0100b6d:	a1 e0 76 a9 f0       	mov    0xf0a976e0,%eax
 f0100b72:	8d 50 01             	lea    0x1(%eax),%edx
-f0100b75:	89 15 e0 16 a9 f0    	mov    %edx,0xf0a916e0
-f0100b7b:	8a 80 e0 14 a9 f0    	mov    -0xf56eb20(%eax),%al
+f0100b75:	89 15 e0 76 a9 f0    	mov    %edx,0xf0a976e0
+f0100b7b:	8a 80 e0 74 a9 f0    	mov    -0xf568b20(%eax),%al
 f0100b81:	0f b6 c0             	movzbl %al,%eax
 f0100b84:	89 45 f4             	mov    %eax,-0xc(%ebp)
 		if (cons.rpos == CONSBUFSIZE)
-f0100b87:	a1 e0 16 a9 f0       	mov    0xf0a916e0,%eax
+f0100b87:	a1 e0 76 a9 f0       	mov    0xf0a976e0,%eax
 f0100b8c:	3d 00 02 00 00       	cmp    $0x200,%eax
 f0100b91:	75 0a                	jne    f0100b9d <cons_getc+0x4f>
 			cons.rpos = 0;
-f0100b93:	c7 05 e0 16 a9 f0 00 	movl   $0x0,0xf0a916e0
+f0100b93:	c7 05 e0 76 a9 f0 00 	movl   $0x0,0xf0a976e0
 f0100b9a:	00 00 00 
 		return c;
 f0100b9d:	8b 45 f4             	mov    -0xc(%ebp),%eax
@@ -1574,7 +1574,7 @@ f0100baf:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
 	//serial_intr();
 	{
 		if (serial_exists)
-f0100bb6:	a1 c4 14 a9 f0       	mov    0xf0a914c4,%eax
+f0100bb6:	a1 c4 74 a9 f0       	mov    0xf0a974c4,%eax
 f0100bbb:	85 c0                	test   %eax,%eax
 f0100bbd:	74 41                	je     f0100c00 <cons_getc2+0x57>
 		{
@@ -1592,17 +1592,17 @@ f0100bd1:	74 2d                	je     f0100c00 <cons_getc2+0x57>
 				else
 				{
 					cons.buf[cons.wpos++] = c1;
-f0100bd3:	a1 e4 16 a9 f0       	mov    0xf0a916e4,%eax
+f0100bd3:	a1 e4 76 a9 f0       	mov    0xf0a976e4,%eax
 f0100bd8:	8d 50 01             	lea    0x1(%eax),%edx
-f0100bdb:	89 15 e4 16 a9 f0    	mov    %edx,0xf0a916e4
+f0100bdb:	89 15 e4 76 a9 f0    	mov    %edx,0xf0a976e4
 f0100be1:	8b 55 f4             	mov    -0xc(%ebp),%edx
-f0100be4:	88 90 e0 14 a9 f0    	mov    %dl,-0xf56eb20(%eax)
+f0100be4:	88 90 e0 74 a9 f0    	mov    %dl,-0xf568b20(%eax)
 					if (cons.wpos == CONSBUFSIZE)
-f0100bea:	a1 e4 16 a9 f0       	mov    0xf0a916e4,%eax
+f0100bea:	a1 e4 76 a9 f0       	mov    0xf0a976e4,%eax
 f0100bef:	3d 00 02 00 00       	cmp    $0x200,%eax
 f0100bf4:	75 0a                	jne    f0100c00 <cons_getc2+0x57>
 						cons.wpos = 0;
-f0100bf6:	c7 05 e4 16 a9 f0 00 	movl   $0x0,0xf0a916e4
+f0100bf6:	c7 05 e4 76 a9 f0 00 	movl   $0x0,0xf0a976e4
 f0100bfd:	00 00 00 
 				}
 			}
@@ -1627,17 +1627,17 @@ f0100c19:	74 2d                	je     f0100c48 <cons_getc2+0x9f>
 			else
 			{
 				cons.buf[cons.wpos++] = c2;
-f0100c1b:	a1 e4 16 a9 f0       	mov    0xf0a916e4,%eax
+f0100c1b:	a1 e4 76 a9 f0       	mov    0xf0a976e4,%eax
 f0100c20:	8d 50 01             	lea    0x1(%eax),%edx
-f0100c23:	89 15 e4 16 a9 f0    	mov    %edx,0xf0a916e4
+f0100c23:	89 15 e4 76 a9 f0    	mov    %edx,0xf0a976e4
 f0100c29:	8b 55 f0             	mov    -0x10(%ebp),%edx
-f0100c2c:	88 90 e0 14 a9 f0    	mov    %dl,-0xf56eb20(%eax)
+f0100c2c:	88 90 e0 74 a9 f0    	mov    %dl,-0xf568b20(%eax)
 				if (cons.wpos == CONSBUFSIZE)
-f0100c32:	a1 e4 16 a9 f0       	mov    0xf0a916e4,%eax
+f0100c32:	a1 e4 76 a9 f0       	mov    0xf0a976e4,%eax
 f0100c37:	3d 00 02 00 00       	cmp    $0x200,%eax
 f0100c3c:	75 0a                	jne    f0100c48 <cons_getc2+0x9f>
 					cons.wpos = 0;
-f0100c3e:	c7 05 e4 16 a9 f0 00 	movl   $0x0,0xf0a916e4
+f0100c3e:	c7 05 e4 76 a9 f0 00 	movl   $0x0,0xf0a976e4
 f0100c45:	00 00 00 
 	}
 
@@ -1649,23 +1649,23 @@ f0100c48:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
 f0100c4c:	7e 44                	jle    f0100c92 <cons_getc2+0xe9>
 	{
 		if (cons.rpos != cons.wpos) {
-f0100c4e:	8b 15 e0 16 a9 f0    	mov    0xf0a916e0,%edx
-f0100c54:	a1 e4 16 a9 f0       	mov    0xf0a916e4,%eax
+f0100c4e:	8b 15 e0 76 a9 f0    	mov    0xf0a976e0,%edx
+f0100c54:	a1 e4 76 a9 f0       	mov    0xf0a976e4,%eax
 f0100c59:	39 c2                	cmp    %eax,%edx
 f0100c5b:	74 35                	je     f0100c92 <cons_getc2+0xe9>
 			c = cons.buf[cons.rpos++];
-f0100c5d:	a1 e0 16 a9 f0       	mov    0xf0a916e0,%eax
+f0100c5d:	a1 e0 76 a9 f0       	mov    0xf0a976e0,%eax
 f0100c62:	8d 50 01             	lea    0x1(%eax),%edx
-f0100c65:	89 15 e0 16 a9 f0    	mov    %edx,0xf0a916e0
-f0100c6b:	8a 80 e0 14 a9 f0    	mov    -0xf56eb20(%eax),%al
+f0100c65:	89 15 e0 76 a9 f0    	mov    %edx,0xf0a976e0
+f0100c6b:	8a 80 e0 74 a9 f0    	mov    -0xf568b20(%eax),%al
 f0100c71:	0f b6 c0             	movzbl %al,%eax
 f0100c74:	89 45 ec             	mov    %eax,-0x14(%ebp)
 			if (cons.rpos == CONSBUFSIZE)
-f0100c77:	a1 e0 16 a9 f0       	mov    0xf0a916e0,%eax
+f0100c77:	a1 e0 76 a9 f0       	mov    0xf0a976e0,%eax
 f0100c7c:	3d 00 02 00 00       	cmp    $0x200,%eax
 f0100c81:	75 0a                	jne    f0100c8d <cons_getc2+0xe4>
 				cons.rpos = 0;
-f0100c83:	c7 05 e0 16 a9 f0 00 	movl   $0x0,0xf0a916e0
+f0100c83:	c7 05 e0 76 a9 f0 00 	movl   $0x0,0xf0a976e0
 f0100c8a:	00 00 00 
 			return c;
 f0100c8d:	8b 45 ec             	mov    -0x14(%ebp),%eax
@@ -1718,7 +1718,7 @@ f0100cc6:	e8 2f fe ff ff       	call   f0100afa <kbd_init>
 f0100ccb:	e8 de f6 ff ff       	call   f01003ae <serial_init>
 
 	if (!serial_exists)
-f0100cd0:	a1 c4 14 a9 f0       	mov    0xf0a914c4,%eax
+f0100cd0:	a1 c4 74 a9 f0       	mov    0xf0a974c4,%eax
 f0100cd5:	85 c0                	test   %eax,%eax
 f0100cd7:	75 10                	jne    f0100ce9 <console_initialize+0x2e>
 		cprintf("Serial port does not exist!\n");
@@ -1801,7 +1801,7 @@ f0100d29:	83 ec 08             	sub    $0x8,%esp
 f0100d2c:	8b 45 08             	mov    0x8(%ebp),%eax
 f0100d2f:	c1 e8 0c             	shr    $0xc,%eax
 f0100d32:	89 c2                	mov    %eax,%edx
-f0100d34:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f0100d34:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f0100d39:	39 c2                	cmp    %eax,%edx
 f0100d3b:	72 14                	jb     f0100d51 <to_frame_info+0x2b>
 		panic("to_frame_info called with invalid pa");
@@ -1811,7 +1811,7 @@ f0100d45:	6a 78                	push   $0x78
 f0100d47:	68 79 25 12 f0       	push   $0xf0122579
 f0100d4c:	e8 23 f4 ff ff       	call   f0100174 <_panic>
 	return &frames_info[PPN(physical_address)];
-f0100d51:	8b 15 c4 87 b1 f0    	mov    0xf0b187c4,%edx
+f0100d51:	8b 15 c4 e7 b1 f0    	mov    0xf0b1e7c4,%edx
 f0100d57:	8b 45 08             	mov    0x8(%ebp),%eax
 f0100d5a:	c1 e8 0c             	shr    $0xc,%eax
 f0100d5d:	89 c1                	mov    %eax,%ecx
@@ -1858,7 +1858,7 @@ f0100d93:	7f e6                	jg     f0100d7b <clearandwritecommand+0xf>
 	int len = strlen(command_history[commandidx]);
 f0100d95:	8b 45 0c             	mov    0xc(%ebp),%eax
 f0100d98:	c1 e0 0a             	shl    $0xa,%eax
-f0100d9b:	05 80 33 b1 f0       	add    $0xf0b13380,%eax
+f0100d9b:	05 80 93 b1 f0       	add    $0xf0b19380,%eax
 f0100da0:	83 ec 0c             	sub    $0xc,%esp
 f0100da3:	50                   	push   %eax
 f0100da4:	e8 52 f2 01 00       	call   f011fffb <strlen>
@@ -1867,7 +1867,7 @@ f0100dac:	89 45 f0             	mov    %eax,-0x10(%ebp)
 	memcpy(buf, empty, BUFLEN);
 f0100daf:	83 ec 04             	sub    $0x4,%esp
 f0100db2:	68 00 04 00 00       	push   $0x400
-f0100db7:	68 a0 83 b1 f0       	push   $0xf0b183a0
+f0100db7:	68 a0 e3 b1 f0       	push   $0xf0b1e3a0
 f0100dbc:	ff 75 10             	pushl  0x10(%ebp)
 f0100dbf:	e8 55 f4 01 00       	call   f0120219 <memcpy>
 f0100dc4:	83 c4 10             	add    $0x10,%esp
@@ -1881,7 +1881,7 @@ f0100dd5:	8b 00                	mov    (%eax),%eax
 f0100dd7:	8b 55 0c             	mov    0xc(%ebp),%edx
 f0100dda:	c1 e2 0a             	shl    $0xa,%edx
 f0100ddd:	01 d0                	add    %edx,%eax
-f0100ddf:	05 80 33 b1 f0       	add    $0xf0b13380,%eax
+f0100ddf:	05 80 93 b1 f0       	add    $0xf0b19380,%eax
 f0100de4:	8a 00                	mov    (%eax),%al
 f0100de6:	0f be c0             	movsbl %al,%eax
 f0100de9:	83 ec 0c             	sub    $0xc,%esp
@@ -1899,7 +1899,7 @@ f0100e04:	8b 00                	mov    (%eax),%eax
 f0100e06:	8b 4d 0c             	mov    0xc(%ebp),%ecx
 f0100e09:	c1 e1 0a             	shl    $0xa,%ecx
 f0100e0c:	01 c8                	add    %ecx,%eax
-f0100e0e:	05 80 33 b1 f0       	add    $0xf0b13380,%eax
+f0100e0e:	05 80 93 b1 f0       	add    $0xf0b19380,%eax
 f0100e13:	8a 00                	mov    (%eax),%al
 f0100e15:	88 02                	mov    %al,(%edx)
 	for (int j = 0; j < *i; j++) {
@@ -1965,7 +1965,7 @@ f0100e6e:	89 45 f0             	mov    %eax,-0x10(%ebp)
 	memcpy(buf, empty, BUFLEN);
 f0100e71:	83 ec 04             	sub    $0x4,%esp
 f0100e74:	68 00 04 00 00       	push   $0x400
-f0100e79:	68 a0 83 b1 f0       	push   $0xf0b183a0
+f0100e79:	68 a0 e3 b1 f0       	push   $0xf0b1e3a0
 f0100e7e:	ff 75 10             	pushl  0x10(%ebp)
 f0100e81:	e8 93 f3 01 00       	call   f0120219 <memcpy>
 f0100e86:	83 c4 10             	add    $0x10,%esp
@@ -2039,7 +2039,7 @@ f0100efc:	eb 21                	jmp    f0100f1f <clear_prefix_list+0x30>
 		memset(PrefixList[i], 0, 1024);}
 f0100efe:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f0100f01:	c1 e0 0a             	shl    $0xa,%eax
-f0100f04:	05 80 a3 af f0       	add    $0xf0afa380,%eax
+f0100f04:	05 80 03 b0 f0       	add    $0xf0b00380,%eax
 f0100f09:	83 ec 04             	sub    $0x4,%esp
 f0100f0c:	68 00 04 00 00       	push   $0x400
 f0100f11:	6a 00                	push   $0x0
@@ -2174,7 +2174,7 @@ f0101031:	0f 84 0c 05 00 00    	je     f0101543 <command_prompt_readline+0x61b>
 				clear_prefix_list(PrefixList, 100);
 f0101037:	83 ec 08             	sub    $0x8,%esp
 f010103a:	6a 64                	push   $0x64
-f010103c:	68 80 a3 af f0       	push   $0xf0afa380
+f010103c:	68 80 03 b0 f0       	push   $0xf0b00380
 f0101041:	e8 a9 fe ff ff       	call   f0100eef <clear_prefix_list>
 f0101046:	83 c4 10             	add    $0x10,%esp
 				if (strlen(buf) == 0 || last_c == 255)
@@ -2413,7 +2413,7 @@ f01012a6:	7f af                	jg     f0101257 <command_prompt_readline+0x32f>
 							memset(PrefixList[it_prefix_list], 0, 1024);
 f01012a8:	8b 45 dc             	mov    -0x24(%ebp),%eax
 f01012ab:	c1 e0 0a             	shl    $0xa,%eax
-f01012ae:	05 80 a3 af f0       	add    $0xf0afa380,%eax
+f01012ae:	05 80 03 b0 f0       	add    $0xf0b00380,%eax
 f01012b3:	83 ec 04             	sub    $0x4,%esp
 f01012b6:	68 00 04 00 00       	push   $0x400
 f01012bb:	6a 00                	push   $0x0
@@ -2425,7 +2425,7 @@ f01012c6:	8b 45 e4             	mov    -0x1c(%ebp),%eax
 f01012c9:	40                   	inc    %eax
 f01012ca:	8b 55 dc             	mov    -0x24(%ebp),%edx
 f01012cd:	c1 e2 0a             	shl    $0xa,%edx
-f01012d0:	81 c2 80 a3 af f0    	add    $0xf0afa380,%edx
+f01012d0:	81 c2 80 03 b0 f0    	add    $0xf0b00380,%edx
 f01012d6:	83 ec 04             	sub    $0x4,%esp
 f01012d9:	50                   	push   %eax
 f01012da:	8d 85 88 fb ff ff    	lea    -0x478(%ebp),%eax
@@ -2569,7 +2569,7 @@ f010141c:	7f a9                	jg     f01013c7 <command_prompt_readline+0x49f>
 							memset(PrefixList[it_prefix_list], 0, 1024);
 f010141e:	8b 45 dc             	mov    -0x24(%ebp),%eax
 f0101421:	c1 e0 0a             	shl    $0xa,%eax
-f0101424:	05 80 a3 af f0       	add    $0xf0afa380,%eax
+f0101424:	05 80 03 b0 f0       	add    $0xf0b00380,%eax
 f0101429:	83 ec 04             	sub    $0x4,%esp
 f010142c:	68 00 04 00 00       	push   $0x400
 f0101431:	6a 00                	push   $0x0
@@ -2581,7 +2581,7 @@ f010143c:	8b 45 e4             	mov    -0x1c(%ebp),%eax
 f010143f:	40                   	inc    %eax
 f0101440:	8b 55 dc             	mov    -0x24(%ebp),%edx
 f0101443:	c1 e2 0a             	shl    $0xa,%edx
-f0101446:	81 c2 80 a3 af f0    	add    $0xf0afa380,%edx
+f0101446:	81 c2 80 03 b0 f0    	add    $0xf0b00380,%edx
 f010144c:	83 ec 04             	sub    $0x4,%esp
 f010144f:	50                   	push   %eax
 f0101450:	8d 85 88 fb ff ff    	lea    -0x478(%ebp),%eax
@@ -2627,7 +2627,7 @@ f01014a3:	89 c2                	mov    %eax,%edx
 f01014a5:	8b 45 0c             	mov    0xc(%ebp),%eax
 f01014a8:	01 c2                	add    %eax,%edx
 f01014aa:	8b 45 c4             	mov    -0x3c(%ebp),%eax
-f01014ad:	05 80 a3 af f0       	add    $0xf0afa380,%eax
+f01014ad:	05 80 03 b0 f0       	add    $0xf0b00380,%eax
 f01014b2:	8a 00                	mov    (%eax),%al
 f01014b4:	88 02                	mov    %al,(%edx)
 					}
@@ -2638,7 +2638,7 @@ f01014b4:	88 02                	mov    %al,(%edx)
 					for (int var2 = 0; var2 < strlen(PrefixList[0]); ++var2) {
 f01014b6:	ff 45 c4             	incl   -0x3c(%ebp)
 f01014b9:	83 ec 0c             	sub    $0xc,%esp
-f01014bc:	68 80 a3 af f0       	push   $0xf0afa380
+f01014bc:	68 80 03 b0 f0       	push   $0xf0b00380
 f01014c1:	e8 35 eb 01 00       	call   f011fffb <strlen>
 f01014c6:	83 c4 10             	add    $0x10,%esp
 f01014c9:	3b 45 c4             	cmp    -0x3c(%ebp),%eax
@@ -2716,10 +2716,10 @@ f010155b:	89 55 f0             	mov    %edx,-0x10(%ebp)
 				RoundAutoCompleteCommandWithTheSamePrefix(strlen(PrefixList[prev]), PrefixList[prefix_list_idx], buf, &i, &lastIndex);
 f010155e:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f0101561:	c1 e0 0a             	shl    $0xa,%eax
-f0101564:	8d 98 80 a3 af f0    	lea    -0xf505c80(%eax),%ebx
+f0101564:	8d 98 80 03 b0 f0    	lea    -0xf4ffc80(%eax),%ebx
 f010156a:	8b 45 94             	mov    -0x6c(%ebp),%eax
 f010156d:	c1 e0 0a             	shl    $0xa,%eax
-f0101570:	05 80 a3 af f0       	add    $0xf0afa380,%eax
+f0101570:	05 80 03 b0 f0       	add    $0xf0b00380,%eax
 f0101575:	83 ec 0c             	sub    $0xc,%esp
 f0101578:	50                   	push   %eax
 f0101579:	e8 7d ea 01 00       	call   f011fffb <strlen>
@@ -2925,10 +2925,10 @@ f0101733:	eb 2d                	jmp    f0101762 <command_prompt_readline+0x83a>
 f0101735:	8b 45 b0             	mov    -0x50(%ebp),%eax
 f0101738:	40                   	inc    %eax
 f0101739:	c1 e0 0a             	shl    $0xa,%eax
-f010173c:	8d 90 80 33 b1 f0    	lea    -0xf4ecc80(%eax),%edx
+f010173c:	8d 90 80 93 b1 f0    	lea    -0xf4e6c80(%eax),%edx
 f0101742:	8b 45 b0             	mov    -0x50(%ebp),%eax
 f0101745:	c1 e0 0a             	shl    $0xa,%eax
-f0101748:	05 80 33 b1 f0       	add    $0xf0b13380,%eax
+f0101748:	05 80 93 b1 f0       	add    $0xf0b19380,%eax
 f010174d:	83 ec 04             	sub    $0x4,%esp
 f0101750:	68 00 04 00 00       	push   $0x400
 f0101755:	52                   	push   %edx
@@ -2951,7 +2951,7 @@ f0101766:	7e cd                	jle    f0101735 <command_prompt_readline+0x80d>
 f0101768:	83 ec 04             	sub    $0x4,%esp
 f010176b:	68 00 04 00 00       	push   $0x400
 f0101770:	ff 75 0c             	pushl  0xc(%ebp)
-f0101773:	68 80 7f b1 f0       	push   $0xf0b17f80
+f0101773:	68 80 df b1 f0       	push   $0xf0b1df80
 f0101778:	e8 9c ea 01 00       	call   f0120219 <memcpy>
 f010177d:	83 c4 10             	add    $0x10,%esp
 			} else if (strcmp(command_history[last_command_idx], buf) != 0) {
@@ -2967,7 +2967,7 @@ f0101780:	eb 68                	jmp    f01017ea <command_prompt_readline+0x8c2>
 			} else if (strcmp(command_history[last_command_idx], buf) != 0) {
 f0101782:	a1 d4 57 16 f0       	mov    0xf01657d4,%eax
 f0101787:	c1 e0 0a             	shl    $0xa,%eax
-f010178a:	05 80 33 b1 f0       	add    $0xf0b13380,%eax
+f010178a:	05 80 93 b1 f0       	add    $0xf0b19380,%eax
 f010178f:	83 ec 08             	sub    $0x8,%esp
 f0101792:	ff 75 0c             	pushl  0xc(%ebp)
 f0101795:	50                   	push   %eax
@@ -2981,7 +2981,7 @@ f01017a7:	40                   	inc    %eax
 f01017a8:	a3 d4 57 16 f0       	mov    %eax,0xf01657d4
 f01017ad:	a1 d4 57 16 f0       	mov    0xf01657d4,%eax
 f01017b2:	c1 e0 0a             	shl    $0xa,%eax
-f01017b5:	05 80 33 b1 f0       	add    $0xf0b13380,%eax
+f01017b5:	05 80 93 b1 f0       	add    $0xf0b19380,%eax
 f01017ba:	83 ec 04             	sub    $0x4,%esp
 f01017bd:	68 00 04 00 00       	push   $0x400
 f01017c2:	ff 75 0c             	pushl  0xc(%ebp)
@@ -3351,24 +3351,24 @@ f0101a0e:	68 70 30 12 f0       	push   $0xf0123070
 f0101a13:	e8 bf 5e 00 00       	call   f01078d7 <cprintf>
 f0101a18:	83 c4 10             	add    $0x10,%esp
 	cprintf("  Start addr. of uninitialized data section 	%08x (virt)  %08x (phys)\n", start_of_uninitialized_data_section, start_of_uninitialized_data_section - KERNEL_BASE);
-f0101a1b:	b8 8c 14 a9 00       	mov    $0xa9148c,%eax
+f0101a1b:	b8 8c 74 a9 00       	mov    $0xa9748c,%eax
 f0101a20:	83 ec 04             	sub    $0x4,%esp
 f0101a23:	50                   	push   %eax
-f0101a24:	68 8c 14 a9 f0       	push   $0xf0a9148c
+f0101a24:	68 8c 74 a9 f0       	push   $0xf0a9748c
 f0101a29:	68 ac 30 12 f0       	push   $0xf01230ac
 f0101a2e:	e8 a4 5e 00 00       	call   f01078d7 <cprintf>
 f0101a33:	83 c4 10             	add    $0x10,%esp
 	cprintf("  End address of the kernel   			%08x (virt)  %08x (phys)\n", end_of_kernel, end_of_kernel - KERNEL_BASE);
-f0101a36:	b8 d0 88 b1 00       	mov    $0xb188d0,%eax
+f0101a36:	b8 d0 e8 b1 00       	mov    $0xb1e8d0,%eax
 f0101a3b:	83 ec 04             	sub    $0x4,%esp
 f0101a3e:	50                   	push   %eax
-f0101a3f:	68 d0 88 b1 f0       	push   $0xf0b188d0
+f0101a3f:	68 d0 e8 b1 f0       	push   $0xf0b1e8d0
 f0101a44:	68 f4 30 12 f0       	push   $0xf01230f4
 f0101a49:	e8 89 5e 00 00       	call   f01078d7 <cprintf>
 f0101a4e:	83 c4 10             	add    $0x10,%esp
 	cprintf("Kernel executable memory footprint: %d KB\n",
 			(end_of_kernel-start_of_kernel+1023)/1024);
-f0101a51:	b8 d0 88 b1 f0       	mov    $0xf0b188d0,%eax
+f0101a51:	b8 d0 e8 b1 f0       	mov    $0xf0b1e8d0,%eax
 f0101a56:	8d 90 ff 03 00 00    	lea    0x3ff(%eax),%edx
 f0101a5c:	b8 0c 00 10 f0       	mov    $0xf010000c,%eax
 f0101a61:	29 c2                	sub    %eax,%edx
@@ -4148,7 +4148,7 @@ f0101fee:	83 c4 20             	add    $0x20,%esp
 			counters.freeBuffered+ counters.freeNotBuffered+ counters.modified, counters.freeBuffered, counters.freeNotBuffered, counters.modified);
 
 	cprintf("Num of calls for kheap_virtual_address [in last run] = %d\n", numOfKheapVACalls);
-f0101ff1:	a1 80 83 b1 f0       	mov    0xf0b18380,%eax
+f0101ff1:	a1 80 e3 b1 f0       	mov    0xf0b1e380,%eax
 f0101ff6:	83 ec 08             	sub    $0x8,%esp
 f0101ff9:	50                   	push   %eax
 f0101ffa:	68 fc 31 12 f0       	push   $0xf01231fc
@@ -4445,7 +4445,7 @@ f0102285:	e8 4d 56 00 00       	call   f01078d7 <cprintf>
 f010228a:	83 c4 10             	add    $0x10,%esp
 
 	numOfKheapVACalls = 0;
-f010228d:	c7 05 80 83 b1 f0 00 	movl   $0x0,0xf0b18380
+f010228d:	c7 05 80 e3 b1 f0 00 	movl   $0x0,0xf0b1e380
 f0102294:	00 00 00 
 
 	sched_new_env(env);
@@ -4548,7 +4548,7 @@ f0102348:	55                   	push   %ebp
 f0102349:	89 e5                	mov    %esp,%ebp
 f010234b:	83 ec 08             	sub    $0x8,%esp
 	numOfKheapVACalls = 0;
-f010234e:	c7 05 80 83 b1 f0 00 	movl   $0x0,0xf0b18380
+f010234e:	c7 05 80 e3 b1 f0 00 	movl   $0x0,0xf0b1e380
 f0102355:	00 00 00 
 	sched_run_all();
 f0102358:	e8 ab 81 00 00       	call   f010a508 <sched_run_all>
@@ -4758,7 +4758,7 @@ f01024c1:	50                   	push   %eax
 f01024c2:	e8 b3 7a 00 00       	call   f0109f7a <sched_init_RR>
 f01024c7:	83 c4 10             	add    $0x10,%esp
 	cprintf("Scheduler is now set to Round Robin with quantum %d ms\n", quantums[0]);
-f01024ca:	a0 34 a3 af f0       	mov    0xf0afa334,%al
+f01024ca:	a0 34 03 b0 f0       	mov    0xf0b00334,%al
 f01024cf:	0f b6 c0             	movzbl %al,%eax
 f01024d2:	83 ec 08             	sub    $0x8,%esp
 f01024d5:	50                   	push   %eax
@@ -4843,7 +4843,7 @@ f0102576:	eb 21                	jmp    f0102599 <command_sch_MLFQ+0xaf>
 	{
 		cprintf("%d   ", quantums[i]) ;
 f0102578:	8b 45 f0             	mov    -0x10(%ebp),%eax
-f010257b:	05 34 a3 af f0       	add    $0xf0afa334,%eax
+f010257b:	05 34 03 b0 f0       	add    $0xf0b00334,%eax
 f0102580:	8a 00                	mov    (%eax),%al
 f0102582:	0f b6 c0             	movzbl %al,%eax
 f0102585:	83 ec 08             	sub    $0x8,%esp
@@ -4858,7 +4858,7 @@ f0102593:	83 c4 10             	add    $0x10,%esp
 	cprintf("Scheduler is now set to MLFQ with quantums: ");
 	for (int i = 0 ; i < num_of_ready_queues; i++)
 f0102596:	ff 45 f0             	incl   -0x10(%ebp)
-f0102599:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0102599:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010259e:	0f b6 c0             	movzbl %al,%eax
 f01025a1:	3b 45 f0             	cmp    -0x10(%ebp),%eax
 f01025a4:	7f d2                	jg     f0102578 <command_sch_MLFQ+0x8e>
@@ -4899,7 +4899,7 @@ f01025e6:	eb 21                	jmp    f0102609 <command_print_sch_method+0x49>
 		{
 			cprintf("%d   ", quantums[i]) ;
 f01025e8:	8b 45 f4             	mov    -0xc(%ebp),%eax
-f01025eb:	05 34 a3 af f0       	add    $0xf0afa334,%eax
+f01025eb:	05 34 03 b0 f0       	add    $0xf0b00334,%eax
 f01025f0:	8a 00                	mov    (%eax),%al
 f01025f2:	0f b6 c0             	movzbl %al,%eax
 f01025f5:	83 ec 08             	sub    $0x8,%esp
@@ -4914,7 +4914,7 @@ int command_print_sch_method(int number_of_arguments, char **arguments)
 		cprintf("Current scheduler method is MLFQ with quantums: ");
 		for (int i = 0 ; i < num_of_ready_queues; i++)
 f0102606:	ff 45 f4             	incl   -0xc(%ebp)
-f0102609:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0102609:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010260e:	0f b6 c0             	movzbl %al,%eax
 f0102611:	3b 45 f4             	cmp    -0xc(%ebp),%eax
 f0102614:	7f d2                	jg     f01025e8 <command_print_sch_method+0x28>
@@ -4934,7 +4934,7 @@ f010262d:	85 c0                	test   %eax,%eax
 f010262f:	74 1b                	je     f010264c <command_print_sch_method+0x8c>
 	{
 		cprintf("Current scheduler method is Round Robin with quantum %d ms\n", quantums[0]);
-f0102631:	a0 34 a3 af f0       	mov    0xf0afa334,%al
+f0102631:	a0 34 03 b0 f0       	mov    0xf0b00334,%al
 f0102636:	0f b6 c0             	movzbl %al,%eax
 f0102639:	83 ec 08             	sub    $0x8,%esp
 f010263c:	50                   	push   %eax
@@ -6026,7 +6026,7 @@ f0102e4d:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
 f0102e54:	c7 45 f0 01 00 00 00 	movl   $0x1,-0x10(%ebp)
 	struct Env *e ;
 	LIST_FOREACH(e, &env_exit_queue)
-f0102e5b:	a1 24 7f af f0       	mov    0xf0af7f24,%eax
+f0102e5b:	a1 24 df af f0       	mov    0xf0afdf24,%eax
 f0102e60:	89 45 ec             	mov    %eax,-0x14(%ebp)
 f0102e63:	eb 3d                	jmp    f0102ea2 <command_test_sc_MLFQ+0x76>
 	{
@@ -6059,7 +6059,7 @@ f0102e98:	74 31                	je     f0102ecb <command_test_sc_MLFQ+0x9f>
 	int firstTime = 1;
 	struct Env *e ;
 	LIST_FOREACH(e, &env_exit_queue)
-f0102e9a:	a1 2c 7f af f0       	mov    0xf0af7f2c,%eax
+f0102e9a:	a1 2c df af f0       	mov    0xf0afdf2c,%eax
 f0102e9f:	89 45 ec             	mov    %eax,-0x14(%ebp)
 f0102ea2:	83 7d ec 00          	cmpl   $0x0,-0x14(%ebp)
 f0102ea6:	74 08                	je     f0102eb0 <command_test_sc_MLFQ+0x84>
@@ -6067,8 +6067,8 @@ f0102ea8:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f0102eab:	8b 40 44             	mov    0x44(%eax),%eax
 f0102eae:	eb 05                	jmp    f0102eb5 <command_test_sc_MLFQ+0x89>
 f0102eb0:	b8 00 00 00 00       	mov    $0x0,%eax
-f0102eb5:	a3 2c 7f af f0       	mov    %eax,0xf0af7f2c
-f0102eba:	a1 2c 7f af f0       	mov    0xf0af7f2c,%eax
+f0102eb5:	a3 2c df af f0       	mov    %eax,0xf0afdf2c
+f0102eba:	a1 2c df af f0       	mov    0xf0afdf2c,%eax
 f0102ebf:	85 c0                	test   %eax,%eax
 f0102ec1:	75 a2                	jne    f0102e65 <command_test_sc_MLFQ+0x39>
 f0102ec3:	83 7d ec 00          	cmpl   $0x0,-0x14(%ebp)
@@ -6252,7 +6252,7 @@ f010300c:	eb fe                	jmp    f010300c <detect_memory+0xd6>
 	number_of_frames = maxpa / PAGE_SIZE;
 f010300e:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f0103011:	c1 e8 0c             	shr    $0xc,%eax
-f0103014:	a3 30 a3 af f0       	mov    %eax,0xf0afa330
+f0103014:	a3 30 03 b0 f0       	mov    %eax,0xf0b00330
 
 	cprintf("Physical memory: %dK available, ", (int)(maxpa/1024));
 f0103019:	8b 45 f4             	mov    -0xc(%ebp),%eax
@@ -6300,7 +6300,7 @@ f0103060:	eb 40                	jmp    f01030a2 <check_boot_pgdir+0x4f>
 			assert(check_va2pa(ptr_page_directory, KERNEL_BASE + i) == i);
 f0103062:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f0103065:	8d 90 00 00 00 f0    	lea    -0x10000000(%eax),%edx
-f010306b:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f010306b:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f0103070:	83 ec 08             	sub    $0x8,%esp
 f0103073:	52                   	push   %edx
 f0103074:	50                   	push   %eax
@@ -6332,7 +6332,7 @@ f01030b2:	eb 74                	jmp    f0103128 <check_boot_pgdir+0xd5>
 		assert(check_va2pa(ptr_page_directory, KERNEL_STACK_TOP - KERNEL_STACK_SIZE + i) == STATIC_KERNEL_PHYSICAL_ADDRESS(ptr_stack_bottom) + i);
 f01030b4:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f01030b7:	8d 90 00 80 bf ef    	lea    -0x10408000(%eax),%edx
-f01030bd:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f01030bd:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f01030c2:	83 ec 08             	sub    $0x8,%esp
 f01030c5:	52                   	push   %edx
 f01030c6:	50                   	push   %eax
@@ -6387,7 +6387,7 @@ f0103156:	77 2c                	ja     f0103184 <check_boot_pgdir+0x131>
 		//2016: READ_ONLY_FRAMES_INFO not valid any more since it can't fit in 4 MB space
 		//case PDX(READ_ONLY_FRAMES_INFO):
 		assert(ptr_page_directory[i]);
-f0103158:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f0103158:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f010315d:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0103160:	c1 e2 02             	shl    $0x2,%edx
 f0103163:	01 d0                	add    %edx,%eax
@@ -6405,7 +6405,7 @@ f010317f:	e8 f0 cf ff ff       	call   f0100174 <_panic>
 f0103184:	81 7d f4 bf 03 00 00 	cmpl   $0x3bf,-0xc(%ebp)
 f010318b:	76 2c                	jbe    f01031b9 <check_boot_pgdir+0x166>
 				assert(ptr_page_directory[i]);
-f010318d:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f010318d:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f0103192:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0103195:	c1 e2 02             	shl    $0x2,%edx
 f0103198:	01 d0                	add    %edx,%eax
@@ -6419,7 +6419,7 @@ f01031af:	68 47 41 12 f0       	push   $0xf0124147
 f01031b4:	e8 bb cf ff ff       	call   f0100174 <_panic>
 			else
 				assert(ptr_page_directory[i] == 0);
-f01031b9:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f01031b9:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f01031be:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f01031c1:	c1 e2 02             	shl    $0x2,%edx
 f01031c4:	01 d0                	add    %edx,%eax
@@ -6509,7 +6509,7 @@ f0103247:	89 45 f0             	mov    %eax,-0x10(%ebp)
 f010324a:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010324d:	c1 e8 0c             	shr    $0xc,%eax
 f0103250:	89 45 ec             	mov    %eax,-0x14(%ebp)
-f0103253:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f0103253:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f0103258:	39 45 ec             	cmp    %eax,-0x14(%ebp)
 f010325b:	72 17                	jb     f0103274 <check_va2pa+0x68>
 f010325d:	ff 75 f0             	pushl  -0x10(%ebp)
@@ -6600,11 +6600,11 @@ f01032e8:	c7 45 f8 00 00 00 00 	movl   $0x0,-0x8(%ebp)
 f01032ef:	eb 24                	jmp    f0103315 <turn_on_paging+0x3a>
 		{
 			ptr_page_directory[j] = ptr_page_directory[i];
-f01032f1:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f01032f1:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f01032f6:	8b 55 f8             	mov    -0x8(%ebp),%edx
 f01032f9:	c1 e2 02             	shl    $0x2,%edx
 f01032fc:	01 c2                	add    %eax,%edx
-f01032fe:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f01032fe:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f0103303:	8b 4d fc             	mov    -0x4(%ebp),%ecx
 f0103306:	c1 e1 02             	shl    $0x2,%ecx
 f0103309:	01 c8                	add    %ecx,%eax
@@ -6618,7 +6618,7 @@ f010330d:	89 02                	mov    %eax,(%edx)
 		for(; i< PDX((uint32)ptr_free_mem); ++i, ++j)
 f010330f:	ff 45 fc             	incl   -0x4(%ebp)
 f0103312:	ff 45 f8             	incl   -0x8(%ebp)
-f0103315:	a1 cc 87 b1 f0       	mov    0xf0b187cc,%eax
+f0103315:	a1 cc e7 b1 f0       	mov    0xf0b1e7cc,%eax
 f010331a:	c1 e8 16             	shr    $0x16,%eax
 f010331d:	89 c2                	mov    %eax,%edx
 f010331f:	8b 45 fc             	mov    -0x4(%ebp),%eax
@@ -6630,7 +6630,7 @@ f0103324:	77 cb                	ja     f01032f1 <turn_on_paging+0x16>
 
 	// Install page table.
 	lcr3(phys_page_directory);
-f0103326:	a1 d8 87 b1 f0       	mov    0xf0b187d8,%eax
+f0103326:	a1 d8 e7 b1 f0       	mov    0xf0b1e7d8,%eax
 f010332b:	89 45 e8             	mov    %eax,-0x18(%ebp)
 }
 
@@ -6709,7 +6709,7 @@ f0103397:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
 f010339e:	eb 19                	jmp    f01033b9 <turn_on_paging+0xde>
 		{
 			ptr_page_directory[j] = 0;
-f01033a0:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f01033a0:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f01033a5:	8b 55 f0             	mov    -0x10(%ebp),%edx
 f01033a8:	c1 e2 02             	shl    $0x2,%edx
 f01033ab:	01 d0                	add    %edx,%eax
@@ -6722,7 +6722,7 @@ f01033ad:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
 		for(; i< PDX((uint32)ptr_free_mem); ++i, ++j)
 f01033b3:	ff 45 f4             	incl   -0xc(%ebp)
 f01033b6:	ff 45 f0             	incl   -0x10(%ebp)
-f01033b9:	a1 cc 87 b1 f0       	mov    0xf0b187cc,%eax
+f01033b9:	a1 cc e7 b1 f0       	mov    0xf0b1e7cc,%eax
 f01033be:	c1 e8 16             	shr    $0x16,%eax
 f01033c1:	89 c2                	mov    %eax,%edx
 f01033c3:	8b 45 f4             	mov    -0xc(%ebp),%eax
@@ -6734,7 +6734,7 @@ f01033c8:	77 d6                	ja     f01033a0 <turn_on_paging+0xc5>
 	}
 	// Flush the TLB for good measure, to kill the ptr_page_directory[0] mapping.
 	lcr3(phys_page_directory);
-f01033ca:	a1 d8 87 b1 f0       	mov    0xf0b187d8,%eax
+f01033ca:	a1 d8 e7 b1 f0       	mov    0xf0b1e7d8,%eax
 f01033cf:	89 45 ec             	mov    %eax,-0x14(%ebp)
 }
 
@@ -6762,7 +6762,7 @@ f01033de:	83 ec 18             	sub    $0x18,%esp
 
 	// Permissions: kernel RW, user NONE
 	uint32 phys_frame_address = STATIC_KERNEL_PHYSICAL_ADDRESS(ptr_page_directory);
-f01033e1:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f01033e1:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f01033e6:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f01033e9:	81 7d f4 ff ff ff ef 	cmpl   $0xefffffff,-0xc(%ebp)
 f01033f0:	77 17                	ja     f0103409 <setup_listing_to_all_page_tables_entries+0x2e>
@@ -6775,7 +6775,7 @@ f0103409:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010340c:	05 00 00 00 10       	add    $0x10000000,%eax
 f0103411:	89 45 f0             	mov    %eax,-0x10(%ebp)
 	ptr_page_directory[PDX(VPT)] = CONSTRUCT_ENTRY(phys_frame_address , PERM_PRESENT | PERM_WRITEABLE);
-f0103414:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f0103414:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f0103419:	05 fc 0e 00 00       	add    $0xefc,%eax
 f010341e:	8b 55 f0             	mov    -0x10(%ebp),%edx
 f0103421:	83 ca 03             	or     $0x3,%edx
@@ -6784,9 +6784,9 @@ f0103424:	89 10                	mov    %edx,(%eax)
 	// same for UVPT
 	//Permissions: kernel R, user R
 	ptr_page_directory[PDX(UVPT)] = STATIC_KERNEL_PHYSICAL_ADDRESS(ptr_page_directory)|PERM_USER|PERM_PRESENT;
-f0103426:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f0103426:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f010342b:	8d 90 f4 0e 00 00    	lea    0xef4(%eax),%edx
-f0103431:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f0103431:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f0103436:	89 45 ec             	mov    %eax,-0x14(%ebp)
 f0103439:	81 7d ec ff ff ff ef 	cmpl   $0xefffffff,-0x14(%ebp)
 f0103440:	77 17                	ja     f0103459 <setup_listing_to_all_page_tables_entries+0x7e>
@@ -6823,7 +6823,7 @@ f010346d:	83 ec 10             	sub    $0x10,%esp
 f0103470:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
 f0103474:	75 15                	jne    f010348b <envid2env+0x22>
 		*env_store = curenv;
-f0103476:	8b 15 f0 16 a9 f0    	mov    0xf0a916f0,%edx
+f0103476:	8b 15 f0 76 a9 f0    	mov    0xf0a976f0,%edx
 f010347c:	8b 45 0c             	mov    0xc(%ebp),%eax
 f010347f:	89 10                	mov    %edx,(%eax)
 		return 0;
@@ -6835,7 +6835,7 @@ f0103486:	e9 a1 00 00 00       	jmp    f010352c <envid2env+0xc3>
 	// (i.e., does not refer to a _previous_ environment
 	// that used the same slot in the envs[] array).
 	e = &envs[ENVX(envid)];
-f010348b:	8b 0d ec 16 a9 f0    	mov    0xf0a916ec,%ecx
+f010348b:	8b 0d ec 76 a9 f0    	mov    0xf0a976ec,%ecx
 f0103491:	8b 45 08             	mov    0x8(%ebp),%eax
 f0103494:	83 e0 0b             	and    $0xb,%eax
 f0103497:	89 c2                	mov    %eax,%edx
@@ -6879,12 +6879,12 @@ f01034eb:	eb 3f                	jmp    f010352c <envid2env+0xc3>
 	if (checkperm && e != curenv && e->env_parent_id != curenv->env_id) {
 f01034ed:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
 f01034f1:	74 2c                	je     f010351f <envid2env+0xb6>
-f01034f3:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f01034f3:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f01034f8:	39 45 f8             	cmp    %eax,-0x8(%ebp)
 f01034fb:	74 22                	je     f010351f <envid2env+0xb6>
 f01034fd:	8b 45 f8             	mov    -0x8(%ebp),%eax
 f0103500:	8b 50 50             	mov    0x50(%eax),%edx
-f0103503:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0103503:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0103508:	8b 40 4c             	mov    0x4c(%eax),%eax
 f010350b:	39 c2                	cmp    %eax,%edx
 f010350d:	74 10                	je     f010351f <envid2env+0xb6>
@@ -6919,7 +6919,7 @@ f0103532:	55                   	push   %ebp
 f0103533:	89 e5                	mov    %esp,%ebp
 	return ptr_frame_info - frames_info;
 f0103535:	8b 45 08             	mov    0x8(%ebp),%eax
-f0103538:	8b 15 c4 87 b1 f0    	mov    0xf0b187c4,%edx
+f0103538:	8b 15 c4 e7 b1 f0    	mov    0xf0b1e7c4,%edx
 f010353e:	29 d0                	sub    %edx,%eax
 f0103540:	c1 f8 03             	sar    $0x3,%eax
 f0103543:	89 c2                	mov    %eax,%edx
@@ -6968,7 +6968,7 @@ f0103580:	83 ec 08             	sub    $0x8,%esp
 f0103583:	8b 45 08             	mov    0x8(%ebp),%eax
 f0103586:	c1 e8 0c             	shr    $0xc,%eax
 f0103589:	89 c2                	mov    %eax,%edx
-f010358b:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f010358b:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f0103590:	39 c2                	cmp    %eax,%edx
 f0103592:	72 14                	jb     f01035a8 <to_frame_info+0x2b>
 		panic("to_frame_info called with invalid pa");
@@ -6978,7 +6978,7 @@ f010359c:	6a 78                	push   $0x78
 f010359e:	68 b5 42 12 f0       	push   $0xf01242b5
 f01035a3:	e8 cc cb ff ff       	call   f0100174 <_panic>
 	return &frames_info[PPN(physical_address)];
-f01035a8:	8b 15 c4 87 b1 f0    	mov    0xf0b187c4,%edx
+f01035a8:	8b 15 c4 e7 b1 f0    	mov    0xf0b1e7c4,%edx
 f01035ae:	8b 45 08             	mov    0x8(%ebp),%eax
 f01035b1:	c1 e8 0c             	shr    $0xc,%eax
 f01035b4:	89 c1                	mov    %eax,%ecx
@@ -7012,9 +7012,9 @@ f01035cc:	68 00 10 00 00       	push   $0x1000
 f01035d1:	68 00 10 00 00       	push   $0x1000
 f01035d6:	e8 4f 02 00 00       	call   f010382a <boot_allocate_space>
 f01035db:	83 c4 10             	add    $0x10,%esp
-f01035de:	a3 d0 87 b1 f0       	mov    %eax,0xf0b187d0
+f01035de:	a3 d0 e7 b1 f0       	mov    %eax,0xf0b1e7d0
 	memset(ptr_page_directory, 0, PAGE_SIZE);
-f01035e3:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f01035e3:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f01035e8:	83 ec 04             	sub    $0x4,%esp
 f01035eb:	68 00 10 00 00       	push   $0x1000
 f01035f0:	6a 00                	push   $0x0
@@ -7022,7 +7022,7 @@ f01035f2:	50                   	push   %eax
 f01035f3:	e8 f1 cb 01 00       	call   f01201e9 <memset>
 f01035f8:	83 c4 10             	add    $0x10,%esp
 	phys_page_directory = STATIC_KERNEL_PHYSICAL_ADDRESS(ptr_page_directory);
-f01035fb:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f01035fb:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f0103600:	89 45 e8             	mov    %eax,-0x18(%ebp)
 f0103603:	81 7d e8 ff ff ff ef 	cmpl   $0xefffffff,-0x18(%ebp)
 f010360a:	77 14                	ja     f0103620 <initialize_kernel_VM+0x5d>
@@ -7033,7 +7033,7 @@ f0103616:	68 01 43 12 f0       	push   $0xf0124301
 f010361b:	e8 54 cb ff ff       	call   f0100174 <_panic>
 f0103620:	8b 45 e8             	mov    -0x18(%ebp),%eax
 f0103623:	05 00 00 00 10       	add    $0x10000000,%eax
-f0103628:	a3 d8 87 b1 f0       	mov    %eax,0xf0b187d8
+f0103628:	a3 d8 e7 b1 f0       	mov    %eax,0xf0b1e7d8
 	// Map the kernel stack with VA range :
 	//  [KERNEL_STACK_TOP-KERNEL_STACK_SIZE, KERNEL_STACK_TOP),
 	// to physical address : "phys_stack_bottom".
@@ -7050,7 +7050,7 @@ f0103647:	68 01 43 12 f0       	push   $0xf0124301
 f010364c:	e8 23 cb ff ff       	call   f0100174 <_panic>
 f0103651:	8b 45 e4             	mov    -0x1c(%ebp),%eax
 f0103654:	8d 90 00 00 00 10    	lea    0x10000000(%eax),%edx
-f010365a:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f010365a:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f010365f:	83 ec 0c             	sub    $0xc,%esp
 f0103662:	6a 02                	push   $0x2
 f0103664:	52                   	push   %edx
@@ -7076,7 +7076,7 @@ f010368d:	eb 25                	jmp    f01036b4 <initialize_kernel_VM+0xf1>
 f010368f:	ff 45 ec             	incl   -0x14(%ebp)
 		boot_get_page_table(ptr_page_directory, (uint32)sva, 1);
 f0103692:	8b 55 f0             	mov    -0x10(%ebp),%edx
-f0103695:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f0103695:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f010369a:	83 ec 04             	sub    $0x4,%esp
 f010369d:	6a 01                	push   $0x1
 f010369f:	52                   	push   %edx
@@ -7103,7 +7103,7 @@ f01036c4:	76 c9                	jbe    f010368f <initialize_kernel_VM+0xcc>
 	//cprintf("size of WorkingSetPage = %d\n",sizeof(struct WorkingSetPage));
 	uint32 array_size;
 	array_size = number_of_frames * sizeof(struct Frame_Info) ;
-f01036c6:	8b 15 30 a3 af f0    	mov    0xf0afa330,%edx
+f01036c6:	8b 15 30 03 b0 f0    	mov    0xf0b00330,%edx
 f01036cc:	89 d0                	mov    %edx,%eax
 f01036ce:	01 c0                	add    %eax,%eax
 f01036d0:	01 d0                	add    %edx,%eax
@@ -7115,9 +7115,9 @@ f01036db:	68 00 10 00 00       	push   $0x1000
 f01036e0:	ff 75 e0             	pushl  -0x20(%ebp)
 f01036e3:	e8 42 01 00 00       	call   f010382a <boot_allocate_space>
 f01036e8:	83 c4 10             	add    $0x10,%esp
-f01036eb:	a3 c4 87 b1 f0       	mov    %eax,0xf0b187c4
+f01036eb:	a3 c4 e7 b1 f0       	mov    %eax,0xf0b1e7c4
 	memset(frames_info, 0, array_size);
-f01036f0:	a1 c4 87 b1 f0       	mov    0xf0b187c4,%eax
+f01036f0:	a1 c4 e7 b1 f0       	mov    0xf0b1e7c4,%eax
 f01036f5:	83 ec 04             	sub    $0x4,%esp
 f01036f8:	ff 75 e0             	pushl  -0x20(%ebp)
 f01036fb:	6a 00                	push   $0x0
@@ -7137,9 +7137,9 @@ f0103710:	68 00 10 00 00       	push   $0x1000
 f0103715:	ff 75 dc             	pushl  -0x24(%ebp)
 f0103718:	e8 0d 01 00 00       	call   f010382a <boot_allocate_space>
 f010371d:	83 c4 10             	add    $0x10,%esp
-f0103720:	a3 b0 87 b1 f0       	mov    %eax,0xf0b187b0
+f0103720:	a3 b0 e7 b1 f0       	mov    %eax,0xf0b1e7b0
 	memset(disk_frames_info , 0, disk_array_size);
-f0103725:	a1 b0 87 b1 f0       	mov    0xf0b187b0,%eax
+f0103725:	a1 b0 e7 b1 f0       	mov    0xf0b1e7b0,%eax
 f010372a:	83 ec 04             	sub    $0x4,%esp
 f010372d:	ff 75 dc             	pushl  -0x24(%ebp)
 f0103730:	6a 00                	push   $0x0
@@ -7173,10 +7173,10 @@ f010375f:	68 00 10 00 00       	push   $0x1000
 f0103764:	50                   	push   %eax
 f0103765:	e8 c0 00 00 00       	call   f010382a <boot_allocate_space>
 f010376a:	83 c4 10             	add    $0x10,%esp
-f010376d:	a3 ec 16 a9 f0       	mov    %eax,0xf0a916ec
+f010376d:	a3 ec 76 a9 f0       	mov    %eax,0xf0a976ec
 	memset(envs , 0, envs_size);
 f0103772:	8b 55 d8             	mov    -0x28(%ebp),%edx
-f0103775:	a1 ec 16 a9 f0       	mov    0xf0a916ec,%eax
+f0103775:	a1 ec 76 a9 f0       	mov    0xf0a976ec,%eax
 f010377a:	83 ec 04             	sub    $0x4,%esp
 f010377d:	52                   	push   %edx
 f010377e:	6a 00                	push   $0x0
@@ -7186,7 +7186,7 @@ f0103786:	83 c4 10             	add    $0x10,%esp
 
 	//make the user to access this array by mapping it to UPAGES linear address (UPAGES is in User/Kernel space)
 	boot_map_range(ptr_page_directory, UENVS, envs_size, STATIC_KERNEL_PHYSICAL_ADDRESS(envs), PERM_USER) ;
-f0103789:	a1 ec 16 a9 f0       	mov    0xf0a916ec,%eax
+f0103789:	a1 ec 76 a9 f0       	mov    0xf0a976ec,%eax
 f010378e:	89 45 d4             	mov    %eax,-0x2c(%ebp)
 f0103791:	81 7d d4 ff ff ff ef 	cmpl   $0xefffffff,-0x2c(%ebp)
 f0103798:	77 17                	ja     f01037b1 <initialize_kernel_VM+0x1ee>
@@ -7198,7 +7198,7 @@ f01037ac:	e8 c3 c9 ff ff       	call   f0100174 <_panic>
 f01037b1:	8b 45 d4             	mov    -0x2c(%ebp),%eax
 f01037b4:	8d 88 00 00 00 10    	lea    0x10000000(%eax),%ecx
 f01037ba:	8b 55 d8             	mov    -0x28(%ebp),%edx
-f01037bd:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f01037bd:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f01037c2:	83 ec 0c             	sub    $0xc,%esp
 f01037c5:	6a 04                	push   $0x4
 f01037c7:	51                   	push   %ecx
@@ -7210,9 +7210,9 @@ f01037d4:	83 c4 20             	add    $0x20,%esp
 
 	//update permissions of the corresponding entry in page directory to make it USER with PERMISSION read only
 	ptr_page_directory[PDX(UENVS)] = ptr_page_directory[PDX(UENVS)]|(PERM_USER|(PERM_PRESENT & (~PERM_WRITEABLE)));
-f01037d7:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f01037d7:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f01037dc:	05 ec 0e 00 00       	add    $0xeec,%eax
-f01037e1:	8b 15 d0 87 b1 f0    	mov    0xf0b187d0,%edx
+f01037e1:	8b 15 d0 e7 b1 f0    	mov    0xf0b1e7d0,%edx
 f01037e7:	81 c2 ec 0e 00 00    	add    $0xeec,%edx
 f01037ed:	8b 12                	mov    (%edx),%edx
 f01037ef:	83 ca 05             	or     $0x5,%edx
@@ -7223,7 +7223,7 @@ f01037f2:	89 10                	mov    %edx,(%eax)
 #else
 	{
 		boot_map_range(ptr_page_directory, KERNEL_BASE, 0xFFFFFFFF - KERNEL_BASE, 0, PERM_WRITEABLE) ;
-f01037f4:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f01037f4:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f01037f9:	83 ec 0c             	sub    $0xc,%esp
 f01037fc:	6a 02                	push   $0x2
 f01037fe:	6a 00                	push   $0x0
@@ -7239,7 +7239,7 @@ f0103810:	83 c4 20             	add    $0x20,%esp
 f0103813:	e8 3b f8 ff ff       	call   f0103053 <check_boot_pgdir>
 
 	memory_scarce_threshold_percentage = DEFAULT_MEM_SCARCE_PERCENTAGE;	// Memory remains plentiful till % of free frames gets below 25% of the memory space
-f0103818:	c7 05 20 7f af f0 19 	movl   $0x19,0xf0af7f20
+f0103818:	c7 05 20 df af f0 19 	movl   $0x19,0xf0afdf20
 f010381f:	00 00 00 
 
 	/*
@@ -7269,19 +7269,19 @@ f010382d:	83 ec 10             	sub    $0x10,%esp
 	// i.e., the first virtual address that the linker
 	// did not assign to any kernel code or global variables.
 	if (ptr_free_mem == 0)
-f0103830:	a1 cc 87 b1 f0       	mov    0xf0b187cc,%eax
+f0103830:	a1 cc e7 b1 f0       	mov    0xf0b1e7cc,%eax
 f0103835:	85 c0                	test   %eax,%eax
 f0103837:	75 0a                	jne    f0103843 <boot_allocate_space+0x19>
 		ptr_free_mem = end_of_kernel;
-f0103839:	c7 05 cc 87 b1 f0 d0 	movl   $0xf0b188d0,0xf0b187cc
-f0103840:	88 b1 f0 
+f0103839:	c7 05 cc e7 b1 f0 d0 	movl   $0xf0b1e8d0,0xf0b1e7cc
+f0103840:	e8 b1 f0 
 
 	// Your code here:
 	//	Step 1: round ptr_free_mem up to be aligned properly
 	ptr_free_mem = ROUNDUP(ptr_free_mem, align) ;
 f0103843:	8b 45 0c             	mov    0xc(%ebp),%eax
 f0103846:	89 45 fc             	mov    %eax,-0x4(%ebp)
-f0103849:	a1 cc 87 b1 f0       	mov    0xf0b187cc,%eax
+f0103849:	a1 cc e7 b1 f0       	mov    0xf0b1e7cc,%eax
 f010384e:	89 c2                	mov    %eax,%edx
 f0103850:	8b 45 fc             	mov    -0x4(%ebp),%eax
 f0103853:	01 d0                	add    %edx,%eax
@@ -7292,20 +7292,20 @@ f010385c:	ba 00 00 00 00       	mov    $0x0,%edx
 f0103861:	f7 75 fc             	divl   -0x4(%ebp)
 f0103864:	8b 45 f8             	mov    -0x8(%ebp),%eax
 f0103867:	29 d0                	sub    %edx,%eax
-f0103869:	a3 cc 87 b1 f0       	mov    %eax,0xf0b187cc
+f0103869:	a3 cc e7 b1 f0       	mov    %eax,0xf0b1e7cc
 
 	//	Step 2: save current value of ptr_free_mem as allocated space
 	void *ptr_allocated_mem;
 	ptr_allocated_mem = ptr_free_mem ;
-f010386e:	a1 cc 87 b1 f0       	mov    0xf0b187cc,%eax
+f010386e:	a1 cc e7 b1 f0       	mov    0xf0b1e7cc,%eax
 f0103873:	89 45 f4             	mov    %eax,-0xc(%ebp)
 
 	//	Step 3: increase ptr_free_mem to record allocation
 	ptr_free_mem += size ;
-f0103876:	8b 15 cc 87 b1 f0    	mov    0xf0b187cc,%edx
+f0103876:	8b 15 cc e7 b1 f0    	mov    0xf0b1e7cc,%edx
 f010387c:	8b 45 08             	mov    0x8(%ebp),%eax
 f010387f:	01 d0                	add    %edx,%eax
-f0103881:	a3 cc 87 b1 f0       	mov    %eax,0xf0b187cc
+f0103881:	a3 cc e7 b1 f0       	mov    %eax,0xf0b1e7cc
 
 	//// 2016: Step 3.5: initialize allocated space by ZEROOOOOOOOOOOOOO
 	//memset(ptr_allocated_mem, 0, size);
@@ -7418,7 +7418,7 @@ f0103930:	89 45 e8             	mov    %eax,-0x18(%ebp)
 f0103933:	8b 45 e8             	mov    -0x18(%ebp),%eax
 f0103936:	c1 e8 0c             	shr    $0xc,%eax
 f0103939:	89 45 e4             	mov    %eax,-0x1c(%ebp)
-f010393c:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f010393c:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f0103941:	39 45 e4             	cmp    %eax,-0x1c(%ebp)
 f0103944:	72 17                	jb     f010395d <boot_get_page_table+0x5e>
 f0103946:	ff 75 e8             	pushl  -0x18(%ebp)
@@ -7497,36 +7497,36 @@ f01039e9:	83 ec 24             	sub    $0x24,%esp
 	// Change the code to reflect this.
 	int i;
 	LIST_INIT(&free_frame_list);
-f01039ec:	c7 05 b4 87 b1 f0 00 	movl   $0x0,0xf0b187b4
+f01039ec:	c7 05 b4 e7 b1 f0 00 	movl   $0x0,0xf0b1e7b4
 f01039f3:	00 00 00 
-f01039f6:	c7 05 b8 87 b1 f0 00 	movl   $0x0,0xf0b187b8
+f01039f6:	c7 05 b8 e7 b1 f0 00 	movl   $0x0,0xf0b1e7b8
 f01039fd:	00 00 00 
-f0103a00:	c7 05 c0 87 b1 f0 00 	movl   $0x0,0xf0b187c0
+f0103a00:	c7 05 c0 e7 b1 f0 00 	movl   $0x0,0xf0b1e7c0
 f0103a07:	00 00 00 
 	LIST_INIT(&modified_frame_list);
-f0103a0a:	c7 05 a0 87 b1 f0 00 	movl   $0x0,0xf0b187a0
+f0103a0a:	c7 05 a0 e7 b1 f0 00 	movl   $0x0,0xf0b1e7a0
 f0103a11:	00 00 00 
-f0103a14:	c7 05 a4 87 b1 f0 00 	movl   $0x0,0xf0b187a4
+f0103a14:	c7 05 a4 e7 b1 f0 00 	movl   $0x0,0xf0b1e7a4
 f0103a1b:	00 00 00 
-f0103a1e:	c7 05 ac 87 b1 f0 00 	movl   $0x0,0xf0b187ac
+f0103a1e:	c7 05 ac e7 b1 f0 00 	movl   $0x0,0xf0b1e7ac
 f0103a25:	00 00 00 
 
 	frames_info[0].references = 1;
-f0103a28:	a1 c4 87 b1 f0       	mov    0xf0b187c4,%eax
+f0103a28:	a1 c4 e7 b1 f0       	mov    0xf0b1e7c4,%eax
 f0103a2d:	66 c7 40 08 01 00    	movw   $0x1,0x8(%eax)
 	frames_info[1].references = 1;
-f0103a33:	a1 c4 87 b1 f0       	mov    0xf0b187c4,%eax
+f0103a33:	a1 c4 e7 b1 f0       	mov    0xf0b1e7c4,%eax
 f0103a38:	83 c0 18             	add    $0x18,%eax
 f0103a3b:	66 c7 40 08 01 00    	movw   $0x1,0x8(%eax)
 	frames_info[2].references = 1;
-f0103a41:	a1 c4 87 b1 f0       	mov    0xf0b187c4,%eax
+f0103a41:	a1 c4 e7 b1 f0       	mov    0xf0b1e7c4,%eax
 f0103a46:	83 c0 30             	add    $0x30,%eax
 f0103a49:	66 c7 40 08 01 00    	movw   $0x1,0x8(%eax)
 	ptr_zero_page = (uint8*) KERNEL_BASE+PAGE_SIZE;
-f0103a4f:	c7 05 c8 87 b1 f0 00 	movl   $0xf0001000,0xf0b187c8
+f0103a4f:	c7 05 c8 e7 b1 f0 00 	movl   $0xf0001000,0xf0b1e7c8
 f0103a56:	10 00 f0 
 	ptr_temp_page = (uint8*) KERNEL_BASE+2*PAGE_SIZE;
-f0103a59:	c7 05 d4 87 b1 f0 00 	movl   $0xf0002000,0xf0b187d4
+f0103a59:	c7 05 d4 e7 b1 f0 00 	movl   $0xf0002000,0xf0b1e7d4
 f0103a60:	20 00 f0 
 	i =0;
 f0103a63:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
@@ -7534,12 +7534,12 @@ f0103a63:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
 f0103a6a:	eb 1f                	jmp    f0103a8b <initialize_paging+0xa6>
 	{
 		ptr_zero_page[i]=0;
-f0103a6c:	8b 15 c8 87 b1 f0    	mov    0xf0b187c8,%edx
+f0103a6c:	8b 15 c8 e7 b1 f0    	mov    0xf0b1e7c8,%edx
 f0103a72:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f0103a75:	01 d0                	add    %edx,%eax
 f0103a77:	c6 00 00             	movb   $0x0,(%eax)
 		ptr_temp_page[i]=0;
-f0103a7a:	8b 15 d4 87 b1 f0    	mov    0xf0b187d4,%edx
+f0103a7a:	8b 15 d4 e7 b1 f0    	mov    0xf0b1e7d4,%edx
 f0103a80:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f0103a83:	01 d0                	add    %edx,%eax
 f0103a85:	c6 00 00             	movb   $0x0,(%eax)
@@ -7575,7 +7575,7 @@ f0103ac0:	e9 bc 00 00 00       	jmp    f0103b81 <initialize_paging+0x19c>
 	{
 
 		initialize_frame_info(&(frames_info[i]));
-f0103ac5:	8b 0d c4 87 b1 f0    	mov    0xf0b187c4,%ecx
+f0103ac5:	8b 0d c4 e7 b1 f0    	mov    0xf0b1e7c4,%ecx
 f0103acb:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0103ace:	89 d0                	mov    %edx,%eax
 f0103ad0:	01 c0                	add    %eax,%eax
@@ -7589,20 +7589,20 @@ f0103ae2:	83 c4 10             	add    $0x10,%esp
 		//frames_info[i].references = 0;
 
 		LIST_INSERT_HEAD(&free_frame_list, &frames_info[i]);
-f0103ae5:	8b 0d c4 87 b1 f0    	mov    0xf0b187c4,%ecx
+f0103ae5:	8b 0d c4 e7 b1 f0    	mov    0xf0b1e7c4,%ecx
 f0103aeb:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0103aee:	89 d0                	mov    %edx,%eax
 f0103af0:	01 c0                	add    %eax,%eax
 f0103af2:	01 d0                	add    %edx,%eax
 f0103af4:	c1 e0 03             	shl    $0x3,%eax
 f0103af7:	01 c8                	add    %ecx,%eax
-f0103af9:	8b 15 b4 87 b1 f0    	mov    0xf0b187b4,%edx
+f0103af9:	8b 15 b4 e7 b1 f0    	mov    0xf0b1e7b4,%edx
 f0103aff:	89 10                	mov    %edx,(%eax)
 f0103b01:	8b 00                	mov    (%eax),%eax
 f0103b03:	85 c0                	test   %eax,%eax
 f0103b05:	74 1f                	je     f0103b26 <initialize_paging+0x141>
-f0103b07:	8b 15 b4 87 b1 f0    	mov    0xf0b187b4,%edx
-f0103b0d:	8b 1d c4 87 b1 f0    	mov    0xf0b187c4,%ebx
+f0103b07:	8b 15 b4 e7 b1 f0    	mov    0xf0b1e7b4,%edx
+f0103b0d:	8b 1d c4 e7 b1 f0    	mov    0xf0b1e7c4,%ebx
 f0103b13:	8b 4d f4             	mov    -0xc(%ebp),%ecx
 f0103b16:	89 c8                	mov    %ecx,%eax
 f0103b18:	01 c0                	add    %eax,%eax
@@ -7611,23 +7611,23 @@ f0103b1c:	c1 e0 03             	shl    $0x3,%eax
 f0103b1f:	01 d8                	add    %ebx,%eax
 f0103b21:	89 42 04             	mov    %eax,0x4(%edx)
 f0103b24:	eb 19                	jmp    f0103b3f <initialize_paging+0x15a>
-f0103b26:	8b 0d c4 87 b1 f0    	mov    0xf0b187c4,%ecx
+f0103b26:	8b 0d c4 e7 b1 f0    	mov    0xf0b1e7c4,%ecx
 f0103b2c:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0103b2f:	89 d0                	mov    %edx,%eax
 f0103b31:	01 c0                	add    %eax,%eax
 f0103b33:	01 d0                	add    %edx,%eax
 f0103b35:	c1 e0 03             	shl    $0x3,%eax
 f0103b38:	01 c8                	add    %ecx,%eax
-f0103b3a:	a3 b8 87 b1 f0       	mov    %eax,0xf0b187b8
-f0103b3f:	8b 0d c4 87 b1 f0    	mov    0xf0b187c4,%ecx
+f0103b3a:	a3 b8 e7 b1 f0       	mov    %eax,0xf0b1e7b8
+f0103b3f:	8b 0d c4 e7 b1 f0    	mov    0xf0b1e7c4,%ecx
 f0103b45:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0103b48:	89 d0                	mov    %edx,%eax
 f0103b4a:	01 c0                	add    %eax,%eax
 f0103b4c:	01 d0                	add    %edx,%eax
 f0103b4e:	c1 e0 03             	shl    $0x3,%eax
 f0103b51:	01 c8                	add    %ecx,%eax
-f0103b53:	a3 b4 87 b1 f0       	mov    %eax,0xf0b187b4
-f0103b58:	8b 0d c4 87 b1 f0    	mov    0xf0b187c4,%ecx
+f0103b53:	a3 b4 e7 b1 f0       	mov    %eax,0xf0b1e7b4
+f0103b58:	8b 0d c4 e7 b1 f0    	mov    0xf0b1e7c4,%ecx
 f0103b5e:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0103b61:	89 d0                	mov    %edx,%eax
 f0103b63:	01 c0                	add    %eax,%eax
@@ -7635,9 +7635,9 @@ f0103b65:	01 d0                	add    %edx,%eax
 f0103b67:	c1 e0 03             	shl    $0x3,%eax
 f0103b6a:	01 c8                	add    %ecx,%eax
 f0103b6c:	c7 40 04 00 00 00 00 	movl   $0x0,0x4(%eax)
-f0103b73:	a1 c0 87 b1 f0       	mov    0xf0b187c0,%eax
+f0103b73:	a1 c0 e7 b1 f0       	mov    0xf0b1e7c0,%eax
 f0103b78:	40                   	inc    %eax
-f0103b79:	a3 c0 87 b1 f0       	mov    %eax,0xf0b187c0
+f0103b79:	a3 c0 e7 b1 f0       	mov    %eax,0xf0b1e7c0
 		ptr_temp_page[i]=0;
 	}
 
@@ -7662,7 +7662,7 @@ f0103b99:	c7 45 f4 a0 00 00 00 	movl   $0xa0,-0xc(%ebp)
 f0103ba0:	eb 1d                	jmp    f0103bbf <initialize_paging+0x1da>
 	{
 		frames_info[i].references = 1;
-f0103ba2:	8b 0d c4 87 b1 f0    	mov    0xf0b187c4,%ecx
+f0103ba2:	8b 0d c4 e7 b1 f0    	mov    0xf0b1e7c4,%ecx
 f0103ba8:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0103bab:	89 d0                	mov    %edx,%eax
 f0103bad:	01 c0                	add    %eax,%eax
@@ -7685,7 +7685,7 @@ f0103bc6:	7e da                	jle    f0103ba2 <initialize_paging+0x1bd>
 
 	range_end = ROUNDUP(STATIC_KERNEL_PHYSICAL_ADDRESS(ptr_free_mem), PAGE_SIZE);
 f0103bc8:	c7 45 e4 00 10 00 00 	movl   $0x1000,-0x1c(%ebp)
-f0103bcf:	a1 cc 87 b1 f0       	mov    0xf0b187cc,%eax
+f0103bcf:	a1 cc e7 b1 f0       	mov    0xf0b1e7cc,%eax
 f0103bd4:	89 45 e0             	mov    %eax,-0x20(%ebp)
 f0103bd7:	81 7d e0 ff ff ff ef 	cmpl   $0xefffffff,-0x20(%ebp)
 f0103bde:	77 17                	ja     f0103bf7 <initialize_paging+0x212>
@@ -7712,7 +7712,7 @@ f0103c1c:	c7 45 f4 00 01 00 00 	movl   $0x100,-0xc(%ebp)
 f0103c23:	eb 1d                	jmp    f0103c42 <initialize_paging+0x25d>
 	{
 		frames_info[i].references = 1;
-f0103c25:	8b 0d c4 87 b1 f0    	mov    0xf0b187c4,%ecx
+f0103c25:	8b 0d c4 e7 b1 f0    	mov    0xf0b1e7c4,%ecx
 f0103c2b:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0103c2e:	89 d0                	mov    %edx,%eax
 f0103c30:	01 c0                	add    %eax,%eax
@@ -7748,7 +7748,7 @@ f0103c65:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f0103c68:	e9 bc 00 00 00       	jmp    f0103d29 <initialize_paging+0x344>
 	{
 		initialize_frame_info(&(frames_info[i]));
-f0103c6d:	8b 0d c4 87 b1 f0    	mov    0xf0b187c4,%ecx
+f0103c6d:	8b 0d c4 e7 b1 f0    	mov    0xf0b1e7c4,%ecx
 f0103c73:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0103c76:	89 d0                	mov    %edx,%eax
 f0103c78:	01 c0                	add    %eax,%eax
@@ -7762,20 +7762,20 @@ f0103c8a:	83 c4 10             	add    $0x10,%esp
 
 		//frames_info[i].references = 0;
 		LIST_INSERT_HEAD(&free_frame_list, &frames_info[i]);
-f0103c8d:	8b 0d c4 87 b1 f0    	mov    0xf0b187c4,%ecx
+f0103c8d:	8b 0d c4 e7 b1 f0    	mov    0xf0b1e7c4,%ecx
 f0103c93:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0103c96:	89 d0                	mov    %edx,%eax
 f0103c98:	01 c0                	add    %eax,%eax
 f0103c9a:	01 d0                	add    %edx,%eax
 f0103c9c:	c1 e0 03             	shl    $0x3,%eax
 f0103c9f:	01 c8                	add    %ecx,%eax
-f0103ca1:	8b 15 b4 87 b1 f0    	mov    0xf0b187b4,%edx
+f0103ca1:	8b 15 b4 e7 b1 f0    	mov    0xf0b1e7b4,%edx
 f0103ca7:	89 10                	mov    %edx,(%eax)
 f0103ca9:	8b 00                	mov    (%eax),%eax
 f0103cab:	85 c0                	test   %eax,%eax
 f0103cad:	74 1f                	je     f0103cce <initialize_paging+0x2e9>
-f0103caf:	8b 15 b4 87 b1 f0    	mov    0xf0b187b4,%edx
-f0103cb5:	8b 1d c4 87 b1 f0    	mov    0xf0b187c4,%ebx
+f0103caf:	8b 15 b4 e7 b1 f0    	mov    0xf0b1e7b4,%edx
+f0103cb5:	8b 1d c4 e7 b1 f0    	mov    0xf0b1e7c4,%ebx
 f0103cbb:	8b 4d f4             	mov    -0xc(%ebp),%ecx
 f0103cbe:	89 c8                	mov    %ecx,%eax
 f0103cc0:	01 c0                	add    %eax,%eax
@@ -7784,23 +7784,23 @@ f0103cc4:	c1 e0 03             	shl    $0x3,%eax
 f0103cc7:	01 d8                	add    %ebx,%eax
 f0103cc9:	89 42 04             	mov    %eax,0x4(%edx)
 f0103ccc:	eb 19                	jmp    f0103ce7 <initialize_paging+0x302>
-f0103cce:	8b 0d c4 87 b1 f0    	mov    0xf0b187c4,%ecx
+f0103cce:	8b 0d c4 e7 b1 f0    	mov    0xf0b1e7c4,%ecx
 f0103cd4:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0103cd7:	89 d0                	mov    %edx,%eax
 f0103cd9:	01 c0                	add    %eax,%eax
 f0103cdb:	01 d0                	add    %edx,%eax
 f0103cdd:	c1 e0 03             	shl    $0x3,%eax
 f0103ce0:	01 c8                	add    %ecx,%eax
-f0103ce2:	a3 b8 87 b1 f0       	mov    %eax,0xf0b187b8
-f0103ce7:	8b 0d c4 87 b1 f0    	mov    0xf0b187c4,%ecx
+f0103ce2:	a3 b8 e7 b1 f0       	mov    %eax,0xf0b1e7b8
+f0103ce7:	8b 0d c4 e7 b1 f0    	mov    0xf0b1e7c4,%ecx
 f0103ced:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0103cf0:	89 d0                	mov    %edx,%eax
 f0103cf2:	01 c0                	add    %eax,%eax
 f0103cf4:	01 d0                	add    %edx,%eax
 f0103cf6:	c1 e0 03             	shl    $0x3,%eax
 f0103cf9:	01 c8                	add    %ecx,%eax
-f0103cfb:	a3 b4 87 b1 f0       	mov    %eax,0xf0b187b4
-f0103d00:	8b 0d c4 87 b1 f0    	mov    0xf0b187c4,%ecx
+f0103cfb:	a3 b4 e7 b1 f0       	mov    %eax,0xf0b1e7b4
+f0103d00:	8b 0d c4 e7 b1 f0    	mov    0xf0b1e7c4,%ecx
 f0103d06:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0103d09:	89 d0                	mov    %edx,%eax
 f0103d0b:	01 c0                	add    %eax,%eax
@@ -7808,9 +7808,9 @@ f0103d0d:	01 d0                	add    %edx,%eax
 f0103d0f:	c1 e0 03             	shl    $0x3,%eax
 f0103d12:	01 c8                	add    %ecx,%eax
 f0103d14:	c7 40 04 00 00 00 00 	movl   $0x0,0x4(%eax)
-f0103d1b:	a1 c0 87 b1 f0       	mov    0xf0b187c0,%eax
+f0103d1b:	a1 c0 e7 b1 f0       	mov    0xf0b1e7c0,%eax
 f0103d20:	40                   	inc    %eax
-f0103d21:	a3 c0 87 b1 f0       	mov    %eax,0xf0b187c0
+f0103d21:	a3 c0 e7 b1 f0       	mov    %eax,0xf0b1e7c0
 	for (i = PHYS_EXTENDED_MEM/PAGE_SIZE ; i < range_end/PAGE_SIZE; i++)
 	{
 		frames_info[i].references = 1;
@@ -7819,7 +7819,7 @@ f0103d21:	a3 c0 87 b1 f0       	mov    %eax,0xf0b187c0
 	for (i = range_end/PAGE_SIZE ; i < number_of_frames; i++)
 f0103d26:	ff 45 f4             	incl   -0xc(%ebp)
 f0103d29:	8b 55 f4             	mov    -0xc(%ebp),%edx
-f0103d2c:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f0103d2c:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f0103d31:	39 c2                	cmp    %eax,%edx
 f0103d33:	0f 82 34 ff ff ff    	jb     f0103c6d <initialize_paging+0x288>
 
@@ -7868,7 +7868,7 @@ f0103d5f:	55                   	push   %ebp
 f0103d60:	89 e5                	mov    %esp,%ebp
 f0103d62:	83 ec 18             	sub    $0x18,%esp
 	*ptr_frame_info = LIST_FIRST(&free_frame_list);
-f0103d65:	8b 15 b4 87 b1 f0    	mov    0xf0b187b4,%edx
+f0103d65:	8b 15 b4 e7 b1 f0    	mov    0xf0b1e7b4,%edx
 f0103d6b:	8b 45 08             	mov    0x8(%ebp),%eax
 f0103d6e:	89 10                	mov    %edx,(%eax)
 	int c = 0;
@@ -7908,7 +7908,7 @@ f0103db4:	eb 0d                	jmp    f0103dc3 <allocate_frame+0x64>
 f0103db6:	8b 45 08             	mov    0x8(%ebp),%eax
 f0103db9:	8b 00                	mov    (%eax),%eax
 f0103dbb:	8b 40 04             	mov    0x4(%eax),%eax
-f0103dbe:	a3 b8 87 b1 f0       	mov    %eax,0xf0b187b8
+f0103dbe:	a3 b8 e7 b1 f0       	mov    %eax,0xf0b1e7b8
 f0103dc3:	8b 45 08             	mov    0x8(%ebp),%eax
 f0103dc6:	8b 00                	mov    (%eax),%eax
 f0103dc8:	8b 40 04             	mov    0x4(%eax),%eax
@@ -7925,16 +7925,16 @@ f0103de0:	eb 0c                	jmp    f0103dee <allocate_frame+0x8f>
 f0103de2:	8b 45 08             	mov    0x8(%ebp),%eax
 f0103de5:	8b 00                	mov    (%eax),%eax
 f0103de7:	8b 00                	mov    (%eax),%eax
-f0103de9:	a3 b4 87 b1 f0       	mov    %eax,0xf0b187b4
+f0103de9:	a3 b4 e7 b1 f0       	mov    %eax,0xf0b1e7b4
 f0103dee:	8b 45 08             	mov    0x8(%ebp),%eax
 f0103df1:	8b 00                	mov    (%eax),%eax
 f0103df3:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
 f0103df9:	8b 45 08             	mov    0x8(%ebp),%eax
 f0103dfc:	8b 00                	mov    (%eax),%eax
 f0103dfe:	c7 40 04 00 00 00 00 	movl   $0x0,0x4(%eax)
-f0103e05:	a1 c0 87 b1 f0       	mov    0xf0b187c0,%eax
+f0103e05:	a1 c0 e7 b1 f0       	mov    0xf0b1e7c0,%eax
 f0103e0a:	48                   	dec    %eax
-f0103e0b:	a3 c0 87 b1 f0       	mov    %eax,0xf0b187c0
+f0103e0b:	a3 c0 e7 b1 f0       	mov    %eax,0xf0b1e7c0
 
 	/******************* PAGE BUFFERING CODE *******************
 	 ***********************************************************/
@@ -7996,26 +7996,26 @@ f0103e62:	83 c4 10             	add    $0x10,%esp
 
 	// Fill this function in
 	LIST_INSERT_HEAD(&free_frame_list, ptr_frame_info);
-f0103e65:	8b 15 b4 87 b1 f0    	mov    0xf0b187b4,%edx
+f0103e65:	8b 15 b4 e7 b1 f0    	mov    0xf0b1e7b4,%edx
 f0103e6b:	8b 45 08             	mov    0x8(%ebp),%eax
 f0103e6e:	89 10                	mov    %edx,(%eax)
 f0103e70:	8b 45 08             	mov    0x8(%ebp),%eax
 f0103e73:	8b 00                	mov    (%eax),%eax
 f0103e75:	85 c0                	test   %eax,%eax
 f0103e77:	74 0d                	je     f0103e86 <free_frame+0x35>
-f0103e79:	a1 b4 87 b1 f0       	mov    0xf0b187b4,%eax
+f0103e79:	a1 b4 e7 b1 f0       	mov    0xf0b1e7b4,%eax
 f0103e7e:	8b 55 08             	mov    0x8(%ebp),%edx
 f0103e81:	89 50 04             	mov    %edx,0x4(%eax)
 f0103e84:	eb 08                	jmp    f0103e8e <free_frame+0x3d>
 f0103e86:	8b 45 08             	mov    0x8(%ebp),%eax
-f0103e89:	a3 b8 87 b1 f0       	mov    %eax,0xf0b187b8
+f0103e89:	a3 b8 e7 b1 f0       	mov    %eax,0xf0b1e7b8
 f0103e8e:	8b 45 08             	mov    0x8(%ebp),%eax
-f0103e91:	a3 b4 87 b1 f0       	mov    %eax,0xf0b187b4
+f0103e91:	a3 b4 e7 b1 f0       	mov    %eax,0xf0b1e7b4
 f0103e96:	8b 45 08             	mov    0x8(%ebp),%eax
 f0103e99:	c7 40 04 00 00 00 00 	movl   $0x0,0x4(%eax)
-f0103ea0:	a1 c0 87 b1 f0       	mov    0xf0b187c0,%eax
+f0103ea0:	a1 c0 e7 b1 f0       	mov    0xf0b1e7c0,%eax
 f0103ea5:	40                   	inc    %eax
-f0103ea6:	a3 c0 87 b1 f0       	mov    %eax,0xf0b187c0
+f0103ea6:	a3 c0 e7 b1 f0       	mov    %eax,0xf0b1e7c0
 	//LOG_STATMENT(cprintf("FN # %d FREED",to_frame_number(ptr_frame_info)));
 }
 f0103eab:	90                   	nop
@@ -8083,7 +8083,7 @@ f0103f03:	89 45 f0             	mov    %eax,-0x10(%ebp)
 f0103f06:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f0103f09:	c1 e8 0c             	shr    $0xc,%eax
 f0103f0c:	89 45 ec             	mov    %eax,-0x14(%ebp)
-f0103f0f:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f0103f0f:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f0103f14:	39 45 ec             	cmp    %eax,-0x14(%ebp)
 f0103f17:	72 17                	jb     f0103f30 <get_page_table+0x52>
 f0103f19:	ff 75 f0             	pushl  -0x10(%ebp)
@@ -8157,7 +8157,7 @@ f0103f91:	89 45 e8             	mov    %eax,-0x18(%ebp)
 f0103f94:	8b 45 e8             	mov    -0x18(%ebp),%eax
 f0103f97:	c1 e8 0c             	shr    $0xc,%eax
 f0103f9a:	89 45 e4             	mov    %eax,-0x1c(%ebp)
-f0103f9d:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f0103f9d:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f0103fa2:	39 45 e4             	cmp    %eax,-0x1c(%ebp)
 f0103fa5:	72 17                	jb     f0103fbe <get_page_table+0xe0>
 f0103fa7:	ff 75 e8             	pushl  -0x18(%ebp)
@@ -8234,7 +8234,7 @@ f010402e:	89 45 ec             	mov    %eax,-0x14(%ebp)
 f0104031:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f0104034:	c1 e8 0c             	shr    $0xc,%eax
 f0104037:	89 45 e8             	mov    %eax,-0x18(%ebp)
-f010403a:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f010403a:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f010403f:	39 45 e8             	cmp    %eax,-0x18(%ebp)
 f0104042:	72 17                	jb     f010405b <__static_cpt+0x5a>
 f0104044:	ff 75 ec             	pushl  -0x14(%ebp)
@@ -8560,7 +8560,7 @@ f010429e:	89 45 ec             	mov    %eax,-0x14(%ebp)
 f01042a1:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f01042a4:	c1 e8 0c             	shr    $0xc,%eax
 f01042a7:	89 45 e8             	mov    %eax,-0x18(%ebp)
-f01042aa:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f01042aa:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f01042af:	39 45 e8             	cmp    %eax,-0x18(%ebp)
 f01042b2:	72 17                	jb     f01042cb <loadtime_map_frame+0x60>
 f01042b4:	ff 75 ec             	pushl  -0x14(%ebp)
@@ -8870,7 +8870,7 @@ f0104499:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
 
 
 	LIST_FOREACH(ptr, &free_frame_list)
-f01044a0:	a1 b4 87 b1 f0       	mov    0xf0b187b4,%eax
+f01044a0:	a1 b4 e7 b1 f0       	mov    0xf0b1e7b4,%eax
 f01044a5:	89 45 f0             	mov    %eax,-0x10(%ebp)
 f01044a8:	eb 1a                	jmp    f01044c4 <calculate_available_frames+0x42>
 	{
@@ -8891,7 +8891,7 @@ f01044b9:	ff 45 ec             	incl   -0x14(%ebp)
 
 
 	LIST_FOREACH(ptr, &free_frame_list)
-f01044bc:	a1 bc 87 b1 f0       	mov    0xf0b187bc,%eax
+f01044bc:	a1 bc e7 b1 f0       	mov    0xf0b1e7bc,%eax
 f01044c1:	89 45 f0             	mov    %eax,-0x10(%ebp)
 f01044c4:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
 f01044c8:	74 07                	je     f01044d1 <calculate_available_frames+0x4f>
@@ -8899,8 +8899,8 @@ f01044ca:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f01044cd:	8b 00                	mov    (%eax),%eax
 f01044cf:	eb 05                	jmp    f01044d6 <calculate_available_frames+0x54>
 f01044d1:	b8 00 00 00 00       	mov    $0x0,%eax
-f01044d6:	a3 bc 87 b1 f0       	mov    %eax,0xf0b187bc
-f01044db:	a1 bc 87 b1 f0       	mov    0xf0b187bc,%eax
+f01044d6:	a3 bc e7 b1 f0       	mov    %eax,0xf0b1e7bc
+f01044db:	a1 bc e7 b1 f0       	mov    0xf0b1e7bc,%eax
 f01044e0:	85 c0                	test   %eax,%eax
 f01044e2:	75 c6                	jne    f01044aa <calculate_available_frames+0x28>
 f01044e4:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
@@ -8911,7 +8911,7 @@ f01044e8:	75 c0                	jne    f01044aa <calculate_available_frames+0x28
 
 
 	LIST_FOREACH(ptr, &modified_frame_list)
-f01044ea:	a1 a0 87 b1 f0       	mov    0xf0b187a0,%eax
+f01044ea:	a1 a0 e7 b1 f0       	mov    0xf0b1e7a0,%eax
 f01044ef:	89 45 f0             	mov    %eax,-0x10(%ebp)
 f01044f2:	eb 0b                	jmp    f01044ff <calculate_available_frames+0x7d>
 	{
@@ -8923,7 +8923,7 @@ f01044f4:	ff 45 e4             	incl   -0x1c(%ebp)
 
 
 	LIST_FOREACH(ptr, &modified_frame_list)
-f01044f7:	a1 a8 87 b1 f0       	mov    0xf0b187a8,%eax
+f01044f7:	a1 a8 e7 b1 f0       	mov    0xf0b1e7a8,%eax
 f01044fc:	89 45 f0             	mov    %eax,-0x10(%ebp)
 f01044ff:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
 f0104503:	74 07                	je     f010450c <calculate_available_frames+0x8a>
@@ -8931,8 +8931,8 @@ f0104505:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f0104508:	8b 00                	mov    (%eax),%eax
 f010450a:	eb 05                	jmp    f0104511 <calculate_available_frames+0x8f>
 f010450c:	b8 00 00 00 00       	mov    $0x0,%eax
-f0104511:	a3 a8 87 b1 f0       	mov    %eax,0xf0b187a8
-f0104516:	a1 a8 87 b1 f0       	mov    0xf0b187a8,%eax
+f0104511:	a3 a8 e7 b1 f0       	mov    %eax,0xf0b1e7a8
+f0104516:	a1 a8 e7 b1 f0       	mov    0xf0b1e7a8,%eax
 f010451b:	85 c0                	test   %eax,%eax
 f010451d:	75 d5                	jne    f01044f4 <calculate_available_frames+0x72>
 f010451f:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
@@ -8978,7 +8978,7 @@ uint32 calculate_free_frames()
 f0104559:	55                   	push   %ebp
 f010455a:	89 e5                	mov    %esp,%ebp
 	return LIST_SIZE(&free_frame_list);
-f010455c:	a1 c0 87 b1 f0       	mov    0xf0b187c0,%eax
+f010455c:	a1 c0 e7 b1 f0       	mov    0xf0b1e7c0,%eax
 }
 f0104561:	5d                   	pop    %ebp
 f0104562:	c3                   	ret    
@@ -10016,7 +10016,7 @@ f0104deb:	89 45 ec             	mov    %eax,-0x14(%ebp)
 f0104dee:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f0104df1:	c1 e8 0c             	shr    $0xc,%eax
 f0104df4:	89 45 e8             	mov    %eax,-0x18(%ebp)
-f0104df7:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f0104df7:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f0104dfc:	39 45 e8             	cmp    %eax,-0x18(%ebp)
 f0104dff:	72 17                	jb     f0104e18 <pt_set_page_permissions+0x69>
 f0104e01:	ff 75 ec             	pushl  -0x14(%ebp)
@@ -10072,7 +10072,7 @@ f0104e9b:	0f 84 c7 00 00 00    	je     f0104f68 <pt_set_page_permissions+0x1b9>
 		//cprintf("Warning %d: pt_is_page_modified() is called while the page table is on disk!!\n", ++cnt);
 		//Temporary read the table from page file into main memory
 		int success = __pf_read_env_table(ptr_env, virtual_address, (void*) ptr_temp_page);
-f0104ea1:	a1 d4 87 b1 f0       	mov    0xf0b187d4,%eax
+f0104ea1:	a1 d4 e7 b1 f0       	mov    0xf0b1e7d4,%eax
 f0104ea6:	83 ec 04             	sub    $0x4,%esp
 f0104ea9:	50                   	push   %eax
 f0104eaa:	ff 75 0c             	pushl  0xc(%ebp)
@@ -10081,7 +10081,7 @@ f0104eb0:	e8 87 82 00 00       	call   f010d13c <__pf_read_env_table>
 f0104eb5:	83 c4 10             	add    $0x10,%esp
 f0104eb8:	89 45 e0             	mov    %eax,-0x20(%ebp)
 		ptr_page_table = (uint32*) ptr_temp_page;
-f0104ebb:	a1 d4 87 b1 f0       	mov    0xf0b187d4,%eax
+f0104ebb:	a1 d4 e7 b1 f0       	mov    0xf0b1e7d4,%eax
 f0104ec0:	89 45 e4             	mov    %eax,-0x1c(%ebp)
 		if(success == E_TABLE_NOT_EXIST_IN_PF)
 f0104ec3:	83 7d e0 f6          	cmpl   $0xfffffff6,-0x20(%ebp)
@@ -10130,7 +10130,7 @@ f0104f4b:	21 ca                	and    %ecx,%edx
 f0104f4d:	89 10                	mov    %edx,(%eax)
 
 		__pf_write_env_table(ptr_env, virtual_address, (void*) ptr_temp_page);
-f0104f4f:	a1 d4 87 b1 f0       	mov    0xf0b187d4,%eax
+f0104f4f:	a1 d4 e7 b1 f0       	mov    0xf0b1e7d4,%eax
 f0104f54:	83 ec 04             	sub    $0x4,%esp
 f0104f57:	50                   	push   %eax
 f0104f58:	ff 75 0c             	pushl  0xc(%ebp)
@@ -10202,7 +10202,7 @@ f0104fcb:	89 45 ec             	mov    %eax,-0x14(%ebp)
 f0104fce:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f0104fd1:	c1 e8 0c             	shr    $0xc,%eax
 f0104fd4:	89 45 e8             	mov    %eax,-0x18(%ebp)
-f0104fd7:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f0104fd7:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f0104fdc:	39 45 e8             	cmp    %eax,-0x18(%ebp)
 f0104fdf:	72 17                	jb     f0104ff8 <pt_clear_page_table_entry+0x65>
 f0104fe1:	ff 75 ec             	pushl  -0x14(%ebp)
@@ -10233,7 +10233,7 @@ f0105029:	74 75                	je     f01050a0 <pt_clear_page_table_entry+0x10d
 		//Temporary read the table from page file into main memory
 
 		int success = __pf_read_env_table(ptr_env, virtual_address, (void*) ptr_temp_page);
-f010502b:	a1 d4 87 b1 f0       	mov    0xf0b187d4,%eax
+f010502b:	a1 d4 e7 b1 f0       	mov    0xf0b1e7d4,%eax
 f0105030:	83 ec 04             	sub    $0x4,%esp
 f0105033:	50                   	push   %eax
 f0105034:	ff 75 0c             	pushl  0xc(%ebp)
@@ -10242,7 +10242,7 @@ f010503a:	e8 fd 80 00 00       	call   f010d13c <__pf_read_env_table>
 f010503f:	83 c4 10             	add    $0x10,%esp
 f0105042:	89 45 e0             	mov    %eax,-0x20(%ebp)
 		ptr_page_table = (uint32*) ptr_temp_page;
-f0105045:	a1 d4 87 b1 f0       	mov    0xf0b187d4,%eax
+f0105045:	a1 d4 e7 b1 f0       	mov    0xf0b1e7d4,%eax
 f010504a:	89 45 e4             	mov    %eax,-0x1c(%ebp)
 		if(success == E_TABLE_NOT_EXIST_IN_PF)
 f010504d:	83 7d e0 f6          	cmpl   $0xfffffff6,-0x20(%ebp)
@@ -10265,7 +10265,7 @@ f010507f:	01 d0                	add    %edx,%eax
 f0105081:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
 
 		__pf_write_env_table(ptr_env, virtual_address, (void*) ptr_temp_page);
-f0105087:	a1 d4 87 b1 f0       	mov    0xf0b187d4,%eax
+f0105087:	a1 d4 e7 b1 f0       	mov    0xf0b1e7d4,%eax
 f010508c:	83 ec 04             	sub    $0x4,%esp
 f010508f:	50                   	push   %eax
 f0105090:	ff 75 0c             	pushl  0xc(%ebp)
@@ -10333,7 +10333,7 @@ f0105103:	89 45 e4             	mov    %eax,-0x1c(%ebp)
 f0105106:	8b 45 e4             	mov    -0x1c(%ebp),%eax
 f0105109:	c1 e8 0c             	shr    $0xc,%eax
 f010510c:	89 45 e0             	mov    %eax,-0x20(%ebp)
-f010510f:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f010510f:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f0105114:	39 45 e0             	cmp    %eax,-0x20(%ebp)
 f0105117:	72 17                	jb     f0105130 <pt_get_page_permissions+0x65>
 f0105119:	ff 75 e4             	pushl  -0x1c(%ebp)
@@ -10354,7 +10354,7 @@ f0105141:	74 3f                	je     f0105182 <pt_get_page_permissions+0xb7>
 		//cprintf("Warning %d: pt_is_page_modified() is called while the page table is on disk!!\n", ++cnt);
 		//Temporary read the table from page file into main memory
 		int success = __pf_read_env_table(ptr_env, virtual_address, (void*) ptr_temp_page);
-f0105143:	a1 d4 87 b1 f0       	mov    0xf0b187d4,%eax
+f0105143:	a1 d4 e7 b1 f0       	mov    0xf0b1e7d4,%eax
 f0105148:	83 ec 04             	sub    $0x4,%esp
 f010514b:	50                   	push   %eax
 f010514c:	ff 75 0c             	pushl  0xc(%ebp)
@@ -10363,7 +10363,7 @@ f0105152:	e8 e5 7f 00 00       	call   f010d13c <__pf_read_env_table>
 f0105157:	83 c4 10             	add    $0x10,%esp
 f010515a:	89 45 e8             	mov    %eax,-0x18(%ebp)
 		ptr_page_table = (uint32*) ptr_temp_page;
-f010515d:	a1 d4 87 b1 f0       	mov    0xf0b187d4,%eax
+f010515d:	a1 d4 e7 b1 f0       	mov    0xf0b1e7d4,%eax
 f0105162:	89 45 f4             	mov    %eax,-0xc(%ebp)
 		if(success == E_TABLE_NOT_EXIST_IN_PF)
 f0105165:	83 7d e8 f6          	cmpl   $0xfffffff6,-0x18(%ebp)
@@ -10599,7 +10599,7 @@ f0105300 <setUHeapPlacementStrategyFIRSTFIT>:
 void setUHeapPlacementStrategyFIRSTFIT(){_UHeapPlacementStrategy = UHP_PLACE_FIRSTFIT;}
 f0105300:	55                   	push   %ebp
 f0105301:	89 e5                	mov    %esp,%ebp
-f0105303:	c7 05 38 a3 af f0 01 	movl   $0x1,0xf0afa338
+f0105303:	c7 05 38 03 b0 f0 01 	movl   $0x1,0xf0b00338
 f010530a:	00 00 00 
 f010530d:	90                   	nop
 f010530e:	5d                   	pop    %ebp
@@ -10609,7 +10609,7 @@ f0105310 <setUHeapPlacementStrategyBESTFIT>:
 void setUHeapPlacementStrategyBESTFIT(){_UHeapPlacementStrategy = UHP_PLACE_BESTFIT;}
 f0105310:	55                   	push   %ebp
 f0105311:	89 e5                	mov    %esp,%ebp
-f0105313:	c7 05 38 a3 af f0 02 	movl   $0x2,0xf0afa338
+f0105313:	c7 05 38 03 b0 f0 02 	movl   $0x2,0xf0b00338
 f010531a:	00 00 00 
 f010531d:	90                   	nop
 f010531e:	5d                   	pop    %ebp
@@ -10619,7 +10619,7 @@ f0105320 <setUHeapPlacementStrategyNEXTFIT>:
 void setUHeapPlacementStrategyNEXTFIT(){_UHeapPlacementStrategy = UHP_PLACE_NEXTFIT;}
 f0105320:	55                   	push   %ebp
 f0105321:	89 e5                	mov    %esp,%ebp
-f0105323:	c7 05 38 a3 af f0 03 	movl   $0x3,0xf0afa338
+f0105323:	c7 05 38 03 b0 f0 03 	movl   $0x3,0xf0b00338
 f010532a:	00 00 00 
 f010532d:	90                   	nop
 f010532e:	5d                   	pop    %ebp
@@ -10629,7 +10629,7 @@ f0105330 <setUHeapPlacementStrategyWORSTFIT>:
 void setUHeapPlacementStrategyWORSTFIT(){_UHeapPlacementStrategy = UHP_PLACE_WORSTFIT;}
 f0105330:	55                   	push   %ebp
 f0105331:	89 e5                	mov    %esp,%ebp
-f0105333:	c7 05 38 a3 af f0 04 	movl   $0x4,0xf0afa338
+f0105333:	c7 05 38 03 b0 f0 04 	movl   $0x4,0xf0b00338
 f010533a:	00 00 00 
 f010533d:	90                   	nop
 f010533e:	5d                   	pop    %ebp
@@ -10640,7 +10640,7 @@ f0105340 <isUHeapPlacementStrategyFIRSTFIT>:
 uint32 isUHeapPlacementStrategyFIRSTFIT(){if(_UHeapPlacementStrategy == UHP_PLACE_FIRSTFIT) return 1; return 0;}
 f0105340:	55                   	push   %ebp
 f0105341:	89 e5                	mov    %esp,%ebp
-f0105343:	a1 38 a3 af f0       	mov    0xf0afa338,%eax
+f0105343:	a1 38 03 b0 f0       	mov    0xf0b00338,%eax
 f0105348:	83 f8 01             	cmp    $0x1,%eax
 f010534b:	75 07                	jne    f0105354 <isUHeapPlacementStrategyFIRSTFIT+0x14>
 f010534d:	b8 01 00 00 00       	mov    $0x1,%eax
@@ -10653,7 +10653,7 @@ f010535b <isUHeapPlacementStrategyBESTFIT>:
 uint32 isUHeapPlacementStrategyBESTFIT(){if(_UHeapPlacementStrategy == UHP_PLACE_BESTFIT) return 1; return 0;}
 f010535b:	55                   	push   %ebp
 f010535c:	89 e5                	mov    %esp,%ebp
-f010535e:	a1 38 a3 af f0       	mov    0xf0afa338,%eax
+f010535e:	a1 38 03 b0 f0       	mov    0xf0b00338,%eax
 f0105363:	83 f8 02             	cmp    $0x2,%eax
 f0105366:	75 07                	jne    f010536f <isUHeapPlacementStrategyBESTFIT+0x14>
 f0105368:	b8 01 00 00 00       	mov    $0x1,%eax
@@ -10666,7 +10666,7 @@ f0105376 <isUHeapPlacementStrategyNEXTFIT>:
 uint32 isUHeapPlacementStrategyNEXTFIT(){if(_UHeapPlacementStrategy == UHP_PLACE_NEXTFIT) return 1; return 0;}
 f0105376:	55                   	push   %ebp
 f0105377:	89 e5                	mov    %esp,%ebp
-f0105379:	a1 38 a3 af f0       	mov    0xf0afa338,%eax
+f0105379:	a1 38 03 b0 f0       	mov    0xf0b00338,%eax
 f010537e:	83 f8 03             	cmp    $0x3,%eax
 f0105381:	75 07                	jne    f010538a <isUHeapPlacementStrategyNEXTFIT+0x14>
 f0105383:	b8 01 00 00 00       	mov    $0x1,%eax
@@ -10679,7 +10679,7 @@ f0105391 <isUHeapPlacementStrategyWORSTFIT>:
 uint32 isUHeapPlacementStrategyWORSTFIT(){if(_UHeapPlacementStrategy == UHP_PLACE_WORSTFIT) return 1; return 0;}
 f0105391:	55                   	push   %ebp
 f0105392:	89 e5                	mov    %esp,%ebp
-f0105394:	a1 38 a3 af f0       	mov    0xf0afa338,%eax
+f0105394:	a1 38 03 b0 f0       	mov    0xf0b00338,%eax
 f0105399:	83 f8 04             	cmp    $0x4,%eax
 f010539c:	75 07                	jne    f01053a5 <isUHeapPlacementStrategyWORSTFIT+0x14>
 f010539e:	b8 01 00 00 00       	mov    $0x1,%eax
@@ -10695,7 +10695,7 @@ f01053ac <setKHeapPlacementStrategyCONTALLOC>:
 void setKHeapPlacementStrategyCONTALLOC(){_KHeapPlacementStrategy = KHP_PLACE_CONTALLOC;}
 f01053ac:	55                   	push   %ebp
 f01053ad:	89 e5                	mov    %esp,%ebp
-f01053af:	c7 05 60 a3 af f0 00 	movl   $0x0,0xf0afa360
+f01053af:	c7 05 60 03 b0 f0 00 	movl   $0x0,0xf0b00360
 f01053b6:	00 00 00 
 f01053b9:	90                   	nop
 f01053ba:	5d                   	pop    %ebp
@@ -10705,7 +10705,7 @@ f01053bc <setKHeapPlacementStrategyFIRSTFIT>:
 void setKHeapPlacementStrategyFIRSTFIT(){_KHeapPlacementStrategy = KHP_PLACE_FIRSTFIT;}
 f01053bc:	55                   	push   %ebp
 f01053bd:	89 e5                	mov    %esp,%ebp
-f01053bf:	c7 05 60 a3 af f0 01 	movl   $0x1,0xf0afa360
+f01053bf:	c7 05 60 03 b0 f0 01 	movl   $0x1,0xf0b00360
 f01053c6:	00 00 00 
 f01053c9:	90                   	nop
 f01053ca:	5d                   	pop    %ebp
@@ -10715,7 +10715,7 @@ f01053cc <setKHeapPlacementStrategyBESTFIT>:
 void setKHeapPlacementStrategyBESTFIT(){_KHeapPlacementStrategy = KHP_PLACE_BESTFIT;}
 f01053cc:	55                   	push   %ebp
 f01053cd:	89 e5                	mov    %esp,%ebp
-f01053cf:	c7 05 60 a3 af f0 02 	movl   $0x2,0xf0afa360
+f01053cf:	c7 05 60 03 b0 f0 02 	movl   $0x2,0xf0b00360
 f01053d6:	00 00 00 
 f01053d9:	90                   	nop
 f01053da:	5d                   	pop    %ebp
@@ -10725,7 +10725,7 @@ f01053dc <setKHeapPlacementStrategyNEXTFIT>:
 void setKHeapPlacementStrategyNEXTFIT(){_KHeapPlacementStrategy = KHP_PLACE_NEXTFIT;}
 f01053dc:	55                   	push   %ebp
 f01053dd:	89 e5                	mov    %esp,%ebp
-f01053df:	c7 05 60 a3 af f0 03 	movl   $0x3,0xf0afa360
+f01053df:	c7 05 60 03 b0 f0 03 	movl   $0x3,0xf0b00360
 f01053e6:	00 00 00 
 f01053e9:	90                   	nop
 f01053ea:	5d                   	pop    %ebp
@@ -10735,7 +10735,7 @@ f01053ec <setKHeapPlacementStrategyWORSTFIT>:
 void setKHeapPlacementStrategyWORSTFIT(){_KHeapPlacementStrategy = KHP_PLACE_WORSTFIT;}
 f01053ec:	55                   	push   %ebp
 f01053ed:	89 e5                	mov    %esp,%ebp
-f01053ef:	c7 05 60 a3 af f0 04 	movl   $0x4,0xf0afa360
+f01053ef:	c7 05 60 03 b0 f0 04 	movl   $0x4,0xf0b00360
 f01053f6:	00 00 00 
 f01053f9:	90                   	nop
 f01053fa:	5d                   	pop    %ebp
@@ -10746,7 +10746,7 @@ f01053fc <isKHeapPlacementStrategyCONTALLOC>:
 uint32 isKHeapPlacementStrategyCONTALLOC(){if(_KHeapPlacementStrategy == KHP_PLACE_CONTALLOC) return 1; return 0;}
 f01053fc:	55                   	push   %ebp
 f01053fd:	89 e5                	mov    %esp,%ebp
-f01053ff:	a1 60 a3 af f0       	mov    0xf0afa360,%eax
+f01053ff:	a1 60 03 b0 f0       	mov    0xf0b00360,%eax
 f0105404:	85 c0                	test   %eax,%eax
 f0105406:	75 07                	jne    f010540f <isKHeapPlacementStrategyCONTALLOC+0x13>
 f0105408:	b8 01 00 00 00       	mov    $0x1,%eax
@@ -10759,7 +10759,7 @@ f0105416 <isKHeapPlacementStrategyFIRSTFIT>:
 uint32 isKHeapPlacementStrategyFIRSTFIT(){if(_KHeapPlacementStrategy == KHP_PLACE_FIRSTFIT) return 1; return 0;}
 f0105416:	55                   	push   %ebp
 f0105417:	89 e5                	mov    %esp,%ebp
-f0105419:	a1 60 a3 af f0       	mov    0xf0afa360,%eax
+f0105419:	a1 60 03 b0 f0       	mov    0xf0b00360,%eax
 f010541e:	83 f8 01             	cmp    $0x1,%eax
 f0105421:	75 07                	jne    f010542a <isKHeapPlacementStrategyFIRSTFIT+0x14>
 f0105423:	b8 01 00 00 00       	mov    $0x1,%eax
@@ -10772,7 +10772,7 @@ f0105431 <isKHeapPlacementStrategyBESTFIT>:
 uint32 isKHeapPlacementStrategyBESTFIT(){if(_KHeapPlacementStrategy == KHP_PLACE_BESTFIT) return 1; return 0;}
 f0105431:	55                   	push   %ebp
 f0105432:	89 e5                	mov    %esp,%ebp
-f0105434:	a1 60 a3 af f0       	mov    0xf0afa360,%eax
+f0105434:	a1 60 03 b0 f0       	mov    0xf0b00360,%eax
 f0105439:	83 f8 02             	cmp    $0x2,%eax
 f010543c:	75 07                	jne    f0105445 <isKHeapPlacementStrategyBESTFIT+0x14>
 f010543e:	b8 01 00 00 00       	mov    $0x1,%eax
@@ -10785,7 +10785,7 @@ f010544c <isKHeapPlacementStrategyNEXTFIT>:
 uint32 isKHeapPlacementStrategyNEXTFIT(){if(_KHeapPlacementStrategy == KHP_PLACE_NEXTFIT) return 1; return 0;}
 f010544c:	55                   	push   %ebp
 f010544d:	89 e5                	mov    %esp,%ebp
-f010544f:	a1 60 a3 af f0       	mov    0xf0afa360,%eax
+f010544f:	a1 60 03 b0 f0       	mov    0xf0b00360,%eax
 f0105454:	83 f8 03             	cmp    $0x3,%eax
 f0105457:	75 07                	jne    f0105460 <isKHeapPlacementStrategyNEXTFIT+0x14>
 f0105459:	b8 01 00 00 00       	mov    $0x1,%eax
@@ -10798,7 +10798,7 @@ f0105467 <isKHeapPlacementStrategyWORSTFIT>:
 uint32 isKHeapPlacementStrategyWORSTFIT(){if(_KHeapPlacementStrategy == KHP_PLACE_WORSTFIT) return 1; return 0;}
 f0105467:	55                   	push   %ebp
 f0105468:	89 e5                	mov    %esp,%ebp
-f010546a:	a1 60 a3 af f0       	mov    0xf0afa360,%eax
+f010546a:	a1 60 03 b0 f0       	mov    0xf0b00360,%eax
 f010546f:	83 f8 04             	cmp    $0x4,%eax
 f0105472:	75 07                	jne    f010547b <isKHeapPlacementStrategyWORSTFIT+0x14>
 f0105474:	b8 01 00 00 00       	mov    $0x1,%eax
@@ -10818,7 +10818,7 @@ f0105482:	55                   	push   %ebp
 f0105483:	89 e5                	mov    %esp,%ebp
 	return ptr_frame_info - frames_info;
 f0105485:	8b 45 08             	mov    0x8(%ebp),%eax
-f0105488:	8b 15 c4 87 b1 f0    	mov    0xf0b187c4,%edx
+f0105488:	8b 15 c4 e7 b1 f0    	mov    0xf0b1e7c4,%edx
 f010548e:	29 d0                	sub    %edx,%eax
 f0105490:	c1 f8 03             	sar    $0x3,%eax
 f0105493:	89 c2                	mov    %eax,%edx
@@ -10866,7 +10866,7 @@ int allocate_environment(struct Env** e)
 f01054cd:	55                   	push   %ebp
 f01054ce:	89 e5                	mov    %esp,%ebp
 	if (!(*e = LIST_FIRST(&env_free_list)))
-f01054d0:	8b 15 f4 16 a9 f0    	mov    0xf0a916f4,%edx
+f01054d0:	8b 15 f4 76 a9 f0    	mov    0xf0a976f4,%edx
 f01054d6:	8b 45 08             	mov    0x8(%ebp),%eax
 f01054d9:	89 10                	mov    %edx,(%eax)
 f01054db:	8b 45 08             	mov    0x8(%ebp),%eax
@@ -10905,26 +10905,26 @@ f0105516:	83 c4 10             	add    $0x10,%esp
 f0105519:	8b 45 08             	mov    0x8(%ebp),%eax
 f010551c:	c7 40 54 00 00 00 00 	movl   $0x0,0x54(%eax)
 	LIST_INSERT_HEAD(&env_free_list, e);
-f0105523:	8b 15 f4 16 a9 f0    	mov    0xf0a916f4,%edx
+f0105523:	8b 15 f4 76 a9 f0    	mov    0xf0a976f4,%edx
 f0105529:	8b 45 08             	mov    0x8(%ebp),%eax
 f010552c:	89 50 44             	mov    %edx,0x44(%eax)
 f010552f:	8b 45 08             	mov    0x8(%ebp),%eax
 f0105532:	8b 40 44             	mov    0x44(%eax),%eax
 f0105535:	85 c0                	test   %eax,%eax
 f0105537:	74 0d                	je     f0105546 <free_environment+0x48>
-f0105539:	a1 f4 16 a9 f0       	mov    0xf0a916f4,%eax
+f0105539:	a1 f4 76 a9 f0       	mov    0xf0a976f4,%eax
 f010553e:	8b 55 08             	mov    0x8(%ebp),%edx
 f0105541:	89 50 48             	mov    %edx,0x48(%eax)
 f0105544:	eb 08                	jmp    f010554e <free_environment+0x50>
 f0105546:	8b 45 08             	mov    0x8(%ebp),%eax
-f0105549:	a3 f8 16 a9 f0       	mov    %eax,0xf0a916f8
+f0105549:	a3 f8 76 a9 f0       	mov    %eax,0xf0a976f8
 f010554e:	8b 45 08             	mov    0x8(%ebp),%eax
-f0105551:	a3 f4 16 a9 f0       	mov    %eax,0xf0a916f4
+f0105551:	a3 f4 76 a9 f0       	mov    %eax,0xf0a976f4
 f0105556:	8b 45 08             	mov    0x8(%ebp),%eax
 f0105559:	c7 40 48 00 00 00 00 	movl   $0x0,0x48(%eax)
-f0105560:	a1 00 17 a9 f0       	mov    0xf0a91700,%eax
+f0105560:	a1 00 77 a9 f0       	mov    0xf0a97700,%eax
 f0105565:	40                   	inc    %eax
-f0105566:	a3 00 17 a9 f0       	mov    %eax,0xf0a91700
+f0105566:	a3 00 77 a9 f0       	mov    %eax,0xf0a97700
 }
 f010556b:	90                   	nop
 f010556c:	c9                   	leave  
@@ -11122,7 +11122,7 @@ f01056c0:	8b 40 5c             	mov    0x5c(%eax),%eax
 f01056c3:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f01056c6:	c1 e2 02             	shl    $0x2,%edx
 f01056c9:	01 c2                	add    %eax,%edx
-f01056cb:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f01056cb:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f01056d0:	8b 4d f4             	mov    -0xc(%ebp),%ecx
 f01056d3:	c1 e1 02             	shl    $0x2,%ecx
 f01056d6:	01 c8                	add    %ecx,%eax
@@ -11144,7 +11144,7 @@ f01056e6:	7e d5                	jle    f01056bd <initialize_environment+0x4b>
 	{
 		uint32 env_index = (uint32)(e-envs);
 f01056e8:	8b 45 08             	mov    0x8(%ebp),%eax
-f01056eb:	8b 15 ec 16 a9 f0    	mov    0xf0a916ec,%edx
+f01056eb:	8b 15 ec 76 a9 f0    	mov    0xf0a976ec,%edx
 f01056f1:	29 d0                	sub    %edx,%eax
 f01056f3:	c1 f8 03             	sar    $0x3,%eax
 f01056f6:	89 c1                	mov    %eax,%ecx
@@ -12099,7 +12099,7 @@ f0105ffa:	89 45 b0             	mov    %eax,-0x50(%ebp)
 f0105ffd:	8b 45 b0             	mov    -0x50(%ebp),%eax
 f0106000:	c1 e8 0c             	shr    $0xc,%eax
 f0106003:	89 45 ac             	mov    %eax,-0x54(%ebp)
-f0106006:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f0106006:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f010600b:	39 45 ac             	cmp    %eax,-0x54(%ebp)
 f010600e:	72 17                	jb     f0106027 <env_create+0x124>
 f0106010:	ff 75 b0             	pushl  -0x50(%ebp)
@@ -12303,7 +12303,7 @@ f01061e9:	2b 45 88             	sub    -0x78(%ebp),%eax
 f01061ec:	89 85 78 ff ff ff    	mov    %eax,-0x88(%ebp)
 
 		memset(ptr_temp_page , 0, PAGE_SIZE);
-f01061f2:	a1 d4 87 b1 f0       	mov    0xf0b187d4,%eax
+f01061f2:	a1 d4 e7 b1 f0       	mov    0xf0b1e7d4,%eax
 f01061f7:	83 ec 04             	sub    $0x4,%esp
 f01061fa:	68 00 10 00 00       	push   $0x1000
 f01061ff:	6a 00                	push   $0x0
@@ -12314,7 +12314,7 @@ f0106207:	83 c4 10             	add    $0x10,%esp
 f010620a:	8b 45 94             	mov    -0x6c(%ebp),%eax
 f010620d:	89 45 d4             	mov    %eax,-0x2c(%ebp)
 		uint8 *dst_ptr =  (uint8*) (ptr_temp_page + offset_first_page);
-f0106210:	8b 15 d4 87 b1 f0    	mov    0xf0b187d4,%edx
+f0106210:	8b 15 d4 e7 b1 f0    	mov    0xf0b1e7d4,%edx
 f0106216:	8b 85 78 ff ff ff    	mov    -0x88(%ebp),%eax
 f010621c:	01 d0                	add    %edx,%eax
 f010621e:	89 45 d0             	mov    %eax,-0x30(%ebp)
@@ -12346,7 +12346,7 @@ f0106245:	72 e2                	jb     f0106229 <env_create+0x326>
 		}
 
 		if (pf_add_env_page(e, start_first_page, ptr_temp_page) == E_NO_PAGE_FILE_SPACE)
-f0106247:	8b 15 d4 87 b1 f0    	mov    0xf0b187d4,%edx
+f0106247:	8b 15 d4 e7 b1 f0    	mov    0xf0b1e7d4,%edx
 f010624d:	8b 85 44 ff ff ff    	mov    -0xbc(%ebp),%eax
 f0106253:	83 ec 04             	sub    $0x4,%esp
 f0106256:	52                   	push   %edx
@@ -12422,7 +12422,7 @@ f0106309:	72 b2                	jb     f01062bd <env_create+0x3ba>
 		///[3] temporary initialize last page in memory then writing it on page file
 
 		dst_ptr =  (uint8*) ptr_temp_page;
-f010630b:	a1 d4 87 b1 f0       	mov    0xf0b187d4,%eax
+f010630b:	a1 d4 e7 b1 f0       	mov    0xf0b1e7d4,%eax
 f0106310:	89 45 d0             	mov    %eax,-0x30(%ebp)
 		memset(dst_ptr, 0, PAGE_SIZE);
 f0106313:	83 ec 04             	sub    $0x4,%esp
@@ -12458,7 +12458,7 @@ f010634f:	72 e2                	jb     f0106333 <env_create+0x430>
 			*dst_ptr = *src_ptr;
 		}
 		if (pf_add_env_page(e, start_last_page, ptr_temp_page) == E_NO_PAGE_FILE_SPACE)
-f0106351:	8b 15 d4 87 b1 f0    	mov    0xf0b187d4,%edx
+f0106351:	8b 15 d4 e7 b1 f0    	mov    0xf0b1e7d4,%edx
 f0106357:	8b 85 44 ff ff ff    	mov    -0xbc(%ebp),%eax
 f010635d:	83 ec 04             	sub    $0x4,%esp
 f0106360:	52                   	push   %edx
@@ -13069,27 +13069,27 @@ f0106a89:	55                   	push   %ebp
 f0106a8a:	89 e5                	mov    %esp,%ebp
 f0106a8c:	83 ec 18             	sub    $0x18,%esp
 	if(curenv != e)
-f0106a8f:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0106a8f:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0106a94:	3b 45 08             	cmp    0x8(%ebp),%eax
 f0106a97:	74 25                	je     f0106abe <env_run+0x35>
 	{
 		curenv = e ;
 f0106a99:	8b 45 08             	mov    0x8(%ebp),%eax
-f0106a9c:	a3 f0 16 a9 f0       	mov    %eax,0xf0a916f0
+f0106a9c:	a3 f0 76 a9 f0       	mov    %eax,0xf0a976f0
 		curenv->env_runs++ ;
-f0106aa1:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0106aa1:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0106aa6:	8b 50 58             	mov    0x58(%eax),%edx
 f0106aa9:	42                   	inc    %edx
 f0106aaa:	89 50 58             	mov    %edx,0x58(%eax)
 		lcr3(curenv->env_cr3) ;
-f0106aad:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0106aad:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0106ab2:	8b 40 60             	mov    0x60(%eax),%eax
 f0106ab5:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f0106ab8:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f0106abb:	0f 22 d8             	mov    %eax,%cr3
 	}
 	curenv->env_status = ENV_RUNNABLE;
-f0106abe:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0106abe:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0106ac3:	c7 40 54 02 00 00 00 	movl   $0x2,0x54(%eax)
 	//uint16 cnt0 = kclock_read_cnt0();
 	//cprintf("env_run %s [%d]: Cnt BEFORE RESUME = %d\n", curenv->prog_name,curenv->env_id, cnt0);
@@ -13100,7 +13100,7 @@ f0106aca:	e8 d1 09 00 00       	call   f01074a0 <kclock_resume>
 
 	//cprintf("env_run %s [%d]: Cnt AFTER RESUME = %d\n", curenv->prog_name,curenv->env_id, cnt0);
 	env_pop_tf(&(curenv->env_tf));
-f0106acf:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0106acf:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0106ad4:	83 ec 0c             	sub    $0xc,%esp
 f0106ad7:	50                   	push   %eax
 f0106ad8:	e8 65 08 00 00       	call   f0107342 <env_pop_tf>
@@ -13232,7 +13232,7 @@ f0106b88:	c7 45 f4 0b 00 00 00 	movl   $0xb,-0xc(%ebp)
 f0106b8f:	e9 bb 01 00 00       	jmp    f0106d4f <env_init+0x1cf>
 	{
 		envs[iEnv].env_status = ENV_FREE;
-f0106b94:	8b 0d ec 16 a9 f0    	mov    0xf0a916ec,%ecx
+f0106b94:	8b 0d ec 76 a9 f0    	mov    0xf0a976ec,%ecx
 f0106b9a:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0106b9d:	89 d0                	mov    %edx,%eax
 f0106b9f:	c1 e0 03             	shl    $0x3,%eax
@@ -13252,7 +13252,7 @@ f0106bc5:	89 d0                	mov    %edx,%eax
 f0106bc7:	01 c8                	add    %ecx,%eax
 f0106bc9:	c7 40 54 00 00 00 00 	movl   $0x0,0x54(%eax)
 		envs[iEnv].env_id = 0;
-f0106bd0:	8b 0d ec 16 a9 f0    	mov    0xf0a916ec,%ecx
+f0106bd0:	8b 0d ec 76 a9 f0    	mov    0xf0a976ec,%ecx
 f0106bd6:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0106bd9:	89 d0                	mov    %edx,%eax
 f0106bdb:	c1 e0 03             	shl    $0x3,%eax
@@ -13272,7 +13272,7 @@ f0106c01:	89 d0                	mov    %edx,%eax
 f0106c03:	01 c8                	add    %ecx,%eax
 f0106c05:	c7 40 4c 00 00 00 00 	movl   $0x0,0x4c(%eax)
 		LIST_INSERT_HEAD(&env_free_list, &envs[iEnv]);
-f0106c0c:	8b 0d ec 16 a9 f0    	mov    0xf0a916ec,%ecx
+f0106c0c:	8b 0d ec 76 a9 f0    	mov    0xf0a976ec,%ecx
 f0106c12:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0106c15:	89 d0                	mov    %edx,%eax
 f0106c17:	c1 e0 03             	shl    $0x3,%eax
@@ -13290,13 +13290,13 @@ f0106c34:	8d 04 d5 00 00 00 00 	lea    0x0(,%edx,8),%eax
 f0106c3b:	89 c2                	mov    %eax,%edx
 f0106c3d:	89 d0                	mov    %edx,%eax
 f0106c3f:	01 c8                	add    %ecx,%eax
-f0106c41:	8b 15 f4 16 a9 f0    	mov    0xf0a916f4,%edx
+f0106c41:	8b 15 f4 76 a9 f0    	mov    0xf0a976f4,%edx
 f0106c47:	89 50 44             	mov    %edx,0x44(%eax)
 f0106c4a:	8b 40 44             	mov    0x44(%eax),%eax
 f0106c4d:	85 c0                	test   %eax,%eax
 f0106c4f:	74 40                	je     f0106c91 <env_init+0x111>
-f0106c51:	8b 0d f4 16 a9 f0    	mov    0xf0a916f4,%ecx
-f0106c57:	8b 1d ec 16 a9 f0    	mov    0xf0a916ec,%ebx
+f0106c51:	8b 0d f4 76 a9 f0    	mov    0xf0a976f4,%ecx
+f0106c57:	8b 1d ec 76 a9 f0    	mov    0xf0a976ec,%ebx
 f0106c5d:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0106c60:	89 d0                	mov    %edx,%eax
 f0106c62:	c1 e0 03             	shl    $0x3,%eax
@@ -13316,7 +13316,7 @@ f0106c88:	89 d0                	mov    %edx,%eax
 f0106c8a:	01 d8                	add    %ebx,%eax
 f0106c8c:	89 41 48             	mov    %eax,0x48(%ecx)
 f0106c8f:	eb 3a                	jmp    f0106ccb <env_init+0x14b>
-f0106c91:	8b 0d ec 16 a9 f0    	mov    0xf0a916ec,%ecx
+f0106c91:	8b 0d ec 76 a9 f0    	mov    0xf0a976ec,%ecx
 f0106c97:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0106c9a:	89 d0                	mov    %edx,%eax
 f0106c9c:	c1 e0 03             	shl    $0x3,%eax
@@ -13334,8 +13334,8 @@ f0106cb9:	8d 04 d5 00 00 00 00 	lea    0x0(,%edx,8),%eax
 f0106cc0:	89 c2                	mov    %eax,%edx
 f0106cc2:	89 d0                	mov    %edx,%eax
 f0106cc4:	01 c8                	add    %ecx,%eax
-f0106cc6:	a3 f8 16 a9 f0       	mov    %eax,0xf0a916f8
-f0106ccb:	8b 0d ec 16 a9 f0    	mov    0xf0a916ec,%ecx
+f0106cc6:	a3 f8 76 a9 f0       	mov    %eax,0xf0a976f8
+f0106ccb:	8b 0d ec 76 a9 f0    	mov    0xf0a976ec,%ecx
 f0106cd1:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0106cd4:	89 d0                	mov    %edx,%eax
 f0106cd6:	c1 e0 03             	shl    $0x3,%eax
@@ -13353,8 +13353,8 @@ f0106cf3:	8d 04 d5 00 00 00 00 	lea    0x0(,%edx,8),%eax
 f0106cfa:	89 c2                	mov    %eax,%edx
 f0106cfc:	89 d0                	mov    %edx,%eax
 f0106cfe:	01 c8                	add    %ecx,%eax
-f0106d00:	a3 f4 16 a9 f0       	mov    %eax,0xf0a916f4
-f0106d05:	8b 0d ec 16 a9 f0    	mov    0xf0a916ec,%ecx
+f0106d00:	a3 f4 76 a9 f0       	mov    %eax,0xf0a976f4
+f0106d05:	8b 0d ec 76 a9 f0    	mov    0xf0a976ec,%ecx
 f0106d0b:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f0106d0e:	89 d0                	mov    %edx,%eax
 f0106d10:	c1 e0 03             	shl    $0x3,%eax
@@ -13373,9 +13373,9 @@ f0106d34:	89 c2                	mov    %eax,%edx
 f0106d36:	89 d0                	mov    %edx,%eax
 f0106d38:	01 c8                	add    %ecx,%eax
 f0106d3a:	c7 40 48 00 00 00 00 	movl   $0x0,0x48(%eax)
-f0106d41:	a1 00 17 a9 f0       	mov    0xf0a91700,%eax
+f0106d41:	a1 00 77 a9 f0       	mov    0xf0a97700,%eax
 f0106d46:	40                   	inc    %eax
-f0106d47:	a3 00 17 a9 f0       	mov    %eax,0xf0a91700
+f0106d47:	a3 00 77 a9 f0       	mov    %eax,0xf0a97700
 //
 
 void env_init(void)
@@ -13453,7 +13453,7 @@ f0106dd2:	7f 07                	jg     f0106ddb <complete_environment_initializa
 f0106dd4:	c7 45 f4 00 10 00 00 	movl   $0x1000,-0xc(%ebp)
 	e->env_id = generation | (e - envs);
 f0106ddb:	8b 45 08             	mov    0x8(%ebp),%eax
-f0106dde:	8b 15 ec 16 a9 f0    	mov    0xf0a916ec,%edx
+f0106dde:	8b 15 ec 76 a9 f0    	mov    0xf0a976ec,%edx
 f0106de4:	29 d0                	sub    %edx,%eax
 f0106de6:	c1 f8 03             	sar    $0x3,%eax
 f0106de9:	89 c1                	mov    %eax,%ecx
@@ -13489,7 +13489,7 @@ f0106e3c:	89 50 4c             	mov    %edx,0x4c(%eax)
 	// Set the basic status variables.
 	//2017====================================================
 	if (curenv == NULL)
-f0106e3f:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0106e3f:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0106e44:	85 c0                	test   %eax,%eax
 f0106e46:	75 0c                	jne    f0106e54 <complete_environment_initialization+0xf3>
 		e->env_parent_id = 0;//no parent;
@@ -13498,7 +13498,7 @@ f0106e4b:	c7 40 50 00 00 00 00 	movl   $0x0,0x50(%eax)
 f0106e52:	eb 0e                	jmp    f0106e62 <complete_environment_initialization+0x101>
 	else
 		e->env_parent_id = curenv->env_id;//curenv is the parent;
-f0106e54:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0106e54:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0106e59:	8b 50 4c             	mov    0x4c(%eax),%edx
 f0106e5c:	8b 45 08             	mov    0x8(%ebp),%eax
 f0106e5f:	89 50 50             	mov    %edx,0x50(%eax)
@@ -13566,7 +13566,7 @@ f0106ede:	89 50 48             	mov    %edx,0x48(%eax)
 f0106ee1:	eb 0b                	jmp    f0106eee <complete_environment_initialization+0x18d>
 f0106ee3:	8b 45 08             	mov    0x8(%ebp),%eax
 f0106ee6:	8b 40 48             	mov    0x48(%eax),%eax
-f0106ee9:	a3 f8 16 a9 f0       	mov    %eax,0xf0a916f8
+f0106ee9:	a3 f8 76 a9 f0       	mov    %eax,0xf0a976f8
 f0106eee:	8b 45 08             	mov    0x8(%ebp),%eax
 f0106ef1:	8b 40 48             	mov    0x48(%eax),%eax
 f0106ef4:	85 c0                	test   %eax,%eax
@@ -13579,14 +13579,14 @@ f0106f04:	89 50 44             	mov    %edx,0x44(%eax)
 f0106f07:	eb 0b                	jmp    f0106f14 <complete_environment_initialization+0x1b3>
 f0106f09:	8b 45 08             	mov    0x8(%ebp),%eax
 f0106f0c:	8b 40 44             	mov    0x44(%eax),%eax
-f0106f0f:	a3 f4 16 a9 f0       	mov    %eax,0xf0a916f4
+f0106f0f:	a3 f4 76 a9 f0       	mov    %eax,0xf0a976f4
 f0106f14:	8b 45 08             	mov    0x8(%ebp),%eax
 f0106f17:	c7 40 44 00 00 00 00 	movl   $0x0,0x44(%eax)
 f0106f1e:	8b 45 08             	mov    0x8(%ebp),%eax
 f0106f21:	c7 40 48 00 00 00 00 	movl   $0x0,0x48(%eax)
-f0106f28:	a1 00 17 a9 f0       	mov    0xf0a91700,%eax
+f0106f28:	a1 00 77 a9 f0       	mov    0xf0a97700,%eax
 f0106f2d:	48                   	dec    %eax
-f0106f2e:	a3 00 17 a9 f0       	mov    %eax,0xf0a91700
+f0106f2e:	a3 00 77 a9 f0       	mov    %eax,0xf0a97700
 	return ;
 f0106f33:	90                   	nop
 }
@@ -14024,7 +14024,7 @@ f0107296:	55                   	push   %ebp
 f0107297:	89 e5                	mov    %esp,%ebp
 f0107299:	83 ec 08             	sub    $0x8,%esp
 	sched_exit_env(curenv->env_id);
-f010729c:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010729c:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f01072a1:	8b 40 4c             	mov    0x4c(%eax),%eax
 f01072a4:	83 ec 0c             	sub    $0xc,%esp
 f01072a7:	50                   	push   %eax
@@ -14052,7 +14052,7 @@ f01072bb:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
 	//	cprintf("[%s] bef, mod = %d, fb = %d, fnb = %d\n",curenv->prog_name, ffc.modified, ffc.freeBuffered, ffc.freeNotBuffered);
 
 	LIST_FOREACH(ptr_fi, &modified_frame_list)
-f01072c2:	a1 a0 87 b1 f0       	mov    0xf0b187a0,%eax
+f01072c2:	a1 a0 e7 b1 f0       	mov    0xf0b1e7a0,%eax
 f01072c7:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f01072ca:	eb 4d                	jmp    f0107319 <cleanup_buffers+0x64>
 	{
@@ -14078,7 +14078,7 @@ f01072ed:	83 c4 10             	add    $0x10,%esp
 			bufferlist_remove_page(&modified_frame_list, ptr_fi);
 f01072f0:	83 ec 08             	sub    $0x8,%esp
 f01072f3:	ff 75 f4             	pushl  -0xc(%ebp)
-f01072f6:	68 a0 87 b1 f0       	push   $0xf0b187a0
+f01072f6:	68 a0 e7 b1 f0       	push   $0xf0b1e7a0
 f01072fb:	e8 a3 d9 ff ff       	call   f0104ca3 <bufferlist_remove_page>
 f0107300:	83 c4 10             	add    $0x10,%esp
 
@@ -14093,7 +14093,7 @@ f010730e:	83 c4 10             	add    $0x10,%esp
 	//	cprintf("[%s] bef, mod = %d, fb = %d, fnb = %d\n",curenv->prog_name, ffc.modified, ffc.freeBuffered, ffc.freeNotBuffered);
 
 	LIST_FOREACH(ptr_fi, &modified_frame_list)
-f0107311:	a1 a8 87 b1 f0       	mov    0xf0b187a8,%eax
+f0107311:	a1 a8 e7 b1 f0       	mov    0xf0b1e7a8,%eax
 f0107316:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f0107319:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
 f010731d:	74 07                	je     f0107326 <cleanup_buffers+0x71>
@@ -14101,8 +14101,8 @@ f010731f:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f0107322:	8b 00                	mov    (%eax),%eax
 f0107324:	eb 05                	jmp    f010732b <cleanup_buffers+0x76>
 f0107326:	b8 00 00 00 00       	mov    $0x0,%eax
-f010732b:	a3 a8 87 b1 f0       	mov    %eax,0xf0b187a8
-f0107330:	a1 a8 87 b1 f0       	mov    0xf0b187a8,%eax
+f010732b:	a3 a8 e7 b1 f0       	mov    %eax,0xf0b1e7a8
+f0107330:	a1 a8 e7 b1 f0       	mov    0xf0b1e7a8,%eax
 f0107335:	85 c0                	test   %eax,%eax
 f0107337:	75 93                	jne    f01072cc <cleanup_buffers+0x17>
 f0107339:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
@@ -14716,7 +14716,7 @@ f0107708:	55                   	push   %ebp
 f0107709:	89 e5                	mov    %esp,%ebp
 f010770b:	83 ec 58             	sub    $0x58,%esp
 	didinit = 1;
-f010770e:	c7 05 04 17 a9 f0 01 	movl   $0x1,0xf0a91704
+f010770e:	c7 05 04 77 a9 f0 01 	movl   $0x1,0xf0a97704
 f0107715:	00 00 00 
 f0107718:	c7 45 f4 21 00 00 00 	movl   $0x21,-0xc(%ebp)
 f010771f:	c6 45 b2 ff          	movb   $0xff,-0x4e(%ebp)
@@ -14824,7 +14824,7 @@ f0107841:	66 89 45 ec          	mov    %ax,-0x14(%ebp)
 f0107845:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f0107848:	66 a3 68 5a 16 f0    	mov    %ax,0xf0165a68
 	if (!didinit)
-f010784e:	a1 04 17 a9 f0       	mov    0xf0a91704,%eax
+f010784e:	a1 04 77 a9 f0       	mov    0xf0a97704,%eax
 f0107853:	85 c0                	test   %eax,%eax
 f0107855:	74 34                	je     f010788b <irq_setmask_8259A+0x53>
 		return;
@@ -14990,973 +14990,973 @@ f010792b:	83 ec 10             	sub    $0x10,%esp
 	//initialize idt
 	SETGATE(idt[T_PGFLT], 0, GD_KT , &PAGE_FAULT, 0) ;
 f010792e:	b8 38 9b 10 f0       	mov    $0xf0109b38,%eax
-f0107933:	66 a3 b0 17 a9 f0    	mov    %ax,0xf0a917b0
-f0107939:	66 c7 05 b2 17 a9 f0 	movw   $0x8,0xf0a917b2
+f0107933:	66 a3 b0 77 a9 f0    	mov    %ax,0xf0a977b0
+f0107939:	66 c7 05 b2 77 a9 f0 	movw   $0x8,0xf0a977b2
 f0107940:	08 00 
-f0107942:	a0 b4 17 a9 f0       	mov    0xf0a917b4,%al
+f0107942:	a0 b4 77 a9 f0       	mov    0xf0a977b4,%al
 f0107947:	83 e0 e0             	and    $0xffffffe0,%eax
-f010794a:	a2 b4 17 a9 f0       	mov    %al,0xf0a917b4
-f010794f:	a0 b4 17 a9 f0       	mov    0xf0a917b4,%al
+f010794a:	a2 b4 77 a9 f0       	mov    %al,0xf0a977b4
+f010794f:	a0 b4 77 a9 f0       	mov    0xf0a977b4,%al
 f0107954:	83 e0 1f             	and    $0x1f,%eax
-f0107957:	a2 b4 17 a9 f0       	mov    %al,0xf0a917b4
-f010795c:	a0 b5 17 a9 f0       	mov    0xf0a917b5,%al
+f0107957:	a2 b4 77 a9 f0       	mov    %al,0xf0a977b4
+f010795c:	a0 b5 77 a9 f0       	mov    0xf0a977b5,%al
 f0107961:	83 e0 f0             	and    $0xfffffff0,%eax
 f0107964:	83 c8 0e             	or     $0xe,%eax
-f0107967:	a2 b5 17 a9 f0       	mov    %al,0xf0a917b5
-f010796c:	a0 b5 17 a9 f0       	mov    0xf0a917b5,%al
+f0107967:	a2 b5 77 a9 f0       	mov    %al,0xf0a977b5
+f010796c:	a0 b5 77 a9 f0       	mov    0xf0a977b5,%al
 f0107971:	83 e0 ef             	and    $0xffffffef,%eax
-f0107974:	a2 b5 17 a9 f0       	mov    %al,0xf0a917b5
-f0107979:	a0 b5 17 a9 f0       	mov    0xf0a917b5,%al
+f0107974:	a2 b5 77 a9 f0       	mov    %al,0xf0a977b5
+f0107979:	a0 b5 77 a9 f0       	mov    0xf0a977b5,%al
 f010797e:	83 e0 9f             	and    $0xffffff9f,%eax
-f0107981:	a2 b5 17 a9 f0       	mov    %al,0xf0a917b5
-f0107986:	a0 b5 17 a9 f0       	mov    0xf0a917b5,%al
+f0107981:	a2 b5 77 a9 f0       	mov    %al,0xf0a977b5
+f0107986:	a0 b5 77 a9 f0       	mov    0xf0a977b5,%al
 f010798b:	83 c8 80             	or     $0xffffff80,%eax
-f010798e:	a2 b5 17 a9 f0       	mov    %al,0xf0a917b5
+f010798e:	a2 b5 77 a9 f0       	mov    %al,0xf0a977b5
 f0107993:	b8 38 9b 10 f0       	mov    $0xf0109b38,%eax
 f0107998:	c1 e8 10             	shr    $0x10,%eax
-f010799b:	66 a3 b6 17 a9 f0    	mov    %ax,0xf0a917b6
+f010799b:	66 a3 b6 77 a9 f0    	mov    %ax,0xf0a977b6
 	SETGATE(idt[T_SYSCALL], 0, GD_KT , &SYSCALL_HANDLER, 3) ;
 f01079a1:	b8 40 9b 10 f0       	mov    $0xf0109b40,%eax
-f01079a6:	66 a3 c0 18 a9 f0    	mov    %ax,0xf0a918c0
-f01079ac:	66 c7 05 c2 18 a9 f0 	movw   $0x8,0xf0a918c2
+f01079a6:	66 a3 c0 78 a9 f0    	mov    %ax,0xf0a978c0
+f01079ac:	66 c7 05 c2 78 a9 f0 	movw   $0x8,0xf0a978c2
 f01079b3:	08 00 
-f01079b5:	a0 c4 18 a9 f0       	mov    0xf0a918c4,%al
+f01079b5:	a0 c4 78 a9 f0       	mov    0xf0a978c4,%al
 f01079ba:	83 e0 e0             	and    $0xffffffe0,%eax
-f01079bd:	a2 c4 18 a9 f0       	mov    %al,0xf0a918c4
-f01079c2:	a0 c4 18 a9 f0       	mov    0xf0a918c4,%al
+f01079bd:	a2 c4 78 a9 f0       	mov    %al,0xf0a978c4
+f01079c2:	a0 c4 78 a9 f0       	mov    0xf0a978c4,%al
 f01079c7:	83 e0 1f             	and    $0x1f,%eax
-f01079ca:	a2 c4 18 a9 f0       	mov    %al,0xf0a918c4
-f01079cf:	a0 c5 18 a9 f0       	mov    0xf0a918c5,%al
+f01079ca:	a2 c4 78 a9 f0       	mov    %al,0xf0a978c4
+f01079cf:	a0 c5 78 a9 f0       	mov    0xf0a978c5,%al
 f01079d4:	83 e0 f0             	and    $0xfffffff0,%eax
 f01079d7:	83 c8 0e             	or     $0xe,%eax
-f01079da:	a2 c5 18 a9 f0       	mov    %al,0xf0a918c5
-f01079df:	a0 c5 18 a9 f0       	mov    0xf0a918c5,%al
+f01079da:	a2 c5 78 a9 f0       	mov    %al,0xf0a978c5
+f01079df:	a0 c5 78 a9 f0       	mov    0xf0a978c5,%al
 f01079e4:	83 e0 ef             	and    $0xffffffef,%eax
-f01079e7:	a2 c5 18 a9 f0       	mov    %al,0xf0a918c5
-f01079ec:	a0 c5 18 a9 f0       	mov    0xf0a918c5,%al
+f01079e7:	a2 c5 78 a9 f0       	mov    %al,0xf0a978c5
+f01079ec:	a0 c5 78 a9 f0       	mov    0xf0a978c5,%al
 f01079f1:	83 c8 60             	or     $0x60,%eax
-f01079f4:	a2 c5 18 a9 f0       	mov    %al,0xf0a918c5
-f01079f9:	a0 c5 18 a9 f0       	mov    0xf0a918c5,%al
+f01079f4:	a2 c5 78 a9 f0       	mov    %al,0xf0a978c5
+f01079f9:	a0 c5 78 a9 f0       	mov    0xf0a978c5,%al
 f01079fe:	83 c8 80             	or     $0xffffff80,%eax
-f0107a01:	a2 c5 18 a9 f0       	mov    %al,0xf0a918c5
+f0107a01:	a2 c5 78 a9 f0       	mov    %al,0xf0a978c5
 f0107a06:	b8 40 9b 10 f0       	mov    $0xf0109b40,%eax
 f0107a0b:	c1 e8 10             	shr    $0x10,%eax
-f0107a0e:	66 a3 c6 18 a9 f0    	mov    %ax,0xf0a918c6
+f0107a0e:	66 a3 c6 78 a9 f0    	mov    %ax,0xf0a978c6
 	SETGATE(idt[T_DBLFLT], 0, GD_KT , &DBL_FAULT, 0) ;
 f0107a14:	b8 4a 9b 10 f0       	mov    $0xf0109b4a,%eax
-f0107a19:	66 a3 80 17 a9 f0    	mov    %ax,0xf0a91780
-f0107a1f:	66 c7 05 82 17 a9 f0 	movw   $0x8,0xf0a91782
+f0107a19:	66 a3 80 77 a9 f0    	mov    %ax,0xf0a97780
+f0107a1f:	66 c7 05 82 77 a9 f0 	movw   $0x8,0xf0a97782
 f0107a26:	08 00 
-f0107a28:	a0 84 17 a9 f0       	mov    0xf0a91784,%al
+f0107a28:	a0 84 77 a9 f0       	mov    0xf0a97784,%al
 f0107a2d:	83 e0 e0             	and    $0xffffffe0,%eax
-f0107a30:	a2 84 17 a9 f0       	mov    %al,0xf0a91784
-f0107a35:	a0 84 17 a9 f0       	mov    0xf0a91784,%al
+f0107a30:	a2 84 77 a9 f0       	mov    %al,0xf0a97784
+f0107a35:	a0 84 77 a9 f0       	mov    0xf0a97784,%al
 f0107a3a:	83 e0 1f             	and    $0x1f,%eax
-f0107a3d:	a2 84 17 a9 f0       	mov    %al,0xf0a91784
-f0107a42:	a0 85 17 a9 f0       	mov    0xf0a91785,%al
+f0107a3d:	a2 84 77 a9 f0       	mov    %al,0xf0a97784
+f0107a42:	a0 85 77 a9 f0       	mov    0xf0a97785,%al
 f0107a47:	83 e0 f0             	and    $0xfffffff0,%eax
 f0107a4a:	83 c8 0e             	or     $0xe,%eax
-f0107a4d:	a2 85 17 a9 f0       	mov    %al,0xf0a91785
-f0107a52:	a0 85 17 a9 f0       	mov    0xf0a91785,%al
+f0107a4d:	a2 85 77 a9 f0       	mov    %al,0xf0a97785
+f0107a52:	a0 85 77 a9 f0       	mov    0xf0a97785,%al
 f0107a57:	83 e0 ef             	and    $0xffffffef,%eax
-f0107a5a:	a2 85 17 a9 f0       	mov    %al,0xf0a91785
-f0107a5f:	a0 85 17 a9 f0       	mov    0xf0a91785,%al
+f0107a5a:	a2 85 77 a9 f0       	mov    %al,0xf0a97785
+f0107a5f:	a0 85 77 a9 f0       	mov    0xf0a97785,%al
 f0107a64:	83 e0 9f             	and    $0xffffff9f,%eax
-f0107a67:	a2 85 17 a9 f0       	mov    %al,0xf0a91785
-f0107a6c:	a0 85 17 a9 f0       	mov    0xf0a91785,%al
+f0107a67:	a2 85 77 a9 f0       	mov    %al,0xf0a97785
+f0107a6c:	a0 85 77 a9 f0       	mov    0xf0a97785,%al
 f0107a71:	83 c8 80             	or     $0xffffff80,%eax
-f0107a74:	a2 85 17 a9 f0       	mov    %al,0xf0a91785
+f0107a74:	a2 85 77 a9 f0       	mov    %al,0xf0a97785
 f0107a79:	b8 4a 9b 10 f0       	mov    $0xf0109b4a,%eax
 f0107a7e:	c1 e8 10             	shr    $0x10,%eax
-f0107a81:	66 a3 86 17 a9 f0    	mov    %ax,0xf0a91786
+f0107a81:	66 a3 86 77 a9 f0    	mov    %ax,0xf0a97786
 
 
 	SETGATE(idt[T_DIVIDE   ], 0, GD_KT , &ALL_FAULTS0, 3) ;
 f0107a87:	b8 52 9b 10 f0       	mov    $0xf0109b52,%eax
-f0107a8c:	66 a3 40 17 a9 f0    	mov    %ax,0xf0a91740
-f0107a92:	66 c7 05 42 17 a9 f0 	movw   $0x8,0xf0a91742
+f0107a8c:	66 a3 40 77 a9 f0    	mov    %ax,0xf0a97740
+f0107a92:	66 c7 05 42 77 a9 f0 	movw   $0x8,0xf0a97742
 f0107a99:	08 00 
-f0107a9b:	a0 44 17 a9 f0       	mov    0xf0a91744,%al
+f0107a9b:	a0 44 77 a9 f0       	mov    0xf0a97744,%al
 f0107aa0:	83 e0 e0             	and    $0xffffffe0,%eax
-f0107aa3:	a2 44 17 a9 f0       	mov    %al,0xf0a91744
-f0107aa8:	a0 44 17 a9 f0       	mov    0xf0a91744,%al
+f0107aa3:	a2 44 77 a9 f0       	mov    %al,0xf0a97744
+f0107aa8:	a0 44 77 a9 f0       	mov    0xf0a97744,%al
 f0107aad:	83 e0 1f             	and    $0x1f,%eax
-f0107ab0:	a2 44 17 a9 f0       	mov    %al,0xf0a91744
-f0107ab5:	a0 45 17 a9 f0       	mov    0xf0a91745,%al
+f0107ab0:	a2 44 77 a9 f0       	mov    %al,0xf0a97744
+f0107ab5:	a0 45 77 a9 f0       	mov    0xf0a97745,%al
 f0107aba:	83 e0 f0             	and    $0xfffffff0,%eax
 f0107abd:	83 c8 0e             	or     $0xe,%eax
-f0107ac0:	a2 45 17 a9 f0       	mov    %al,0xf0a91745
-f0107ac5:	a0 45 17 a9 f0       	mov    0xf0a91745,%al
+f0107ac0:	a2 45 77 a9 f0       	mov    %al,0xf0a97745
+f0107ac5:	a0 45 77 a9 f0       	mov    0xf0a97745,%al
 f0107aca:	83 e0 ef             	and    $0xffffffef,%eax
-f0107acd:	a2 45 17 a9 f0       	mov    %al,0xf0a91745
-f0107ad2:	a0 45 17 a9 f0       	mov    0xf0a91745,%al
+f0107acd:	a2 45 77 a9 f0       	mov    %al,0xf0a97745
+f0107ad2:	a0 45 77 a9 f0       	mov    0xf0a97745,%al
 f0107ad7:	83 c8 60             	or     $0x60,%eax
-f0107ada:	a2 45 17 a9 f0       	mov    %al,0xf0a91745
-f0107adf:	a0 45 17 a9 f0       	mov    0xf0a91745,%al
+f0107ada:	a2 45 77 a9 f0       	mov    %al,0xf0a97745
+f0107adf:	a0 45 77 a9 f0       	mov    0xf0a97745,%al
 f0107ae4:	83 c8 80             	or     $0xffffff80,%eax
-f0107ae7:	a2 45 17 a9 f0       	mov    %al,0xf0a91745
+f0107ae7:	a2 45 77 a9 f0       	mov    %al,0xf0a97745
 f0107aec:	b8 52 9b 10 f0       	mov    $0xf0109b52,%eax
 f0107af1:	c1 e8 10             	shr    $0x10,%eax
-f0107af4:	66 a3 46 17 a9 f0    	mov    %ax,0xf0a91746
+f0107af4:	66 a3 46 77 a9 f0    	mov    %ax,0xf0a97746
 	SETGATE(idt[T_DEBUG    ], 1, GD_KT , &ALL_FAULTS1, 3) ;
 f0107afa:	b8 5c 9b 10 f0       	mov    $0xf0109b5c,%eax
-f0107aff:	66 a3 48 17 a9 f0    	mov    %ax,0xf0a91748
-f0107b05:	66 c7 05 4a 17 a9 f0 	movw   $0x8,0xf0a9174a
+f0107aff:	66 a3 48 77 a9 f0    	mov    %ax,0xf0a97748
+f0107b05:	66 c7 05 4a 77 a9 f0 	movw   $0x8,0xf0a9774a
 f0107b0c:	08 00 
-f0107b0e:	a0 4c 17 a9 f0       	mov    0xf0a9174c,%al
+f0107b0e:	a0 4c 77 a9 f0       	mov    0xf0a9774c,%al
 f0107b13:	83 e0 e0             	and    $0xffffffe0,%eax
-f0107b16:	a2 4c 17 a9 f0       	mov    %al,0xf0a9174c
-f0107b1b:	a0 4c 17 a9 f0       	mov    0xf0a9174c,%al
+f0107b16:	a2 4c 77 a9 f0       	mov    %al,0xf0a9774c
+f0107b1b:	a0 4c 77 a9 f0       	mov    0xf0a9774c,%al
 f0107b20:	83 e0 1f             	and    $0x1f,%eax
-f0107b23:	a2 4c 17 a9 f0       	mov    %al,0xf0a9174c
-f0107b28:	a0 4d 17 a9 f0       	mov    0xf0a9174d,%al
+f0107b23:	a2 4c 77 a9 f0       	mov    %al,0xf0a9774c
+f0107b28:	a0 4d 77 a9 f0       	mov    0xf0a9774d,%al
 f0107b2d:	83 c8 0f             	or     $0xf,%eax
-f0107b30:	a2 4d 17 a9 f0       	mov    %al,0xf0a9174d
-f0107b35:	a0 4d 17 a9 f0       	mov    0xf0a9174d,%al
+f0107b30:	a2 4d 77 a9 f0       	mov    %al,0xf0a9774d
+f0107b35:	a0 4d 77 a9 f0       	mov    0xf0a9774d,%al
 f0107b3a:	83 e0 ef             	and    $0xffffffef,%eax
-f0107b3d:	a2 4d 17 a9 f0       	mov    %al,0xf0a9174d
-f0107b42:	a0 4d 17 a9 f0       	mov    0xf0a9174d,%al
+f0107b3d:	a2 4d 77 a9 f0       	mov    %al,0xf0a9774d
+f0107b42:	a0 4d 77 a9 f0       	mov    0xf0a9774d,%al
 f0107b47:	83 c8 60             	or     $0x60,%eax
-f0107b4a:	a2 4d 17 a9 f0       	mov    %al,0xf0a9174d
-f0107b4f:	a0 4d 17 a9 f0       	mov    0xf0a9174d,%al
+f0107b4a:	a2 4d 77 a9 f0       	mov    %al,0xf0a9774d
+f0107b4f:	a0 4d 77 a9 f0       	mov    0xf0a9774d,%al
 f0107b54:	83 c8 80             	or     $0xffffff80,%eax
-f0107b57:	a2 4d 17 a9 f0       	mov    %al,0xf0a9174d
+f0107b57:	a2 4d 77 a9 f0       	mov    %al,0xf0a9774d
 f0107b5c:	b8 5c 9b 10 f0       	mov    $0xf0109b5c,%eax
 f0107b61:	c1 e8 10             	shr    $0x10,%eax
-f0107b64:	66 a3 4e 17 a9 f0    	mov    %ax,0xf0a9174e
+f0107b64:	66 a3 4e 77 a9 f0    	mov    %ax,0xf0a9774e
 	SETGATE(idt[T_NMI      ], 0, GD_KT , &ALL_FAULTS2, 3) ;
 f0107b6a:	b8 66 9b 10 f0       	mov    $0xf0109b66,%eax
-f0107b6f:	66 a3 50 17 a9 f0    	mov    %ax,0xf0a91750
-f0107b75:	66 c7 05 52 17 a9 f0 	movw   $0x8,0xf0a91752
+f0107b6f:	66 a3 50 77 a9 f0    	mov    %ax,0xf0a97750
+f0107b75:	66 c7 05 52 77 a9 f0 	movw   $0x8,0xf0a97752
 f0107b7c:	08 00 
-f0107b7e:	a0 54 17 a9 f0       	mov    0xf0a91754,%al
+f0107b7e:	a0 54 77 a9 f0       	mov    0xf0a97754,%al
 f0107b83:	83 e0 e0             	and    $0xffffffe0,%eax
-f0107b86:	a2 54 17 a9 f0       	mov    %al,0xf0a91754
-f0107b8b:	a0 54 17 a9 f0       	mov    0xf0a91754,%al
+f0107b86:	a2 54 77 a9 f0       	mov    %al,0xf0a97754
+f0107b8b:	a0 54 77 a9 f0       	mov    0xf0a97754,%al
 f0107b90:	83 e0 1f             	and    $0x1f,%eax
-f0107b93:	a2 54 17 a9 f0       	mov    %al,0xf0a91754
-f0107b98:	a0 55 17 a9 f0       	mov    0xf0a91755,%al
+f0107b93:	a2 54 77 a9 f0       	mov    %al,0xf0a97754
+f0107b98:	a0 55 77 a9 f0       	mov    0xf0a97755,%al
 f0107b9d:	83 e0 f0             	and    $0xfffffff0,%eax
 f0107ba0:	83 c8 0e             	or     $0xe,%eax
-f0107ba3:	a2 55 17 a9 f0       	mov    %al,0xf0a91755
-f0107ba8:	a0 55 17 a9 f0       	mov    0xf0a91755,%al
+f0107ba3:	a2 55 77 a9 f0       	mov    %al,0xf0a97755
+f0107ba8:	a0 55 77 a9 f0       	mov    0xf0a97755,%al
 f0107bad:	83 e0 ef             	and    $0xffffffef,%eax
-f0107bb0:	a2 55 17 a9 f0       	mov    %al,0xf0a91755
-f0107bb5:	a0 55 17 a9 f0       	mov    0xf0a91755,%al
+f0107bb0:	a2 55 77 a9 f0       	mov    %al,0xf0a97755
+f0107bb5:	a0 55 77 a9 f0       	mov    0xf0a97755,%al
 f0107bba:	83 c8 60             	or     $0x60,%eax
-f0107bbd:	a2 55 17 a9 f0       	mov    %al,0xf0a91755
-f0107bc2:	a0 55 17 a9 f0       	mov    0xf0a91755,%al
+f0107bbd:	a2 55 77 a9 f0       	mov    %al,0xf0a97755
+f0107bc2:	a0 55 77 a9 f0       	mov    0xf0a97755,%al
 f0107bc7:	83 c8 80             	or     $0xffffff80,%eax
-f0107bca:	a2 55 17 a9 f0       	mov    %al,0xf0a91755
+f0107bca:	a2 55 77 a9 f0       	mov    %al,0xf0a97755
 f0107bcf:	b8 66 9b 10 f0       	mov    $0xf0109b66,%eax
 f0107bd4:	c1 e8 10             	shr    $0x10,%eax
-f0107bd7:	66 a3 56 17 a9 f0    	mov    %ax,0xf0a91756
+f0107bd7:	66 a3 56 77 a9 f0    	mov    %ax,0xf0a97756
 	SETGATE(idt[T_BRKPT    ], 1, GD_KT , &ALL_FAULTS3, 3) ;
 f0107bdd:	b8 70 9b 10 f0       	mov    $0xf0109b70,%eax
-f0107be2:	66 a3 58 17 a9 f0    	mov    %ax,0xf0a91758
-f0107be8:	66 c7 05 5a 17 a9 f0 	movw   $0x8,0xf0a9175a
+f0107be2:	66 a3 58 77 a9 f0    	mov    %ax,0xf0a97758
+f0107be8:	66 c7 05 5a 77 a9 f0 	movw   $0x8,0xf0a9775a
 f0107bef:	08 00 
-f0107bf1:	a0 5c 17 a9 f0       	mov    0xf0a9175c,%al
+f0107bf1:	a0 5c 77 a9 f0       	mov    0xf0a9775c,%al
 f0107bf6:	83 e0 e0             	and    $0xffffffe0,%eax
-f0107bf9:	a2 5c 17 a9 f0       	mov    %al,0xf0a9175c
-f0107bfe:	a0 5c 17 a9 f0       	mov    0xf0a9175c,%al
+f0107bf9:	a2 5c 77 a9 f0       	mov    %al,0xf0a9775c
+f0107bfe:	a0 5c 77 a9 f0       	mov    0xf0a9775c,%al
 f0107c03:	83 e0 1f             	and    $0x1f,%eax
-f0107c06:	a2 5c 17 a9 f0       	mov    %al,0xf0a9175c
-f0107c0b:	a0 5d 17 a9 f0       	mov    0xf0a9175d,%al
+f0107c06:	a2 5c 77 a9 f0       	mov    %al,0xf0a9775c
+f0107c0b:	a0 5d 77 a9 f0       	mov    0xf0a9775d,%al
 f0107c10:	83 c8 0f             	or     $0xf,%eax
-f0107c13:	a2 5d 17 a9 f0       	mov    %al,0xf0a9175d
-f0107c18:	a0 5d 17 a9 f0       	mov    0xf0a9175d,%al
+f0107c13:	a2 5d 77 a9 f0       	mov    %al,0xf0a9775d
+f0107c18:	a0 5d 77 a9 f0       	mov    0xf0a9775d,%al
 f0107c1d:	83 e0 ef             	and    $0xffffffef,%eax
-f0107c20:	a2 5d 17 a9 f0       	mov    %al,0xf0a9175d
-f0107c25:	a0 5d 17 a9 f0       	mov    0xf0a9175d,%al
+f0107c20:	a2 5d 77 a9 f0       	mov    %al,0xf0a9775d
+f0107c25:	a0 5d 77 a9 f0       	mov    0xf0a9775d,%al
 f0107c2a:	83 c8 60             	or     $0x60,%eax
-f0107c2d:	a2 5d 17 a9 f0       	mov    %al,0xf0a9175d
-f0107c32:	a0 5d 17 a9 f0       	mov    0xf0a9175d,%al
+f0107c2d:	a2 5d 77 a9 f0       	mov    %al,0xf0a9775d
+f0107c32:	a0 5d 77 a9 f0       	mov    0xf0a9775d,%al
 f0107c37:	83 c8 80             	or     $0xffffff80,%eax
-f0107c3a:	a2 5d 17 a9 f0       	mov    %al,0xf0a9175d
+f0107c3a:	a2 5d 77 a9 f0       	mov    %al,0xf0a9775d
 f0107c3f:	b8 70 9b 10 f0       	mov    $0xf0109b70,%eax
 f0107c44:	c1 e8 10             	shr    $0x10,%eax
-f0107c47:	66 a3 5e 17 a9 f0    	mov    %ax,0xf0a9175e
+f0107c47:	66 a3 5e 77 a9 f0    	mov    %ax,0xf0a9775e
 	SETGATE(idt[T_OFLOW    ], 1, GD_KT , &ALL_FAULTS4, 3) ;
 f0107c4d:	b8 7a 9b 10 f0       	mov    $0xf0109b7a,%eax
-f0107c52:	66 a3 60 17 a9 f0    	mov    %ax,0xf0a91760
-f0107c58:	66 c7 05 62 17 a9 f0 	movw   $0x8,0xf0a91762
+f0107c52:	66 a3 60 77 a9 f0    	mov    %ax,0xf0a97760
+f0107c58:	66 c7 05 62 77 a9 f0 	movw   $0x8,0xf0a97762
 f0107c5f:	08 00 
-f0107c61:	a0 64 17 a9 f0       	mov    0xf0a91764,%al
+f0107c61:	a0 64 77 a9 f0       	mov    0xf0a97764,%al
 f0107c66:	83 e0 e0             	and    $0xffffffe0,%eax
-f0107c69:	a2 64 17 a9 f0       	mov    %al,0xf0a91764
-f0107c6e:	a0 64 17 a9 f0       	mov    0xf0a91764,%al
+f0107c69:	a2 64 77 a9 f0       	mov    %al,0xf0a97764
+f0107c6e:	a0 64 77 a9 f0       	mov    0xf0a97764,%al
 f0107c73:	83 e0 1f             	and    $0x1f,%eax
-f0107c76:	a2 64 17 a9 f0       	mov    %al,0xf0a91764
-f0107c7b:	a0 65 17 a9 f0       	mov    0xf0a91765,%al
+f0107c76:	a2 64 77 a9 f0       	mov    %al,0xf0a97764
+f0107c7b:	a0 65 77 a9 f0       	mov    0xf0a97765,%al
 f0107c80:	83 c8 0f             	or     $0xf,%eax
-f0107c83:	a2 65 17 a9 f0       	mov    %al,0xf0a91765
-f0107c88:	a0 65 17 a9 f0       	mov    0xf0a91765,%al
+f0107c83:	a2 65 77 a9 f0       	mov    %al,0xf0a97765
+f0107c88:	a0 65 77 a9 f0       	mov    0xf0a97765,%al
 f0107c8d:	83 e0 ef             	and    $0xffffffef,%eax
-f0107c90:	a2 65 17 a9 f0       	mov    %al,0xf0a91765
-f0107c95:	a0 65 17 a9 f0       	mov    0xf0a91765,%al
+f0107c90:	a2 65 77 a9 f0       	mov    %al,0xf0a97765
+f0107c95:	a0 65 77 a9 f0       	mov    0xf0a97765,%al
 f0107c9a:	83 c8 60             	or     $0x60,%eax
-f0107c9d:	a2 65 17 a9 f0       	mov    %al,0xf0a91765
-f0107ca2:	a0 65 17 a9 f0       	mov    0xf0a91765,%al
+f0107c9d:	a2 65 77 a9 f0       	mov    %al,0xf0a97765
+f0107ca2:	a0 65 77 a9 f0       	mov    0xf0a97765,%al
 f0107ca7:	83 c8 80             	or     $0xffffff80,%eax
-f0107caa:	a2 65 17 a9 f0       	mov    %al,0xf0a91765
+f0107caa:	a2 65 77 a9 f0       	mov    %al,0xf0a97765
 f0107caf:	b8 7a 9b 10 f0       	mov    $0xf0109b7a,%eax
 f0107cb4:	c1 e8 10             	shr    $0x10,%eax
-f0107cb7:	66 a3 66 17 a9 f0    	mov    %ax,0xf0a91766
+f0107cb7:	66 a3 66 77 a9 f0    	mov    %ax,0xf0a97766
 	SETGATE(idt[T_BOUND    ], 0, GD_KT , &ALL_FAULTS5, 3) ;
 f0107cbd:	b8 84 9b 10 f0       	mov    $0xf0109b84,%eax
-f0107cc2:	66 a3 68 17 a9 f0    	mov    %ax,0xf0a91768
-f0107cc8:	66 c7 05 6a 17 a9 f0 	movw   $0x8,0xf0a9176a
+f0107cc2:	66 a3 68 77 a9 f0    	mov    %ax,0xf0a97768
+f0107cc8:	66 c7 05 6a 77 a9 f0 	movw   $0x8,0xf0a9776a
 f0107ccf:	08 00 
-f0107cd1:	a0 6c 17 a9 f0       	mov    0xf0a9176c,%al
+f0107cd1:	a0 6c 77 a9 f0       	mov    0xf0a9776c,%al
 f0107cd6:	83 e0 e0             	and    $0xffffffe0,%eax
-f0107cd9:	a2 6c 17 a9 f0       	mov    %al,0xf0a9176c
-f0107cde:	a0 6c 17 a9 f0       	mov    0xf0a9176c,%al
+f0107cd9:	a2 6c 77 a9 f0       	mov    %al,0xf0a9776c
+f0107cde:	a0 6c 77 a9 f0       	mov    0xf0a9776c,%al
 f0107ce3:	83 e0 1f             	and    $0x1f,%eax
-f0107ce6:	a2 6c 17 a9 f0       	mov    %al,0xf0a9176c
-f0107ceb:	a0 6d 17 a9 f0       	mov    0xf0a9176d,%al
+f0107ce6:	a2 6c 77 a9 f0       	mov    %al,0xf0a9776c
+f0107ceb:	a0 6d 77 a9 f0       	mov    0xf0a9776d,%al
 f0107cf0:	83 e0 f0             	and    $0xfffffff0,%eax
 f0107cf3:	83 c8 0e             	or     $0xe,%eax
-f0107cf6:	a2 6d 17 a9 f0       	mov    %al,0xf0a9176d
-f0107cfb:	a0 6d 17 a9 f0       	mov    0xf0a9176d,%al
+f0107cf6:	a2 6d 77 a9 f0       	mov    %al,0xf0a9776d
+f0107cfb:	a0 6d 77 a9 f0       	mov    0xf0a9776d,%al
 f0107d00:	83 e0 ef             	and    $0xffffffef,%eax
-f0107d03:	a2 6d 17 a9 f0       	mov    %al,0xf0a9176d
-f0107d08:	a0 6d 17 a9 f0       	mov    0xf0a9176d,%al
+f0107d03:	a2 6d 77 a9 f0       	mov    %al,0xf0a9776d
+f0107d08:	a0 6d 77 a9 f0       	mov    0xf0a9776d,%al
 f0107d0d:	83 c8 60             	or     $0x60,%eax
-f0107d10:	a2 6d 17 a9 f0       	mov    %al,0xf0a9176d
-f0107d15:	a0 6d 17 a9 f0       	mov    0xf0a9176d,%al
+f0107d10:	a2 6d 77 a9 f0       	mov    %al,0xf0a9776d
+f0107d15:	a0 6d 77 a9 f0       	mov    0xf0a9776d,%al
 f0107d1a:	83 c8 80             	or     $0xffffff80,%eax
-f0107d1d:	a2 6d 17 a9 f0       	mov    %al,0xf0a9176d
+f0107d1d:	a2 6d 77 a9 f0       	mov    %al,0xf0a9776d
 f0107d22:	b8 84 9b 10 f0       	mov    $0xf0109b84,%eax
 f0107d27:	c1 e8 10             	shr    $0x10,%eax
-f0107d2a:	66 a3 6e 17 a9 f0    	mov    %ax,0xf0a9176e
+f0107d2a:	66 a3 6e 77 a9 f0    	mov    %ax,0xf0a9776e
 	SETGATE(idt[T_ILLOP    ], 0, GD_KT , &ALL_FAULTS6, 3) ;
 f0107d30:	b8 8e 9b 10 f0       	mov    $0xf0109b8e,%eax
-f0107d35:	66 a3 70 17 a9 f0    	mov    %ax,0xf0a91770
-f0107d3b:	66 c7 05 72 17 a9 f0 	movw   $0x8,0xf0a91772
+f0107d35:	66 a3 70 77 a9 f0    	mov    %ax,0xf0a97770
+f0107d3b:	66 c7 05 72 77 a9 f0 	movw   $0x8,0xf0a97772
 f0107d42:	08 00 
-f0107d44:	a0 74 17 a9 f0       	mov    0xf0a91774,%al
+f0107d44:	a0 74 77 a9 f0       	mov    0xf0a97774,%al
 f0107d49:	83 e0 e0             	and    $0xffffffe0,%eax
-f0107d4c:	a2 74 17 a9 f0       	mov    %al,0xf0a91774
-f0107d51:	a0 74 17 a9 f0       	mov    0xf0a91774,%al
+f0107d4c:	a2 74 77 a9 f0       	mov    %al,0xf0a97774
+f0107d51:	a0 74 77 a9 f0       	mov    0xf0a97774,%al
 f0107d56:	83 e0 1f             	and    $0x1f,%eax
-f0107d59:	a2 74 17 a9 f0       	mov    %al,0xf0a91774
-f0107d5e:	a0 75 17 a9 f0       	mov    0xf0a91775,%al
+f0107d59:	a2 74 77 a9 f0       	mov    %al,0xf0a97774
+f0107d5e:	a0 75 77 a9 f0       	mov    0xf0a97775,%al
 f0107d63:	83 e0 f0             	and    $0xfffffff0,%eax
 f0107d66:	83 c8 0e             	or     $0xe,%eax
-f0107d69:	a2 75 17 a9 f0       	mov    %al,0xf0a91775
-f0107d6e:	a0 75 17 a9 f0       	mov    0xf0a91775,%al
+f0107d69:	a2 75 77 a9 f0       	mov    %al,0xf0a97775
+f0107d6e:	a0 75 77 a9 f0       	mov    0xf0a97775,%al
 f0107d73:	83 e0 ef             	and    $0xffffffef,%eax
-f0107d76:	a2 75 17 a9 f0       	mov    %al,0xf0a91775
-f0107d7b:	a0 75 17 a9 f0       	mov    0xf0a91775,%al
+f0107d76:	a2 75 77 a9 f0       	mov    %al,0xf0a97775
+f0107d7b:	a0 75 77 a9 f0       	mov    0xf0a97775,%al
 f0107d80:	83 c8 60             	or     $0x60,%eax
-f0107d83:	a2 75 17 a9 f0       	mov    %al,0xf0a91775
-f0107d88:	a0 75 17 a9 f0       	mov    0xf0a91775,%al
+f0107d83:	a2 75 77 a9 f0       	mov    %al,0xf0a97775
+f0107d88:	a0 75 77 a9 f0       	mov    0xf0a97775,%al
 f0107d8d:	83 c8 80             	or     $0xffffff80,%eax
-f0107d90:	a2 75 17 a9 f0       	mov    %al,0xf0a91775
+f0107d90:	a2 75 77 a9 f0       	mov    %al,0xf0a97775
 f0107d95:	b8 8e 9b 10 f0       	mov    $0xf0109b8e,%eax
 f0107d9a:	c1 e8 10             	shr    $0x10,%eax
-f0107d9d:	66 a3 76 17 a9 f0    	mov    %ax,0xf0a91776
+f0107d9d:	66 a3 76 77 a9 f0    	mov    %ax,0xf0a97776
 	SETGATE(idt[T_DEVICE   ], 0, GD_KT , &ALL_FAULTS7, 3) ;
 f0107da3:	b8 98 9b 10 f0       	mov    $0xf0109b98,%eax
-f0107da8:	66 a3 78 17 a9 f0    	mov    %ax,0xf0a91778
-f0107dae:	66 c7 05 7a 17 a9 f0 	movw   $0x8,0xf0a9177a
+f0107da8:	66 a3 78 77 a9 f0    	mov    %ax,0xf0a97778
+f0107dae:	66 c7 05 7a 77 a9 f0 	movw   $0x8,0xf0a9777a
 f0107db5:	08 00 
-f0107db7:	a0 7c 17 a9 f0       	mov    0xf0a9177c,%al
+f0107db7:	a0 7c 77 a9 f0       	mov    0xf0a9777c,%al
 f0107dbc:	83 e0 e0             	and    $0xffffffe0,%eax
-f0107dbf:	a2 7c 17 a9 f0       	mov    %al,0xf0a9177c
-f0107dc4:	a0 7c 17 a9 f0       	mov    0xf0a9177c,%al
+f0107dbf:	a2 7c 77 a9 f0       	mov    %al,0xf0a9777c
+f0107dc4:	a0 7c 77 a9 f0       	mov    0xf0a9777c,%al
 f0107dc9:	83 e0 1f             	and    $0x1f,%eax
-f0107dcc:	a2 7c 17 a9 f0       	mov    %al,0xf0a9177c
-f0107dd1:	a0 7d 17 a9 f0       	mov    0xf0a9177d,%al
+f0107dcc:	a2 7c 77 a9 f0       	mov    %al,0xf0a9777c
+f0107dd1:	a0 7d 77 a9 f0       	mov    0xf0a9777d,%al
 f0107dd6:	83 e0 f0             	and    $0xfffffff0,%eax
 f0107dd9:	83 c8 0e             	or     $0xe,%eax
-f0107ddc:	a2 7d 17 a9 f0       	mov    %al,0xf0a9177d
-f0107de1:	a0 7d 17 a9 f0       	mov    0xf0a9177d,%al
+f0107ddc:	a2 7d 77 a9 f0       	mov    %al,0xf0a9777d
+f0107de1:	a0 7d 77 a9 f0       	mov    0xf0a9777d,%al
 f0107de6:	83 e0 ef             	and    $0xffffffef,%eax
-f0107de9:	a2 7d 17 a9 f0       	mov    %al,0xf0a9177d
-f0107dee:	a0 7d 17 a9 f0       	mov    0xf0a9177d,%al
+f0107de9:	a2 7d 77 a9 f0       	mov    %al,0xf0a9777d
+f0107dee:	a0 7d 77 a9 f0       	mov    0xf0a9777d,%al
 f0107df3:	83 c8 60             	or     $0x60,%eax
-f0107df6:	a2 7d 17 a9 f0       	mov    %al,0xf0a9177d
-f0107dfb:	a0 7d 17 a9 f0       	mov    0xf0a9177d,%al
+f0107df6:	a2 7d 77 a9 f0       	mov    %al,0xf0a9777d
+f0107dfb:	a0 7d 77 a9 f0       	mov    0xf0a9777d,%al
 f0107e00:	83 c8 80             	or     $0xffffff80,%eax
-f0107e03:	a2 7d 17 a9 f0       	mov    %al,0xf0a9177d
+f0107e03:	a2 7d 77 a9 f0       	mov    %al,0xf0a9777d
 f0107e08:	b8 98 9b 10 f0       	mov    $0xf0109b98,%eax
 f0107e0d:	c1 e8 10             	shr    $0x10,%eax
-f0107e10:	66 a3 7e 17 a9 f0    	mov    %ax,0xf0a9177e
+f0107e10:	66 a3 7e 77 a9 f0    	mov    %ax,0xf0a9777e
 	//SETGATE(idt[T_DBLFLT   ], 0, GD_KT , &ALL_FAULTS, 3) ;
 	//SETGATE(idt[], 0, GD_KT , &ALL_FAULTS, 3) ;
 	SETGATE(idt[T_TSS      ], 0, GD_KT , &ALL_FAULTS10, 3) ;
 f0107e16:	b8 a2 9b 10 f0       	mov    $0xf0109ba2,%eax
-f0107e1b:	66 a3 90 17 a9 f0    	mov    %ax,0xf0a91790
-f0107e21:	66 c7 05 92 17 a9 f0 	movw   $0x8,0xf0a91792
+f0107e1b:	66 a3 90 77 a9 f0    	mov    %ax,0xf0a97790
+f0107e21:	66 c7 05 92 77 a9 f0 	movw   $0x8,0xf0a97792
 f0107e28:	08 00 
-f0107e2a:	a0 94 17 a9 f0       	mov    0xf0a91794,%al
+f0107e2a:	a0 94 77 a9 f0       	mov    0xf0a97794,%al
 f0107e2f:	83 e0 e0             	and    $0xffffffe0,%eax
-f0107e32:	a2 94 17 a9 f0       	mov    %al,0xf0a91794
-f0107e37:	a0 94 17 a9 f0       	mov    0xf0a91794,%al
+f0107e32:	a2 94 77 a9 f0       	mov    %al,0xf0a97794
+f0107e37:	a0 94 77 a9 f0       	mov    0xf0a97794,%al
 f0107e3c:	83 e0 1f             	and    $0x1f,%eax
-f0107e3f:	a2 94 17 a9 f0       	mov    %al,0xf0a91794
-f0107e44:	a0 95 17 a9 f0       	mov    0xf0a91795,%al
+f0107e3f:	a2 94 77 a9 f0       	mov    %al,0xf0a97794
+f0107e44:	a0 95 77 a9 f0       	mov    0xf0a97795,%al
 f0107e49:	83 e0 f0             	and    $0xfffffff0,%eax
 f0107e4c:	83 c8 0e             	or     $0xe,%eax
-f0107e4f:	a2 95 17 a9 f0       	mov    %al,0xf0a91795
-f0107e54:	a0 95 17 a9 f0       	mov    0xf0a91795,%al
+f0107e4f:	a2 95 77 a9 f0       	mov    %al,0xf0a97795
+f0107e54:	a0 95 77 a9 f0       	mov    0xf0a97795,%al
 f0107e59:	83 e0 ef             	and    $0xffffffef,%eax
-f0107e5c:	a2 95 17 a9 f0       	mov    %al,0xf0a91795
-f0107e61:	a0 95 17 a9 f0       	mov    0xf0a91795,%al
+f0107e5c:	a2 95 77 a9 f0       	mov    %al,0xf0a97795
+f0107e61:	a0 95 77 a9 f0       	mov    0xf0a97795,%al
 f0107e66:	83 c8 60             	or     $0x60,%eax
-f0107e69:	a2 95 17 a9 f0       	mov    %al,0xf0a91795
-f0107e6e:	a0 95 17 a9 f0       	mov    0xf0a91795,%al
+f0107e69:	a2 95 77 a9 f0       	mov    %al,0xf0a97795
+f0107e6e:	a0 95 77 a9 f0       	mov    0xf0a97795,%al
 f0107e73:	83 c8 80             	or     $0xffffff80,%eax
-f0107e76:	a2 95 17 a9 f0       	mov    %al,0xf0a91795
+f0107e76:	a2 95 77 a9 f0       	mov    %al,0xf0a97795
 f0107e7b:	b8 a2 9b 10 f0       	mov    $0xf0109ba2,%eax
 f0107e80:	c1 e8 10             	shr    $0x10,%eax
-f0107e83:	66 a3 96 17 a9 f0    	mov    %ax,0xf0a91796
+f0107e83:	66 a3 96 77 a9 f0    	mov    %ax,0xf0a97796
 	SETGATE(idt[T_SEGNP    ], 0, GD_KT , &ALL_FAULTS11, 3) ;
 f0107e89:	b8 aa 9b 10 f0       	mov    $0xf0109baa,%eax
-f0107e8e:	66 a3 98 17 a9 f0    	mov    %ax,0xf0a91798
-f0107e94:	66 c7 05 9a 17 a9 f0 	movw   $0x8,0xf0a9179a
+f0107e8e:	66 a3 98 77 a9 f0    	mov    %ax,0xf0a97798
+f0107e94:	66 c7 05 9a 77 a9 f0 	movw   $0x8,0xf0a9779a
 f0107e9b:	08 00 
-f0107e9d:	a0 9c 17 a9 f0       	mov    0xf0a9179c,%al
+f0107e9d:	a0 9c 77 a9 f0       	mov    0xf0a9779c,%al
 f0107ea2:	83 e0 e0             	and    $0xffffffe0,%eax
-f0107ea5:	a2 9c 17 a9 f0       	mov    %al,0xf0a9179c
-f0107eaa:	a0 9c 17 a9 f0       	mov    0xf0a9179c,%al
+f0107ea5:	a2 9c 77 a9 f0       	mov    %al,0xf0a9779c
+f0107eaa:	a0 9c 77 a9 f0       	mov    0xf0a9779c,%al
 f0107eaf:	83 e0 1f             	and    $0x1f,%eax
-f0107eb2:	a2 9c 17 a9 f0       	mov    %al,0xf0a9179c
-f0107eb7:	a0 9d 17 a9 f0       	mov    0xf0a9179d,%al
+f0107eb2:	a2 9c 77 a9 f0       	mov    %al,0xf0a9779c
+f0107eb7:	a0 9d 77 a9 f0       	mov    0xf0a9779d,%al
 f0107ebc:	83 e0 f0             	and    $0xfffffff0,%eax
 f0107ebf:	83 c8 0e             	or     $0xe,%eax
-f0107ec2:	a2 9d 17 a9 f0       	mov    %al,0xf0a9179d
-f0107ec7:	a0 9d 17 a9 f0       	mov    0xf0a9179d,%al
+f0107ec2:	a2 9d 77 a9 f0       	mov    %al,0xf0a9779d
+f0107ec7:	a0 9d 77 a9 f0       	mov    0xf0a9779d,%al
 f0107ecc:	83 e0 ef             	and    $0xffffffef,%eax
-f0107ecf:	a2 9d 17 a9 f0       	mov    %al,0xf0a9179d
-f0107ed4:	a0 9d 17 a9 f0       	mov    0xf0a9179d,%al
+f0107ecf:	a2 9d 77 a9 f0       	mov    %al,0xf0a9779d
+f0107ed4:	a0 9d 77 a9 f0       	mov    0xf0a9779d,%al
 f0107ed9:	83 c8 60             	or     $0x60,%eax
-f0107edc:	a2 9d 17 a9 f0       	mov    %al,0xf0a9179d
-f0107ee1:	a0 9d 17 a9 f0       	mov    0xf0a9179d,%al
+f0107edc:	a2 9d 77 a9 f0       	mov    %al,0xf0a9779d
+f0107ee1:	a0 9d 77 a9 f0       	mov    0xf0a9779d,%al
 f0107ee6:	83 c8 80             	or     $0xffffff80,%eax
-f0107ee9:	a2 9d 17 a9 f0       	mov    %al,0xf0a9179d
+f0107ee9:	a2 9d 77 a9 f0       	mov    %al,0xf0a9779d
 f0107eee:	b8 aa 9b 10 f0       	mov    $0xf0109baa,%eax
 f0107ef3:	c1 e8 10             	shr    $0x10,%eax
-f0107ef6:	66 a3 9e 17 a9 f0    	mov    %ax,0xf0a9179e
+f0107ef6:	66 a3 9e 77 a9 f0    	mov    %ax,0xf0a9779e
 	SETGATE(idt[T_STACK    ], 0, GD_KT , &ALL_FAULTS12, 3) ;
 f0107efc:	b8 ae 9b 10 f0       	mov    $0xf0109bae,%eax
-f0107f01:	66 a3 a0 17 a9 f0    	mov    %ax,0xf0a917a0
-f0107f07:	66 c7 05 a2 17 a9 f0 	movw   $0x8,0xf0a917a2
+f0107f01:	66 a3 a0 77 a9 f0    	mov    %ax,0xf0a977a0
+f0107f07:	66 c7 05 a2 77 a9 f0 	movw   $0x8,0xf0a977a2
 f0107f0e:	08 00 
-f0107f10:	a0 a4 17 a9 f0       	mov    0xf0a917a4,%al
+f0107f10:	a0 a4 77 a9 f0       	mov    0xf0a977a4,%al
 f0107f15:	83 e0 e0             	and    $0xffffffe0,%eax
-f0107f18:	a2 a4 17 a9 f0       	mov    %al,0xf0a917a4
-f0107f1d:	a0 a4 17 a9 f0       	mov    0xf0a917a4,%al
+f0107f18:	a2 a4 77 a9 f0       	mov    %al,0xf0a977a4
+f0107f1d:	a0 a4 77 a9 f0       	mov    0xf0a977a4,%al
 f0107f22:	83 e0 1f             	and    $0x1f,%eax
-f0107f25:	a2 a4 17 a9 f0       	mov    %al,0xf0a917a4
-f0107f2a:	a0 a5 17 a9 f0       	mov    0xf0a917a5,%al
+f0107f25:	a2 a4 77 a9 f0       	mov    %al,0xf0a977a4
+f0107f2a:	a0 a5 77 a9 f0       	mov    0xf0a977a5,%al
 f0107f2f:	83 e0 f0             	and    $0xfffffff0,%eax
 f0107f32:	83 c8 0e             	or     $0xe,%eax
-f0107f35:	a2 a5 17 a9 f0       	mov    %al,0xf0a917a5
-f0107f3a:	a0 a5 17 a9 f0       	mov    0xf0a917a5,%al
+f0107f35:	a2 a5 77 a9 f0       	mov    %al,0xf0a977a5
+f0107f3a:	a0 a5 77 a9 f0       	mov    0xf0a977a5,%al
 f0107f3f:	83 e0 ef             	and    $0xffffffef,%eax
-f0107f42:	a2 a5 17 a9 f0       	mov    %al,0xf0a917a5
-f0107f47:	a0 a5 17 a9 f0       	mov    0xf0a917a5,%al
+f0107f42:	a2 a5 77 a9 f0       	mov    %al,0xf0a977a5
+f0107f47:	a0 a5 77 a9 f0       	mov    0xf0a977a5,%al
 f0107f4c:	83 c8 60             	or     $0x60,%eax
-f0107f4f:	a2 a5 17 a9 f0       	mov    %al,0xf0a917a5
-f0107f54:	a0 a5 17 a9 f0       	mov    0xf0a917a5,%al
+f0107f4f:	a2 a5 77 a9 f0       	mov    %al,0xf0a977a5
+f0107f54:	a0 a5 77 a9 f0       	mov    0xf0a977a5,%al
 f0107f59:	83 c8 80             	or     $0xffffff80,%eax
-f0107f5c:	a2 a5 17 a9 f0       	mov    %al,0xf0a917a5
+f0107f5c:	a2 a5 77 a9 f0       	mov    %al,0xf0a977a5
 f0107f61:	b8 ae 9b 10 f0       	mov    $0xf0109bae,%eax
 f0107f66:	c1 e8 10             	shr    $0x10,%eax
-f0107f69:	66 a3 a6 17 a9 f0    	mov    %ax,0xf0a917a6
+f0107f69:	66 a3 a6 77 a9 f0    	mov    %ax,0xf0a977a6
 	SETGATE(idt[T_GPFLT    ], 0, GD_KT , &ALL_FAULTS13, 3) ;
 f0107f6f:	b8 b2 9b 10 f0       	mov    $0xf0109bb2,%eax
-f0107f74:	66 a3 a8 17 a9 f0    	mov    %ax,0xf0a917a8
-f0107f7a:	66 c7 05 aa 17 a9 f0 	movw   $0x8,0xf0a917aa
+f0107f74:	66 a3 a8 77 a9 f0    	mov    %ax,0xf0a977a8
+f0107f7a:	66 c7 05 aa 77 a9 f0 	movw   $0x8,0xf0a977aa
 f0107f81:	08 00 
-f0107f83:	a0 ac 17 a9 f0       	mov    0xf0a917ac,%al
+f0107f83:	a0 ac 77 a9 f0       	mov    0xf0a977ac,%al
 f0107f88:	83 e0 e0             	and    $0xffffffe0,%eax
-f0107f8b:	a2 ac 17 a9 f0       	mov    %al,0xf0a917ac
-f0107f90:	a0 ac 17 a9 f0       	mov    0xf0a917ac,%al
+f0107f8b:	a2 ac 77 a9 f0       	mov    %al,0xf0a977ac
+f0107f90:	a0 ac 77 a9 f0       	mov    0xf0a977ac,%al
 f0107f95:	83 e0 1f             	and    $0x1f,%eax
-f0107f98:	a2 ac 17 a9 f0       	mov    %al,0xf0a917ac
-f0107f9d:	a0 ad 17 a9 f0       	mov    0xf0a917ad,%al
+f0107f98:	a2 ac 77 a9 f0       	mov    %al,0xf0a977ac
+f0107f9d:	a0 ad 77 a9 f0       	mov    0xf0a977ad,%al
 f0107fa2:	83 e0 f0             	and    $0xfffffff0,%eax
 f0107fa5:	83 c8 0e             	or     $0xe,%eax
-f0107fa8:	a2 ad 17 a9 f0       	mov    %al,0xf0a917ad
-f0107fad:	a0 ad 17 a9 f0       	mov    0xf0a917ad,%al
+f0107fa8:	a2 ad 77 a9 f0       	mov    %al,0xf0a977ad
+f0107fad:	a0 ad 77 a9 f0       	mov    0xf0a977ad,%al
 f0107fb2:	83 e0 ef             	and    $0xffffffef,%eax
-f0107fb5:	a2 ad 17 a9 f0       	mov    %al,0xf0a917ad
-f0107fba:	a0 ad 17 a9 f0       	mov    0xf0a917ad,%al
+f0107fb5:	a2 ad 77 a9 f0       	mov    %al,0xf0a977ad
+f0107fba:	a0 ad 77 a9 f0       	mov    0xf0a977ad,%al
 f0107fbf:	83 c8 60             	or     $0x60,%eax
-f0107fc2:	a2 ad 17 a9 f0       	mov    %al,0xf0a917ad
-f0107fc7:	a0 ad 17 a9 f0       	mov    0xf0a917ad,%al
+f0107fc2:	a2 ad 77 a9 f0       	mov    %al,0xf0a977ad
+f0107fc7:	a0 ad 77 a9 f0       	mov    0xf0a977ad,%al
 f0107fcc:	83 c8 80             	or     $0xffffff80,%eax
-f0107fcf:	a2 ad 17 a9 f0       	mov    %al,0xf0a917ad
+f0107fcf:	a2 ad 77 a9 f0       	mov    %al,0xf0a977ad
 f0107fd4:	b8 b2 9b 10 f0       	mov    $0xf0109bb2,%eax
 f0107fd9:	c1 e8 10             	shr    $0x10,%eax
-f0107fdc:	66 a3 ae 17 a9 f0    	mov    %ax,0xf0a917ae
+f0107fdc:	66 a3 ae 77 a9 f0    	mov    %ax,0xf0a977ae
 	//SETGATE(idt[T_PGFLT    ], 0, GD_KT , &ALL_FAULTS, 3) ;
 	//SETGATE(idt[ne T_RES   ], 0, GD_KT , &ALL_FAULTS, 3) ;
 	SETGATE(idt[T_FPERR    ], 0, GD_KT , &ALL_FAULTS16, 3) ;
 f0107fe2:	b8 b6 9b 10 f0       	mov    $0xf0109bb6,%eax
-f0107fe7:	66 a3 c0 17 a9 f0    	mov    %ax,0xf0a917c0
-f0107fed:	66 c7 05 c2 17 a9 f0 	movw   $0x8,0xf0a917c2
+f0107fe7:	66 a3 c0 77 a9 f0    	mov    %ax,0xf0a977c0
+f0107fed:	66 c7 05 c2 77 a9 f0 	movw   $0x8,0xf0a977c2
 f0107ff4:	08 00 
-f0107ff6:	a0 c4 17 a9 f0       	mov    0xf0a917c4,%al
+f0107ff6:	a0 c4 77 a9 f0       	mov    0xf0a977c4,%al
 f0107ffb:	83 e0 e0             	and    $0xffffffe0,%eax
-f0107ffe:	a2 c4 17 a9 f0       	mov    %al,0xf0a917c4
-f0108003:	a0 c4 17 a9 f0       	mov    0xf0a917c4,%al
+f0107ffe:	a2 c4 77 a9 f0       	mov    %al,0xf0a977c4
+f0108003:	a0 c4 77 a9 f0       	mov    0xf0a977c4,%al
 f0108008:	83 e0 1f             	and    $0x1f,%eax
-f010800b:	a2 c4 17 a9 f0       	mov    %al,0xf0a917c4
-f0108010:	a0 c5 17 a9 f0       	mov    0xf0a917c5,%al
+f010800b:	a2 c4 77 a9 f0       	mov    %al,0xf0a977c4
+f0108010:	a0 c5 77 a9 f0       	mov    0xf0a977c5,%al
 f0108015:	83 e0 f0             	and    $0xfffffff0,%eax
 f0108018:	83 c8 0e             	or     $0xe,%eax
-f010801b:	a2 c5 17 a9 f0       	mov    %al,0xf0a917c5
-f0108020:	a0 c5 17 a9 f0       	mov    0xf0a917c5,%al
+f010801b:	a2 c5 77 a9 f0       	mov    %al,0xf0a977c5
+f0108020:	a0 c5 77 a9 f0       	mov    0xf0a977c5,%al
 f0108025:	83 e0 ef             	and    $0xffffffef,%eax
-f0108028:	a2 c5 17 a9 f0       	mov    %al,0xf0a917c5
-f010802d:	a0 c5 17 a9 f0       	mov    0xf0a917c5,%al
+f0108028:	a2 c5 77 a9 f0       	mov    %al,0xf0a977c5
+f010802d:	a0 c5 77 a9 f0       	mov    0xf0a977c5,%al
 f0108032:	83 c8 60             	or     $0x60,%eax
-f0108035:	a2 c5 17 a9 f0       	mov    %al,0xf0a917c5
-f010803a:	a0 c5 17 a9 f0       	mov    0xf0a917c5,%al
+f0108035:	a2 c5 77 a9 f0       	mov    %al,0xf0a977c5
+f010803a:	a0 c5 77 a9 f0       	mov    0xf0a977c5,%al
 f010803f:	83 c8 80             	or     $0xffffff80,%eax
-f0108042:	a2 c5 17 a9 f0       	mov    %al,0xf0a917c5
+f0108042:	a2 c5 77 a9 f0       	mov    %al,0xf0a977c5
 f0108047:	b8 b6 9b 10 f0       	mov    $0xf0109bb6,%eax
 f010804c:	c1 e8 10             	shr    $0x10,%eax
-f010804f:	66 a3 c6 17 a9 f0    	mov    %ax,0xf0a917c6
+f010804f:	66 a3 c6 77 a9 f0    	mov    %ax,0xf0a977c6
 	SETGATE(idt[T_ALIGN    ], 0, GD_KT , &ALL_FAULTS17, 3) ;
 f0108055:	b8 bc 9b 10 f0       	mov    $0xf0109bbc,%eax
-f010805a:	66 a3 c8 17 a9 f0    	mov    %ax,0xf0a917c8
-f0108060:	66 c7 05 ca 17 a9 f0 	movw   $0x8,0xf0a917ca
+f010805a:	66 a3 c8 77 a9 f0    	mov    %ax,0xf0a977c8
+f0108060:	66 c7 05 ca 77 a9 f0 	movw   $0x8,0xf0a977ca
 f0108067:	08 00 
-f0108069:	a0 cc 17 a9 f0       	mov    0xf0a917cc,%al
+f0108069:	a0 cc 77 a9 f0       	mov    0xf0a977cc,%al
 f010806e:	83 e0 e0             	and    $0xffffffe0,%eax
-f0108071:	a2 cc 17 a9 f0       	mov    %al,0xf0a917cc
-f0108076:	a0 cc 17 a9 f0       	mov    0xf0a917cc,%al
+f0108071:	a2 cc 77 a9 f0       	mov    %al,0xf0a977cc
+f0108076:	a0 cc 77 a9 f0       	mov    0xf0a977cc,%al
 f010807b:	83 e0 1f             	and    $0x1f,%eax
-f010807e:	a2 cc 17 a9 f0       	mov    %al,0xf0a917cc
-f0108083:	a0 cd 17 a9 f0       	mov    0xf0a917cd,%al
+f010807e:	a2 cc 77 a9 f0       	mov    %al,0xf0a977cc
+f0108083:	a0 cd 77 a9 f0       	mov    0xf0a977cd,%al
 f0108088:	83 e0 f0             	and    $0xfffffff0,%eax
 f010808b:	83 c8 0e             	or     $0xe,%eax
-f010808e:	a2 cd 17 a9 f0       	mov    %al,0xf0a917cd
-f0108093:	a0 cd 17 a9 f0       	mov    0xf0a917cd,%al
+f010808e:	a2 cd 77 a9 f0       	mov    %al,0xf0a977cd
+f0108093:	a0 cd 77 a9 f0       	mov    0xf0a977cd,%al
 f0108098:	83 e0 ef             	and    $0xffffffef,%eax
-f010809b:	a2 cd 17 a9 f0       	mov    %al,0xf0a917cd
-f01080a0:	a0 cd 17 a9 f0       	mov    0xf0a917cd,%al
+f010809b:	a2 cd 77 a9 f0       	mov    %al,0xf0a977cd
+f01080a0:	a0 cd 77 a9 f0       	mov    0xf0a977cd,%al
 f01080a5:	83 c8 60             	or     $0x60,%eax
-f01080a8:	a2 cd 17 a9 f0       	mov    %al,0xf0a917cd
-f01080ad:	a0 cd 17 a9 f0       	mov    0xf0a917cd,%al
+f01080a8:	a2 cd 77 a9 f0       	mov    %al,0xf0a977cd
+f01080ad:	a0 cd 77 a9 f0       	mov    0xf0a977cd,%al
 f01080b2:	83 c8 80             	or     $0xffffff80,%eax
-f01080b5:	a2 cd 17 a9 f0       	mov    %al,0xf0a917cd
+f01080b5:	a2 cd 77 a9 f0       	mov    %al,0xf0a977cd
 f01080ba:	b8 bc 9b 10 f0       	mov    $0xf0109bbc,%eax
 f01080bf:	c1 e8 10             	shr    $0x10,%eax
-f01080c2:	66 a3 ce 17 a9 f0    	mov    %ax,0xf0a917ce
+f01080c2:	66 a3 ce 77 a9 f0    	mov    %ax,0xf0a977ce
 	SETGATE(idt[T_MCHK     ], 0, GD_KT , &ALL_FAULTS18, 3) ;
 f01080c8:	b8 c0 9b 10 f0       	mov    $0xf0109bc0,%eax
-f01080cd:	66 a3 d0 17 a9 f0    	mov    %ax,0xf0a917d0
-f01080d3:	66 c7 05 d2 17 a9 f0 	movw   $0x8,0xf0a917d2
+f01080cd:	66 a3 d0 77 a9 f0    	mov    %ax,0xf0a977d0
+f01080d3:	66 c7 05 d2 77 a9 f0 	movw   $0x8,0xf0a977d2
 f01080da:	08 00 
-f01080dc:	a0 d4 17 a9 f0       	mov    0xf0a917d4,%al
+f01080dc:	a0 d4 77 a9 f0       	mov    0xf0a977d4,%al
 f01080e1:	83 e0 e0             	and    $0xffffffe0,%eax
-f01080e4:	a2 d4 17 a9 f0       	mov    %al,0xf0a917d4
-f01080e9:	a0 d4 17 a9 f0       	mov    0xf0a917d4,%al
+f01080e4:	a2 d4 77 a9 f0       	mov    %al,0xf0a977d4
+f01080e9:	a0 d4 77 a9 f0       	mov    0xf0a977d4,%al
 f01080ee:	83 e0 1f             	and    $0x1f,%eax
-f01080f1:	a2 d4 17 a9 f0       	mov    %al,0xf0a917d4
-f01080f6:	a0 d5 17 a9 f0       	mov    0xf0a917d5,%al
+f01080f1:	a2 d4 77 a9 f0       	mov    %al,0xf0a977d4
+f01080f6:	a0 d5 77 a9 f0       	mov    0xf0a977d5,%al
 f01080fb:	83 e0 f0             	and    $0xfffffff0,%eax
 f01080fe:	83 c8 0e             	or     $0xe,%eax
-f0108101:	a2 d5 17 a9 f0       	mov    %al,0xf0a917d5
-f0108106:	a0 d5 17 a9 f0       	mov    0xf0a917d5,%al
+f0108101:	a2 d5 77 a9 f0       	mov    %al,0xf0a977d5
+f0108106:	a0 d5 77 a9 f0       	mov    0xf0a977d5,%al
 f010810b:	83 e0 ef             	and    $0xffffffef,%eax
-f010810e:	a2 d5 17 a9 f0       	mov    %al,0xf0a917d5
-f0108113:	a0 d5 17 a9 f0       	mov    0xf0a917d5,%al
+f010810e:	a2 d5 77 a9 f0       	mov    %al,0xf0a977d5
+f0108113:	a0 d5 77 a9 f0       	mov    0xf0a977d5,%al
 f0108118:	83 c8 60             	or     $0x60,%eax
-f010811b:	a2 d5 17 a9 f0       	mov    %al,0xf0a917d5
-f0108120:	a0 d5 17 a9 f0       	mov    0xf0a917d5,%al
+f010811b:	a2 d5 77 a9 f0       	mov    %al,0xf0a977d5
+f0108120:	a0 d5 77 a9 f0       	mov    0xf0a977d5,%al
 f0108125:	83 c8 80             	or     $0xffffff80,%eax
-f0108128:	a2 d5 17 a9 f0       	mov    %al,0xf0a917d5
+f0108128:	a2 d5 77 a9 f0       	mov    %al,0xf0a977d5
 f010812d:	b8 c0 9b 10 f0       	mov    $0xf0109bc0,%eax
 f0108132:	c1 e8 10             	shr    $0x10,%eax
-f0108135:	66 a3 d6 17 a9 f0    	mov    %ax,0xf0a917d6
+f0108135:	66 a3 d6 77 a9 f0    	mov    %ax,0xf0a977d6
 	SETGATE(idt[T_SIMDERR  ], 0, GD_KT , &ALL_FAULTS19, 3) ;
 f010813b:	b8 c6 9b 10 f0       	mov    $0xf0109bc6,%eax
-f0108140:	66 a3 d8 17 a9 f0    	mov    %ax,0xf0a917d8
-f0108146:	66 c7 05 da 17 a9 f0 	movw   $0x8,0xf0a917da
+f0108140:	66 a3 d8 77 a9 f0    	mov    %ax,0xf0a977d8
+f0108146:	66 c7 05 da 77 a9 f0 	movw   $0x8,0xf0a977da
 f010814d:	08 00 
-f010814f:	a0 dc 17 a9 f0       	mov    0xf0a917dc,%al
+f010814f:	a0 dc 77 a9 f0       	mov    0xf0a977dc,%al
 f0108154:	83 e0 e0             	and    $0xffffffe0,%eax
-f0108157:	a2 dc 17 a9 f0       	mov    %al,0xf0a917dc
-f010815c:	a0 dc 17 a9 f0       	mov    0xf0a917dc,%al
+f0108157:	a2 dc 77 a9 f0       	mov    %al,0xf0a977dc
+f010815c:	a0 dc 77 a9 f0       	mov    0xf0a977dc,%al
 f0108161:	83 e0 1f             	and    $0x1f,%eax
-f0108164:	a2 dc 17 a9 f0       	mov    %al,0xf0a917dc
-f0108169:	a0 dd 17 a9 f0       	mov    0xf0a917dd,%al
+f0108164:	a2 dc 77 a9 f0       	mov    %al,0xf0a977dc
+f0108169:	a0 dd 77 a9 f0       	mov    0xf0a977dd,%al
 f010816e:	83 e0 f0             	and    $0xfffffff0,%eax
 f0108171:	83 c8 0e             	or     $0xe,%eax
-f0108174:	a2 dd 17 a9 f0       	mov    %al,0xf0a917dd
-f0108179:	a0 dd 17 a9 f0       	mov    0xf0a917dd,%al
+f0108174:	a2 dd 77 a9 f0       	mov    %al,0xf0a977dd
+f0108179:	a0 dd 77 a9 f0       	mov    0xf0a977dd,%al
 f010817e:	83 e0 ef             	and    $0xffffffef,%eax
-f0108181:	a2 dd 17 a9 f0       	mov    %al,0xf0a917dd
-f0108186:	a0 dd 17 a9 f0       	mov    0xf0a917dd,%al
+f0108181:	a2 dd 77 a9 f0       	mov    %al,0xf0a977dd
+f0108186:	a0 dd 77 a9 f0       	mov    0xf0a977dd,%al
 f010818b:	83 c8 60             	or     $0x60,%eax
-f010818e:	a2 dd 17 a9 f0       	mov    %al,0xf0a917dd
-f0108193:	a0 dd 17 a9 f0       	mov    0xf0a917dd,%al
+f010818e:	a2 dd 77 a9 f0       	mov    %al,0xf0a977dd
+f0108193:	a0 dd 77 a9 f0       	mov    0xf0a977dd,%al
 f0108198:	83 c8 80             	or     $0xffffff80,%eax
-f010819b:	a2 dd 17 a9 f0       	mov    %al,0xf0a917dd
+f010819b:	a2 dd 77 a9 f0       	mov    %al,0xf0a977dd
 f01081a0:	b8 c6 9b 10 f0       	mov    $0xf0109bc6,%eax
 f01081a5:	c1 e8 10             	shr    $0x10,%eax
-f01081a8:	66 a3 de 17 a9 f0    	mov    %ax,0xf0a917de
+f01081a8:	66 a3 de 77 a9 f0    	mov    %ax,0xf0a977de
 
 
 	SETGATE(idt[IRQ0_Clock], 0, GD_KT , &ALL_FAULTS32, 3) ;
 f01081ae:	b8 cc 9b 10 f0       	mov    $0xf0109bcc,%eax
-f01081b3:	66 a3 40 18 a9 f0    	mov    %ax,0xf0a91840
-f01081b9:	66 c7 05 42 18 a9 f0 	movw   $0x8,0xf0a91842
+f01081b3:	66 a3 40 78 a9 f0    	mov    %ax,0xf0a97840
+f01081b9:	66 c7 05 42 78 a9 f0 	movw   $0x8,0xf0a97842
 f01081c0:	08 00 
-f01081c2:	a0 44 18 a9 f0       	mov    0xf0a91844,%al
+f01081c2:	a0 44 78 a9 f0       	mov    0xf0a97844,%al
 f01081c7:	83 e0 e0             	and    $0xffffffe0,%eax
-f01081ca:	a2 44 18 a9 f0       	mov    %al,0xf0a91844
-f01081cf:	a0 44 18 a9 f0       	mov    0xf0a91844,%al
+f01081ca:	a2 44 78 a9 f0       	mov    %al,0xf0a97844
+f01081cf:	a0 44 78 a9 f0       	mov    0xf0a97844,%al
 f01081d4:	83 e0 1f             	and    $0x1f,%eax
-f01081d7:	a2 44 18 a9 f0       	mov    %al,0xf0a91844
-f01081dc:	a0 45 18 a9 f0       	mov    0xf0a91845,%al
+f01081d7:	a2 44 78 a9 f0       	mov    %al,0xf0a97844
+f01081dc:	a0 45 78 a9 f0       	mov    0xf0a97845,%al
 f01081e1:	83 e0 f0             	and    $0xfffffff0,%eax
 f01081e4:	83 c8 0e             	or     $0xe,%eax
-f01081e7:	a2 45 18 a9 f0       	mov    %al,0xf0a91845
-f01081ec:	a0 45 18 a9 f0       	mov    0xf0a91845,%al
+f01081e7:	a2 45 78 a9 f0       	mov    %al,0xf0a97845
+f01081ec:	a0 45 78 a9 f0       	mov    0xf0a97845,%al
 f01081f1:	83 e0 ef             	and    $0xffffffef,%eax
-f01081f4:	a2 45 18 a9 f0       	mov    %al,0xf0a91845
-f01081f9:	a0 45 18 a9 f0       	mov    0xf0a91845,%al
+f01081f4:	a2 45 78 a9 f0       	mov    %al,0xf0a97845
+f01081f9:	a0 45 78 a9 f0       	mov    0xf0a97845,%al
 f01081fe:	83 c8 60             	or     $0x60,%eax
-f0108201:	a2 45 18 a9 f0       	mov    %al,0xf0a91845
-f0108206:	a0 45 18 a9 f0       	mov    0xf0a91845,%al
+f0108201:	a2 45 78 a9 f0       	mov    %al,0xf0a97845
+f0108206:	a0 45 78 a9 f0       	mov    0xf0a97845,%al
 f010820b:	83 c8 80             	or     $0xffffff80,%eax
-f010820e:	a2 45 18 a9 f0       	mov    %al,0xf0a91845
+f010820e:	a2 45 78 a9 f0       	mov    %al,0xf0a97845
 f0108213:	b8 cc 9b 10 f0       	mov    $0xf0109bcc,%eax
 f0108218:	c1 e8 10             	shr    $0x10,%eax
-f010821b:	66 a3 46 18 a9 f0    	mov    %ax,0xf0a91846
+f010821b:	66 a3 46 78 a9 f0    	mov    %ax,0xf0a97846
 	SETGATE(idt[33], 0, GD_KT , &ALL_FAULTS33, 3) ;
 f0108221:	b8 d2 9b 10 f0       	mov    $0xf0109bd2,%eax
-f0108226:	66 a3 48 18 a9 f0    	mov    %ax,0xf0a91848
-f010822c:	66 c7 05 4a 18 a9 f0 	movw   $0x8,0xf0a9184a
+f0108226:	66 a3 48 78 a9 f0    	mov    %ax,0xf0a97848
+f010822c:	66 c7 05 4a 78 a9 f0 	movw   $0x8,0xf0a9784a
 f0108233:	08 00 
-f0108235:	a0 4c 18 a9 f0       	mov    0xf0a9184c,%al
+f0108235:	a0 4c 78 a9 f0       	mov    0xf0a9784c,%al
 f010823a:	83 e0 e0             	and    $0xffffffe0,%eax
-f010823d:	a2 4c 18 a9 f0       	mov    %al,0xf0a9184c
-f0108242:	a0 4c 18 a9 f0       	mov    0xf0a9184c,%al
+f010823d:	a2 4c 78 a9 f0       	mov    %al,0xf0a9784c
+f0108242:	a0 4c 78 a9 f0       	mov    0xf0a9784c,%al
 f0108247:	83 e0 1f             	and    $0x1f,%eax
-f010824a:	a2 4c 18 a9 f0       	mov    %al,0xf0a9184c
-f010824f:	a0 4d 18 a9 f0       	mov    0xf0a9184d,%al
+f010824a:	a2 4c 78 a9 f0       	mov    %al,0xf0a9784c
+f010824f:	a0 4d 78 a9 f0       	mov    0xf0a9784d,%al
 f0108254:	83 e0 f0             	and    $0xfffffff0,%eax
 f0108257:	83 c8 0e             	or     $0xe,%eax
-f010825a:	a2 4d 18 a9 f0       	mov    %al,0xf0a9184d
-f010825f:	a0 4d 18 a9 f0       	mov    0xf0a9184d,%al
+f010825a:	a2 4d 78 a9 f0       	mov    %al,0xf0a9784d
+f010825f:	a0 4d 78 a9 f0       	mov    0xf0a9784d,%al
 f0108264:	83 e0 ef             	and    $0xffffffef,%eax
-f0108267:	a2 4d 18 a9 f0       	mov    %al,0xf0a9184d
-f010826c:	a0 4d 18 a9 f0       	mov    0xf0a9184d,%al
+f0108267:	a2 4d 78 a9 f0       	mov    %al,0xf0a9784d
+f010826c:	a0 4d 78 a9 f0       	mov    0xf0a9784d,%al
 f0108271:	83 c8 60             	or     $0x60,%eax
-f0108274:	a2 4d 18 a9 f0       	mov    %al,0xf0a9184d
-f0108279:	a0 4d 18 a9 f0       	mov    0xf0a9184d,%al
+f0108274:	a2 4d 78 a9 f0       	mov    %al,0xf0a9784d
+f0108279:	a0 4d 78 a9 f0       	mov    0xf0a9784d,%al
 f010827e:	83 c8 80             	or     $0xffffff80,%eax
-f0108281:	a2 4d 18 a9 f0       	mov    %al,0xf0a9184d
+f0108281:	a2 4d 78 a9 f0       	mov    %al,0xf0a9784d
 f0108286:	b8 d2 9b 10 f0       	mov    $0xf0109bd2,%eax
 f010828b:	c1 e8 10             	shr    $0x10,%eax
-f010828e:	66 a3 4e 18 a9 f0    	mov    %ax,0xf0a9184e
+f010828e:	66 a3 4e 78 a9 f0    	mov    %ax,0xf0a9784e
 	SETGATE(idt[34], 0, GD_KT , &ALL_FAULTS34, 3) ;
 f0108294:	b8 d8 9b 10 f0       	mov    $0xf0109bd8,%eax
-f0108299:	66 a3 50 18 a9 f0    	mov    %ax,0xf0a91850
-f010829f:	66 c7 05 52 18 a9 f0 	movw   $0x8,0xf0a91852
+f0108299:	66 a3 50 78 a9 f0    	mov    %ax,0xf0a97850
+f010829f:	66 c7 05 52 78 a9 f0 	movw   $0x8,0xf0a97852
 f01082a6:	08 00 
-f01082a8:	a0 54 18 a9 f0       	mov    0xf0a91854,%al
+f01082a8:	a0 54 78 a9 f0       	mov    0xf0a97854,%al
 f01082ad:	83 e0 e0             	and    $0xffffffe0,%eax
-f01082b0:	a2 54 18 a9 f0       	mov    %al,0xf0a91854
-f01082b5:	a0 54 18 a9 f0       	mov    0xf0a91854,%al
+f01082b0:	a2 54 78 a9 f0       	mov    %al,0xf0a97854
+f01082b5:	a0 54 78 a9 f0       	mov    0xf0a97854,%al
 f01082ba:	83 e0 1f             	and    $0x1f,%eax
-f01082bd:	a2 54 18 a9 f0       	mov    %al,0xf0a91854
-f01082c2:	a0 55 18 a9 f0       	mov    0xf0a91855,%al
+f01082bd:	a2 54 78 a9 f0       	mov    %al,0xf0a97854
+f01082c2:	a0 55 78 a9 f0       	mov    0xf0a97855,%al
 f01082c7:	83 e0 f0             	and    $0xfffffff0,%eax
 f01082ca:	83 c8 0e             	or     $0xe,%eax
-f01082cd:	a2 55 18 a9 f0       	mov    %al,0xf0a91855
-f01082d2:	a0 55 18 a9 f0       	mov    0xf0a91855,%al
+f01082cd:	a2 55 78 a9 f0       	mov    %al,0xf0a97855
+f01082d2:	a0 55 78 a9 f0       	mov    0xf0a97855,%al
 f01082d7:	83 e0 ef             	and    $0xffffffef,%eax
-f01082da:	a2 55 18 a9 f0       	mov    %al,0xf0a91855
-f01082df:	a0 55 18 a9 f0       	mov    0xf0a91855,%al
+f01082da:	a2 55 78 a9 f0       	mov    %al,0xf0a97855
+f01082df:	a0 55 78 a9 f0       	mov    0xf0a97855,%al
 f01082e4:	83 c8 60             	or     $0x60,%eax
-f01082e7:	a2 55 18 a9 f0       	mov    %al,0xf0a91855
-f01082ec:	a0 55 18 a9 f0       	mov    0xf0a91855,%al
+f01082e7:	a2 55 78 a9 f0       	mov    %al,0xf0a97855
+f01082ec:	a0 55 78 a9 f0       	mov    0xf0a97855,%al
 f01082f1:	83 c8 80             	or     $0xffffff80,%eax
-f01082f4:	a2 55 18 a9 f0       	mov    %al,0xf0a91855
+f01082f4:	a2 55 78 a9 f0       	mov    %al,0xf0a97855
 f01082f9:	b8 d8 9b 10 f0       	mov    $0xf0109bd8,%eax
 f01082fe:	c1 e8 10             	shr    $0x10,%eax
-f0108301:	66 a3 56 18 a9 f0    	mov    %ax,0xf0a91856
+f0108301:	66 a3 56 78 a9 f0    	mov    %ax,0xf0a97856
 	SETGATE(idt[35], 0, GD_KT , &ALL_FAULTS35, 3) ;
 f0108307:	b8 de 9b 10 f0       	mov    $0xf0109bde,%eax
-f010830c:	66 a3 58 18 a9 f0    	mov    %ax,0xf0a91858
-f0108312:	66 c7 05 5a 18 a9 f0 	movw   $0x8,0xf0a9185a
+f010830c:	66 a3 58 78 a9 f0    	mov    %ax,0xf0a97858
+f0108312:	66 c7 05 5a 78 a9 f0 	movw   $0x8,0xf0a9785a
 f0108319:	08 00 
-f010831b:	a0 5c 18 a9 f0       	mov    0xf0a9185c,%al
+f010831b:	a0 5c 78 a9 f0       	mov    0xf0a9785c,%al
 f0108320:	83 e0 e0             	and    $0xffffffe0,%eax
-f0108323:	a2 5c 18 a9 f0       	mov    %al,0xf0a9185c
-f0108328:	a0 5c 18 a9 f0       	mov    0xf0a9185c,%al
+f0108323:	a2 5c 78 a9 f0       	mov    %al,0xf0a9785c
+f0108328:	a0 5c 78 a9 f0       	mov    0xf0a9785c,%al
 f010832d:	83 e0 1f             	and    $0x1f,%eax
-f0108330:	a2 5c 18 a9 f0       	mov    %al,0xf0a9185c
-f0108335:	a0 5d 18 a9 f0       	mov    0xf0a9185d,%al
+f0108330:	a2 5c 78 a9 f0       	mov    %al,0xf0a9785c
+f0108335:	a0 5d 78 a9 f0       	mov    0xf0a9785d,%al
 f010833a:	83 e0 f0             	and    $0xfffffff0,%eax
 f010833d:	83 c8 0e             	or     $0xe,%eax
-f0108340:	a2 5d 18 a9 f0       	mov    %al,0xf0a9185d
-f0108345:	a0 5d 18 a9 f0       	mov    0xf0a9185d,%al
+f0108340:	a2 5d 78 a9 f0       	mov    %al,0xf0a9785d
+f0108345:	a0 5d 78 a9 f0       	mov    0xf0a9785d,%al
 f010834a:	83 e0 ef             	and    $0xffffffef,%eax
-f010834d:	a2 5d 18 a9 f0       	mov    %al,0xf0a9185d
-f0108352:	a0 5d 18 a9 f0       	mov    0xf0a9185d,%al
+f010834d:	a2 5d 78 a9 f0       	mov    %al,0xf0a9785d
+f0108352:	a0 5d 78 a9 f0       	mov    0xf0a9785d,%al
 f0108357:	83 c8 60             	or     $0x60,%eax
-f010835a:	a2 5d 18 a9 f0       	mov    %al,0xf0a9185d
-f010835f:	a0 5d 18 a9 f0       	mov    0xf0a9185d,%al
+f010835a:	a2 5d 78 a9 f0       	mov    %al,0xf0a9785d
+f010835f:	a0 5d 78 a9 f0       	mov    0xf0a9785d,%al
 f0108364:	83 c8 80             	or     $0xffffff80,%eax
-f0108367:	a2 5d 18 a9 f0       	mov    %al,0xf0a9185d
+f0108367:	a2 5d 78 a9 f0       	mov    %al,0xf0a9785d
 f010836c:	b8 de 9b 10 f0       	mov    $0xf0109bde,%eax
 f0108371:	c1 e8 10             	shr    $0x10,%eax
-f0108374:	66 a3 5e 18 a9 f0    	mov    %ax,0xf0a9185e
+f0108374:	66 a3 5e 78 a9 f0    	mov    %ax,0xf0a9785e
 	SETGATE(idt[36], 0, GD_KT , &ALL_FAULTS36, 3) ;
 f010837a:	b8 e4 9b 10 f0       	mov    $0xf0109be4,%eax
-f010837f:	66 a3 60 18 a9 f0    	mov    %ax,0xf0a91860
-f0108385:	66 c7 05 62 18 a9 f0 	movw   $0x8,0xf0a91862
+f010837f:	66 a3 60 78 a9 f0    	mov    %ax,0xf0a97860
+f0108385:	66 c7 05 62 78 a9 f0 	movw   $0x8,0xf0a97862
 f010838c:	08 00 
-f010838e:	a0 64 18 a9 f0       	mov    0xf0a91864,%al
+f010838e:	a0 64 78 a9 f0       	mov    0xf0a97864,%al
 f0108393:	83 e0 e0             	and    $0xffffffe0,%eax
-f0108396:	a2 64 18 a9 f0       	mov    %al,0xf0a91864
-f010839b:	a0 64 18 a9 f0       	mov    0xf0a91864,%al
+f0108396:	a2 64 78 a9 f0       	mov    %al,0xf0a97864
+f010839b:	a0 64 78 a9 f0       	mov    0xf0a97864,%al
 f01083a0:	83 e0 1f             	and    $0x1f,%eax
-f01083a3:	a2 64 18 a9 f0       	mov    %al,0xf0a91864
-f01083a8:	a0 65 18 a9 f0       	mov    0xf0a91865,%al
+f01083a3:	a2 64 78 a9 f0       	mov    %al,0xf0a97864
+f01083a8:	a0 65 78 a9 f0       	mov    0xf0a97865,%al
 f01083ad:	83 e0 f0             	and    $0xfffffff0,%eax
 f01083b0:	83 c8 0e             	or     $0xe,%eax
-f01083b3:	a2 65 18 a9 f0       	mov    %al,0xf0a91865
-f01083b8:	a0 65 18 a9 f0       	mov    0xf0a91865,%al
+f01083b3:	a2 65 78 a9 f0       	mov    %al,0xf0a97865
+f01083b8:	a0 65 78 a9 f0       	mov    0xf0a97865,%al
 f01083bd:	83 e0 ef             	and    $0xffffffef,%eax
-f01083c0:	a2 65 18 a9 f0       	mov    %al,0xf0a91865
-f01083c5:	a0 65 18 a9 f0       	mov    0xf0a91865,%al
+f01083c0:	a2 65 78 a9 f0       	mov    %al,0xf0a97865
+f01083c5:	a0 65 78 a9 f0       	mov    0xf0a97865,%al
 f01083ca:	83 c8 60             	or     $0x60,%eax
-f01083cd:	a2 65 18 a9 f0       	mov    %al,0xf0a91865
-f01083d2:	a0 65 18 a9 f0       	mov    0xf0a91865,%al
+f01083cd:	a2 65 78 a9 f0       	mov    %al,0xf0a97865
+f01083d2:	a0 65 78 a9 f0       	mov    0xf0a97865,%al
 f01083d7:	83 c8 80             	or     $0xffffff80,%eax
-f01083da:	a2 65 18 a9 f0       	mov    %al,0xf0a91865
+f01083da:	a2 65 78 a9 f0       	mov    %al,0xf0a97865
 f01083df:	b8 e4 9b 10 f0       	mov    $0xf0109be4,%eax
 f01083e4:	c1 e8 10             	shr    $0x10,%eax
-f01083e7:	66 a3 66 18 a9 f0    	mov    %ax,0xf0a91866
+f01083e7:	66 a3 66 78 a9 f0    	mov    %ax,0xf0a97866
 	SETGATE(idt[37], 0, GD_KT , &ALL_FAULTS37, 3) ;
 f01083ed:	b8 ea 9b 10 f0       	mov    $0xf0109bea,%eax
-f01083f2:	66 a3 68 18 a9 f0    	mov    %ax,0xf0a91868
-f01083f8:	66 c7 05 6a 18 a9 f0 	movw   $0x8,0xf0a9186a
+f01083f2:	66 a3 68 78 a9 f0    	mov    %ax,0xf0a97868
+f01083f8:	66 c7 05 6a 78 a9 f0 	movw   $0x8,0xf0a9786a
 f01083ff:	08 00 
-f0108401:	a0 6c 18 a9 f0       	mov    0xf0a9186c,%al
+f0108401:	a0 6c 78 a9 f0       	mov    0xf0a9786c,%al
 f0108406:	83 e0 e0             	and    $0xffffffe0,%eax
-f0108409:	a2 6c 18 a9 f0       	mov    %al,0xf0a9186c
-f010840e:	a0 6c 18 a9 f0       	mov    0xf0a9186c,%al
+f0108409:	a2 6c 78 a9 f0       	mov    %al,0xf0a9786c
+f010840e:	a0 6c 78 a9 f0       	mov    0xf0a9786c,%al
 f0108413:	83 e0 1f             	and    $0x1f,%eax
-f0108416:	a2 6c 18 a9 f0       	mov    %al,0xf0a9186c
-f010841b:	a0 6d 18 a9 f0       	mov    0xf0a9186d,%al
+f0108416:	a2 6c 78 a9 f0       	mov    %al,0xf0a9786c
+f010841b:	a0 6d 78 a9 f0       	mov    0xf0a9786d,%al
 f0108420:	83 e0 f0             	and    $0xfffffff0,%eax
 f0108423:	83 c8 0e             	or     $0xe,%eax
-f0108426:	a2 6d 18 a9 f0       	mov    %al,0xf0a9186d
-f010842b:	a0 6d 18 a9 f0       	mov    0xf0a9186d,%al
+f0108426:	a2 6d 78 a9 f0       	mov    %al,0xf0a9786d
+f010842b:	a0 6d 78 a9 f0       	mov    0xf0a9786d,%al
 f0108430:	83 e0 ef             	and    $0xffffffef,%eax
-f0108433:	a2 6d 18 a9 f0       	mov    %al,0xf0a9186d
-f0108438:	a0 6d 18 a9 f0       	mov    0xf0a9186d,%al
+f0108433:	a2 6d 78 a9 f0       	mov    %al,0xf0a9786d
+f0108438:	a0 6d 78 a9 f0       	mov    0xf0a9786d,%al
 f010843d:	83 c8 60             	or     $0x60,%eax
-f0108440:	a2 6d 18 a9 f0       	mov    %al,0xf0a9186d
-f0108445:	a0 6d 18 a9 f0       	mov    0xf0a9186d,%al
+f0108440:	a2 6d 78 a9 f0       	mov    %al,0xf0a9786d
+f0108445:	a0 6d 78 a9 f0       	mov    0xf0a9786d,%al
 f010844a:	83 c8 80             	or     $0xffffff80,%eax
-f010844d:	a2 6d 18 a9 f0       	mov    %al,0xf0a9186d
+f010844d:	a2 6d 78 a9 f0       	mov    %al,0xf0a9786d
 f0108452:	b8 ea 9b 10 f0       	mov    $0xf0109bea,%eax
 f0108457:	c1 e8 10             	shr    $0x10,%eax
-f010845a:	66 a3 6e 18 a9 f0    	mov    %ax,0xf0a9186e
+f010845a:	66 a3 6e 78 a9 f0    	mov    %ax,0xf0a9786e
 	SETGATE(idt[38], 0, GD_KT , &ALL_FAULTS38, 3) ;
 f0108460:	b8 f0 9b 10 f0       	mov    $0xf0109bf0,%eax
-f0108465:	66 a3 70 18 a9 f0    	mov    %ax,0xf0a91870
-f010846b:	66 c7 05 72 18 a9 f0 	movw   $0x8,0xf0a91872
+f0108465:	66 a3 70 78 a9 f0    	mov    %ax,0xf0a97870
+f010846b:	66 c7 05 72 78 a9 f0 	movw   $0x8,0xf0a97872
 f0108472:	08 00 
-f0108474:	a0 74 18 a9 f0       	mov    0xf0a91874,%al
+f0108474:	a0 74 78 a9 f0       	mov    0xf0a97874,%al
 f0108479:	83 e0 e0             	and    $0xffffffe0,%eax
-f010847c:	a2 74 18 a9 f0       	mov    %al,0xf0a91874
-f0108481:	a0 74 18 a9 f0       	mov    0xf0a91874,%al
+f010847c:	a2 74 78 a9 f0       	mov    %al,0xf0a97874
+f0108481:	a0 74 78 a9 f0       	mov    0xf0a97874,%al
 f0108486:	83 e0 1f             	and    $0x1f,%eax
-f0108489:	a2 74 18 a9 f0       	mov    %al,0xf0a91874
-f010848e:	a0 75 18 a9 f0       	mov    0xf0a91875,%al
+f0108489:	a2 74 78 a9 f0       	mov    %al,0xf0a97874
+f010848e:	a0 75 78 a9 f0       	mov    0xf0a97875,%al
 f0108493:	83 e0 f0             	and    $0xfffffff0,%eax
 f0108496:	83 c8 0e             	or     $0xe,%eax
-f0108499:	a2 75 18 a9 f0       	mov    %al,0xf0a91875
-f010849e:	a0 75 18 a9 f0       	mov    0xf0a91875,%al
+f0108499:	a2 75 78 a9 f0       	mov    %al,0xf0a97875
+f010849e:	a0 75 78 a9 f0       	mov    0xf0a97875,%al
 f01084a3:	83 e0 ef             	and    $0xffffffef,%eax
-f01084a6:	a2 75 18 a9 f0       	mov    %al,0xf0a91875
-f01084ab:	a0 75 18 a9 f0       	mov    0xf0a91875,%al
+f01084a6:	a2 75 78 a9 f0       	mov    %al,0xf0a97875
+f01084ab:	a0 75 78 a9 f0       	mov    0xf0a97875,%al
 f01084b0:	83 c8 60             	or     $0x60,%eax
-f01084b3:	a2 75 18 a9 f0       	mov    %al,0xf0a91875
-f01084b8:	a0 75 18 a9 f0       	mov    0xf0a91875,%al
+f01084b3:	a2 75 78 a9 f0       	mov    %al,0xf0a97875
+f01084b8:	a0 75 78 a9 f0       	mov    0xf0a97875,%al
 f01084bd:	83 c8 80             	or     $0xffffff80,%eax
-f01084c0:	a2 75 18 a9 f0       	mov    %al,0xf0a91875
+f01084c0:	a2 75 78 a9 f0       	mov    %al,0xf0a97875
 f01084c5:	b8 f0 9b 10 f0       	mov    $0xf0109bf0,%eax
 f01084ca:	c1 e8 10             	shr    $0x10,%eax
-f01084cd:	66 a3 76 18 a9 f0    	mov    %ax,0xf0a91876
+f01084cd:	66 a3 76 78 a9 f0    	mov    %ax,0xf0a97876
 	SETGATE(idt[39], 0, GD_KT , &ALL_FAULTS39, 3) ;
 f01084d3:	b8 f6 9b 10 f0       	mov    $0xf0109bf6,%eax
-f01084d8:	66 a3 78 18 a9 f0    	mov    %ax,0xf0a91878
-f01084de:	66 c7 05 7a 18 a9 f0 	movw   $0x8,0xf0a9187a
+f01084d8:	66 a3 78 78 a9 f0    	mov    %ax,0xf0a97878
+f01084de:	66 c7 05 7a 78 a9 f0 	movw   $0x8,0xf0a9787a
 f01084e5:	08 00 
-f01084e7:	a0 7c 18 a9 f0       	mov    0xf0a9187c,%al
+f01084e7:	a0 7c 78 a9 f0       	mov    0xf0a9787c,%al
 f01084ec:	83 e0 e0             	and    $0xffffffe0,%eax
-f01084ef:	a2 7c 18 a9 f0       	mov    %al,0xf0a9187c
-f01084f4:	a0 7c 18 a9 f0       	mov    0xf0a9187c,%al
+f01084ef:	a2 7c 78 a9 f0       	mov    %al,0xf0a9787c
+f01084f4:	a0 7c 78 a9 f0       	mov    0xf0a9787c,%al
 f01084f9:	83 e0 1f             	and    $0x1f,%eax
-f01084fc:	a2 7c 18 a9 f0       	mov    %al,0xf0a9187c
-f0108501:	a0 7d 18 a9 f0       	mov    0xf0a9187d,%al
+f01084fc:	a2 7c 78 a9 f0       	mov    %al,0xf0a9787c
+f0108501:	a0 7d 78 a9 f0       	mov    0xf0a9787d,%al
 f0108506:	83 e0 f0             	and    $0xfffffff0,%eax
 f0108509:	83 c8 0e             	or     $0xe,%eax
-f010850c:	a2 7d 18 a9 f0       	mov    %al,0xf0a9187d
-f0108511:	a0 7d 18 a9 f0       	mov    0xf0a9187d,%al
+f010850c:	a2 7d 78 a9 f0       	mov    %al,0xf0a9787d
+f0108511:	a0 7d 78 a9 f0       	mov    0xf0a9787d,%al
 f0108516:	83 e0 ef             	and    $0xffffffef,%eax
-f0108519:	a2 7d 18 a9 f0       	mov    %al,0xf0a9187d
-f010851e:	a0 7d 18 a9 f0       	mov    0xf0a9187d,%al
+f0108519:	a2 7d 78 a9 f0       	mov    %al,0xf0a9787d
+f010851e:	a0 7d 78 a9 f0       	mov    0xf0a9787d,%al
 f0108523:	83 c8 60             	or     $0x60,%eax
-f0108526:	a2 7d 18 a9 f0       	mov    %al,0xf0a9187d
-f010852b:	a0 7d 18 a9 f0       	mov    0xf0a9187d,%al
+f0108526:	a2 7d 78 a9 f0       	mov    %al,0xf0a9787d
+f010852b:	a0 7d 78 a9 f0       	mov    0xf0a9787d,%al
 f0108530:	83 c8 80             	or     $0xffffff80,%eax
-f0108533:	a2 7d 18 a9 f0       	mov    %al,0xf0a9187d
+f0108533:	a2 7d 78 a9 f0       	mov    %al,0xf0a9787d
 f0108538:	b8 f6 9b 10 f0       	mov    $0xf0109bf6,%eax
 f010853d:	c1 e8 10             	shr    $0x10,%eax
-f0108540:	66 a3 7e 18 a9 f0    	mov    %ax,0xf0a9187e
+f0108540:	66 a3 7e 78 a9 f0    	mov    %ax,0xf0a9787e
 	SETGATE(idt[40], 0, GD_KT , &ALL_FAULTS40, 3) ;
 f0108546:	b8 fc 9b 10 f0       	mov    $0xf0109bfc,%eax
-f010854b:	66 a3 80 18 a9 f0    	mov    %ax,0xf0a91880
-f0108551:	66 c7 05 82 18 a9 f0 	movw   $0x8,0xf0a91882
+f010854b:	66 a3 80 78 a9 f0    	mov    %ax,0xf0a97880
+f0108551:	66 c7 05 82 78 a9 f0 	movw   $0x8,0xf0a97882
 f0108558:	08 00 
-f010855a:	a0 84 18 a9 f0       	mov    0xf0a91884,%al
+f010855a:	a0 84 78 a9 f0       	mov    0xf0a97884,%al
 f010855f:	83 e0 e0             	and    $0xffffffe0,%eax
-f0108562:	a2 84 18 a9 f0       	mov    %al,0xf0a91884
-f0108567:	a0 84 18 a9 f0       	mov    0xf0a91884,%al
+f0108562:	a2 84 78 a9 f0       	mov    %al,0xf0a97884
+f0108567:	a0 84 78 a9 f0       	mov    0xf0a97884,%al
 f010856c:	83 e0 1f             	and    $0x1f,%eax
-f010856f:	a2 84 18 a9 f0       	mov    %al,0xf0a91884
-f0108574:	a0 85 18 a9 f0       	mov    0xf0a91885,%al
+f010856f:	a2 84 78 a9 f0       	mov    %al,0xf0a97884
+f0108574:	a0 85 78 a9 f0       	mov    0xf0a97885,%al
 f0108579:	83 e0 f0             	and    $0xfffffff0,%eax
 f010857c:	83 c8 0e             	or     $0xe,%eax
-f010857f:	a2 85 18 a9 f0       	mov    %al,0xf0a91885
-f0108584:	a0 85 18 a9 f0       	mov    0xf0a91885,%al
+f010857f:	a2 85 78 a9 f0       	mov    %al,0xf0a97885
+f0108584:	a0 85 78 a9 f0       	mov    0xf0a97885,%al
 f0108589:	83 e0 ef             	and    $0xffffffef,%eax
-f010858c:	a2 85 18 a9 f0       	mov    %al,0xf0a91885
-f0108591:	a0 85 18 a9 f0       	mov    0xf0a91885,%al
+f010858c:	a2 85 78 a9 f0       	mov    %al,0xf0a97885
+f0108591:	a0 85 78 a9 f0       	mov    0xf0a97885,%al
 f0108596:	83 c8 60             	or     $0x60,%eax
-f0108599:	a2 85 18 a9 f0       	mov    %al,0xf0a91885
-f010859e:	a0 85 18 a9 f0       	mov    0xf0a91885,%al
+f0108599:	a2 85 78 a9 f0       	mov    %al,0xf0a97885
+f010859e:	a0 85 78 a9 f0       	mov    0xf0a97885,%al
 f01085a3:	83 c8 80             	or     $0xffffff80,%eax
-f01085a6:	a2 85 18 a9 f0       	mov    %al,0xf0a91885
+f01085a6:	a2 85 78 a9 f0       	mov    %al,0xf0a97885
 f01085ab:	b8 fc 9b 10 f0       	mov    $0xf0109bfc,%eax
 f01085b0:	c1 e8 10             	shr    $0x10,%eax
-f01085b3:	66 a3 86 18 a9 f0    	mov    %ax,0xf0a91886
+f01085b3:	66 a3 86 78 a9 f0    	mov    %ax,0xf0a97886
 	SETGATE(idt[41], 0, GD_KT , &ALL_FAULTS41, 3) ;
 f01085b9:	b8 02 9c 10 f0       	mov    $0xf0109c02,%eax
-f01085be:	66 a3 88 18 a9 f0    	mov    %ax,0xf0a91888
-f01085c4:	66 c7 05 8a 18 a9 f0 	movw   $0x8,0xf0a9188a
+f01085be:	66 a3 88 78 a9 f0    	mov    %ax,0xf0a97888
+f01085c4:	66 c7 05 8a 78 a9 f0 	movw   $0x8,0xf0a9788a
 f01085cb:	08 00 
-f01085cd:	a0 8c 18 a9 f0       	mov    0xf0a9188c,%al
+f01085cd:	a0 8c 78 a9 f0       	mov    0xf0a9788c,%al
 f01085d2:	83 e0 e0             	and    $0xffffffe0,%eax
-f01085d5:	a2 8c 18 a9 f0       	mov    %al,0xf0a9188c
-f01085da:	a0 8c 18 a9 f0       	mov    0xf0a9188c,%al
+f01085d5:	a2 8c 78 a9 f0       	mov    %al,0xf0a9788c
+f01085da:	a0 8c 78 a9 f0       	mov    0xf0a9788c,%al
 f01085df:	83 e0 1f             	and    $0x1f,%eax
-f01085e2:	a2 8c 18 a9 f0       	mov    %al,0xf0a9188c
-f01085e7:	a0 8d 18 a9 f0       	mov    0xf0a9188d,%al
+f01085e2:	a2 8c 78 a9 f0       	mov    %al,0xf0a9788c
+f01085e7:	a0 8d 78 a9 f0       	mov    0xf0a9788d,%al
 f01085ec:	83 e0 f0             	and    $0xfffffff0,%eax
 f01085ef:	83 c8 0e             	or     $0xe,%eax
-f01085f2:	a2 8d 18 a9 f0       	mov    %al,0xf0a9188d
-f01085f7:	a0 8d 18 a9 f0       	mov    0xf0a9188d,%al
+f01085f2:	a2 8d 78 a9 f0       	mov    %al,0xf0a9788d
+f01085f7:	a0 8d 78 a9 f0       	mov    0xf0a9788d,%al
 f01085fc:	83 e0 ef             	and    $0xffffffef,%eax
-f01085ff:	a2 8d 18 a9 f0       	mov    %al,0xf0a9188d
-f0108604:	a0 8d 18 a9 f0       	mov    0xf0a9188d,%al
+f01085ff:	a2 8d 78 a9 f0       	mov    %al,0xf0a9788d
+f0108604:	a0 8d 78 a9 f0       	mov    0xf0a9788d,%al
 f0108609:	83 c8 60             	or     $0x60,%eax
-f010860c:	a2 8d 18 a9 f0       	mov    %al,0xf0a9188d
-f0108611:	a0 8d 18 a9 f0       	mov    0xf0a9188d,%al
+f010860c:	a2 8d 78 a9 f0       	mov    %al,0xf0a9788d
+f0108611:	a0 8d 78 a9 f0       	mov    0xf0a9788d,%al
 f0108616:	83 c8 80             	or     $0xffffff80,%eax
-f0108619:	a2 8d 18 a9 f0       	mov    %al,0xf0a9188d
+f0108619:	a2 8d 78 a9 f0       	mov    %al,0xf0a9788d
 f010861e:	b8 02 9c 10 f0       	mov    $0xf0109c02,%eax
 f0108623:	c1 e8 10             	shr    $0x10,%eax
-f0108626:	66 a3 8e 18 a9 f0    	mov    %ax,0xf0a9188e
+f0108626:	66 a3 8e 78 a9 f0    	mov    %ax,0xf0a9788e
 	SETGATE(idt[42], 0, GD_KT , &ALL_FAULTS42, 3) ;
 f010862c:	b8 08 9c 10 f0       	mov    $0xf0109c08,%eax
-f0108631:	66 a3 90 18 a9 f0    	mov    %ax,0xf0a91890
-f0108637:	66 c7 05 92 18 a9 f0 	movw   $0x8,0xf0a91892
+f0108631:	66 a3 90 78 a9 f0    	mov    %ax,0xf0a97890
+f0108637:	66 c7 05 92 78 a9 f0 	movw   $0x8,0xf0a97892
 f010863e:	08 00 
-f0108640:	a0 94 18 a9 f0       	mov    0xf0a91894,%al
+f0108640:	a0 94 78 a9 f0       	mov    0xf0a97894,%al
 f0108645:	83 e0 e0             	and    $0xffffffe0,%eax
-f0108648:	a2 94 18 a9 f0       	mov    %al,0xf0a91894
-f010864d:	a0 94 18 a9 f0       	mov    0xf0a91894,%al
+f0108648:	a2 94 78 a9 f0       	mov    %al,0xf0a97894
+f010864d:	a0 94 78 a9 f0       	mov    0xf0a97894,%al
 f0108652:	83 e0 1f             	and    $0x1f,%eax
-f0108655:	a2 94 18 a9 f0       	mov    %al,0xf0a91894
-f010865a:	a0 95 18 a9 f0       	mov    0xf0a91895,%al
+f0108655:	a2 94 78 a9 f0       	mov    %al,0xf0a97894
+f010865a:	a0 95 78 a9 f0       	mov    0xf0a97895,%al
 f010865f:	83 e0 f0             	and    $0xfffffff0,%eax
 f0108662:	83 c8 0e             	or     $0xe,%eax
-f0108665:	a2 95 18 a9 f0       	mov    %al,0xf0a91895
-f010866a:	a0 95 18 a9 f0       	mov    0xf0a91895,%al
+f0108665:	a2 95 78 a9 f0       	mov    %al,0xf0a97895
+f010866a:	a0 95 78 a9 f0       	mov    0xf0a97895,%al
 f010866f:	83 e0 ef             	and    $0xffffffef,%eax
-f0108672:	a2 95 18 a9 f0       	mov    %al,0xf0a91895
-f0108677:	a0 95 18 a9 f0       	mov    0xf0a91895,%al
+f0108672:	a2 95 78 a9 f0       	mov    %al,0xf0a97895
+f0108677:	a0 95 78 a9 f0       	mov    0xf0a97895,%al
 f010867c:	83 c8 60             	or     $0x60,%eax
-f010867f:	a2 95 18 a9 f0       	mov    %al,0xf0a91895
-f0108684:	a0 95 18 a9 f0       	mov    0xf0a91895,%al
+f010867f:	a2 95 78 a9 f0       	mov    %al,0xf0a97895
+f0108684:	a0 95 78 a9 f0       	mov    0xf0a97895,%al
 f0108689:	83 c8 80             	or     $0xffffff80,%eax
-f010868c:	a2 95 18 a9 f0       	mov    %al,0xf0a91895
+f010868c:	a2 95 78 a9 f0       	mov    %al,0xf0a97895
 f0108691:	b8 08 9c 10 f0       	mov    $0xf0109c08,%eax
 f0108696:	c1 e8 10             	shr    $0x10,%eax
-f0108699:	66 a3 96 18 a9 f0    	mov    %ax,0xf0a91896
+f0108699:	66 a3 96 78 a9 f0    	mov    %ax,0xf0a97896
 	SETGATE(idt[43], 0, GD_KT , &ALL_FAULTS43, 3) ;
 f010869f:	b8 0e 9c 10 f0       	mov    $0xf0109c0e,%eax
-f01086a4:	66 a3 98 18 a9 f0    	mov    %ax,0xf0a91898
-f01086aa:	66 c7 05 9a 18 a9 f0 	movw   $0x8,0xf0a9189a
+f01086a4:	66 a3 98 78 a9 f0    	mov    %ax,0xf0a97898
+f01086aa:	66 c7 05 9a 78 a9 f0 	movw   $0x8,0xf0a9789a
 f01086b1:	08 00 
-f01086b3:	a0 9c 18 a9 f0       	mov    0xf0a9189c,%al
+f01086b3:	a0 9c 78 a9 f0       	mov    0xf0a9789c,%al
 f01086b8:	83 e0 e0             	and    $0xffffffe0,%eax
-f01086bb:	a2 9c 18 a9 f0       	mov    %al,0xf0a9189c
-f01086c0:	a0 9c 18 a9 f0       	mov    0xf0a9189c,%al
+f01086bb:	a2 9c 78 a9 f0       	mov    %al,0xf0a9789c
+f01086c0:	a0 9c 78 a9 f0       	mov    0xf0a9789c,%al
 f01086c5:	83 e0 1f             	and    $0x1f,%eax
-f01086c8:	a2 9c 18 a9 f0       	mov    %al,0xf0a9189c
-f01086cd:	a0 9d 18 a9 f0       	mov    0xf0a9189d,%al
+f01086c8:	a2 9c 78 a9 f0       	mov    %al,0xf0a9789c
+f01086cd:	a0 9d 78 a9 f0       	mov    0xf0a9789d,%al
 f01086d2:	83 e0 f0             	and    $0xfffffff0,%eax
 f01086d5:	83 c8 0e             	or     $0xe,%eax
-f01086d8:	a2 9d 18 a9 f0       	mov    %al,0xf0a9189d
-f01086dd:	a0 9d 18 a9 f0       	mov    0xf0a9189d,%al
+f01086d8:	a2 9d 78 a9 f0       	mov    %al,0xf0a9789d
+f01086dd:	a0 9d 78 a9 f0       	mov    0xf0a9789d,%al
 f01086e2:	83 e0 ef             	and    $0xffffffef,%eax
-f01086e5:	a2 9d 18 a9 f0       	mov    %al,0xf0a9189d
-f01086ea:	a0 9d 18 a9 f0       	mov    0xf0a9189d,%al
+f01086e5:	a2 9d 78 a9 f0       	mov    %al,0xf0a9789d
+f01086ea:	a0 9d 78 a9 f0       	mov    0xf0a9789d,%al
 f01086ef:	83 c8 60             	or     $0x60,%eax
-f01086f2:	a2 9d 18 a9 f0       	mov    %al,0xf0a9189d
-f01086f7:	a0 9d 18 a9 f0       	mov    0xf0a9189d,%al
+f01086f2:	a2 9d 78 a9 f0       	mov    %al,0xf0a9789d
+f01086f7:	a0 9d 78 a9 f0       	mov    0xf0a9789d,%al
 f01086fc:	83 c8 80             	or     $0xffffff80,%eax
-f01086ff:	a2 9d 18 a9 f0       	mov    %al,0xf0a9189d
+f01086ff:	a2 9d 78 a9 f0       	mov    %al,0xf0a9789d
 f0108704:	b8 0e 9c 10 f0       	mov    $0xf0109c0e,%eax
 f0108709:	c1 e8 10             	shr    $0x10,%eax
-f010870c:	66 a3 9e 18 a9 f0    	mov    %ax,0xf0a9189e
+f010870c:	66 a3 9e 78 a9 f0    	mov    %ax,0xf0a9789e
 	SETGATE(idt[44], 0, GD_KT , &ALL_FAULTS44, 3) ;
 f0108712:	b8 14 9c 10 f0       	mov    $0xf0109c14,%eax
-f0108717:	66 a3 a0 18 a9 f0    	mov    %ax,0xf0a918a0
-f010871d:	66 c7 05 a2 18 a9 f0 	movw   $0x8,0xf0a918a2
+f0108717:	66 a3 a0 78 a9 f0    	mov    %ax,0xf0a978a0
+f010871d:	66 c7 05 a2 78 a9 f0 	movw   $0x8,0xf0a978a2
 f0108724:	08 00 
-f0108726:	a0 a4 18 a9 f0       	mov    0xf0a918a4,%al
+f0108726:	a0 a4 78 a9 f0       	mov    0xf0a978a4,%al
 f010872b:	83 e0 e0             	and    $0xffffffe0,%eax
-f010872e:	a2 a4 18 a9 f0       	mov    %al,0xf0a918a4
-f0108733:	a0 a4 18 a9 f0       	mov    0xf0a918a4,%al
+f010872e:	a2 a4 78 a9 f0       	mov    %al,0xf0a978a4
+f0108733:	a0 a4 78 a9 f0       	mov    0xf0a978a4,%al
 f0108738:	83 e0 1f             	and    $0x1f,%eax
-f010873b:	a2 a4 18 a9 f0       	mov    %al,0xf0a918a4
-f0108740:	a0 a5 18 a9 f0       	mov    0xf0a918a5,%al
+f010873b:	a2 a4 78 a9 f0       	mov    %al,0xf0a978a4
+f0108740:	a0 a5 78 a9 f0       	mov    0xf0a978a5,%al
 f0108745:	83 e0 f0             	and    $0xfffffff0,%eax
 f0108748:	83 c8 0e             	or     $0xe,%eax
-f010874b:	a2 a5 18 a9 f0       	mov    %al,0xf0a918a5
-f0108750:	a0 a5 18 a9 f0       	mov    0xf0a918a5,%al
+f010874b:	a2 a5 78 a9 f0       	mov    %al,0xf0a978a5
+f0108750:	a0 a5 78 a9 f0       	mov    0xf0a978a5,%al
 f0108755:	83 e0 ef             	and    $0xffffffef,%eax
-f0108758:	a2 a5 18 a9 f0       	mov    %al,0xf0a918a5
-f010875d:	a0 a5 18 a9 f0       	mov    0xf0a918a5,%al
+f0108758:	a2 a5 78 a9 f0       	mov    %al,0xf0a978a5
+f010875d:	a0 a5 78 a9 f0       	mov    0xf0a978a5,%al
 f0108762:	83 c8 60             	or     $0x60,%eax
-f0108765:	a2 a5 18 a9 f0       	mov    %al,0xf0a918a5
-f010876a:	a0 a5 18 a9 f0       	mov    0xf0a918a5,%al
+f0108765:	a2 a5 78 a9 f0       	mov    %al,0xf0a978a5
+f010876a:	a0 a5 78 a9 f0       	mov    0xf0a978a5,%al
 f010876f:	83 c8 80             	or     $0xffffff80,%eax
-f0108772:	a2 a5 18 a9 f0       	mov    %al,0xf0a918a5
+f0108772:	a2 a5 78 a9 f0       	mov    %al,0xf0a978a5
 f0108777:	b8 14 9c 10 f0       	mov    $0xf0109c14,%eax
 f010877c:	c1 e8 10             	shr    $0x10,%eax
-f010877f:	66 a3 a6 18 a9 f0    	mov    %ax,0xf0a918a6
+f010877f:	66 a3 a6 78 a9 f0    	mov    %ax,0xf0a978a6
 	SETGATE(idt[45], 0, GD_KT , &ALL_FAULTS45, 3) ;
 f0108785:	b8 1a 9c 10 f0       	mov    $0xf0109c1a,%eax
-f010878a:	66 a3 a8 18 a9 f0    	mov    %ax,0xf0a918a8
-f0108790:	66 c7 05 aa 18 a9 f0 	movw   $0x8,0xf0a918aa
+f010878a:	66 a3 a8 78 a9 f0    	mov    %ax,0xf0a978a8
+f0108790:	66 c7 05 aa 78 a9 f0 	movw   $0x8,0xf0a978aa
 f0108797:	08 00 
-f0108799:	a0 ac 18 a9 f0       	mov    0xf0a918ac,%al
+f0108799:	a0 ac 78 a9 f0       	mov    0xf0a978ac,%al
 f010879e:	83 e0 e0             	and    $0xffffffe0,%eax
-f01087a1:	a2 ac 18 a9 f0       	mov    %al,0xf0a918ac
-f01087a6:	a0 ac 18 a9 f0       	mov    0xf0a918ac,%al
+f01087a1:	a2 ac 78 a9 f0       	mov    %al,0xf0a978ac
+f01087a6:	a0 ac 78 a9 f0       	mov    0xf0a978ac,%al
 f01087ab:	83 e0 1f             	and    $0x1f,%eax
-f01087ae:	a2 ac 18 a9 f0       	mov    %al,0xf0a918ac
-f01087b3:	a0 ad 18 a9 f0       	mov    0xf0a918ad,%al
+f01087ae:	a2 ac 78 a9 f0       	mov    %al,0xf0a978ac
+f01087b3:	a0 ad 78 a9 f0       	mov    0xf0a978ad,%al
 f01087b8:	83 e0 f0             	and    $0xfffffff0,%eax
 f01087bb:	83 c8 0e             	or     $0xe,%eax
-f01087be:	a2 ad 18 a9 f0       	mov    %al,0xf0a918ad
-f01087c3:	a0 ad 18 a9 f0       	mov    0xf0a918ad,%al
+f01087be:	a2 ad 78 a9 f0       	mov    %al,0xf0a978ad
+f01087c3:	a0 ad 78 a9 f0       	mov    0xf0a978ad,%al
 f01087c8:	83 e0 ef             	and    $0xffffffef,%eax
-f01087cb:	a2 ad 18 a9 f0       	mov    %al,0xf0a918ad
-f01087d0:	a0 ad 18 a9 f0       	mov    0xf0a918ad,%al
+f01087cb:	a2 ad 78 a9 f0       	mov    %al,0xf0a978ad
+f01087d0:	a0 ad 78 a9 f0       	mov    0xf0a978ad,%al
 f01087d5:	83 c8 60             	or     $0x60,%eax
-f01087d8:	a2 ad 18 a9 f0       	mov    %al,0xf0a918ad
-f01087dd:	a0 ad 18 a9 f0       	mov    0xf0a918ad,%al
+f01087d8:	a2 ad 78 a9 f0       	mov    %al,0xf0a978ad
+f01087dd:	a0 ad 78 a9 f0       	mov    0xf0a978ad,%al
 f01087e2:	83 c8 80             	or     $0xffffff80,%eax
-f01087e5:	a2 ad 18 a9 f0       	mov    %al,0xf0a918ad
+f01087e5:	a2 ad 78 a9 f0       	mov    %al,0xf0a978ad
 f01087ea:	b8 1a 9c 10 f0       	mov    $0xf0109c1a,%eax
 f01087ef:	c1 e8 10             	shr    $0x10,%eax
-f01087f2:	66 a3 ae 18 a9 f0    	mov    %ax,0xf0a918ae
+f01087f2:	66 a3 ae 78 a9 f0    	mov    %ax,0xf0a978ae
 	SETGATE(idt[46], 0, GD_KT , &ALL_FAULTS46, 3) ;
 f01087f8:	b8 20 9c 10 f0       	mov    $0xf0109c20,%eax
-f01087fd:	66 a3 b0 18 a9 f0    	mov    %ax,0xf0a918b0
-f0108803:	66 c7 05 b2 18 a9 f0 	movw   $0x8,0xf0a918b2
+f01087fd:	66 a3 b0 78 a9 f0    	mov    %ax,0xf0a978b0
+f0108803:	66 c7 05 b2 78 a9 f0 	movw   $0x8,0xf0a978b2
 f010880a:	08 00 
-f010880c:	a0 b4 18 a9 f0       	mov    0xf0a918b4,%al
+f010880c:	a0 b4 78 a9 f0       	mov    0xf0a978b4,%al
 f0108811:	83 e0 e0             	and    $0xffffffe0,%eax
-f0108814:	a2 b4 18 a9 f0       	mov    %al,0xf0a918b4
-f0108819:	a0 b4 18 a9 f0       	mov    0xf0a918b4,%al
+f0108814:	a2 b4 78 a9 f0       	mov    %al,0xf0a978b4
+f0108819:	a0 b4 78 a9 f0       	mov    0xf0a978b4,%al
 f010881e:	83 e0 1f             	and    $0x1f,%eax
-f0108821:	a2 b4 18 a9 f0       	mov    %al,0xf0a918b4
-f0108826:	a0 b5 18 a9 f0       	mov    0xf0a918b5,%al
+f0108821:	a2 b4 78 a9 f0       	mov    %al,0xf0a978b4
+f0108826:	a0 b5 78 a9 f0       	mov    0xf0a978b5,%al
 f010882b:	83 e0 f0             	and    $0xfffffff0,%eax
 f010882e:	83 c8 0e             	or     $0xe,%eax
-f0108831:	a2 b5 18 a9 f0       	mov    %al,0xf0a918b5
-f0108836:	a0 b5 18 a9 f0       	mov    0xf0a918b5,%al
+f0108831:	a2 b5 78 a9 f0       	mov    %al,0xf0a978b5
+f0108836:	a0 b5 78 a9 f0       	mov    0xf0a978b5,%al
 f010883b:	83 e0 ef             	and    $0xffffffef,%eax
-f010883e:	a2 b5 18 a9 f0       	mov    %al,0xf0a918b5
-f0108843:	a0 b5 18 a9 f0       	mov    0xf0a918b5,%al
+f010883e:	a2 b5 78 a9 f0       	mov    %al,0xf0a978b5
+f0108843:	a0 b5 78 a9 f0       	mov    0xf0a978b5,%al
 f0108848:	83 c8 60             	or     $0x60,%eax
-f010884b:	a2 b5 18 a9 f0       	mov    %al,0xf0a918b5
-f0108850:	a0 b5 18 a9 f0       	mov    0xf0a918b5,%al
+f010884b:	a2 b5 78 a9 f0       	mov    %al,0xf0a978b5
+f0108850:	a0 b5 78 a9 f0       	mov    0xf0a978b5,%al
 f0108855:	83 c8 80             	or     $0xffffff80,%eax
-f0108858:	a2 b5 18 a9 f0       	mov    %al,0xf0a918b5
+f0108858:	a2 b5 78 a9 f0       	mov    %al,0xf0a978b5
 f010885d:	b8 20 9c 10 f0       	mov    $0xf0109c20,%eax
 f0108862:	c1 e8 10             	shr    $0x10,%eax
-f0108865:	66 a3 b6 18 a9 f0    	mov    %ax,0xf0a918b6
+f0108865:	66 a3 b6 78 a9 f0    	mov    %ax,0xf0a978b6
 	SETGATE(idt[47], 0, GD_KT , &ALL_FAULTS47, 3) ;
 f010886b:	b8 26 9c 10 f0       	mov    $0xf0109c26,%eax
-f0108870:	66 a3 b8 18 a9 f0    	mov    %ax,0xf0a918b8
-f0108876:	66 c7 05 ba 18 a9 f0 	movw   $0x8,0xf0a918ba
+f0108870:	66 a3 b8 78 a9 f0    	mov    %ax,0xf0a978b8
+f0108876:	66 c7 05 ba 78 a9 f0 	movw   $0x8,0xf0a978ba
 f010887d:	08 00 
-f010887f:	a0 bc 18 a9 f0       	mov    0xf0a918bc,%al
+f010887f:	a0 bc 78 a9 f0       	mov    0xf0a978bc,%al
 f0108884:	83 e0 e0             	and    $0xffffffe0,%eax
-f0108887:	a2 bc 18 a9 f0       	mov    %al,0xf0a918bc
-f010888c:	a0 bc 18 a9 f0       	mov    0xf0a918bc,%al
+f0108887:	a2 bc 78 a9 f0       	mov    %al,0xf0a978bc
+f010888c:	a0 bc 78 a9 f0       	mov    0xf0a978bc,%al
 f0108891:	83 e0 1f             	and    $0x1f,%eax
-f0108894:	a2 bc 18 a9 f0       	mov    %al,0xf0a918bc
-f0108899:	a0 bd 18 a9 f0       	mov    0xf0a918bd,%al
+f0108894:	a2 bc 78 a9 f0       	mov    %al,0xf0a978bc
+f0108899:	a0 bd 78 a9 f0       	mov    0xf0a978bd,%al
 f010889e:	83 e0 f0             	and    $0xfffffff0,%eax
 f01088a1:	83 c8 0e             	or     $0xe,%eax
-f01088a4:	a2 bd 18 a9 f0       	mov    %al,0xf0a918bd
-f01088a9:	a0 bd 18 a9 f0       	mov    0xf0a918bd,%al
+f01088a4:	a2 bd 78 a9 f0       	mov    %al,0xf0a978bd
+f01088a9:	a0 bd 78 a9 f0       	mov    0xf0a978bd,%al
 f01088ae:	83 e0 ef             	and    $0xffffffef,%eax
-f01088b1:	a2 bd 18 a9 f0       	mov    %al,0xf0a918bd
-f01088b6:	a0 bd 18 a9 f0       	mov    0xf0a918bd,%al
+f01088b1:	a2 bd 78 a9 f0       	mov    %al,0xf0a978bd
+f01088b6:	a0 bd 78 a9 f0       	mov    0xf0a978bd,%al
 f01088bb:	83 c8 60             	or     $0x60,%eax
-f01088be:	a2 bd 18 a9 f0       	mov    %al,0xf0a918bd
-f01088c3:	a0 bd 18 a9 f0       	mov    0xf0a918bd,%al
+f01088be:	a2 bd 78 a9 f0       	mov    %al,0xf0a978bd
+f01088c3:	a0 bd 78 a9 f0       	mov    0xf0a978bd,%al
 f01088c8:	83 c8 80             	or     $0xffffff80,%eax
-f01088cb:	a2 bd 18 a9 f0       	mov    %al,0xf0a918bd
+f01088cb:	a2 bd 78 a9 f0       	mov    %al,0xf0a978bd
 f01088d0:	b8 26 9c 10 f0       	mov    $0xf0109c26,%eax
 f01088d5:	c1 e8 10             	shr    $0x10,%eax
-f01088d8:	66 a3 be 18 a9 f0    	mov    %ax,0xf0a918be
+f01088d8:	66 a3 be 78 a9 f0    	mov    %ax,0xf0a978be
 
 
 
 	// Setup a TSS so that we get the right stack
 	// when we trap to the kernel.
 	ts.ts_esp0 = KERNEL_STACK_TOP;
-f01088de:	c7 05 44 1f a9 f0 00 	movl   $0xefc00000,0xf0a91f44
+f01088de:	c7 05 44 7f a9 f0 00 	movl   $0xefc00000,0xf0a97f44
 f01088e5:	00 c0 ef 
 	ts.ts_ss0 = GD_KD;
-f01088e8:	66 c7 05 48 1f a9 f0 	movw   $0x10,0xf0a91f48
+f01088e8:	66 c7 05 48 7f a9 f0 	movw   $0x10,0xf0a97f48
 f01088ef:	10 00 
 
 	// Initialize the TSS field of the gdt.
 	gdt[GD_TSS >> 3] = SEG16(STS_T32A, (uint32) (&ts),
 f01088f1:	66 c7 05 08 58 16 f0 	movw   $0x68,0xf0165808
 f01088f8:	68 00 
-f01088fa:	b8 40 1f a9 f0       	mov    $0xf0a91f40,%eax
+f01088fa:	b8 40 7f a9 f0       	mov    $0xf0a97f40,%eax
 f01088ff:	66 a3 0a 58 16 f0    	mov    %ax,0xf016580a
-f0108905:	b8 40 1f a9 f0       	mov    $0xf0a91f40,%eax
+f0108905:	b8 40 7f a9 f0       	mov    $0xf0a97f40,%eax
 f010890a:	c1 e8 10             	shr    $0x10,%eax
 f010890d:	a2 0c 58 16 f0       	mov    %al,0xf016580c
 f0108912:	a0 0d 58 16 f0       	mov    0xf016580d,%al
@@ -15987,7 +15987,7 @@ f0108978:	a2 0e 58 16 f0       	mov    %al,0xf016580e
 f010897d:	a0 0e 58 16 f0       	mov    0xf016580e,%al
 f0108982:	83 e0 7f             	and    $0x7f,%eax
 f0108985:	a2 0e 58 16 f0       	mov    %al,0xf016580e
-f010898a:	b8 40 1f a9 f0       	mov    $0xf0a91f40,%eax
+f010898a:	b8 40 7f a9 f0       	mov    $0xf0a97f40,%eax
 f010898f:	c1 e8 18             	shr    $0x18,%eax
 f0108992:	a2 0f 58 16 f0       	mov    %al,0xf016580f
 			sizeof(struct Taskstate), 0);
@@ -16376,7 +16376,7 @@ f0108c90:	83 e0 03             	and    $0x3,%eax
 f0108c93:	83 f8 03             	cmp    $0x3,%eax
 f0108c96:	75 49                	jne    f0108ce1 <trap+0x6f>
 		assert(curenv);
-f0108c98:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0108c98:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0108c9d:	85 c0                	test   %eax,%eax
 f0108c9f:	75 19                	jne    f0108cba <trap+0x48>
 f0108ca1:	68 78 51 12 f0       	push   $0xf0125178
@@ -16385,7 +16385,7 @@ f0108cab:	68 09 01 00 00       	push   $0x109
 f0108cb0:	68 53 51 12 f0       	push   $0xf0125153
 f0108cb5:	e8 ba 74 ff ff       	call   f0100174 <_panic>
 		curenv->env_tf = *tf;
-f0108cba:	8b 15 f0 16 a9 f0    	mov    0xf0a916f0,%edx
+f0108cba:	8b 15 f0 76 a9 f0    	mov    0xf0a976f0,%edx
 f0108cc0:	8b 45 08             	mov    0x8(%ebp),%eax
 f0108cc3:	89 c3                	mov    %eax,%ebx
 f0108cc5:	b8 11 00 00 00       	mov    $0x11,%eax
@@ -16394,7 +16394,7 @@ f0108ccc:	89 de                	mov    %ebx,%esi
 f0108cce:	89 c1                	mov    %eax,%ecx
 f0108cd0:	f3 a5                	rep movsl %ds:(%esi),%es:(%edi)
 		tf = &(curenv->env_tf);
-f0108cd2:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0108cd2:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0108cd7:	89 45 08             	mov    %eax,0x8(%ebp)
 		userTrap = 1;
 f0108cda:	c7 45 e4 01 00 00 00 	movl   $0x1,-0x1c(%ebp)
@@ -16413,7 +16413,7 @@ f0108cec:	83 7d e4 00          	cmpl   $0x0,-0x1c(%ebp)
 f0108cf0:	0f 84 a6 00 00 00    	je     f0108d9c <trap+0x12a>
 		{
 			assert(curenv);
-f0108cf6:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0108cf6:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0108cfb:	85 c0                	test   %eax,%eax
 f0108cfd:	75 19                	jne    f0108d18 <trap+0xa6>
 f0108cff:	68 78 51 12 f0       	push   $0xf0125178
@@ -16422,7 +16422,7 @@ f0108d09:	68 15 01 00 00       	push   $0x115
 f0108d0e:	68 53 51 12 f0       	push   $0xf0125153
 f0108d13:	e8 5c 74 ff ff       	call   f0100174 <_panic>
 			curenv->nClocks++ ;
-f0108d18:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0108d18:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0108d1d:	8b 90 88 3c 01 00    	mov    0x13c88(%eax),%edx
 f0108d23:	42                   	inc    %edx
 f0108d24:	89 90 88 3c 01 00    	mov    %edx,0x13c88(%eax)
@@ -16436,23 +16436,23 @@ f0108d32:	83 f8 0e             	cmp    $0xe,%eax
 f0108d35:	75 65                	jne    f0108d9c <trap+0x12a>
 		//2016: Bypass the faulted instruction
 		if (bypassInstrLength != 0){
-f0108d37:	a0 20 17 a9 f0       	mov    0xf0a91720,%al
+f0108d37:	a0 20 77 a9 f0       	mov    0xf0a97720,%al
 f0108d3c:	84 c0                	test   %al,%al
 f0108d3e:	74 5c                	je     f0108d9c <trap+0x12a>
 			if (userTrap){
 f0108d40:	83 7d e4 00          	cmpl   $0x0,-0x1c(%ebp)
 f0108d44:	74 2c                	je     f0108d72 <trap+0x100>
 				curenv->env_tf.tf_eip = (uint32*)((uint32)(curenv->env_tf.tf_eip) + bypassInstrLength);
-f0108d46:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
-f0108d4b:	8b 15 f0 16 a9 f0    	mov    0xf0a916f0,%edx
+f0108d46:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
+f0108d4b:	8b 15 f0 76 a9 f0    	mov    0xf0a976f0,%edx
 f0108d51:	8b 52 30             	mov    0x30(%edx),%edx
 f0108d54:	89 d1                	mov    %edx,%ecx
-f0108d56:	8a 15 20 17 a9 f0    	mov    0xf0a91720,%dl
+f0108d56:	8a 15 20 77 a9 f0    	mov    0xf0a97720,%dl
 f0108d5c:	0f b6 d2             	movzbl %dl,%edx
 f0108d5f:	01 ca                	add    %ecx,%edx
 f0108d61:	89 50 30             	mov    %edx,0x30(%eax)
 				env_run(curenv);
-f0108d64:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0108d64:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0108d69:	83 ec 0c             	sub    $0xc,%esp
 f0108d6c:	50                   	push   %eax
 f0108d6d:	e8 17 dd ff ff       	call   f0106a89 <env_run>
@@ -16462,7 +16462,7 @@ f0108d6d:	e8 17 dd ff ff       	call   f0106a89 <env_run>
 f0108d72:	8b 45 08             	mov    0x8(%ebp),%eax
 f0108d75:	8b 40 30             	mov    0x30(%eax),%eax
 f0108d78:	89 c2                	mov    %eax,%edx
-f0108d7a:	a0 20 17 a9 f0       	mov    0xf0a91720,%al
+f0108d7a:	a0 20 77 a9 f0       	mov    0xf0a97720,%al
 f0108d7f:	0f b6 c0             	movzbl %al,%eax
 f0108d82:	01 d0                	add    %edx,%eax
 f0108d84:	89 c2                	mov    %eax,%edx
@@ -16487,10 +16487,10 @@ f0108daa:	83 7d e4 00          	cmpl   $0x0,-0x1c(%ebp)
 f0108dae:	74 3d                	je     f0108ded <trap+0x17b>
 	{
 		assert(curenv && curenv->env_status == ENV_RUNNABLE);
-f0108db0:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0108db0:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0108db5:	85 c0                	test   %eax,%eax
 f0108db7:	74 0d                	je     f0108dc6 <trap+0x154>
-f0108db9:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0108db9:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0108dbe:	8b 40 54             	mov    0x54(%eax),%eax
 f0108dc1:	83 f8 02             	cmp    $0x2,%eax
 f0108dc4:	74 19                	je     f0108ddf <trap+0x16d>
@@ -16500,7 +16500,7 @@ f0108dd0:	68 2a 01 00 00       	push   $0x12a
 f0108dd5:	68 53 51 12 f0       	push   $0xf0125153
 f0108dda:	e8 95 73 ff ff       	call   f0100174 <_panic>
 		env_run(curenv);
-f0108ddf:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0108ddf:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0108de4:	83 ec 0c             	sub    $0xc,%esp
 f0108de7:	50                   	push   %eax
 f0108de8:	e8 9c dc ff ff       	call   f0106a89 <env_run>
@@ -16536,7 +16536,7 @@ f0108e19:	68 53 51 12 f0       	push   $0xf0125153
 f0108e1e:	e8 51 73 ff ff       	call   f0100174 <_panic>
 	_PageRepAlgoType = LRU_TYPE ;
 f0108e23:	8b 45 08             	mov    0x8(%ebp),%eax
-f0108e26:	a3 68 a3 af f0       	mov    %eax,0xf0afa368
+f0108e26:	a3 68 03 b0 f0       	mov    %eax,0xf0b00368
 }
 f0108e2b:	90                   	nop
 f0108e2c:	c9                   	leave  
@@ -16546,7 +16546,7 @@ f0108e2e <setPageReplacmentAlgorithmCLOCK>:
 void setPageReplacmentAlgorithmCLOCK(){_PageRepAlgoType = PG_REP_CLOCK;}
 f0108e2e:	55                   	push   %ebp
 f0108e2f:	89 e5                	mov    %esp,%ebp
-f0108e31:	c7 05 68 a3 af f0 03 	movl   $0x3,0xf0afa368
+f0108e31:	c7 05 68 03 b0 f0 03 	movl   $0x3,0xf0b00368
 f0108e38:	00 00 00 
 f0108e3b:	90                   	nop
 f0108e3c:	5d                   	pop    %ebp
@@ -16556,7 +16556,7 @@ f0108e3e <setPageReplacmentAlgorithmFIFO>:
 void setPageReplacmentAlgorithmFIFO(){_PageRepAlgoType = PG_REP_FIFO;}
 f0108e3e:	55                   	push   %ebp
 f0108e3f:	89 e5                	mov    %esp,%ebp
-f0108e41:	c7 05 68 a3 af f0 04 	movl   $0x4,0xf0afa368
+f0108e41:	c7 05 68 03 b0 f0 04 	movl   $0x4,0xf0b00368
 f0108e48:	00 00 00 
 f0108e4b:	90                   	nop
 f0108e4c:	5d                   	pop    %ebp
@@ -16566,7 +16566,7 @@ f0108e4e <setPageReplacmentAlgorithmModifiedCLOCK>:
 void setPageReplacmentAlgorithmModifiedCLOCK(){_PageRepAlgoType = PG_REP_MODIFIEDCLOCK;}
 f0108e4e:	55                   	push   %ebp
 f0108e4f:	89 e5                	mov    %esp,%ebp
-f0108e51:	c7 05 68 a3 af f0 05 	movl   $0x5,0xf0afa368
+f0108e51:	c7 05 68 03 b0 f0 05 	movl   $0x5,0xf0b00368
 f0108e58:	00 00 00 
 f0108e5b:	90                   	nop
 f0108e5c:	5d                   	pop    %ebp
@@ -16578,7 +16578,7 @@ f0108e5e <isPageReplacmentAlgorithmLRU>:
 uint32 isPageReplacmentAlgorithmLRU(int LRU_TYPE){return _PageRepAlgoType == LRU_TYPE ? 1 : 0;}
 f0108e5e:	55                   	push   %ebp
 f0108e5f:	89 e5                	mov    %esp,%ebp
-f0108e61:	8b 15 68 a3 af f0    	mov    0xf0afa368,%edx
+f0108e61:	8b 15 68 03 b0 f0    	mov    0xf0b00368,%edx
 f0108e67:	8b 45 08             	mov    0x8(%ebp),%eax
 f0108e6a:	39 c2                	cmp    %eax,%edx
 f0108e6c:	0f 94 c0             	sete   %al
@@ -16590,7 +16590,7 @@ f0108e74 <isPageReplacmentAlgorithmCLOCK>:
 uint32 isPageReplacmentAlgorithmCLOCK(){if(_PageRepAlgoType == PG_REP_CLOCK) return 1; return 0;}
 f0108e74:	55                   	push   %ebp
 f0108e75:	89 e5                	mov    %esp,%ebp
-f0108e77:	a1 68 a3 af f0       	mov    0xf0afa368,%eax
+f0108e77:	a1 68 03 b0 f0       	mov    0xf0b00368,%eax
 f0108e7c:	83 f8 03             	cmp    $0x3,%eax
 f0108e7f:	75 07                	jne    f0108e88 <isPageReplacmentAlgorithmCLOCK+0x14>
 f0108e81:	b8 01 00 00 00       	mov    $0x1,%eax
@@ -16603,7 +16603,7 @@ f0108e8f <isPageReplacmentAlgorithmFIFO>:
 uint32 isPageReplacmentAlgorithmFIFO(){if(_PageRepAlgoType == PG_REP_FIFO) return 1; return 0;}
 f0108e8f:	55                   	push   %ebp
 f0108e90:	89 e5                	mov    %esp,%ebp
-f0108e92:	a1 68 a3 af f0       	mov    0xf0afa368,%eax
+f0108e92:	a1 68 03 b0 f0       	mov    0xf0b00368,%eax
 f0108e97:	83 f8 04             	cmp    $0x4,%eax
 f0108e9a:	75 07                	jne    f0108ea3 <isPageReplacmentAlgorithmFIFO+0x14>
 f0108e9c:	b8 01 00 00 00       	mov    $0x1,%eax
@@ -16616,7 +16616,7 @@ f0108eaa <isPageReplacmentAlgorithmModifiedCLOCK>:
 uint32 isPageReplacmentAlgorithmModifiedCLOCK(){if(_PageRepAlgoType == PG_REP_MODIFIEDCLOCK) return 1; return 0;}
 f0108eaa:	55                   	push   %ebp
 f0108eab:	89 e5                	mov    %esp,%ebp
-f0108ead:	a1 68 a3 af f0       	mov    0xf0afa368,%eax
+f0108ead:	a1 68 03 b0 f0       	mov    0xf0b00368,%eax
 f0108eb2:	83 f8 05             	cmp    $0x5,%eax
 f0108eb5:	75 07                	jne    f0108ebe <isPageReplacmentAlgorithmModifiedCLOCK+0x14>
 f0108eb7:	b8 01 00 00 00       	mov    $0x1,%eax
@@ -16631,7 +16631,7 @@ void enableModifiedBuffer(uint32 enableIt){_EnableModifiedBuffer = enableIt;}
 f0108ec5:	55                   	push   %ebp
 f0108ec6:	89 e5                	mov    %esp,%ebp
 f0108ec8:	8b 45 08             	mov    0x8(%ebp),%eax
-f0108ecb:	a3 58 a3 af f0       	mov    %eax,0xf0afa358
+f0108ecb:	a3 58 03 b0 f0       	mov    %eax,0xf0b00358
 f0108ed0:	90                   	nop
 f0108ed1:	5d                   	pop    %ebp
 f0108ed2:	c3                   	ret    
@@ -16640,7 +16640,7 @@ f0108ed3 <isModifiedBufferEnabled>:
 uint32 isModifiedBufferEnabled(){  return _EnableModifiedBuffer ; }
 f0108ed3:	55                   	push   %ebp
 f0108ed4:	89 e5                	mov    %esp,%ebp
-f0108ed6:	a1 58 a3 af f0       	mov    0xf0afa358,%eax
+f0108ed6:	a1 58 03 b0 f0       	mov    0xf0b00358,%eax
 f0108edb:	5d                   	pop    %ebp
 f0108edc:	c3                   	ret    
 
@@ -16650,7 +16650,7 @@ void enableBuffering(uint32 enableIt){_EnableBuffering = enableIt;}
 f0108edd:	55                   	push   %ebp
 f0108ede:	89 e5                	mov    %esp,%ebp
 f0108ee0:	8b 45 08             	mov    0x8(%ebp),%eax
-f0108ee3:	a3 6c a3 af f0       	mov    %eax,0xf0afa36c
+f0108ee3:	a3 6c 03 b0 f0       	mov    %eax,0xf0b0036c
 f0108ee8:	90                   	nop
 f0108ee9:	5d                   	pop    %ebp
 f0108eea:	c3                   	ret    
@@ -16659,7 +16659,7 @@ f0108eeb <isBufferingEnabled>:
 uint32 isBufferingEnabled(){  return _EnableBuffering ; }
 f0108eeb:	55                   	push   %ebp
 f0108eec:	89 e5                	mov    %esp,%ebp
-f0108eee:	a1 6c a3 af f0       	mov    0xf0afa36c,%eax
+f0108eee:	a1 6c 03 b0 f0       	mov    0xf0b0036c,%eax
 f0108ef3:	5d                   	pop    %ebp
 f0108ef4:	c3                   	ret    
 
@@ -16669,7 +16669,7 @@ void setModifiedBufferLength(uint32 length) { _ModifiedBufferLength = length;}
 f0108ef5:	55                   	push   %ebp
 f0108ef6:	89 e5                	mov    %esp,%ebp
 f0108ef8:	8b 45 08             	mov    0x8(%ebp),%eax
-f0108efb:	a3 78 a3 af f0       	mov    %eax,0xf0afa378
+f0108efb:	a3 78 03 b0 f0       	mov    %eax,0xf0b00378
 f0108f00:	90                   	nop
 f0108f01:	5d                   	pop    %ebp
 f0108f02:	c3                   	ret    
@@ -16678,7 +16678,7 @@ f0108f03 <getModifiedBufferLength>:
 uint32 getModifiedBufferLength() { return _ModifiedBufferLength;}
 f0108f03:	55                   	push   %ebp
 f0108f04:	89 e5                	mov    %esp,%ebp
-f0108f06:	a1 78 a3 af f0       	mov    0xf0afa378,%eax
+f0108f06:	a1 78 03 b0 f0       	mov    0xf0b00378,%eax
 f0108f0b:	5d                   	pop    %ebp
 f0108f0c:	c3                   	ret    
 
@@ -16691,10 +16691,10 @@ f0108f0d:	55                   	push   %ebp
 f0108f0e:	89 e5                	mov    %esp,%ebp
 f0108f10:	83 ec 18             	sub    $0x18,%esp
 	struct  Frame_Info * slowPtr = LIST_FIRST(&modified_frame_list);
-f0108f13:	a1 a0 87 b1 f0       	mov    0xf0b187a0,%eax
+f0108f13:	a1 a0 e7 b1 f0       	mov    0xf0b1e7a0,%eax
 f0108f18:	89 45 f4             	mov    %eax,-0xc(%ebp)
 	struct  Frame_Info * fastPtr = LIST_FIRST(&modified_frame_list);
-f0108f1b:	a1 a0 87 b1 f0       	mov    0xf0b187a0,%eax
+f0108f1b:	a1 a0 e7 b1 f0       	mov    0xf0b1e7a0,%eax
 f0108f20:	89 45 f0             	mov    %eax,-0x10(%ebp)
 
 
@@ -17066,13 +17066,13 @@ f010920c:	e8 63 6f ff ff       	call   f0100174 <_panic>
 
 	//get a pointer to the environment that caused the fault at runtime
 	struct Env* faulted_env = curenv;
-f0109211:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0109211:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0109216:	89 45 e8             	mov    %eax,-0x18(%ebp)
 
 	//check the faulted address, is it a table or not ?
 	//If the directory entry of the faulted address is NOT PRESENT then
 	if ( (curenv->env_page_directory[PDX(fault_va)] & PERM_PRESENT) != PERM_PRESENT)
-f0109219:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0109219:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010921e:	8b 40 5c             	mov    0x5c(%eax),%eax
 f0109221:	8b 55 ec             	mov    -0x14(%ebp),%edx
 f0109224:	c1 ea 16             	shr    $0x16,%edx
@@ -18280,7 +18280,7 @@ void sched_delete_ready_queues() ;
 uint32 isSchedMethodRR(){if(scheduler_method == SCH_RR) return 1; return 0;}
 f0109c45:	55                   	push   %ebp
 f0109c46:	89 e5                	mov    %esp,%ebp
-f0109c48:	a1 54 a3 af f0       	mov    0xf0afa354,%eax
+f0109c48:	a1 54 03 b0 f0       	mov    0xf0b00354,%eax
 f0109c4d:	85 c0                	test   %eax,%eax
 f0109c4f:	75 07                	jne    f0109c58 <isSchedMethodRR+0x13>
 f0109c51:	b8 01 00 00 00       	mov    $0x1,%eax
@@ -18293,7 +18293,7 @@ f0109c5f <isSchedMethodMLFQ>:
 uint32 isSchedMethodMLFQ(){if(scheduler_method == SCH_MLFQ) return 1; return 0;}
 f0109c5f:	55                   	push   %ebp
 f0109c60:	89 e5                	mov    %esp,%ebp
-f0109c62:	a1 54 a3 af f0       	mov    0xf0afa354,%eax
+f0109c62:	a1 54 03 b0 f0       	mov    0xf0b00354,%eax
 f0109c67:	83 f8 01             	cmp    $0x1,%eax
 f0109c6a:	75 07                	jne    f0109c73 <isSchedMethodMLFQ+0x14>
 f0109c6c:	b8 01 00 00 00       	mov    $0x1,%eax
@@ -18595,7 +18595,7 @@ f0109e96:	83 ec 18             	sub    $0x18,%esp
 	chk1();
 f0109e99:	e8 8a 6f 01 00       	call   f0120e28 <chk1>
 	scheduler_status = SCH_STARTED;
-f0109e9e:	c7 05 5c a3 af f0 01 	movl   $0x1,0xf0afa35c
+f0109e9e:	c7 05 5c 03 b0 f0 01 	movl   $0x1,0xf0b0035c
 f0109ea5:	00 00 00 
 
 	//This variable should be set to the next environment to be run (if any)
@@ -18603,7 +18603,7 @@ f0109ea5:	00 00 00
 f0109ea8:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
 
 	if (scheduler_method == SCH_RR)
-f0109eaf:	a1 54 a3 af f0       	mov    0xf0afa354,%eax
+f0109eaf:	a1 54 03 b0 f0       	mov    0xf0b00354,%eax
 f0109eb4:	85 c0                	test   %eax,%eax
 f0109eb6:	75 48                	jne    f0109f00 <fos_scheduler+0x6d>
 		// and switch to such environment if found.
@@ -18612,15 +18612,15 @@ f0109eb6:	75 48                	jne    f0109f00 <fos_scheduler+0x6d>
 
 		//If the curenv is still exist, then insert it again in the ready queue
 		if (curenv != NULL)
-f0109eb8:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0109eb8:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0109ebd:	85 c0                	test   %eax,%eax
 f0109ebf:	74 16                	je     f0109ed7 <fos_scheduler+0x44>
 		{
 			enqueue(&(env_ready_queues[0]), curenv);
-f0109ec1:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0109ec1:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0109ec6:	83 ec 08             	sub    $0x8,%esp
 f0109ec9:	50                   	push   %eax
-f0109eca:	68 c4 1f a9 f0       	push   $0xf0a91fc4
+f0109eca:	68 c4 7f a9 f0       	push   $0xf0a97fc4
 f0109ecf:	e8 e7 fd ff ff       	call   f0109cbb <enqueue>
 f0109ed4:	83 c4 10             	add    $0x10,%esp
 		}
@@ -18628,7 +18628,7 @@ f0109ed4:	83 c4 10             	add    $0x10,%esp
 		//Pick the next environment from the ready queue
 		next_env = dequeue(&(env_ready_queues[0]));
 f0109ed7:	83 ec 0c             	sub    $0xc,%esp
-f0109eda:	68 c4 1f a9 f0       	push   $0xf0a91fc4
+f0109eda:	68 c4 7f a9 f0       	push   $0xf0a97fc4
 f0109edf:	e8 2f fe ff ff       	call   f0109d13 <dequeue>
 f0109ee4:	83 c4 10             	add    $0x10,%esp
 f0109ee7:	89 45 f4             	mov    %eax,-0xc(%ebp)
@@ -18636,7 +18636,7 @@ f0109ee7:	89 45 f4             	mov    %eax,-0xc(%ebp)
 		//Reset the quantum
 		//2017: Reset the value of CNT0 for the next clock interval
 		kclock_set_quantum(quantums[0]);
-f0109eea:	a0 34 a3 af f0       	mov    0xf0afa334,%al
+f0109eea:	a0 34 03 b0 f0       	mov    0xf0b00334,%al
 f0109eef:	0f b6 c0             	movzbl %al,%eax
 f0109ef2:	83 ec 0c             	sub    $0xc,%esp
 f0109ef5:	50                   	push   %eax
@@ -18648,7 +18648,7 @@ f0109efe:	eb 12                	jmp    f0109f12 <fos_scheduler+0x7f>
 
 	}
 	else if (scheduler_method == SCH_MLFQ)
-f0109f00:	a1 54 a3 af f0       	mov    0xf0afa354,%eax
+f0109f00:	a1 54 03 b0 f0       	mov    0xf0b00354,%eax
 f0109f05:	83 f8 01             	cmp    $0x1,%eax
 f0109f08:	75 08                	jne    f0109f12 <fos_scheduler+0x7f>
 	{
@@ -18661,11 +18661,11 @@ f0109f0f:	89 45 f4             	mov    %eax,-0xc(%ebp)
 	//temporarily set the curenv by the next env JUST for checking the scheduler
 	//Then: reset it again
 	struct Env* old_curenv = curenv;
-f0109f12:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0109f12:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0109f17:	89 45 f0             	mov    %eax,-0x10(%ebp)
 	curenv = next_env ;
 f0109f1a:	8b 45 f4             	mov    -0xc(%ebp),%eax
-f0109f1d:	a3 f0 16 a9 f0       	mov    %eax,0xf0a916f0
+f0109f1d:	a3 f0 76 a9 f0       	mov    %eax,0xf0a976f0
 	chk2(next_env) ;
 f0109f22:	83 ec 0c             	sub    $0xc,%esp
 f0109f25:	ff 75 f4             	pushl  -0xc(%ebp)
@@ -18673,7 +18673,7 @@ f0109f28:	e8 38 6f 01 00       	call   f0120e65 <chk2>
 f0109f2d:	83 c4 10             	add    $0x10,%esp
 	curenv = old_curenv;
 f0109f30:	8b 45 f0             	mov    -0x10(%ebp),%eax
-f0109f33:	a3 f0 16 a9 f0       	mov    %eax,0xf0a916f0
+f0109f33:	a3 f0 76 a9 f0       	mov    %eax,0xf0a976f0
 
 	//sched_print_all();
 
@@ -18692,11 +18692,11 @@ f0109f44:	e8 40 cb ff ff       	call   f0106a89 <env_run>
 	{
 		/*2015*///No more envs... curenv doesn't exist any more! return back to command prompt
 		curenv = NULL;
-f0109f49:	c7 05 f0 16 a9 f0 00 	movl   $0x0,0xf0a916f0
+f0109f49:	c7 05 f0 76 a9 f0 00 	movl   $0x0,0xf0a976f0
 f0109f50:	00 00 00 
 		//lcr3(K_PHYSICAL_ADDRESS(ptr_page_directory));
 		lcr3(phys_page_directory);
-f0109f53:	a1 d8 87 b1 f0       	mov    0xf0b187d8,%eax
+f0109f53:	a1 d8 e7 b1 f0       	mov    0xf0b1e7d8,%eax
 f0109f58:	89 45 ec             	mov    %eax,-0x14(%ebp)
 }
 
@@ -18710,7 +18710,7 @@ f0109f5e:	0f 22 d8             	mov    %eax,%cr3
 		//cprintf("SP = %x\n", read_esp());
 
 		scheduler_status = SCH_STOPPED;
-f0109f61:	c7 05 5c a3 af f0 00 	movl   $0x0,0xf0afa35c
+f0109f61:	c7 05 5c 03 b0 f0 00 	movl   $0x0,0xf0b0035c
 f0109f68:	00 00 00 
 		//cprintf("[sched] no envs - nothing more to do!\n");
 		while (1)
@@ -18734,15 +18734,15 @@ f0109f7d:	83 ec 18             	sub    $0x18,%esp
 f0109f80:	8b 45 08             	mov    0x8(%ebp),%eax
 f0109f83:	88 45 f4             	mov    %al,-0xc(%ebp)
 	scheduler_status = SCH_STOPPED;
-f0109f86:	c7 05 5c a3 af f0 00 	movl   $0x0,0xf0afa35c
+f0109f86:	c7 05 5c 03 b0 f0 00 	movl   $0x0,0xf0b0035c
 f0109f8d:	00 00 00 
 	scheduler_method = SCH_RR;
-f0109f90:	c7 05 54 a3 af f0 00 	movl   $0x0,0xf0afa354
+f0109f90:	c7 05 54 03 b0 f0 00 	movl   $0x0,0xf0b00354
 f0109f97:	00 00 00 
 
 	// Create 1 ready queue for the RR
 	num_of_ready_queues = 1;
-f0109f9a:	c6 05 64 a3 af f0 01 	movb   $0x1,0xf0afa364
+f0109f9a:	c6 05 64 03 b0 f0 01 	movb   $0x1,0xf0b00364
 #if USE_KHEAP
 	sched_delete_ready_queues();
 	env_ready_queues = kmalloc(sizeof(struct Env_Queue));
@@ -18750,9 +18750,9 @@ f0109f9a:	c6 05 64 a3 af f0 01 	movb   $0x1,0xf0afa364
 #endif
 	quantums[0] = quantum;
 f0109fa1:	8a 45 f4             	mov    -0xc(%ebp),%al
-f0109fa4:	a2 34 a3 af f0       	mov    %al,0xf0afa334
+f0109fa4:	a2 34 03 b0 f0       	mov    %al,0xf0b00334
 	kclock_set_quantum(quantums[0]);
-f0109fa9:	a0 34 a3 af f0       	mov    0xf0afa334,%al
+f0109fa9:	a0 34 03 b0 f0       	mov    0xf0b00334,%al
 f0109fae:	0f b6 c0             	movzbl %al,%eax
 f0109fb1:	83 ec 0c             	sub    $0xc,%esp
 f0109fb4:	50                   	push   %eax
@@ -18760,7 +18760,7 @@ f0109fb5:	e8 a1 d5 ff ff       	call   f010755b <kclock_set_quantum>
 f0109fba:	83 c4 10             	add    $0x10,%esp
 	init_queue(&(env_ready_queues[0]));
 f0109fbd:	83 ec 0c             	sub    $0xc,%esp
-f0109fc0:	68 c4 1f a9 f0       	push   $0xf0a91fc4
+f0109fc0:	68 c4 7f a9 f0       	push   $0xf0a97fc4
 f0109fc5:	e8 b0 fc ff ff       	call   f0109c7a <init_queue>
 f0109fca:	83 c4 10             	add    $0x10,%esp
 }
@@ -18782,10 +18782,10 @@ f0109fd9:	88 45 f4             	mov    %al,-0xc(%ebp)
 	sched_delete_ready_queues();
 f0109fdc:	e8 6b 00 00 00       	call   f010a04c <sched_delete_ready_queues>
 	scheduler_status = SCH_STOPPED;
-f0109fe1:	c7 05 5c a3 af f0 00 	movl   $0x0,0xf0afa35c
+f0109fe1:	c7 05 5c 03 b0 f0 00 	movl   $0x0,0xf0b0035c
 f0109fe8:	00 00 00 
 	scheduler_method = SCH_MLFQ;
-f0109feb:	c7 05 54 a3 af f0 01 	movl   $0x1,0xf0afa354
+f0109feb:	c7 05 54 03 b0 f0 01 	movl   $0x1,0xf0b00354
 f0109ff2:	00 00 00 
 	//=========================================
 	//=========================================
@@ -18807,7 +18807,7 @@ f010a00c:	55                   	push   %ebp
 f010a00d:	89 e5                	mov    %esp,%ebp
 f010a00f:	83 ec 08             	sub    $0x8,%esp
 	old_pf_counter = 0;
-f010a012:	c7 05 34 7f af f0 00 	movl   $0x0,0xf0af7f34
+f010a012:	c7 05 34 df af f0 00 	movl   $0x0,0xf0afdf34
 f010a019:	00 00 00 
 
 	sched_init_RR(CLOCK_INTERVAL_IN_MS);
@@ -18818,12 +18818,12 @@ f010a026:	83 c4 10             	add    $0x10,%esp
 
 	init_queue(&env_new_queue);
 f010a029:	83 ec 0c             	sub    $0xc,%esp
-f010a02c:	68 44 a3 af f0       	push   $0xf0afa344
+f010a02c:	68 44 03 b0 f0       	push   $0xf0b00344
 f010a031:	e8 44 fc ff ff       	call   f0109c7a <init_queue>
 f010a036:	83 c4 10             	add    $0x10,%esp
 	init_queue(&env_exit_queue);
 f010a039:	83 ec 0c             	sub    $0xc,%esp
-f010a03c:	68 24 7f af f0       	push   $0xf0af7f24
+f010a03c:	68 24 df af f0       	push   $0xf0afdf24
 f010a041:	e8 34 fc ff ff       	call   f0109c7a <init_queue>
 f010a046:	83 c4 10             	add    $0x10,%esp
 }
@@ -18841,13 +18841,13 @@ f010a04f:	83 ec 08             	sub    $0x8,%esp
 	if (env_ready_queues != NULL)
 		kfree(env_ready_queues);
 f010a052:	83 ec 0c             	sub    $0xc,%esp
-f010a055:	68 c4 1f a9 f0       	push   $0xf0a91fc4
+f010a055:	68 c4 7f a9 f0       	push   $0xf0a97fc4
 f010a05a:	e8 a5 37 00 00       	call   f010d804 <kfree>
 f010a05f:	83 c4 10             	add    $0x10,%esp
 	if (quantums != NULL)
 	kfree(quantums);
 f010a062:	83 ec 0c             	sub    $0xc,%esp
-f010a065:	68 34 a3 af f0       	push   $0xf0afa334
+f010a065:	68 34 03 b0 f0       	push   $0xf0b00334
 f010a06a:	e8 95 37 00 00       	call   f010d804 <kfree>
 f010a06f:	83 c4 10             	add    $0x10,%esp
 }
@@ -18869,7 +18869,7 @@ f010a07e:	8b 45 08             	mov    0x8(%ebp),%eax
 f010a081:	c7 40 54 01 00 00 00 	movl   $0x1,0x54(%eax)
 		enqueue(&(env_ready_queues[0]), env);
 f010a088:	ff 75 08             	pushl  0x8(%ebp)
-f010a08b:	68 c4 1f a9 f0       	push   $0xf0a91fc4
+f010a08b:	68 c4 7f a9 f0       	push   $0xf0a97fc4
 f010a090:	e8 26 fc ff ff       	call   f0109cbb <enqueue>
 f010a095:	83 c4 08             	add    $0x8,%esp
 	}
@@ -18900,7 +18900,7 @@ f010a0ba:	8b 40 4c             	mov    0x4c(%eax),%eax
 f010a0bd:	89 c2                	mov    %eax,%edx
 f010a0bf:	8b 45 fc             	mov    -0x4(%ebp),%eax
 f010a0c2:	c1 e0 04             	shl    $0x4,%eax
-f010a0c5:	05 c4 1f a9 f0       	add    $0xf0a91fc4,%eax
+f010a0c5:	05 c4 7f a9 f0       	add    $0xf0a97fc4,%eax
 f010a0ca:	52                   	push   %edx
 f010a0cb:	50                   	push   %eax
 f010a0cc:	e8 48 fd ff ff       	call   f0109e19 <find_env_in_queue>
@@ -18925,7 +18925,7 @@ f010a0fc:	8b 45 08             	mov    0x8(%ebp),%eax
 f010a0ff:	8b 40 48             	mov    0x48(%eax),%eax
 f010a102:	8b 55 fc             	mov    -0x4(%ebp),%edx
 f010a105:	c1 e2 04             	shl    $0x4,%edx
-f010a108:	81 c2 c8 1f a9 f0    	add    $0xf0a91fc8,%edx
+f010a108:	81 c2 c8 7f a9 f0    	add    $0xf0a97fc8,%edx
 f010a10e:	89 02                	mov    %eax,(%edx)
 f010a110:	8b 45 08             	mov    0x8(%ebp),%eax
 f010a113:	8b 40 48             	mov    0x48(%eax),%eax
@@ -18941,7 +18941,7 @@ f010a12b:	8b 45 08             	mov    0x8(%ebp),%eax
 f010a12e:	8b 40 44             	mov    0x44(%eax),%eax
 f010a131:	8b 55 fc             	mov    -0x4(%ebp),%edx
 f010a134:	c1 e2 04             	shl    $0x4,%edx
-f010a137:	81 c2 c4 1f a9 f0    	add    $0xf0a91fc4,%edx
+f010a137:	81 c2 c4 7f a9 f0    	add    $0xf0a97fc4,%edx
 f010a13d:	89 02                	mov    %eax,(%edx)
 f010a13f:	8b 45 08             	mov    0x8(%ebp),%eax
 f010a142:	c7 40 44 00 00 00 00 	movl   $0x0,0x44(%eax)
@@ -18949,12 +18949,12 @@ f010a149:	8b 45 08             	mov    0x8(%ebp),%eax
 f010a14c:	c7 40 48 00 00 00 00 	movl   $0x0,0x48(%eax)
 f010a153:	8b 45 fc             	mov    -0x4(%ebp),%eax
 f010a156:	c1 e0 04             	shl    $0x4,%eax
-f010a159:	05 d0 1f a9 f0       	add    $0xf0a91fd0,%eax
+f010a159:	05 d0 7f a9 f0       	add    $0xf0a97fd0,%eax
 f010a15e:	8b 00                	mov    (%eax),%eax
 f010a160:	8d 50 ff             	lea    -0x1(%eax),%edx
 f010a163:	8b 45 fc             	mov    -0x4(%ebp),%eax
 f010a166:	c1 e0 04             	shl    $0x4,%eax
-f010a169:	05 d0 1f a9 f0       	add    $0xf0a91fd0,%eax
+f010a169:	05 d0 7f a9 f0       	add    $0xf0a97fd0,%eax
 f010a16e:	89 10                	mov    %edx,(%eax)
 				env->env_status = ENV_UNKNOWN;
 f010a170:	8b 45 08             	mov    0x8(%ebp),%eax
@@ -18968,7 +18968,7 @@ void sched_remove_ready(struct Env* env)
 	{
 		for (int i = 0 ; i < num_of_ready_queues ; i++)
 f010a17c:	ff 45 fc             	incl   -0x4(%ebp)
-f010a17f:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010a17f:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010a184:	0f b6 c0             	movzbl %al,%eax
 f010a187:	3b 45 fc             	cmp    -0x4(%ebp),%eax
 f010a18a:	0f 8f 27 ff ff ff    	jg     f010a0b7 <sched_remove_ready+0x1c>
@@ -18996,7 +18996,7 @@ f010a19b:	8b 45 08             	mov    0x8(%ebp),%eax
 f010a19e:	c7 40 54 04 00 00 00 	movl   $0x4,0x54(%eax)
 		enqueue(&env_new_queue, env);
 f010a1a5:	ff 75 08             	pushl  0x8(%ebp)
-f010a1a8:	68 44 a3 af f0       	push   $0xf0afa344
+f010a1a8:	68 44 03 b0 f0       	push   $0xf0b00344
 f010a1ad:	e8 09 fb ff ff       	call   f0109cbb <enqueue>
 f010a1b2:	83 c4 08             	add    $0x8,%esp
 	}
@@ -19027,7 +19027,7 @@ f010a1d7:	89 50 48             	mov    %edx,0x48(%eax)
 f010a1da:	eb 0b                	jmp    f010a1e7 <sched_remove_new+0x2f>
 f010a1dc:	8b 45 08             	mov    0x8(%ebp),%eax
 f010a1df:	8b 40 48             	mov    0x48(%eax),%eax
-f010a1e2:	a3 48 a3 af f0       	mov    %eax,0xf0afa348
+f010a1e2:	a3 48 03 b0 f0       	mov    %eax,0xf0b00348
 f010a1e7:	8b 45 08             	mov    0x8(%ebp),%eax
 f010a1ea:	8b 40 48             	mov    0x48(%eax),%eax
 f010a1ed:	85 c0                	test   %eax,%eax
@@ -19040,14 +19040,14 @@ f010a1fd:	89 50 44             	mov    %edx,0x44(%eax)
 f010a200:	eb 0b                	jmp    f010a20d <sched_remove_new+0x55>
 f010a202:	8b 45 08             	mov    0x8(%ebp),%eax
 f010a205:	8b 40 44             	mov    0x44(%eax),%eax
-f010a208:	a3 44 a3 af f0       	mov    %eax,0xf0afa344
+f010a208:	a3 44 03 b0 f0       	mov    %eax,0xf0b00344
 f010a20d:	8b 45 08             	mov    0x8(%ebp),%eax
 f010a210:	c7 40 44 00 00 00 00 	movl   $0x0,0x44(%eax)
 f010a217:	8b 45 08             	mov    0x8(%ebp),%eax
 f010a21a:	c7 40 48 00 00 00 00 	movl   $0x0,0x48(%eax)
-f010a221:	a1 50 a3 af f0       	mov    0xf0afa350,%eax
+f010a221:	a1 50 03 b0 f0       	mov    0xf0b00350,%eax
 f010a226:	48                   	dec    %eax
-f010a227:	a3 50 a3 af f0       	mov    %eax,0xf0afa350
+f010a227:	a3 50 03 b0 f0       	mov    %eax,0xf0b00350
 		env->env_status = ENV_UNKNOWN;
 f010a22c:	8b 45 08             	mov    0x8(%ebp),%eax
 f010a22f:	c7 40 54 06 00 00 00 	movl   $0x6,0x54(%eax)
@@ -19082,7 +19082,7 @@ f010a25f:	c7 40 54 05 00 00 00 	movl   $0x5,0x54(%eax)
 		enqueue(&env_exit_queue, env);
 f010a266:	83 ec 08             	sub    $0x8,%esp
 f010a269:	ff 75 08             	pushl  0x8(%ebp)
-f010a26c:	68 24 7f af f0       	push   $0xf0af7f24
+f010a26c:	68 24 df af f0       	push   $0xf0afdf24
 f010a271:	e8 45 fa ff ff       	call   f0109cbb <enqueue>
 f010a276:	83 c4 10             	add    $0x10,%esp
 	}
@@ -19113,7 +19113,7 @@ f010a29b:	89 50 48             	mov    %edx,0x48(%eax)
 f010a29e:	eb 0b                	jmp    f010a2ab <sched_remove_exit+0x2f>
 f010a2a0:	8b 45 08             	mov    0x8(%ebp),%eax
 f010a2a3:	8b 40 48             	mov    0x48(%eax),%eax
-f010a2a6:	a3 28 7f af f0       	mov    %eax,0xf0af7f28
+f010a2a6:	a3 28 df af f0       	mov    %eax,0xf0afdf28
 f010a2ab:	8b 45 08             	mov    0x8(%ebp),%eax
 f010a2ae:	8b 40 48             	mov    0x48(%eax),%eax
 f010a2b1:	85 c0                	test   %eax,%eax
@@ -19126,14 +19126,14 @@ f010a2c1:	89 50 44             	mov    %edx,0x44(%eax)
 f010a2c4:	eb 0b                	jmp    f010a2d1 <sched_remove_exit+0x55>
 f010a2c6:	8b 45 08             	mov    0x8(%ebp),%eax
 f010a2c9:	8b 40 44             	mov    0x44(%eax),%eax
-f010a2cc:	a3 24 7f af f0       	mov    %eax,0xf0af7f24
+f010a2cc:	a3 24 df af f0       	mov    %eax,0xf0afdf24
 f010a2d1:	8b 45 08             	mov    0x8(%ebp),%eax
 f010a2d4:	c7 40 44 00 00 00 00 	movl   $0x0,0x44(%eax)
 f010a2db:	8b 45 08             	mov    0x8(%ebp),%eax
 f010a2de:	c7 40 48 00 00 00 00 	movl   $0x0,0x48(%eax)
-f010a2e5:	a1 30 7f af f0       	mov    0xf0af7f30,%eax
+f010a2e5:	a1 30 df af f0       	mov    0xf0afdf30,%eax
 f010a2ea:	48                   	dec    %eax
-f010a2eb:	a3 30 7f af f0       	mov    %eax,0xf0af7f30
+f010a2eb:	a3 30 df af f0       	mov    %eax,0xf0afdf30
 		env->env_status = ENV_UNKNOWN;
 f010a2f0:	8b 45 08             	mov    0x8(%ebp),%eax
 f010a2f3:	c7 40 54 06 00 00 00 	movl   $0x6,0x54(%eax)
@@ -19152,7 +19152,7 @@ f010a2fe:	89 e5                	mov    %esp,%ebp
 f010a300:	83 ec 18             	sub    $0x18,%esp
 	struct Env* ptr_env ;
 	if (!LIST_EMPTY(&env_new_queue))
-f010a303:	a1 44 a3 af f0       	mov    0xf0afa344,%eax
+f010a303:	a1 44 03 b0 f0       	mov    0xf0b00344,%eax
 f010a308:	85 c0                	test   %eax,%eax
 f010a30a:	74 6c                	je     f010a378 <sched_print_all+0x7b>
 	{
@@ -19162,7 +19162,7 @@ f010a30f:	68 a0 55 12 f0       	push   $0xf01255a0
 f010a314:	e8 be d5 ff ff       	call   f01078d7 <cprintf>
 f010a319:	83 c4 10             	add    $0x10,%esp
 		LIST_FOREACH(ptr_env, &env_new_queue)
-f010a31c:	a1 44 a3 af f0       	mov    0xf0afa344,%eax
+f010a31c:	a1 44 03 b0 f0       	mov    0xf0b00344,%eax
 f010a321:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010a324:	eb 29                	jmp    f010a34f <sched_print_all+0x52>
 		{
@@ -19183,7 +19183,7 @@ f010a344:	83 c4 10             	add    $0x10,%esp
 	{
 		cprintf("\nThe processes in NEW queue are:\n");
 		LIST_FOREACH(ptr_env, &env_new_queue)
-f010a347:	a1 4c a3 af f0       	mov    0xf0afa34c,%eax
+f010a347:	a1 4c 03 b0 f0       	mov    0xf0b0034c,%eax
 f010a34c:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010a34f:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
 f010a353:	74 08                	je     f010a35d <sched_print_all+0x60>
@@ -19191,8 +19191,8 @@ f010a355:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010a358:	8b 40 44             	mov    0x44(%eax),%eax
 f010a35b:	eb 05                	jmp    f010a362 <sched_print_all+0x65>
 f010a35d:	b8 00 00 00 00       	mov    $0x0,%eax
-f010a362:	a3 4c a3 af f0       	mov    %eax,0xf0afa34c
-f010a367:	a1 4c a3 af f0       	mov    0xf0afa34c,%eax
+f010a362:	a3 4c 03 b0 f0       	mov    %eax,0xf0b0034c
+f010a367:	a1 4c 03 b0 f0       	mov    0xf0b0034c,%eax
 f010a36c:	85 c0                	test   %eax,%eax
 f010a36e:	75 b6                	jne    f010a326 <sched_print_all+0x29>
 f010a370:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
@@ -19221,7 +19221,7 @@ f010a39f:	e9 cb 00 00 00       	jmp    f010a46f <sched_print_all+0x172>
 		if (!LIST_EMPTY(&(env_ready_queues[i])))
 f010a3a4:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010a3a7:	c1 e0 04             	shl    $0x4,%eax
-f010a3aa:	05 c4 1f a9 f0       	add    $0xf0a91fc4,%eax
+f010a3aa:	05 c4 7f a9 f0       	add    $0xf0a97fc4,%eax
 f010a3af:	8b 00                	mov    (%eax),%eax
 f010a3b1:	85 c0                	test   %eax,%eax
 f010a3b3:	0f 84 90 00 00 00    	je     f010a449 <sched_print_all+0x14c>
@@ -19235,7 +19235,7 @@ f010a3c9:	83 c4 10             	add    $0x10,%esp
 			LIST_FOREACH(ptr_env, &(env_ready_queues[i]))
 f010a3cc:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010a3cf:	c1 e0 04             	shl    $0x4,%eax
-f010a3d2:	05 c4 1f a9 f0       	add    $0xf0a91fc4,%eax
+f010a3d2:	05 c4 7f a9 f0       	add    $0xf0a97fc4,%eax
 f010a3d7:	8b 00                	mov    (%eax),%eax
 f010a3d9:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010a3dc:	eb 31                	jmp    f010a40f <sched_print_all+0x112>
@@ -19259,7 +19259,7 @@ f010a3fc:	83 c4 10             	add    $0x10,%esp
 			LIST_FOREACH(ptr_env, &(env_ready_queues[i]))
 f010a3ff:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010a402:	c1 e0 04             	shl    $0x4,%eax
-f010a405:	05 cc 1f a9 f0       	add    $0xf0a91fcc,%eax
+f010a405:	05 cc 7f a9 f0       	add    $0xf0a97fcc,%eax
 f010a40a:	8b 00                	mov    (%eax),%eax
 f010a40c:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010a40f:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
@@ -19270,11 +19270,11 @@ f010a41b:	eb 05                	jmp    f010a422 <sched_print_all+0x125>
 f010a41d:	b8 00 00 00 00       	mov    $0x0,%eax
 f010a422:	8b 55 f0             	mov    -0x10(%ebp),%edx
 f010a425:	c1 e2 04             	shl    $0x4,%edx
-f010a428:	81 c2 cc 1f a9 f0    	add    $0xf0a91fcc,%edx
+f010a428:	81 c2 cc 7f a9 f0    	add    $0xf0a97fcc,%edx
 f010a42e:	89 02                	mov    %eax,(%edx)
 f010a430:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010a433:	c1 e0 04             	shl    $0x4,%eax
-f010a436:	05 cc 1f a9 f0       	add    $0xf0a91fcc,%eax
+f010a436:	05 cc 7f a9 f0       	add    $0xf0a97fcc,%eax
 f010a43b:	8b 00                	mov    (%eax),%eax
 f010a43d:	85 c0                	test   %eax,%eax
 f010a43f:	75 9d                	jne    f010a3de <sched_print_all+0xe1>
@@ -19305,7 +19305,7 @@ f010a469:	83 c4 10             	add    $0x10,%esp
 	cprintf("================================================\n");
 	for (int i = 0 ; i < num_of_ready_queues ; i++)
 f010a46c:	ff 45 f0             	incl   -0x10(%ebp)
-f010a46f:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010a46f:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010a474:	0f b6 c0             	movzbl %al,%eax
 f010a477:	3b 45 f0             	cmp    -0x10(%ebp),%eax
 f010a47a:	0f 8f 24 ff ff ff    	jg     f010a3a4 <sched_print_all+0xa7>
@@ -19315,7 +19315,7 @@ f010a47a:	0f 8f 24 ff ff ff    	jg     f010a3a4 <sched_print_all+0xa7>
 		cprintf("================================================\n");
 	}
 	if (!LIST_EMPTY(&env_exit_queue))
-f010a480:	a1 24 7f af f0       	mov    0xf0af7f24,%eax
+f010a480:	a1 24 df af f0       	mov    0xf0afdf24,%eax
 f010a485:	85 c0                	test   %eax,%eax
 f010a487:	74 6c                	je     f010a4f5 <sched_print_all+0x1f8>
 	{
@@ -19325,7 +19325,7 @@ f010a48c:	68 68 56 12 f0       	push   $0xf0125668
 f010a491:	e8 41 d4 ff ff       	call   f01078d7 <cprintf>
 f010a496:	83 c4 10             	add    $0x10,%esp
 		LIST_FOREACH(ptr_env, &env_exit_queue)
-f010a499:	a1 24 7f af f0       	mov    0xf0af7f24,%eax
+f010a499:	a1 24 df af f0       	mov    0xf0afdf24,%eax
 f010a49e:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010a4a1:	eb 29                	jmp    f010a4cc <sched_print_all+0x1cf>
 		{
@@ -19346,7 +19346,7 @@ f010a4c1:	83 c4 10             	add    $0x10,%esp
 	{
 		cprintf("The processes in EXIT queue are:\n");
 		LIST_FOREACH(ptr_env, &env_exit_queue)
-f010a4c4:	a1 2c 7f af f0       	mov    0xf0af7f2c,%eax
+f010a4c4:	a1 2c df af f0       	mov    0xf0afdf2c,%eax
 f010a4c9:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010a4cc:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
 f010a4d0:	74 08                	je     f010a4da <sched_print_all+0x1dd>
@@ -19354,8 +19354,8 @@ f010a4d2:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010a4d5:	8b 40 44             	mov    0x44(%eax),%eax
 f010a4d8:	eb 05                	jmp    f010a4df <sched_print_all+0x1e2>
 f010a4da:	b8 00 00 00 00       	mov    $0x0,%eax
-f010a4df:	a3 2c 7f af f0       	mov    %eax,0xf0af7f2c
-f010a4e4:	a1 2c 7f af f0       	mov    0xf0af7f2c,%eax
+f010a4df:	a3 2c df af f0       	mov    %eax,0xf0afdf2c
+f010a4e4:	a1 2c df af f0       	mov    0xf0afdf2c,%eax
 f010a4e9:	85 c0                	test   %eax,%eax
 f010a4eb:	75 b6                	jne    f010a4a3 <sched_print_all+0x1a6>
 f010a4ed:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
@@ -19393,7 +19393,7 @@ f010a50b:	83 ec 18             	sub    $0x18,%esp
 	struct Env* ptr_env=NULL;
 f010a50e:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
 	LIST_FOREACH(ptr_env, &env_new_queue)
-f010a515:	a1 44 a3 af f0       	mov    0xf0afa344,%eax
+f010a515:	a1 44 03 b0 f0       	mov    0xf0b00344,%eax
 f010a51a:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010a51d:	eb 1e                	jmp    f010a53d <sched_run_all+0x35>
 	{
@@ -19411,7 +19411,7 @@ void sched_run_all()
 {
 	struct Env* ptr_env=NULL;
 	LIST_FOREACH(ptr_env, &env_new_queue)
-f010a535:	a1 4c a3 af f0       	mov    0xf0afa34c,%eax
+f010a535:	a1 4c 03 b0 f0       	mov    0xf0b0034c,%eax
 f010a53a:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010a53d:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
 f010a541:	74 08                	je     f010a54b <sched_run_all+0x43>
@@ -19419,8 +19419,8 @@ f010a543:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010a546:	8b 40 44             	mov    0x44(%eax),%eax
 f010a549:	eb 05                	jmp    f010a550 <sched_run_all+0x48>
 f010a54b:	b8 00 00 00 00       	mov    $0x0,%eax
-f010a550:	a3 4c a3 af f0       	mov    %eax,0xf0afa34c
-f010a555:	a1 4c a3 af f0       	mov    0xf0afa34c,%eax
+f010a550:	a3 4c 03 b0 f0       	mov    %eax,0xf0b0034c
+f010a555:	a1 4c 03 b0 f0       	mov    0xf0b0034c,%eax
 f010a55a:	85 c0                	test   %eax,%eax
 f010a55c:	75 c1                	jne    f010a51f <sched_run_all+0x17>
 f010a55e:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
@@ -19431,7 +19431,7 @@ f010a562:	75 bb                	jne    f010a51f <sched_run_all+0x17>
 	}
 	/*2015*///if scheduler not run yet, then invoke it!
 	if (scheduler_status == SCH_STOPPED)
-f010a564:	a1 5c a3 af f0       	mov    0xf0afa35c,%eax
+f010a564:	a1 5c 03 b0 f0       	mov    0xf0b0035c,%eax
 f010a569:	85 c0                	test   %eax,%eax
 f010a56b:	75 05                	jne    f010a572 <sched_run_all+0x6a>
 		fos_scheduler();
@@ -19450,7 +19450,7 @@ f010a576:	89 e5                	mov    %esp,%ebp
 f010a578:	83 ec 18             	sub    $0x18,%esp
 	struct Env* ptr_env ;
 	if (!LIST_EMPTY(&env_new_queue))
-f010a57b:	a1 44 a3 af f0       	mov    0xf0afa344,%eax
+f010a57b:	a1 44 03 b0 f0       	mov    0xf0b00344,%eax
 f010a580:	85 c0                	test   %eax,%eax
 f010a582:	0f 84 98 00 00 00    	je     f010a620 <sched_kill_all+0xab>
 	{
@@ -19460,7 +19460,7 @@ f010a58b:	68 a8 56 12 f0       	push   $0xf01256a8
 f010a590:	e8 42 d3 ff ff       	call   f01078d7 <cprintf>
 f010a595:	83 c4 10             	add    $0x10,%esp
 		LIST_FOREACH(ptr_env, &env_new_queue)
-f010a598:	a1 44 a3 af f0       	mov    0xf0afa344,%eax
+f010a598:	a1 44 03 b0 f0       	mov    0xf0b00344,%eax
 f010a59d:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010a5a0:	eb 55                	jmp    f010a5f7 <sched_kill_all+0x82>
 		{
@@ -19496,7 +19496,7 @@ f010a5ec:	83 c4 10             	add    $0x10,%esp
 	{
 		cprintf("\nKILLING the processes in the NEW queue...\n");
 		LIST_FOREACH(ptr_env, &env_new_queue)
-f010a5ef:	a1 4c a3 af f0       	mov    0xf0afa34c,%eax
+f010a5ef:	a1 4c 03 b0 f0       	mov    0xf0b0034c,%eax
 f010a5f4:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010a5f7:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
 f010a5fb:	74 08                	je     f010a605 <sched_kill_all+0x90>
@@ -19504,8 +19504,8 @@ f010a5fd:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010a600:	8b 40 44             	mov    0x44(%eax),%eax
 f010a603:	eb 05                	jmp    f010a60a <sched_kill_all+0x95>
 f010a605:	b8 00 00 00 00       	mov    $0x0,%eax
-f010a60a:	a3 4c a3 af f0       	mov    %eax,0xf0afa34c
-f010a60f:	a1 4c a3 af f0       	mov    0xf0afa34c,%eax
+f010a60a:	a3 4c 03 b0 f0       	mov    %eax,0xf0b0034c
+f010a60f:	a1 4c 03 b0 f0       	mov    0xf0b0034c,%eax
 f010a614:	85 c0                	test   %eax,%eax
 f010a616:	75 8a                	jne    f010a5a2 <sched_kill_all+0x2d>
 f010a618:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
@@ -19534,7 +19534,7 @@ f010a647:	e9 83 01 00 00       	jmp    f010a7cf <sched_kill_all+0x25a>
 		if (!LIST_EMPTY(&(env_ready_queues[i])))
 f010a64c:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010a64f:	c1 e0 04             	shl    $0x4,%eax
-f010a652:	05 c4 1f a9 f0       	add    $0xf0a91fc4,%eax
+f010a652:	05 c4 7f a9 f0       	add    $0xf0a97fc4,%eax
 f010a657:	8b 00                	mov    (%eax),%eax
 f010a659:	85 c0                	test   %eax,%eax
 f010a65b:	0f 84 48 01 00 00    	je     f010a7a9 <sched_kill_all+0x234>
@@ -19548,7 +19548,7 @@ f010a671:	83 c4 10             	add    $0x10,%esp
 			LIST_FOREACH(ptr_env, &(env_ready_queues[i]))
 f010a674:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010a677:	c1 e0 04             	shl    $0x4,%eax
-f010a67a:	05 c4 1f a9 f0       	add    $0xf0a91fc4,%eax
+f010a67a:	05 c4 7f a9 f0       	add    $0xf0a97fc4,%eax
 f010a67f:	8b 00                	mov    (%eax),%eax
 f010a681:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010a684:	e9 de 00 00 00       	jmp    f010a767 <sched_kill_all+0x1f2>
@@ -19579,7 +19579,7 @@ f010a6c5:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010a6c8:	8b 40 48             	mov    0x48(%eax),%eax
 f010a6cb:	8b 55 f0             	mov    -0x10(%ebp),%edx
 f010a6ce:	c1 e2 04             	shl    $0x4,%edx
-f010a6d1:	81 c2 c8 1f a9 f0    	add    $0xf0a91fc8,%edx
+f010a6d1:	81 c2 c8 7f a9 f0    	add    $0xf0a97fc8,%edx
 f010a6d7:	89 02                	mov    %eax,(%edx)
 f010a6d9:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010a6dc:	8b 40 48             	mov    0x48(%eax),%eax
@@ -19595,7 +19595,7 @@ f010a6f4:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010a6f7:	8b 40 44             	mov    0x44(%eax),%eax
 f010a6fa:	8b 55 f0             	mov    -0x10(%ebp),%edx
 f010a6fd:	c1 e2 04             	shl    $0x4,%edx
-f010a700:	81 c2 c4 1f a9 f0    	add    $0xf0a91fc4,%edx
+f010a700:	81 c2 c4 7f a9 f0    	add    $0xf0a97fc4,%edx
 f010a706:	89 02                	mov    %eax,(%edx)
 f010a708:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010a70b:	c7 40 44 00 00 00 00 	movl   $0x0,0x44(%eax)
@@ -19603,12 +19603,12 @@ f010a712:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010a715:	c7 40 48 00 00 00 00 	movl   $0x0,0x48(%eax)
 f010a71c:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010a71f:	c1 e0 04             	shl    $0x4,%eax
-f010a722:	05 d0 1f a9 f0       	add    $0xf0a91fd0,%eax
+f010a722:	05 d0 7f a9 f0       	add    $0xf0a97fd0,%eax
 f010a727:	8b 00                	mov    (%eax),%eax
 f010a729:	8d 50 ff             	lea    -0x1(%eax),%edx
 f010a72c:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010a72f:	c1 e0 04             	shl    $0x4,%eax
-f010a732:	05 d0 1f a9 f0       	add    $0xf0a91fd0,%eax
+f010a732:	05 d0 7f a9 f0       	add    $0xf0a97fd0,%eax
 f010a737:	89 10                	mov    %edx,(%eax)
 				start_env_free(ptr_env);
 f010a739:	83 ec 0c             	sub    $0xc,%esp
@@ -19628,7 +19628,7 @@ f010a754:	83 c4 10             	add    $0x10,%esp
 			LIST_FOREACH(ptr_env, &(env_ready_queues[i]))
 f010a757:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010a75a:	c1 e0 04             	shl    $0x4,%eax
-f010a75d:	05 cc 1f a9 f0       	add    $0xf0a91fcc,%eax
+f010a75d:	05 cc 7f a9 f0       	add    $0xf0a97fcc,%eax
 f010a762:	8b 00                	mov    (%eax),%eax
 f010a764:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010a767:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
@@ -19639,11 +19639,11 @@ f010a773:	eb 05                	jmp    f010a77a <sched_kill_all+0x205>
 f010a775:	b8 00 00 00 00       	mov    $0x0,%eax
 f010a77a:	8b 55 f0             	mov    -0x10(%ebp),%edx
 f010a77d:	c1 e2 04             	shl    $0x4,%edx
-f010a780:	81 c2 cc 1f a9 f0    	add    $0xf0a91fcc,%edx
+f010a780:	81 c2 cc 7f a9 f0    	add    $0xf0a97fcc,%edx
 f010a786:	89 02                	mov    %eax,(%edx)
 f010a788:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010a78b:	c1 e0 04             	shl    $0x4,%eax
-f010a78e:	05 cc 1f a9 f0       	add    $0xf0a91fcc,%eax
+f010a78e:	05 cc 7f a9 f0       	add    $0xf0a97fcc,%eax
 f010a793:	8b 00                	mov    (%eax),%eax
 f010a795:	85 c0                	test   %eax,%eax
 f010a797:	0f 85 ec fe ff ff    	jne    f010a689 <sched_kill_all+0x114>
@@ -19674,7 +19674,7 @@ f010a7c9:	83 c4 10             	add    $0x10,%esp
 	cprintf("================================================\n");
 	for (int i = 0 ; i < num_of_ready_queues ; i++)
 f010a7cc:	ff 45 f0             	incl   -0x10(%ebp)
-f010a7cf:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010a7cf:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010a7d4:	0f b6 c0             	movzbl %al,%eax
 f010a7d7:	3b 45 f0             	cmp    -0x10(%ebp),%eax
 f010a7da:	0f 8f 6c fe ff ff    	jg     f010a64c <sched_kill_all+0xd7>
@@ -19684,7 +19684,7 @@ f010a7da:	0f 8f 6c fe ff ff    	jg     f010a64c <sched_kill_all+0xd7>
 	}
 
 	if (!LIST_EMPTY(&env_exit_queue))
-f010a7e0:	a1 24 7f af f0       	mov    0xf0af7f24,%eax
+f010a7e0:	a1 24 df af f0       	mov    0xf0afdf24,%eax
 f010a7e5:	85 c0                	test   %eax,%eax
 f010a7e7:	0f 84 98 00 00 00    	je     f010a885 <sched_kill_all+0x310>
 	{
@@ -19694,7 +19694,7 @@ f010a7f0:	68 3c 57 12 f0       	push   $0xf012573c
 f010a7f5:	e8 dd d0 ff ff       	call   f01078d7 <cprintf>
 f010a7fa:	83 c4 10             	add    $0x10,%esp
 		LIST_FOREACH(ptr_env, &env_exit_queue)
-f010a7fd:	a1 24 7f af f0       	mov    0xf0af7f24,%eax
+f010a7fd:	a1 24 df af f0       	mov    0xf0afdf24,%eax
 f010a802:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010a805:	eb 55                	jmp    f010a85c <sched_kill_all+0x2e7>
 		{
@@ -19730,7 +19730,7 @@ f010a851:	83 c4 10             	add    $0x10,%esp
 	{
 		cprintf("KILLING the processes in the EXIT queue...\n");
 		LIST_FOREACH(ptr_env, &env_exit_queue)
-f010a854:	a1 2c 7f af f0       	mov    0xf0af7f2c,%eax
+f010a854:	a1 2c df af f0       	mov    0xf0afdf2c,%eax
 f010a859:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010a85c:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
 f010a860:	74 08                	je     f010a86a <sched_kill_all+0x2f5>
@@ -19738,8 +19738,8 @@ f010a862:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010a865:	8b 40 44             	mov    0x44(%eax),%eax
 f010a868:	eb 05                	jmp    f010a86f <sched_kill_all+0x2fa>
 f010a86a:	b8 00 00 00 00       	mov    $0x0,%eax
-f010a86f:	a3 2c 7f af f0       	mov    %eax,0xf0af7f2c
-f010a874:	a1 2c 7f af f0       	mov    0xf0af7f2c,%eax
+f010a86f:	a3 2c df af f0       	mov    %eax,0xf0afdf2c
+f010a874:	a1 2c df af f0       	mov    0xf0afdf2c,%eax
 f010a879:	85 c0                	test   %eax,%eax
 f010a87b:	75 8a                	jne    f010a807 <sched_kill_all+0x292>
 f010a87d:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
@@ -19759,7 +19759,7 @@ f010a892:	83 c4 10             	add    $0x10,%esp
 
 	//reinvoke the scheduler since there're no env to return back to it
 	curenv = NULL;
-f010a895:	c7 05 f0 16 a9 f0 00 	movl   $0x0,0xf0a916f0
+f010a895:	c7 05 f0 76 a9 f0 00 	movl   $0x0,0xf0a976f0
 f010a89c:	00 00 00 
 	fos_scheduler();
 f010a89f:	e8 ef f5 ff ff       	call   f0109e93 <fos_scheduler>
@@ -19800,7 +19800,7 @@ f010a8be:	83 ec 18             	sub    $0x18,%esp
 	struct Env* ptr_env=NULL;
 f010a8c1:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
 	LIST_FOREACH(ptr_env, &env_new_queue)
-f010a8c8:	a1 44 a3 af f0       	mov    0xf0afa344,%eax
+f010a8c8:	a1 44 03 b0 f0       	mov    0xf0b00344,%eax
 f010a8cd:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010a8d0:	eb 37                	jmp    f010a909 <sched_run_env+0x4e>
 	{
@@ -19821,7 +19821,7 @@ f010a8f0:	83 c4 04             	add    $0x4,%esp
 
 			/*2015*///if scheduler not run yet, then invoke it!
 			if (scheduler_status == SCH_STOPPED)
-f010a8f3:	a1 5c a3 af f0       	mov    0xf0afa35c,%eax
+f010a8f3:	a1 5c 03 b0 f0       	mov    0xf0b0035c,%eax
 f010a8f8:	85 c0                	test   %eax,%eax
 f010a8fa:	75 36                	jne    f010a932 <sched_run_env+0x77>
 			{
@@ -19833,7 +19833,7 @@ void sched_run_env(uint32 envId)
 {
 	struct Env* ptr_env=NULL;
 	LIST_FOREACH(ptr_env, &env_new_queue)
-f010a901:	a1 4c a3 af f0       	mov    0xf0afa34c,%eax
+f010a901:	a1 4c 03 b0 f0       	mov    0xf0b0034c,%eax
 f010a906:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010a909:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
 f010a90d:	74 08                	je     f010a917 <sched_run_env+0x5c>
@@ -19841,8 +19841,8 @@ f010a90f:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010a912:	8b 40 44             	mov    0x44(%eax),%eax
 f010a915:	eb 05                	jmp    f010a91c <sched_run_env+0x61>
 f010a917:	b8 00 00 00 00       	mov    $0x0,%eax
-f010a91c:	a3 4c a3 af f0       	mov    %eax,0xf0afa34c
-f010a921:	a1 4c a3 af f0       	mov    0xf0afa34c,%eax
+f010a91c:	a3 4c 03 b0 f0       	mov    %eax,0xf0b0034c
+f010a921:	a1 4c 03 b0 f0       	mov    0xf0b0034c,%eax
 f010a926:	85 c0                	test   %eax,%eax
 f010a928:	75 a8                	jne    f010a8d2 <sched_run_env+0x17>
 f010a92a:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
@@ -19887,7 +19887,7 @@ f010a94a:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
 f010a94e:	75 56                	jne    f010a9a6 <sched_exit_env+0x70>
 	{
 		LIST_FOREACH(ptr_env, &env_new_queue)
-f010a950:	a1 44 a3 af f0       	mov    0xf0afa344,%eax
+f010a950:	a1 44 03 b0 f0       	mov    0xf0b00344,%eax
 f010a955:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010a958:	eb 25                	jmp    f010a97f <sched_exit_env+0x49>
 				{
@@ -19909,7 +19909,7 @@ f010a970:	c7 45 f0 01 00 00 00 	movl   $0x1,-0x10(%ebp)
 	if (!found)
 	{
 		LIST_FOREACH(ptr_env, &env_new_queue)
-f010a977:	a1 4c a3 af f0       	mov    0xf0afa34c,%eax
+f010a977:	a1 4c 03 b0 f0       	mov    0xf0b0034c,%eax
 f010a97c:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010a97f:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
 f010a983:	74 08                	je     f010a98d <sched_exit_env+0x57>
@@ -19917,8 +19917,8 @@ f010a985:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010a988:	8b 40 44             	mov    0x44(%eax),%eax
 f010a98b:	eb 05                	jmp    f010a992 <sched_exit_env+0x5c>
 f010a98d:	b8 00 00 00 00       	mov    $0x0,%eax
-f010a992:	a3 4c a3 af f0       	mov    %eax,0xf0afa34c
-f010a997:	a1 4c a3 af f0       	mov    0xf0afa34c,%eax
+f010a992:	a3 4c 03 b0 f0       	mov    %eax,0xf0b0034c
+f010a997:	a1 4c 03 b0 f0       	mov    0xf0b0034c,%eax
 f010a99c:	85 c0                	test   %eax,%eax
 f010a99e:	75 ba                	jne    f010a95a <sched_exit_env+0x24>
 f010a9a0:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
@@ -19939,7 +19939,7 @@ f010a9b7:	e9 31 01 00 00       	jmp    f010aaed <sched_exit_env+0x1b7>
 			if (!LIST_EMPTY(&(env_ready_queues[i])))
 f010a9bc:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f010a9bf:	c1 e0 04             	shl    $0x4,%eax
-f010a9c2:	05 c4 1f a9 f0       	add    $0xf0a91fc4,%eax
+f010a9c2:	05 c4 7f a9 f0       	add    $0xf0a97fc4,%eax
 f010a9c7:	8b 00                	mov    (%eax),%eax
 f010a9c9:	85 c0                	test   %eax,%eax
 f010a9cb:	0f 84 13 01 00 00    	je     f010aae4 <sched_exit_env+0x1ae>
@@ -19949,7 +19949,7 @@ f010a9d1:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
 				LIST_FOREACH(ptr_env, &(env_ready_queues[i]))
 f010a9d8:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f010a9db:	c1 e0 04             	shl    $0x4,%eax
-f010a9de:	05 c4 1f a9 f0       	add    $0xf0a91fc4,%eax
+f010a9de:	05 c4 7f a9 f0       	add    $0xf0a97fc4,%eax
 f010a9e3:	8b 00                	mov    (%eax),%eax
 f010a9e5:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010a9e8:	e9 b7 00 00 00       	jmp    f010aaa4 <sched_exit_env+0x16e>
@@ -19975,7 +19975,7 @@ f010aa17:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010aa1a:	8b 40 48             	mov    0x48(%eax),%eax
 f010aa1d:	8b 55 ec             	mov    -0x14(%ebp),%edx
 f010aa20:	c1 e2 04             	shl    $0x4,%edx
-f010aa23:	81 c2 c8 1f a9 f0    	add    $0xf0a91fc8,%edx
+f010aa23:	81 c2 c8 7f a9 f0    	add    $0xf0a97fc8,%edx
 f010aa29:	89 02                	mov    %eax,(%edx)
 f010aa2b:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010aa2e:	8b 40 48             	mov    0x48(%eax),%eax
@@ -19991,7 +19991,7 @@ f010aa46:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010aa49:	8b 40 44             	mov    0x44(%eax),%eax
 f010aa4c:	8b 55 ec             	mov    -0x14(%ebp),%edx
 f010aa4f:	c1 e2 04             	shl    $0x4,%edx
-f010aa52:	81 c2 c4 1f a9 f0    	add    $0xf0a91fc4,%edx
+f010aa52:	81 c2 c4 7f a9 f0    	add    $0xf0a97fc4,%edx
 f010aa58:	89 02                	mov    %eax,(%edx)
 f010aa5a:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010aa5d:	c7 40 44 00 00 00 00 	movl   $0x0,0x44(%eax)
@@ -19999,12 +19999,12 @@ f010aa64:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010aa67:	c7 40 48 00 00 00 00 	movl   $0x0,0x48(%eax)
 f010aa6e:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f010aa71:	c1 e0 04             	shl    $0x4,%eax
-f010aa74:	05 d0 1f a9 f0       	add    $0xf0a91fd0,%eax
+f010aa74:	05 d0 7f a9 f0       	add    $0xf0a97fd0,%eax
 f010aa79:	8b 00                	mov    (%eax),%eax
 f010aa7b:	8d 50 ff             	lea    -0x1(%eax),%edx
 f010aa7e:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f010aa81:	c1 e0 04             	shl    $0x4,%eax
-f010aa84:	05 d0 1f a9 f0       	add    $0xf0a91fd0,%eax
+f010aa84:	05 d0 7f a9 f0       	add    $0xf0a97fd0,%eax
 f010aa89:	89 10                	mov    %edx,(%eax)
 						found = 1;
 f010aa8b:	c7 45 f0 01 00 00 00 	movl   $0x1,-0x10(%ebp)
@@ -20018,7 +20018,7 @@ f010aa92:	eb 50                	jmp    f010aae4 <sched_exit_env+0x1ae>
 				LIST_FOREACH(ptr_env, &(env_ready_queues[i]))
 f010aa94:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f010aa97:	c1 e0 04             	shl    $0x4,%eax
-f010aa9a:	05 cc 1f a9 f0       	add    $0xf0a91fcc,%eax
+f010aa9a:	05 cc 7f a9 f0       	add    $0xf0a97fcc,%eax
 f010aa9f:	8b 00                	mov    (%eax),%eax
 f010aaa1:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010aaa4:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
@@ -20029,11 +20029,11 @@ f010aab0:	eb 05                	jmp    f010aab7 <sched_exit_env+0x181>
 f010aab2:	b8 00 00 00 00       	mov    $0x0,%eax
 f010aab7:	8b 55 ec             	mov    -0x14(%ebp),%edx
 f010aaba:	c1 e2 04             	shl    $0x4,%edx
-f010aabd:	81 c2 cc 1f a9 f0    	add    $0xf0a91fcc,%edx
+f010aabd:	81 c2 cc 7f a9 f0    	add    $0xf0a97fcc,%edx
 f010aac3:	89 02                	mov    %eax,(%edx)
 f010aac5:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f010aac8:	c1 e0 04             	shl    $0x4,%eax
-f010aacb:	05 cc 1f a9 f0       	add    $0xf0a91fcc,%eax
+f010aacb:	05 cc 7f a9 f0       	add    $0xf0a97fcc,%eax
 f010aad0:	8b 00                	mov    (%eax),%eax
 f010aad2:	85 c0                	test   %eax,%eax
 f010aad4:	0f 85 13 ff ff ff    	jne    f010a9ed <sched_exit_env+0xb7>
@@ -20054,7 +20054,7 @@ f010aae8:	75 16                	jne    f010ab00 <sched_exit_env+0x1ca>
 	{
 		for (int i = 0 ; i < num_of_ready_queues ; i++)
 f010aaea:	ff 45 ec             	incl   -0x14(%ebp)
-f010aaed:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010aaed:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010aaf2:	0f b6 c0             	movzbl %al,%eax
 f010aaf5:	3b 45 ec             	cmp    -0x14(%ebp),%eax
 f010aaf8:	0f 8f be fe ff ff    	jg     f010a9bc <sched_exit_env+0x86>
@@ -20073,13 +20073,13 @@ f010ab01:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
 f010ab05:	75 1c                	jne    f010ab23 <sched_exit_env+0x1ed>
 	{
 		if (curenv->env_id == envId)
-f010ab07:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010ab07:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010ab0c:	8b 40 4c             	mov    0x4c(%eax),%eax
 f010ab0f:	3b 45 08             	cmp    0x8(%ebp),%eax
 f010ab12:	75 0f                	jne    f010ab23 <sched_exit_env+0x1ed>
 		{
 			ptr_env = curenv;
-f010ab14:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010ab14:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010ab19:	89 45 f4             	mov    %eax,-0xc(%ebp)
 			found = 1;
 f010ab1c:	c7 45 f0 01 00 00 00 	movl   $0x1,-0x10(%ebp)
@@ -20098,13 +20098,13 @@ f010ab34:	83 c4 10             	add    $0x10,%esp
 
 		//If it's the curenv, then reinvoke the scheduler as there's no meaning to return back to an exited env
 		if (curenv->env_id == envId)
-f010ab37:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010ab37:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010ab3c:	8b 40 4c             	mov    0x4c(%eax),%eax
 f010ab3f:	3b 45 08             	cmp    0x8(%ebp),%eax
 f010ab42:	75 0f                	jne    f010ab53 <sched_exit_env+0x21d>
 		{
 			curenv = NULL;
-f010ab44:	c7 05 f0 16 a9 f0 00 	movl   $0x0,0xf0a916f0
+f010ab44:	c7 05 f0 76 a9 f0 00 	movl   $0x0,0xf0a976f0
 f010ab4b:	00 00 00 
 			fos_scheduler();
 f010ab4e:	e8 40 f3 ff ff       	call   f0109e93 <fos_scheduler>
@@ -20132,7 +20132,7 @@ f010ab6a:	e9 21 01 00 00       	jmp    f010ac90 <sched_exit_all_ready_envs+0x13a
 		if (!LIST_EMPTY(&(env_ready_queues[i])))
 f010ab6f:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010ab72:	c1 e0 04             	shl    $0x4,%eax
-f010ab75:	05 c4 1f a9 f0       	add    $0xf0a91fc4,%eax
+f010ab75:	05 c4 7f a9 f0       	add    $0xf0a97fc4,%eax
 f010ab7a:	8b 00                	mov    (%eax),%eax
 f010ab7c:	85 c0                	test   %eax,%eax
 f010ab7e:	0f 84 09 01 00 00    	je     f010ac8d <sched_exit_all_ready_envs+0x137>
@@ -20142,7 +20142,7 @@ f010ab84:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
 			LIST_FOREACH(ptr_env, &(env_ready_queues[i]))
 f010ab8b:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010ab8e:	c1 e0 04             	shl    $0x4,%eax
-f010ab91:	05 c4 1f a9 f0       	add    $0xf0a91fc4,%eax
+f010ab91:	05 c4 7f a9 f0       	add    $0xf0a97fc4,%eax
 f010ab96:	8b 00                	mov    (%eax),%eax
 f010ab98:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010ab9b:	e9 ad 00 00 00       	jmp    f010ac4d <sched_exit_all_ready_envs+0xf7>
@@ -20162,7 +20162,7 @@ f010abbb:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010abbe:	8b 40 48             	mov    0x48(%eax),%eax
 f010abc1:	8b 55 f0             	mov    -0x10(%ebp),%edx
 f010abc4:	c1 e2 04             	shl    $0x4,%edx
-f010abc7:	81 c2 c8 1f a9 f0    	add    $0xf0a91fc8,%edx
+f010abc7:	81 c2 c8 7f a9 f0    	add    $0xf0a97fc8,%edx
 f010abcd:	89 02                	mov    %eax,(%edx)
 f010abcf:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010abd2:	8b 40 48             	mov    0x48(%eax),%eax
@@ -20178,7 +20178,7 @@ f010abea:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010abed:	8b 40 44             	mov    0x44(%eax),%eax
 f010abf0:	8b 55 f0             	mov    -0x10(%ebp),%edx
 f010abf3:	c1 e2 04             	shl    $0x4,%edx
-f010abf6:	81 c2 c4 1f a9 f0    	add    $0xf0a91fc4,%edx
+f010abf6:	81 c2 c4 7f a9 f0    	add    $0xf0a97fc4,%edx
 f010abfc:	89 02                	mov    %eax,(%edx)
 f010abfe:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010ac01:	c7 40 44 00 00 00 00 	movl   $0x0,0x44(%eax)
@@ -20186,12 +20186,12 @@ f010ac08:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010ac0b:	c7 40 48 00 00 00 00 	movl   $0x0,0x48(%eax)
 f010ac12:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010ac15:	c1 e0 04             	shl    $0x4,%eax
-f010ac18:	05 d0 1f a9 f0       	add    $0xf0a91fd0,%eax
+f010ac18:	05 d0 7f a9 f0       	add    $0xf0a97fd0,%eax
 f010ac1d:	8b 00                	mov    (%eax),%eax
 f010ac1f:	8d 50 ff             	lea    -0x1(%eax),%edx
 f010ac22:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010ac25:	c1 e0 04             	shl    $0x4,%eax
-f010ac28:	05 d0 1f a9 f0       	add    $0xf0a91fd0,%eax
+f010ac28:	05 d0 7f a9 f0       	add    $0xf0a97fd0,%eax
 f010ac2d:	89 10                	mov    %edx,(%eax)
 				sched_insert_exit(ptr_env);
 f010ac2f:	83 ec 0c             	sub    $0xc,%esp
@@ -20206,7 +20206,7 @@ f010ac3a:	83 c4 10             	add    $0x10,%esp
 			LIST_FOREACH(ptr_env, &(env_ready_queues[i]))
 f010ac3d:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010ac40:	c1 e0 04             	shl    $0x4,%eax
-f010ac43:	05 cc 1f a9 f0       	add    $0xf0a91fcc,%eax
+f010ac43:	05 cc 7f a9 f0       	add    $0xf0a97fcc,%eax
 f010ac48:	8b 00                	mov    (%eax),%eax
 f010ac4a:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010ac4d:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
@@ -20217,11 +20217,11 @@ f010ac59:	eb 05                	jmp    f010ac60 <sched_exit_all_ready_envs+0x10a
 f010ac5b:	b8 00 00 00 00       	mov    $0x0,%eax
 f010ac60:	8b 55 f0             	mov    -0x10(%ebp),%edx
 f010ac63:	c1 e2 04             	shl    $0x4,%edx
-f010ac66:	81 c2 cc 1f a9 f0    	add    $0xf0a91fcc,%edx
+f010ac66:	81 c2 cc 7f a9 f0    	add    $0xf0a97fcc,%edx
 f010ac6c:	89 02                	mov    %eax,(%edx)
 f010ac6e:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010ac71:	c1 e0 04             	shl    $0x4,%eax
-f010ac74:	05 cc 1f a9 f0       	add    $0xf0a91fcc,%eax
+f010ac74:	05 cc 7f a9 f0       	add    $0xf0a97fcc,%eax
 f010ac79:	8b 00                	mov    (%eax),%eax
 f010ac7b:	85 c0                	test   %eax,%eax
 f010ac7d:	0f 85 1d ff ff ff    	jne    f010aba0 <sched_exit_all_ready_envs+0x4a>
@@ -20234,7 +20234,7 @@ void sched_exit_all_ready_envs()
 	struct Env* ptr_env=NULL;
 	for (int i = 0 ; i < num_of_ready_queues ; i++)
 f010ac8d:	ff 45 f0             	incl   -0x10(%ebp)
-f010ac90:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010ac90:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010ac95:	0f b6 c0             	movzbl %al,%eax
 f010ac98:	3b 45 f0             	cmp    -0x10(%ebp),%eax
 f010ac9b:	0f 8f ce fe ff ff    	jg     f010ab6f <sched_exit_all_ready_envs+0x19>
@@ -20265,7 +20265,7 @@ f010acb8:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
 f010acbc:	0f 85 a0 00 00 00    	jne    f010ad62 <sched_kill_env+0xbe>
 	{
 		LIST_FOREACH(ptr_env, &env_new_queue)
-f010acc2:	a1 44 a3 af f0       	mov    0xf0afa344,%eax
+f010acc2:	a1 44 03 b0 f0       	mov    0xf0b00344,%eax
 f010acc7:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010acca:	eb 67                	jmp    f010ad33 <sched_kill_env+0x8f>
 					{
@@ -20309,7 +20309,7 @@ f010ad24:	c7 45 f0 01 00 00 00 	movl   $0x1,-0x10(%ebp)
 	if (!found)
 	{
 		LIST_FOREACH(ptr_env, &env_new_queue)
-f010ad2b:	a1 4c a3 af f0       	mov    0xf0afa34c,%eax
+f010ad2b:	a1 4c 03 b0 f0       	mov    0xf0b0034c,%eax
 f010ad30:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010ad33:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
 f010ad37:	74 08                	je     f010ad41 <sched_kill_env+0x9d>
@@ -20317,8 +20317,8 @@ f010ad39:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010ad3c:	8b 40 44             	mov    0x44(%eax),%eax
 f010ad3f:	eb 05                	jmp    f010ad46 <sched_kill_env+0xa2>
 f010ad41:	b8 00 00 00 00       	mov    $0x0,%eax
-f010ad46:	a3 4c a3 af f0       	mov    %eax,0xf0afa34c
-f010ad4b:	a1 4c a3 af f0       	mov    0xf0afa34c,%eax
+f010ad46:	a3 4c 03 b0 f0       	mov    %eax,0xf0b0034c
+f010ad4b:	a1 4c 03 b0 f0       	mov    0xf0b0034c,%eax
 f010ad50:	85 c0                	test   %eax,%eax
 f010ad52:	0f 85 74 ff ff ff    	jne    f010accc <sched_kill_env+0x28>
 f010ad58:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
@@ -20339,7 +20339,7 @@ f010ad73:	e9 70 01 00 00       	jmp    f010aee8 <sched_kill_env+0x244>
 			if (!LIST_EMPTY(&(env_ready_queues[i])))
 f010ad78:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f010ad7b:	c1 e0 04             	shl    $0x4,%eax
-f010ad7e:	05 c4 1f a9 f0       	add    $0xf0a91fc4,%eax
+f010ad7e:	05 c4 7f a9 f0       	add    $0xf0a97fc4,%eax
 f010ad83:	8b 00                	mov    (%eax),%eax
 f010ad85:	85 c0                	test   %eax,%eax
 f010ad87:	0f 84 52 01 00 00    	je     f010aedf <sched_kill_env+0x23b>
@@ -20349,7 +20349,7 @@ f010ad8d:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
 				LIST_FOREACH(ptr_env, &(env_ready_queues[i]))
 f010ad94:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f010ad97:	c1 e0 04             	shl    $0x4,%eax
-f010ad9a:	05 c4 1f a9 f0       	add    $0xf0a91fc4,%eax
+f010ad9a:	05 c4 7f a9 f0       	add    $0xf0a97fc4,%eax
 f010ad9f:	8b 00                	mov    (%eax),%eax
 f010ada1:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010ada4:	e9 f6 00 00 00       	jmp    f010ae9f <sched_kill_env+0x1fb>
@@ -20386,7 +20386,7 @@ f010adf4:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010adf7:	8b 40 48             	mov    0x48(%eax),%eax
 f010adfa:	8b 55 ec             	mov    -0x14(%ebp),%edx
 f010adfd:	c1 e2 04             	shl    $0x4,%edx
-f010ae00:	81 c2 c8 1f a9 f0    	add    $0xf0a91fc8,%edx
+f010ae00:	81 c2 c8 7f a9 f0    	add    $0xf0a97fc8,%edx
 f010ae06:	89 02                	mov    %eax,(%edx)
 f010ae08:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010ae0b:	8b 40 48             	mov    0x48(%eax),%eax
@@ -20402,7 +20402,7 @@ f010ae23:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010ae26:	8b 40 44             	mov    0x44(%eax),%eax
 f010ae29:	8b 55 ec             	mov    -0x14(%ebp),%edx
 f010ae2c:	c1 e2 04             	shl    $0x4,%edx
-f010ae2f:	81 c2 c4 1f a9 f0    	add    $0xf0a91fc4,%edx
+f010ae2f:	81 c2 c4 7f a9 f0    	add    $0xf0a97fc4,%edx
 f010ae35:	89 02                	mov    %eax,(%edx)
 f010ae37:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010ae3a:	c7 40 44 00 00 00 00 	movl   $0x0,0x44(%eax)
@@ -20410,12 +20410,12 @@ f010ae41:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010ae44:	c7 40 48 00 00 00 00 	movl   $0x0,0x48(%eax)
 f010ae4b:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f010ae4e:	c1 e0 04             	shl    $0x4,%eax
-f010ae51:	05 d0 1f a9 f0       	add    $0xf0a91fd0,%eax
+f010ae51:	05 d0 7f a9 f0       	add    $0xf0a97fd0,%eax
 f010ae56:	8b 00                	mov    (%eax),%eax
 f010ae58:	8d 50 ff             	lea    -0x1(%eax),%edx
 f010ae5b:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f010ae5e:	c1 e0 04             	shl    $0x4,%eax
-f010ae61:	05 d0 1f a9 f0       	add    $0xf0a91fd0,%eax
+f010ae61:	05 d0 7f a9 f0       	add    $0xf0a97fd0,%eax
 f010ae66:	89 10                	mov    %edx,(%eax)
 						start_env_free(ptr_env);
 f010ae68:	83 ec 0c             	sub    $0xc,%esp
@@ -20439,7 +20439,7 @@ f010ae8d:	eb 50                	jmp    f010aedf <sched_kill_env+0x23b>
 				LIST_FOREACH(ptr_env, &(env_ready_queues[i]))
 f010ae8f:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f010ae92:	c1 e0 04             	shl    $0x4,%eax
-f010ae95:	05 cc 1f a9 f0       	add    $0xf0a91fcc,%eax
+f010ae95:	05 cc 7f a9 f0       	add    $0xf0a97fcc,%eax
 f010ae9a:	8b 00                	mov    (%eax),%eax
 f010ae9c:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010ae9f:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
@@ -20450,11 +20450,11 @@ f010aeab:	eb 05                	jmp    f010aeb2 <sched_kill_env+0x20e>
 f010aead:	b8 00 00 00 00       	mov    $0x0,%eax
 f010aeb2:	8b 55 ec             	mov    -0x14(%ebp),%edx
 f010aeb5:	c1 e2 04             	shl    $0x4,%edx
-f010aeb8:	81 c2 cc 1f a9 f0    	add    $0xf0a91fcc,%edx
+f010aeb8:	81 c2 cc 7f a9 f0    	add    $0xf0a97fcc,%edx
 f010aebe:	89 02                	mov    %eax,(%edx)
 f010aec0:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f010aec3:	c1 e0 04             	shl    $0x4,%eax
-f010aec6:	05 cc 1f a9 f0       	add    $0xf0a91fcc,%eax
+f010aec6:	05 cc 7f a9 f0       	add    $0xf0a97fcc,%eax
 f010aecb:	8b 00                	mov    (%eax),%eax
 f010aecd:	85 c0                	test   %eax,%eax
 f010aecf:	0f 85 d4 fe ff ff    	jne    f010ada9 <sched_kill_env+0x105>
@@ -20475,7 +20475,7 @@ f010aee3:	75 16                	jne    f010aefb <sched_kill_env+0x257>
 	{
 		for (int i = 0 ; i < num_of_ready_queues ; i++)
 f010aee5:	ff 45 ec             	incl   -0x14(%ebp)
-f010aee8:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010aee8:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010aeed:	0f b6 c0             	movzbl %al,%eax
 f010aef0:	3b 45 ec             	cmp    -0x14(%ebp),%eax
 f010aef3:	0f 8f 7f fe ff ff    	jg     f010ad78 <sched_kill_env+0xd4>
@@ -20496,7 +20496,7 @@ f010af00:	0f 85 a7 00 00 00    	jne    f010afad <sched_kill_env+0x309>
 		ptr_env=NULL;
 f010af06:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
 		LIST_FOREACH(ptr_env, &env_exit_queue)
-f010af0d:	a1 24 7f af f0       	mov    0xf0af7f24,%eax
+f010af0d:	a1 24 df af f0       	mov    0xf0afdf24,%eax
 f010af12:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010af15:	eb 67                	jmp    f010af7e <sched_kill_env+0x2da>
 		{
@@ -20540,7 +20540,7 @@ f010af6f:	c7 45 f0 01 00 00 00 	movl   $0x1,-0x10(%ebp)
 	{
 		ptr_env=NULL;
 		LIST_FOREACH(ptr_env, &env_exit_queue)
-f010af76:	a1 2c 7f af f0       	mov    0xf0af7f2c,%eax
+f010af76:	a1 2c df af f0       	mov    0xf0afdf2c,%eax
 f010af7b:	89 45 f4             	mov    %eax,-0xc(%ebp)
 f010af7e:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
 f010af82:	74 08                	je     f010af8c <sched_kill_env+0x2e8>
@@ -20548,8 +20548,8 @@ f010af84:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010af87:	8b 40 44             	mov    0x44(%eax),%eax
 f010af8a:	eb 05                	jmp    f010af91 <sched_kill_env+0x2ed>
 f010af8c:	b8 00 00 00 00       	mov    $0x0,%eax
-f010af91:	a3 2c 7f af f0       	mov    %eax,0xf0af7f2c
-f010af96:	a1 2c 7f af f0       	mov    0xf0af7f2c,%eax
+f010af91:	a3 2c df af f0       	mov    %eax,0xf0afdf2c
+f010af96:	a1 2c df af f0       	mov    0xf0afdf2c,%eax
 f010af9b:	85 c0                	test   %eax,%eax
 f010af9d:	0f 85 74 ff ff ff    	jne    f010af17 <sched_kill_env+0x273>
 f010afa3:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
@@ -20564,13 +20564,13 @@ f010afad:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
 f010afb1:	0f 85 a0 00 00 00    	jne    f010b057 <sched_kill_env+0x3b3>
 	{
 		if (curenv->env_id == envId)
-f010afb7:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010afb7:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010afbc:	8b 40 4c             	mov    0x4c(%eax),%eax
 f010afbf:	3b 45 08             	cmp    0x8(%ebp),%eax
 f010afc2:	0f 85 8f 00 00 00    	jne    f010b057 <sched_kill_env+0x3b3>
 		{
 			ptr_env = curenv;
-f010afc8:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010afc8:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010afcd:	89 45 f4             	mov    %eax,-0xc(%ebp)
 			assert(ptr_env->env_id == ENV_RUNNABLE);
 f010afd0:	8b 45 f4             	mov    -0xc(%ebp),%eax
@@ -20609,12 +20609,12 @@ f010b033:	c7 45 f0 01 00 00 00 	movl   $0x1,-0x10(%ebp)
 			//as there's no meaning to return back to a killed env
 			//lcr3(K_PHYSICAL_ADDRESS(ptr_page_directory));
 			lcr3(phys_page_directory);
-f010b03a:	a1 d8 87 b1 f0       	mov    0xf0b187d8,%eax
+f010b03a:	a1 d8 e7 b1 f0       	mov    0xf0b1e7d8,%eax
 f010b03f:	89 45 e8             	mov    %eax,-0x18(%ebp)
 f010b042:	8b 45 e8             	mov    -0x18(%ebp),%eax
 f010b045:	0f 22 d8             	mov    %eax,%cr3
 			curenv = NULL;
-f010b048:	c7 05 f0 16 a9 f0 00 	movl   $0x0,0xf0a916f0
+f010b048:	c7 05 f0 76 a9 f0 00 	movl   $0x0,0xf0a976f0
 f010b04f:	00 00 00 
 			fos_scheduler();
 f010b052:	e8 3c ee ff ff       	call   f0109e93 <fos_scheduler>
@@ -20658,7 +20658,7 @@ f010b072:	55                   	push   %ebp
 f010b073:	89 e5                	mov    %esp,%ebp
 	return ptr_frame_info - frames_info;
 f010b075:	8b 45 08             	mov    0x8(%ebp),%eax
-f010b078:	8b 15 c4 87 b1 f0    	mov    0xf0b187c4,%edx
+f010b078:	8b 15 c4 e7 b1 f0    	mov    0xf0b1e7c4,%edx
 f010b07e:	29 d0                	sub    %edx,%eax
 f010b080:	c1 f8 03             	sar    $0x3,%eax
 f010b083:	89 c2                	mov    %eax,%edx
@@ -20717,9 +20717,9 @@ f010b0c6:	88 45 f4             	mov    %al,-0xc(%ebp)
 f010b0c9:	80 7d f4 00          	cmpb   $0x0,-0xc(%ebp)
 f010b0cd:	74 26                	je     f010b0f5 <sys_cputs+0x38>
 		cprintf("[%s %d] ",curenv->prog_name, curenv->env_id);
-f010b0cf:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010b0cf:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010b0d4:	8b 40 4c             	mov    0x4c(%eax),%eax
-f010b0d7:	8b 15 f0 16 a9 f0    	mov    0xf0a916f0,%edx
+f010b0d7:	8b 15 f0 76 a9 f0    	mov    0xf0a976f0,%edx
 f010b0dd:	81 c2 40 3c 01 00    	add    $0x13c40,%edx
 f010b0e3:	83 ec 04             	sub    $0x4,%esp
 f010b0e6:	50                   	push   %eax
@@ -20800,7 +20800,7 @@ static int32 sys_getenvid(void)
 f010b145:	55                   	push   %ebp
 f010b146:	89 e5                	mov    %esp,%ebp
 	return curenv->env_id;
-f010b148:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010b148:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010b14d:	8b 40 4c             	mov    0x4c(%eax),%eax
 }
 f010b150:	5d                   	pop    %ebp
@@ -20815,9 +20815,9 @@ f010b152:	55                   	push   %ebp
 f010b153:	89 e5                	mov    %esp,%ebp
 	//return curenv->env_id;
 	return (curenv - envs) ;
-f010b155:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010b155:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010b15a:	89 c2                	mov    %eax,%edx
-f010b15c:	a1 ec 16 a9 f0       	mov    0xf0a916ec,%eax
+f010b15c:	a1 ec 76 a9 f0       	mov    0xf0a976ec,%eax
 f010b161:	29 c2                	sub    %eax,%edx
 f010b163:	89 d0                	mov    %edx,%eax
 f010b165:	c1 f8 03             	sar    $0x3,%eax
@@ -20858,7 +20858,7 @@ static int32 sys_getparentenvid(void)
 f010b1b5:	55                   	push   %ebp
 f010b1b6:	89 e5                	mov    %esp,%ebp
 	return curenv->env_parent_id;
-f010b1b8:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010b1b8:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010b1bd:	8b 40 50             	mov    0x50(%eax),%eax
 }
 f010b1c0:	5d                   	pop    %ebp
@@ -20894,12 +20894,12 @@ f010b1e8:	eb 5e                	jmp    f010b248 <sys_env_destroy+0x86>
 
 	if (e == curenv)
 f010b1ea:	8b 55 f0             	mov    -0x10(%ebp),%edx
-f010b1ed:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010b1ed:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010b1f2:	39 c2                	cmp    %eax,%edx
 f010b1f4:	75 1b                	jne    f010b211 <sys_env_destroy+0x4f>
 	{
 		cprintf("[%08x] exiting gracefully\n", curenv->env_id);
-f010b1f6:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010b1f6:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010b1fb:	8b 40 4c             	mov    0x4c(%eax),%eax
 f010b1fe:	83 ec 08             	sub    $0x8,%esp
 f010b201:	50                   	push   %eax
@@ -20913,7 +20913,7 @@ f010b20f:	eb 20                	jmp    f010b231 <sys_env_destroy+0x6f>
 		cprintf("[%08x] destroying %08x\n", curenv->env_id, e->env_id);
 f010b211:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010b214:	8b 50 4c             	mov    0x4c(%eax),%edx
-f010b217:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010b217:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010b21c:	8b 40 4c             	mov    0x4c(%eax),%eax
 f010b21f:	83 ec 04             	sub    $0x4,%esp
 f010b222:	52                   	push   %edx
@@ -20969,7 +20969,7 @@ f010b25b:	83 ec 28             	sub    $0x28,%esp
 
 	int r;
 	struct Env *e = curenv;
-f010b25e:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010b25e:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010b263:	89 45 f4             	mov    %eax,-0xc(%ebp)
 
 	//if ((r = envid2env(envid, &e, 1)) < 0)
@@ -21032,7 +21032,7 @@ f010b2d2:	89 45 e8             	mov    %eax,-0x18(%ebp)
 f010b2d5:	8b 45 e8             	mov    -0x18(%ebp),%eax
 f010b2d8:	c1 e8 0c             	shr    $0xc,%eax
 f010b2db:	89 45 e4             	mov    %eax,-0x1c(%ebp)
-f010b2de:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f010b2de:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f010b2e3:	39 45 e4             	cmp    %eax,-0x1c(%ebp)
 f010b2e6:	72 17                	jb     f010b2ff <__sys_allocate_page+0xa7>
 f010b2e8:	ff 75 e8             	pushl  -0x18(%ebp)
@@ -21132,7 +21132,7 @@ f010b391:	55                   	push   %ebp
 f010b392:	89 e5                	mov    %esp,%ebp
 f010b394:	83 ec 08             	sub    $0x8,%esp
 	return calculate_required_frames(curenv->env_page_directory, start_virtual_address, size);
-f010b397:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010b397:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010b39c:	8b 40 5c             	mov    0x5c(%eax),%eax
 f010b39f:	83 ec 04             	sub    $0x4,%esp
 f010b3a2:	ff 75 0c             	pushl  0xc(%ebp)
@@ -21213,7 +21213,7 @@ f010b406:	55                   	push   %ebp
 f010b407:	89 e5                	mov    %esp,%ebp
 f010b409:	83 ec 08             	sub    $0x8,%esp
 	return pf_calculate_allocated_pages(curenv);
-f010b40c:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010b40c:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010b411:	83 ec 0c             	sub    $0xc,%esp
 f010b414:	50                   	push   %eax
 f010b415:	e8 90 1a 00 00       	call   f010ceaa <pf_calculate_allocated_pages>
@@ -21265,7 +21265,7 @@ f010b44e:	85 c0                	test   %eax,%eax
 f010b450:	74 19                	je     f010b46b <sys_freeMem+0x28>
 	{
 		__freeMem_with_buffering(curenv, virtual_address, size);
-f010b452:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010b452:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010b457:	83 ec 04             	sub    $0x4,%esp
 f010b45a:	ff 75 0c             	pushl  0xc(%ebp)
 f010b45d:	ff 75 08             	pushl  0x8(%ebp)
@@ -21285,7 +21285,7 @@ f010b469:	eb 18                	jmp    f010b483 <sys_freeMem+0x40>
 	else
 	{
 		freeMem(curenv, virtual_address, size);
-f010b46b:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010b46b:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010b470:	83 ec 04             	sub    $0x4,%esp
 f010b473:	ff 75 0c             	pushl  0xc(%ebp)
 f010b476:	ff 75 08             	pushl  0x8(%ebp)
@@ -21307,7 +21307,7 @@ f010b485:	55                   	push   %ebp
 f010b486:	89 e5                	mov    %esp,%ebp
 f010b488:	83 ec 08             	sub    $0x8,%esp
 	allocateMem(curenv, virtual_address, size);
-f010b48b:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010b48b:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010b490:	83 ec 04             	sub    $0x4,%esp
 f010b493:	ff 75 0c             	pushl  0xc(%ebp)
 f010b496:	ff 75 08             	pushl  0x8(%ebp)
@@ -21328,8 +21328,8 @@ void sys_disable_interrupt()
 f010b4a5:	55                   	push   %ebp
 f010b4a6:	89 e5                	mov    %esp,%ebp
 	curenv->env_tf.tf_eflags &= ~FL_IF ;
-f010b4a8:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
-f010b4ad:	8b 15 f0 16 a9 f0    	mov    0xf0a916f0,%edx
+f010b4a8:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
+f010b4ad:	8b 15 f0 76 a9 f0    	mov    0xf0a976f0,%edx
 f010b4b3:	8b 52 38             	mov    0x38(%edx),%edx
 f010b4b6:	80 e6 fd             	and    $0xfd,%dh
 f010b4b9:	89 50 38             	mov    %edx,0x38(%eax)
@@ -21344,8 +21344,8 @@ void sys_enable_interrupt()
 f010b4bf:	55                   	push   %ebp
 f010b4c0:	89 e5                	mov    %esp,%ebp
 	curenv->env_tf.tf_eflags |= FL_IF ;
-f010b4c2:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
-f010b4c7:	8b 15 f0 16 a9 f0    	mov    0xf0a916f0,%edx
+f010b4c2:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
+f010b4c7:	8b 15 f0 76 a9 f0    	mov    0xf0a976f0,%edx
 f010b4cd:	8b 52 38             	mov    0x38(%edx),%edx
 f010b4d0:	80 ce 02             	or     $0x2,%dh
 f010b4d3:	89 50 38             	mov    %edx,0x38(%eax)
@@ -21362,7 +21362,7 @@ f010b4d9:	55                   	push   %ebp
 f010b4da:	89 e5                	mov    %esp,%ebp
 f010b4dc:	83 ec 18             	sub    $0x18,%esp
 	int size = LIST_SIZE(&free_frame_list) ;
-f010b4df:	a1 c0 87 b1 f0       	mov    0xf0b187c0,%eax
+f010b4df:	a1 c0 e7 b1 f0       	mov    0xf0b1e7c0,%eax
 f010b4e4:	89 45 f0             	mov    %eax,-0x10(%ebp)
 	int i = 0 ;
 f010b4e7:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
@@ -21402,7 +21402,7 @@ f010b50d:	55                   	push   %ebp
 f010b50e:	89 e5                	mov    %esp,%ebp
 f010b510:	83 ec 08             	sub    $0x8,%esp
 	return createSemaphore(curenv->env_id, semaphoreName, initialValue);
-f010b513:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010b513:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010b518:	8b 40 4c             	mov    0x4c(%eax),%eax
 f010b51b:	83 ec 04             	sub    $0x4,%esp
 f010b51e:	ff 75 0c             	pushl  0xc(%ebp)
@@ -21485,7 +21485,7 @@ f010b5ae:	01 d0                	add    %edx,%eax
 f010b5b0:	01 c0                	add    %eax,%eax
 f010b5b2:	01 d0                	add    %edx,%eax
 f010b5b4:	c1 e0 02             	shl    $0x2,%eax
-f010b5b7:	05 94 7f af f0       	add    $0xf0af7f94,%eax
+f010b5b7:	05 94 df af f0       	add    $0xf0afdf94,%eax
 f010b5bc:	8b 00                	mov    (%eax),%eax
 }
 f010b5be:	c9                   	leave  
@@ -21502,7 +21502,7 @@ f010b5c6:	8b 45 10             	mov    0x10(%ebp),%eax
 f010b5c9:	88 45 f4             	mov    %al,-0xc(%ebp)
 	return createSharedObject(curenv->env_id, shareName, size, isWritable, virtual_address);
 f010b5cc:	0f b6 55 f4          	movzbl -0xc(%ebp),%edx
-f010b5d0:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010b5d0:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010b5d5:	8b 40 4c             	mov    0x4c(%eax),%eax
 f010b5d8:	83 ec 0c             	sub    $0xc,%esp
 f010b5db:	ff 75 14             	pushl  0x14(%ebp)
@@ -21704,7 +21704,7 @@ f010b6e7:	55                   	push   %ebp
 f010b6e8:	89 e5                	mov    %esp,%ebp
 f010b6ea:	83 ec 08             	sub    $0x8,%esp
 	moveMem(curenv, src_virtual_address, dst_virtual_address, size);
-f010b6ed:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010b6ed:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010b6f2:	ff 75 10             	pushl  0x10(%ebp)
 f010b6f5:	ff 75 0c             	pushl  0xc(%ebp)
 f010b6f8:	ff 75 08             	pushl  0x8(%ebp)
@@ -21749,7 +21749,7 @@ f010b71f:	8b 45 08             	mov    0x8(%ebp),%eax
 f010b722:	88 45 fc             	mov    %al,-0x4(%ebp)
 	bypassInstrLength = instrLength;
 f010b725:	8a 45 fc             	mov    -0x4(%ebp),%al
-f010b728:	a2 20 17 a9 f0       	mov    %al,0xf0a91720
+f010b728:	a2 20 77 a9 f0       	mov    %al,0xf0a97720
 }
 f010b72d:	90                   	nop
 f010b72e:	c9                   	leave  
@@ -21763,7 +21763,7 @@ void rsttst()
 f010b730:	55                   	push   %ebp
 f010b731:	89 e5                	mov    %esp,%ebp
 	tstcnt = 0;
-f010b733:	c7 05 b0 88 b1 f0 00 	movl   $0x0,0xf0b188b0
+f010b733:	c7 05 b0 e8 b1 f0 00 	movl   $0x0,0xf0b1e8b0
 f010b73a:	00 00 00 
 }
 f010b73d:	90                   	nop
@@ -21776,9 +21776,9 @@ void inctst()
 f010b740:	55                   	push   %ebp
 f010b741:	89 e5                	mov    %esp,%ebp
 	tstcnt++;
-f010b743:	a1 b0 88 b1 f0       	mov    0xf0b188b0,%eax
+f010b743:	a1 b0 e8 b1 f0       	mov    0xf0b1e8b0,%eax
 f010b748:	40                   	inc    %eax
-f010b749:	a3 b0 88 b1 f0       	mov    %eax,0xf0b188b0
+f010b749:	a3 b0 e8 b1 f0       	mov    %eax,0xf0b1e8b0
 }
 f010b74e:	90                   	nop
 f010b74f:	5d                   	pop    %ebp
@@ -21790,7 +21790,7 @@ uint32 gettst()
 f010b751:	55                   	push   %ebp
 f010b752:	89 e5                	mov    %esp,%ebp
 	return tstcnt;
-f010b754:	a1 b0 88 b1 f0       	mov    0xf0b188b0,%eax
+f010b754:	a1 b0 e8 b1 f0       	mov    0xf0b1e8b0,%eax
 }
 f010b759:	5d                   	pop    %ebp
 f010b75a:	c3                   	ret    
@@ -21941,9 +21941,9 @@ f010b825:	68 d2 01 00 00       	push   $0x1d2
 f010b82a:	68 bb 58 12 f0       	push   $0xf01258bb
 f010b82f:	e8 40 49 ff ff       	call   f0100174 <_panic>
 	tstcnt++ ;
-f010b834:	a1 b0 88 b1 f0       	mov    0xf0b188b0,%eax
+f010b834:	a1 b0 e8 b1 f0       	mov    0xf0b1e8b0,%eax
 f010b839:	40                   	inc    %eax
-f010b83a:	a3 b0 88 b1 f0       	mov    %eax,0xf0b188b0
+f010b83a:	a3 b0 e8 b1 f0       	mov    %eax,0xf0b1e8b0
 	return;
 f010b83f:	90                   	nop
 }
@@ -21958,7 +21958,7 @@ f010b842:	55                   	push   %ebp
 f010b843:	89 e5                	mov    %esp,%ebp
 f010b845:	83 ec 08             	sub    $0x8,%esp
 	if (tstcnt == n)
-f010b848:	a1 b0 88 b1 f0       	mov    0xf0b188b0,%eax
+f010b848:	a1 b0 e8 b1 f0       	mov    0xf0b1e8b0,%eax
 f010b84d:	3b 45 08             	cmp    0x8(%ebp),%eax
 f010b850:	75 12                	jne    f010b864 <chktst+0x22>
 		cprintf("\nCongratulations... test runs successfully\n");
@@ -21993,7 +21993,7 @@ uint32 sys_get_heap_strategy()
 f010b87d:	55                   	push   %ebp
 f010b87e:	89 e5                	mov    %esp,%ebp
 	return _UHeapPlacementStrategy ;
-f010b880:	a1 38 a3 af f0       	mov    0xf0afa338,%eax
+f010b880:	a1 38 03 b0 f0       	mov    0xf0b00338,%eax
 }
 f010b885:	5d                   	pop    %ebp
 f010b886:	c3                   	ret    
@@ -22005,7 +22005,7 @@ f010b887:	55                   	push   %ebp
 f010b888:	89 e5                	mov    %esp,%ebp
 	_UHeapPlacementStrategy = heapStrategy;
 f010b88a:	8b 45 08             	mov    0x8(%ebp),%eax
-f010b88d:	a3 38 a3 af f0       	mov    %eax,0xf0afa338
+f010b88d:	a3 38 03 b0 f0       	mov    %eax,0xf0b00338
 }
 f010b892:	90                   	nop
 f010b893:	5d                   	pop    %ebp
@@ -22020,7 +22020,7 @@ f010b895:	55                   	push   %ebp
 f010b896:	89 e5                	mov    %esp,%ebp
 f010b898:	83 ec 30             	sub    $0x30,%esp
 	struct Env* env = curenv;
-f010b89b:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010b89b:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010b8a0:	89 45 e8             	mov    %eax,-0x18(%ebp)
 	int active_list_validation = 1;
 f010b8a3:	c7 45 fc 01 00 00 00 	movl   $0x1,-0x4(%ebp)
@@ -22200,7 +22200,7 @@ f010ba17:	55                   	push   %ebp
 f010ba18:	89 e5                	mov    %esp,%ebp
 f010ba1a:	83 ec 30             	sub    $0x30,%esp
 	struct Env* env = curenv;
-f010ba1d:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010ba1d:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010ba22:	89 45 ec             	mov    %eax,-0x14(%ebp)
 	int list_validation_count = 0;
 f010ba25:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%ebp)
@@ -23489,7 +23489,7 @@ f010c3c2:	55                   	push   %ebp
 f010c3c3:	89 e5                	mov    %esp,%ebp
 	return ptr_frame_info - frames_info;
 f010c3c5:	8b 45 08             	mov    0x8(%ebp),%eax
-f010c3c8:	8b 15 c4 87 b1 f0    	mov    0xf0b187c4,%edx
+f010c3c8:	8b 15 c4 e7 b1 f0    	mov    0xf0b1e7c4,%edx
 f010c3ce:	29 d0                	sub    %edx,%eax
 f010c3d0:	c1 f8 03             	sar    $0x3,%eax
 f010c3d3:	89 c2                	mov    %eax,%edx
@@ -23538,7 +23538,7 @@ f010c410:	83 ec 08             	sub    $0x8,%esp
 f010c413:	8b 45 08             	mov    0x8(%ebp),%eax
 f010c416:	c1 e8 0c             	shr    $0xc,%eax
 f010c419:	89 c2                	mov    %eax,%edx
-f010c41b:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f010c41b:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f010c420:	39 c2                	cmp    %eax,%edx
 f010c422:	72 14                	jb     f010c438 <to_frame_info+0x2b>
 		panic("to_frame_info called with invalid pa");
@@ -23548,7 +23548,7 @@ f010c42c:	6a 78                	push   $0x78
 f010c42e:	68 95 5a 12 f0       	push   $0xf0125a95
 f010c433:	e8 3c 3d ff ff       	call   f0100174 <_panic>
 	return &frames_info[PPN(physical_address)];
-f010c438:	8b 15 c4 87 b1 f0    	mov    0xf0b187c4,%edx
+f010c438:	8b 15 c4 e7 b1 f0    	mov    0xf0b1e7c4,%edx
 f010c43e:	8b 45 08             	mov    0x8(%ebp),%eax
 f010c441:	c1 e8 0c             	shr    $0xc,%eax
 f010c444:	89 c1                	mov    %eax,%ecx
@@ -23648,11 +23648,11 @@ f010c4ce:	53                   	push   %ebx
 f010c4cf:	83 ec 14             	sub    $0x14,%esp
 	int i;
 	LIST_INIT(&disk_free_frame_list);
-f010c4d2:	c7 05 b8 88 b1 f0 00 	movl   $0x0,0xf0b188b8
+f010c4d2:	c7 05 b8 e8 b1 f0 00 	movl   $0x0,0xf0b1e8b8
 f010c4d9:	00 00 00 
-f010c4dc:	c7 05 bc 88 b1 f0 00 	movl   $0x0,0xf0b188bc
+f010c4dc:	c7 05 bc e8 b1 f0 00 	movl   $0x0,0xf0b1e8bc
 f010c4e3:	00 00 00 
-f010c4e6:	c7 05 c4 88 b1 f0 00 	movl   $0x0,0xf0b188c4
+f010c4e6:	c7 05 c4 e8 b1 f0 00 	movl   $0x0,0xf0b1e8c4
 f010c4ed:	00 00 00 
 
 	//LOG_STATMENT(cprintf("PAGES_PER_FILE = %d, PAGE_FILE_START_SECTOR = %d\n",PAGES_PER_FILE,PAGE_FILE_START_SECTOR););
@@ -23661,7 +23661,7 @@ f010c4f0:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
 f010c4f7:	e9 bc 00 00 00       	jmp    f010c5b8 <initialize_disk_page_file+0xed>
 	{
 		initialize_frame_info(&(disk_frames_info[i]));
-f010c4fc:	8b 0d b0 87 b1 f0    	mov    0xf0b187b0,%ecx
+f010c4fc:	8b 0d b0 e7 b1 f0    	mov    0xf0b1e7b0,%ecx
 f010c502:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f010c505:	89 d0                	mov    %edx,%eax
 f010c507:	01 c0                	add    %eax,%eax
@@ -23675,20 +23675,20 @@ f010c519:	83 c4 10             	add    $0x10,%esp
 
 		//disk_frames_info[i].references = 0;
 		LIST_INSERT_HEAD(&disk_free_frame_list, &disk_frames_info[i]);
-f010c51c:	8b 0d b0 87 b1 f0    	mov    0xf0b187b0,%ecx
+f010c51c:	8b 0d b0 e7 b1 f0    	mov    0xf0b1e7b0,%ecx
 f010c522:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f010c525:	89 d0                	mov    %edx,%eax
 f010c527:	01 c0                	add    %eax,%eax
 f010c529:	01 d0                	add    %edx,%eax
 f010c52b:	c1 e0 03             	shl    $0x3,%eax
 f010c52e:	01 c8                	add    %ecx,%eax
-f010c530:	8b 15 b8 88 b1 f0    	mov    0xf0b188b8,%edx
+f010c530:	8b 15 b8 e8 b1 f0    	mov    0xf0b1e8b8,%edx
 f010c536:	89 10                	mov    %edx,(%eax)
 f010c538:	8b 00                	mov    (%eax),%eax
 f010c53a:	85 c0                	test   %eax,%eax
 f010c53c:	74 1f                	je     f010c55d <initialize_disk_page_file+0x92>
-f010c53e:	8b 15 b8 88 b1 f0    	mov    0xf0b188b8,%edx
-f010c544:	8b 1d b0 87 b1 f0    	mov    0xf0b187b0,%ebx
+f010c53e:	8b 15 b8 e8 b1 f0    	mov    0xf0b1e8b8,%edx
+f010c544:	8b 1d b0 e7 b1 f0    	mov    0xf0b1e7b0,%ebx
 f010c54a:	8b 4d f4             	mov    -0xc(%ebp),%ecx
 f010c54d:	89 c8                	mov    %ecx,%eax
 f010c54f:	01 c0                	add    %eax,%eax
@@ -23697,23 +23697,23 @@ f010c553:	c1 e0 03             	shl    $0x3,%eax
 f010c556:	01 d8                	add    %ebx,%eax
 f010c558:	89 42 04             	mov    %eax,0x4(%edx)
 f010c55b:	eb 19                	jmp    f010c576 <initialize_disk_page_file+0xab>
-f010c55d:	8b 0d b0 87 b1 f0    	mov    0xf0b187b0,%ecx
+f010c55d:	8b 0d b0 e7 b1 f0    	mov    0xf0b1e7b0,%ecx
 f010c563:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f010c566:	89 d0                	mov    %edx,%eax
 f010c568:	01 c0                	add    %eax,%eax
 f010c56a:	01 d0                	add    %edx,%eax
 f010c56c:	c1 e0 03             	shl    $0x3,%eax
 f010c56f:	01 c8                	add    %ecx,%eax
-f010c571:	a3 bc 88 b1 f0       	mov    %eax,0xf0b188bc
-f010c576:	8b 0d b0 87 b1 f0    	mov    0xf0b187b0,%ecx
+f010c571:	a3 bc e8 b1 f0       	mov    %eax,0xf0b1e8bc
+f010c576:	8b 0d b0 e7 b1 f0    	mov    0xf0b1e7b0,%ecx
 f010c57c:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f010c57f:	89 d0                	mov    %edx,%eax
 f010c581:	01 c0                	add    %eax,%eax
 f010c583:	01 d0                	add    %edx,%eax
 f010c585:	c1 e0 03             	shl    $0x3,%eax
 f010c588:	01 c8                	add    %ecx,%eax
-f010c58a:	a3 b8 88 b1 f0       	mov    %eax,0xf0b188b8
-f010c58f:	8b 0d b0 87 b1 f0    	mov    0xf0b187b0,%ecx
+f010c58a:	a3 b8 e8 b1 f0       	mov    %eax,0xf0b1e8b8
+f010c58f:	8b 0d b0 e7 b1 f0    	mov    0xf0b1e7b0,%ecx
 f010c595:	8b 55 f4             	mov    -0xc(%ebp),%edx
 f010c598:	89 d0                	mov    %edx,%eax
 f010c59a:	01 c0                	add    %eax,%eax
@@ -23721,9 +23721,9 @@ f010c59c:	01 d0                	add    %edx,%eax
 f010c59e:	c1 e0 03             	shl    $0x3,%eax
 f010c5a1:	01 c8                	add    %ecx,%eax
 f010c5a3:	c7 40 04 00 00 00 00 	movl   $0x0,0x4(%eax)
-f010c5aa:	a1 c4 88 b1 f0       	mov    0xf0b188c4,%eax
+f010c5aa:	a1 c4 e8 b1 f0       	mov    0xf0b1e8c4,%eax
 f010c5af:	40                   	inc    %eax
-f010c5b0:	a3 c4 88 b1 f0       	mov    %eax,0xf0b188c4
+f010c5b0:	a3 c4 e8 b1 f0       	mov    %eax,0xf0b1e8c4
 {
 	int i;
 	LIST_INIT(&disk_free_frame_list);
@@ -23755,7 +23755,7 @@ f010c5cb:	55                   	push   %ebp
 f010c5cc:	89 e5                	mov    %esp,%ebp
 	return ptr_frame_info - disk_frames_info;
 f010c5ce:	8b 45 08             	mov    0x8(%ebp),%eax
-f010c5d1:	8b 15 b0 87 b1 f0    	mov    0xf0b187b0,%edx
+f010c5d1:	8b 15 b0 e7 b1 f0    	mov    0xf0b1e7b0,%edx
 f010c5d7:	29 d0                	sub    %edx,%eax
 f010c5d9:	c1 f8 03             	sar    $0x3,%eax
 f010c5dc:	89 c2                	mov    %eax,%edx
@@ -23790,7 +23790,7 @@ f010c604:	89 e5                	mov    %esp,%ebp
 f010c606:	83 ec 18             	sub    $0x18,%esp
 	// Fill this function in
 	struct Frame_Info *ptr_frame_info = LIST_FIRST(&disk_free_frame_list);
-f010c609:	a1 b8 88 b1 f0       	mov    0xf0b188b8,%eax
+f010c609:	a1 b8 e8 b1 f0       	mov    0xf0b1e8b8,%eax
 f010c60e:	89 45 f4             	mov    %eax,-0xc(%ebp)
 	if(ptr_frame_info == NULL)
 f010c611:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
@@ -23812,7 +23812,7 @@ f010c635:	89 50 04             	mov    %edx,0x4(%eax)
 f010c638:	eb 0b                	jmp    f010c645 <allocate_disk_frame+0x42>
 f010c63a:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010c63d:	8b 40 04             	mov    0x4(%eax),%eax
-f010c640:	a3 bc 88 b1 f0       	mov    %eax,0xf0b188bc
+f010c640:	a3 bc e8 b1 f0       	mov    %eax,0xf0b1e8bc
 f010c645:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010c648:	8b 40 04             	mov    0x4(%eax),%eax
 f010c64b:	85 c0                	test   %eax,%eax
@@ -23825,14 +23825,14 @@ f010c65a:	89 10                	mov    %edx,(%eax)
 f010c65c:	eb 0a                	jmp    f010c668 <allocate_disk_frame+0x65>
 f010c65e:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010c661:	8b 00                	mov    (%eax),%eax
-f010c663:	a3 b8 88 b1 f0       	mov    %eax,0xf0b188b8
+f010c663:	a3 b8 e8 b1 f0       	mov    %eax,0xf0b1e8b8
 f010c668:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010c66b:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
 f010c671:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f010c674:	c7 40 04 00 00 00 00 	movl   $0x0,0x4(%eax)
-f010c67b:	a1 c4 88 b1 f0       	mov    0xf0b188c4,%eax
+f010c67b:	a1 c4 e8 b1 f0       	mov    0xf0b1e8c4,%eax
 f010c680:	48                   	dec    %eax
-f010c681:	a3 c4 88 b1 f0       	mov    %eax,0xf0b188c4
+f010c681:	a3 c4 e8 b1 f0       	mov    %eax,0xf0b1e8c4
 	initialize_frame_info(ptr_frame_info);
 f010c686:	83 ec 0c             	sub    $0xc,%esp
 f010c689:	ff 75 f4             	pushl  -0xc(%ebp)
@@ -23867,20 +23867,20 @@ f010c6b3:	53                   	push   %ebx
 f010c6b4:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
 f010c6b8:	0f 84 9b 00 00 00    	je     f010c759 <free_disk_frame+0xa9>
 	LIST_INSERT_HEAD(&disk_free_frame_list, &disk_frames_info[dfn]);
-f010c6be:	8b 0d b0 87 b1 f0    	mov    0xf0b187b0,%ecx
+f010c6be:	8b 0d b0 e7 b1 f0    	mov    0xf0b1e7b0,%ecx
 f010c6c4:	8b 55 08             	mov    0x8(%ebp),%edx
 f010c6c7:	89 d0                	mov    %edx,%eax
 f010c6c9:	01 c0                	add    %eax,%eax
 f010c6cb:	01 d0                	add    %edx,%eax
 f010c6cd:	c1 e0 03             	shl    $0x3,%eax
 f010c6d0:	01 c8                	add    %ecx,%eax
-f010c6d2:	8b 15 b8 88 b1 f0    	mov    0xf0b188b8,%edx
+f010c6d2:	8b 15 b8 e8 b1 f0    	mov    0xf0b1e8b8,%edx
 f010c6d8:	89 10                	mov    %edx,(%eax)
 f010c6da:	8b 00                	mov    (%eax),%eax
 f010c6dc:	85 c0                	test   %eax,%eax
 f010c6de:	74 1f                	je     f010c6ff <free_disk_frame+0x4f>
-f010c6e0:	8b 15 b8 88 b1 f0    	mov    0xf0b188b8,%edx
-f010c6e6:	8b 1d b0 87 b1 f0    	mov    0xf0b187b0,%ebx
+f010c6e0:	8b 15 b8 e8 b1 f0    	mov    0xf0b1e8b8,%edx
+f010c6e6:	8b 1d b0 e7 b1 f0    	mov    0xf0b1e7b0,%ebx
 f010c6ec:	8b 4d 08             	mov    0x8(%ebp),%ecx
 f010c6ef:	89 c8                	mov    %ecx,%eax
 f010c6f1:	01 c0                	add    %eax,%eax
@@ -23889,23 +23889,23 @@ f010c6f5:	c1 e0 03             	shl    $0x3,%eax
 f010c6f8:	01 d8                	add    %ebx,%eax
 f010c6fa:	89 42 04             	mov    %eax,0x4(%edx)
 f010c6fd:	eb 19                	jmp    f010c718 <free_disk_frame+0x68>
-f010c6ff:	8b 0d b0 87 b1 f0    	mov    0xf0b187b0,%ecx
+f010c6ff:	8b 0d b0 e7 b1 f0    	mov    0xf0b1e7b0,%ecx
 f010c705:	8b 55 08             	mov    0x8(%ebp),%edx
 f010c708:	89 d0                	mov    %edx,%eax
 f010c70a:	01 c0                	add    %eax,%eax
 f010c70c:	01 d0                	add    %edx,%eax
 f010c70e:	c1 e0 03             	shl    $0x3,%eax
 f010c711:	01 c8                	add    %ecx,%eax
-f010c713:	a3 bc 88 b1 f0       	mov    %eax,0xf0b188bc
-f010c718:	8b 0d b0 87 b1 f0    	mov    0xf0b187b0,%ecx
+f010c713:	a3 bc e8 b1 f0       	mov    %eax,0xf0b1e8bc
+f010c718:	8b 0d b0 e7 b1 f0    	mov    0xf0b1e7b0,%ecx
 f010c71e:	8b 55 08             	mov    0x8(%ebp),%edx
 f010c721:	89 d0                	mov    %edx,%eax
 f010c723:	01 c0                	add    %eax,%eax
 f010c725:	01 d0                	add    %edx,%eax
 f010c727:	c1 e0 03             	shl    $0x3,%eax
 f010c72a:	01 c8                	add    %ecx,%eax
-f010c72c:	a3 b8 88 b1 f0       	mov    %eax,0xf0b188b8
-f010c731:	8b 0d b0 87 b1 f0    	mov    0xf0b187b0,%ecx
+f010c72c:	a3 b8 e8 b1 f0       	mov    %eax,0xf0b1e8b8
+f010c731:	8b 0d b0 e7 b1 f0    	mov    0xf0b1e7b0,%ecx
 f010c737:	8b 55 08             	mov    0x8(%ebp),%edx
 f010c73a:	89 d0                	mov    %edx,%eax
 f010c73c:	01 c0                	add    %eax,%eax
@@ -23913,9 +23913,9 @@ f010c73e:	01 d0                	add    %edx,%eax
 f010c740:	c1 e0 03             	shl    $0x3,%eax
 f010c743:	01 c8                	add    %ecx,%eax
 f010c745:	c7 40 04 00 00 00 00 	movl   $0x0,0x4(%eax)
-f010c74c:	a1 c4 88 b1 f0       	mov    0xf0b188c4,%eax
+f010c74c:	a1 c4 e8 b1 f0       	mov    0xf0b1e8c4,%eax
 f010c751:	40                   	inc    %eax
-f010c752:	a3 c4 88 b1 f0       	mov    %eax,0xf0b188c4
+f010c752:	a3 c4 e8 b1 f0       	mov    %eax,0xf0b1e8c4
 f010c757:	eb 01                	jmp    f010c75a <free_disk_frame+0xaa>
 // Return a frame to the disk_free_frame_list.
 //
@@ -23958,7 +23958,7 @@ f010c782:	89 45 f0             	mov    %eax,-0x10(%ebp)
 f010c785:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010c788:	c1 e8 0c             	shr    $0xc,%eax
 f010c78b:	89 45 ec             	mov    %eax,-0x14(%ebp)
-f010c78e:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f010c78e:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f010c793:	39 45 ec             	cmp    %eax,-0x14(%ebp)
 f010c796:	72 17                	jb     f010c7af <get_disk_page_table+0x52>
 f010c798:	ff 75 f0             	pushl  -0x10(%ebp)
@@ -24008,7 +24008,7 @@ f010c7f6:	89 45 e4             	mov    %eax,-0x1c(%ebp)
 f010c7f9:	8b 45 e4             	mov    -0x1c(%ebp),%eax
 f010c7fc:	c1 e8 0c             	shr    $0xc,%eax
 f010c7ff:	89 45 e0             	mov    %eax,-0x20(%ebp)
-f010c802:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f010c802:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f010c807:	39 45 e0             	cmp    %eax,-0x20(%ebp)
 f010c80a:	72 17                	jb     f010c823 <get_disk_page_table+0xc6>
 f010c80c:	ff 75 e4             	pushl  -0x1c(%ebp)
@@ -24080,7 +24080,7 @@ f010c88f:	88 45 e4             	mov    %al,-0x1c(%ebp)
 f010c892:	80 7d e4 00          	cmpb   $0x0,-0x1c(%ebp)
 f010c896:	74 1c                	je     f010c8b4 <pf_add_empty_env_page+0x2e>
 		return pf_add_env_page(ptr_env, virtual_address, ptr_zero_page);
-f010c898:	a1 c8 87 b1 f0       	mov    0xf0b187c8,%eax
+f010c898:	a1 c8 e7 b1 f0       	mov    0xf0b1e7c8,%eax
 f010c89d:	83 ec 04             	sub    $0x4,%esp
 f010c8a0:	50                   	push   %eax
 f010c8a1:	ff 75 0c             	pushl  0xc(%ebp)
@@ -24337,7 +24337,7 @@ f010cad0:	89 45 f0             	mov    %eax,-0x10(%ebp)
 f010cad3:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010cad6:	c1 e8 0c             	shr    $0xc,%eax
 f010cad9:	89 45 ec             	mov    %eax,-0x14(%ebp)
-f010cadc:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f010cadc:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f010cae1:	39 45 ec             	cmp    %eax,-0x14(%ebp)
 f010cae4:	72 17                	jb     f010cafd <pf_update_env_page+0xda>
 f010cae6:	ff 75 f0             	pushl  -0x10(%ebp)
@@ -24448,7 +24448,7 @@ f010cbb6:	89 45 ec             	mov    %eax,-0x14(%ebp)
 	// affected only by "user code" modifications, not our (FOS kernel) modifications
 	pt_set_page_permissions(curenv, (uint32)virtual_address, 0, PERM_MODIFIED);
 f010cbb9:	8b 55 0c             	mov    0xc(%ebp),%edx
-f010cbbc:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f010cbbc:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f010cbc1:	6a 40                	push   $0x40
 f010cbc3:	6a 00                	push   $0x0
 f010cbc5:	52                   	push   %edx
@@ -24589,7 +24589,7 @@ f010cc95:	89 45 e8             	mov    %eax,-0x18(%ebp)
 f010cc98:	8b 45 e8             	mov    -0x18(%ebp),%eax
 f010cc9b:	c1 e8 0c             	shr    $0xc,%eax
 f010cc9e:	89 45 e4             	mov    %eax,-0x1c(%ebp)
-f010cca1:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f010cca1:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f010cca6:	39 45 e4             	cmp    %eax,-0x1c(%ebp)
 f010cca9:	72 17                	jb     f010ccc2 <pf_free_env+0x75>
 f010ccab:	ff 75 e8             	pushl  -0x18(%ebp)
@@ -24813,7 +24813,7 @@ f010ce38:	89 45 f0             	mov    %eax,-0x10(%ebp)
 f010ce3b:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010ce3e:	c1 e8 0c             	shr    $0xc,%eax
 f010ce41:	89 45 ec             	mov    %eax,-0x14(%ebp)
-f010ce44:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f010ce44:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f010ce49:	39 45 ec             	cmp    %eax,-0x14(%ebp)
 f010ce4c:	72 17                	jb     f010ce65 <get_disk_page_directory+0x8a>
 f010ce4e:	ff 75 f0             	pushl  -0x10(%ebp)
@@ -24906,7 +24906,7 @@ f010cef9:	89 45 e4             	mov    %eax,-0x1c(%ebp)
 f010cefc:	8b 45 e4             	mov    -0x1c(%ebp),%eax
 f010ceff:	c1 e8 0c             	shr    $0xc,%eax
 f010cf02:	89 45 e0             	mov    %eax,-0x20(%ebp)
-f010cf05:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f010cf05:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f010cf0a:	39 45 e0             	cmp    %eax,-0x20(%ebp)
 f010cf0d:	72 17                	jb     f010cf26 <pf_calculate_allocated_pages+0x7c>
 f010cf0f:	ff 75 e4             	pushl  -0x1c(%ebp)
@@ -24990,7 +24990,7 @@ f010cf7e:	83 ec 10             	sub    $0x10,%esp
 f010cf81:	c7 45 f8 00 00 00 00 	movl   $0x0,-0x8(%ebp)
 
 	LIST_FOREACH(ptr, &disk_free_frame_list)
-f010cf88:	a1 b8 88 b1 f0       	mov    0xf0b188b8,%eax
+f010cf88:	a1 b8 e8 b1 f0       	mov    0xf0b1e8b8,%eax
 f010cf8d:	89 45 fc             	mov    %eax,-0x4(%ebp)
 f010cf90:	eb 0b                	jmp    f010cf9d <pf_calculate_free_frames+0x22>
 	{
@@ -25002,7 +25002,7 @@ int pf_calculate_free_frames()
 	uint32 totalFreeDiskFrames = 0 ;
 
 	LIST_FOREACH(ptr, &disk_free_frame_list)
-f010cf95:	a1 c0 88 b1 f0       	mov    0xf0b188c0,%eax
+f010cf95:	a1 c0 e8 b1 f0       	mov    0xf0b1e8c0,%eax
 f010cf9a:	89 45 fc             	mov    %eax,-0x4(%ebp)
 f010cf9d:	83 7d fc 00          	cmpl   $0x0,-0x4(%ebp)
 f010cfa1:	74 07                	je     f010cfaa <pf_calculate_free_frames+0x2f>
@@ -25010,8 +25010,8 @@ f010cfa3:	8b 45 fc             	mov    -0x4(%ebp),%eax
 f010cfa6:	8b 00                	mov    (%eax),%eax
 f010cfa8:	eb 05                	jmp    f010cfaf <pf_calculate_free_frames+0x34>
 f010cfaa:	b8 00 00 00 00       	mov    $0x0,%eax
-f010cfaf:	a3 c0 88 b1 f0       	mov    %eax,0xf0b188c0
-f010cfb4:	a1 c0 88 b1 f0       	mov    0xf0b188c0,%eax
+f010cfaf:	a3 c0 e8 b1 f0       	mov    %eax,0xf0b1e8c0
+f010cfb4:	a1 c0 e8 b1 f0       	mov    0xf0b1e8c0,%eax
 f010cfb9:	85 c0                	test   %eax,%eax
 f010cfbb:	75 d5                	jne    f010cf92 <pf_calculate_free_frames+0x17>
 f010cfbd:	83 7d fc 00          	cmpl   $0x0,-0x4(%ebp)
@@ -25081,7 +25081,7 @@ f010d025:	89 45 f0             	mov    %eax,-0x10(%ebp)
 f010d028:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f010d02b:	c1 e8 0c             	shr    $0xc,%eax
 f010d02e:	89 45 ec             	mov    %eax,-0x14(%ebp)
-f010d031:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f010d031:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f010d036:	39 45 ec             	cmp    %eax,-0x14(%ebp)
 f010d039:	72 17                	jb     f010d052 <get_disk_table_directory+0x8a>
 f010d03b:	ff 75 f0             	pushl  -0x10(%ebp)
@@ -25473,7 +25473,7 @@ f010d2ca:	01 d0                	add    %edx,%eax
 f010d2cc:	01 c0                	add    %eax,%eax
 f010d2ce:	01 d0                	add    %edx,%eax
 f010d2d0:	c1 e0 02             	shl    $0x2,%eax
-f010d2d3:	05 98 7f af f0       	add    $0xf0af7f98,%eax
+f010d2d3:	05 98 df af f0       	add    $0xf0afdf98,%eax
 f010d2d8:	8a 00                	mov    (%eax),%al
 f010d2da:	84 c0                	test   %al,%al
 f010d2dc:	74 08                	je     f010d2e6 <allocate_semaphore_object+0x3e>
@@ -25526,7 +25526,7 @@ f010d315:	01 d0                	add    %edx,%eax
 f010d317:	01 c0                	add    %eax,%eax
 f010d319:	01 d0                	add    %edx,%eax
 f010d31b:	c1 e0 02             	shl    $0x2,%eax
-f010d31e:	8d 90 40 7f af f0    	lea    -0xf5080c0(%eax),%edx
+f010d31e:	8d 90 40 df af f0    	lea    -0xf5020c0(%eax),%edx
 f010d324:	8b 45 08             	mov    0x8(%ebp),%eax
 f010d327:	89 10                	mov    %edx,(%eax)
 	semaphores[semaphoreObjectID].empty = 0;
@@ -25539,7 +25539,7 @@ f010d335:	01 d0                	add    %edx,%eax
 f010d337:	01 c0                	add    %eax,%eax
 f010d339:	01 d0                	add    %edx,%eax
 f010d33b:	c1 e0 02             	shl    $0x2,%eax
-f010d33e:	05 98 7f af f0       	add    $0xf0af7f98,%eax
+f010d33e:	05 98 df af f0       	add    $0xf0afdf98,%eax
 f010d343:	c6 00 00             	movb   $0x0,(%eax)
 
 	return semaphoreObjectID;
@@ -25573,7 +25573,7 @@ f010d366:	01 d0                	add    %edx,%eax
 f010d368:	01 c0                	add    %eax,%eax
 f010d36a:	01 d0                	add    %edx,%eax
 f010d36c:	c1 e0 02             	shl    $0x2,%eax
-f010d36f:	05 98 7f af f0       	add    $0xf0af7f98,%eax
+f010d36f:	05 98 df af f0       	add    $0xf0afdf98,%eax
 f010d374:	8a 00                	mov    (%eax),%al
 f010d376:	84 c0                	test   %al,%al
 f010d378:	75 56                	jne    f010d3d0 <get_semaphore_object_ID+0x85>
@@ -25589,7 +25589,7 @@ f010d386:	01 d0                	add    %edx,%eax
 f010d388:	01 c0                	add    %eax,%eax
 f010d38a:	01 d0                	add    %edx,%eax
 f010d38c:	c1 e0 02             	shl    $0x2,%eax
-f010d38f:	05 40 7f af f0       	add    $0xf0af7f40,%eax
+f010d38f:	05 40 df af f0       	add    $0xf0afdf40,%eax
 f010d394:	8b 00                	mov    (%eax),%eax
 f010d396:	3b 45 08             	cmp    0x8(%ebp),%eax
 f010d399:	75 36                	jne    f010d3d1 <get_semaphore_object_ID+0x86>
@@ -25602,7 +25602,7 @@ f010d3a7:	01 d0                	add    %edx,%eax
 f010d3a9:	01 c0                	add    %eax,%eax
 f010d3ab:	01 d0                	add    %edx,%eax
 f010d3ad:	c1 e0 02             	shl    $0x2,%eax
-f010d3b0:	05 40 7f af f0       	add    $0xf0af7f40,%eax
+f010d3b0:	05 40 df af f0       	add    $0xf0afdf40,%eax
 f010d3b5:	83 c0 04             	add    $0x4,%eax
 f010d3b8:	83 ec 08             	sub    $0x8,%esp
 f010d3bb:	50                   	push   %eax
@@ -25669,7 +25669,7 @@ f010d403:	01 d0                	add    %edx,%eax
 f010d405:	01 c0                	add    %eax,%eax
 f010d407:	01 d0                	add    %edx,%eax
 f010d409:	c1 e0 02             	shl    $0x2,%eax
-f010d40c:	05 40 7f af f0       	add    $0xf0af7f40,%eax
+f010d40c:	05 40 df af f0       	add    $0xf0afdf40,%eax
 f010d411:	83 ec 04             	sub    $0x4,%esp
 f010d414:	6a 5c                	push   $0x5c
 f010d416:	6a 00                	push   $0x0
@@ -25686,7 +25686,7 @@ f010d42d:	01 d0                	add    %edx,%eax
 f010d42f:	01 c0                	add    %eax,%eax
 f010d431:	01 d0                	add    %edx,%eax
 f010d433:	c1 e0 02             	shl    $0x2,%eax
-f010d436:	05 98 7f af f0       	add    $0xf0af7f98,%eax
+f010d436:	05 98 df af f0       	add    $0xf0afdf98,%eax
 f010d43b:	c6 00 01             	movb   $0x1,(%eax)
 	LIST_INIT(&(semaphores[semaphoreObjectID].env_queue));
 f010d43e:	8b 55 08             	mov    0x8(%ebp),%edx
@@ -25698,7 +25698,7 @@ f010d44a:	01 d0                	add    %edx,%eax
 f010d44c:	01 c0                	add    %eax,%eax
 f010d44e:	01 d0                	add    %edx,%eax
 f010d450:	c1 e0 02             	shl    $0x2,%eax
-f010d453:	05 84 7f af f0       	add    $0xf0af7f84,%eax
+f010d453:	05 84 df af f0       	add    $0xf0afdf84,%eax
 f010d458:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
 f010d45e:	8b 55 08             	mov    0x8(%ebp),%edx
 f010d461:	89 d0                	mov    %edx,%eax
@@ -25709,7 +25709,7 @@ f010d46a:	01 d0                	add    %edx,%eax
 f010d46c:	01 c0                	add    %eax,%eax
 f010d46e:	01 d0                	add    %edx,%eax
 f010d470:	c1 e0 02             	shl    $0x2,%eax
-f010d473:	05 88 7f af f0       	add    $0xf0af7f88,%eax
+f010d473:	05 88 df af f0       	add    $0xf0afdf88,%eax
 f010d478:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
 f010d47e:	8b 55 08             	mov    0x8(%ebp),%edx
 f010d481:	89 d0                	mov    %edx,%eax
@@ -25720,7 +25720,7 @@ f010d48a:	01 d0                	add    %edx,%eax
 f010d48c:	01 c0                	add    %eax,%eax
 f010d48e:	01 d0                	add    %edx,%eax
 f010d490:	c1 e0 02             	shl    $0x2,%eax
-f010d493:	05 90 7f af f0       	add    $0xf0af7f90,%eax
+f010d493:	05 90 df af f0       	add    $0xf0afdf90,%eax
 f010d498:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
 
 	return 0;
@@ -25830,7 +25830,7 @@ f010d53c:	01 d0                	add    %edx,%eax
 f010d53e:	8d 14 c5 00 00 00 00 	lea    0x0(,%eax,8),%edx
 f010d545:	01 d0                	add    %edx,%eax
 f010d547:	c1 e0 04             	shl    $0x4,%eax
-f010d54a:	05 2d 20 a9 f0       	add    $0xf0a9202d,%eax
+f010d54a:	05 2d 80 a9 f0       	add    $0xf0a9802d,%eax
 f010d54f:	8a 00                	mov    (%eax),%al
 f010d551:	84 c0                	test   %al,%al
 f010d553:	74 08                	je     f010d55d <allocate_share_object+0x47>
@@ -25885,7 +25885,7 @@ f010d590:	01 d0                	add    %edx,%eax
 f010d592:	8d 14 c5 00 00 00 00 	lea    0x0(,%eax,8),%edx
 f010d599:	01 d0                	add    %edx,%eax
 f010d59b:	c1 e0 04             	shl    $0x4,%eax
-f010d59e:	8d 90 e0 1f a9 f0    	lea    -0xf56e020(%eax),%edx
+f010d59e:	8d 90 e0 7f a9 f0    	lea    -0xf568020(%eax),%edx
 f010d5a4:	8b 45 08             	mov    0x8(%ebp),%eax
 f010d5a7:	89 10                	mov    %edx,(%eax)
 	shares[sharedObjectID].empty = 0;
@@ -25900,7 +25900,7 @@ f010d5b9:	01 d0                	add    %edx,%eax
 f010d5bb:	8d 14 c5 00 00 00 00 	lea    0x0(,%eax,8),%edx
 f010d5c2:	01 d0                	add    %edx,%eax
 f010d5c4:	c1 e0 04             	shl    $0x4,%eax
-f010d5c7:	05 2d 20 a9 f0       	add    $0xf0a9202d,%eax
+f010d5c7:	05 2d 80 a9 f0       	add    $0xf0a9802d,%eax
 f010d5cc:	c6 00 00             	movb   $0x0,(%eax)
 		{
 			panic("Kernel runs out of memory\nCan't create the framesStorage.");
@@ -25920,7 +25920,7 @@ f010d5e1:	8d 14 c5 00 00 00 00 	lea    0x0(,%eax,8),%edx
 f010d5e8:	01 d0                	add    %edx,%eax
 f010d5ea:	c1 e0 04             	shl    $0x4,%eax
 f010d5ed:	83 c0 50             	add    $0x50,%eax
-f010d5f0:	05 e0 1f a9 f0       	add    $0xf0a91fe0,%eax
+f010d5f0:	05 e0 7f a9 f0       	add    $0xf0a97fe0,%eax
 f010d5f5:	83 ec 04             	sub    $0x4,%esp
 f010d5f8:	68 00 10 00 00       	push   $0x1000
 f010d5fd:	6a 00                	push   $0x0
@@ -25962,7 +25962,7 @@ f010d62f:	01 d0                	add    %edx,%eax
 f010d631:	8d 14 c5 00 00 00 00 	lea    0x0(,%eax,8),%edx
 f010d638:	01 d0                	add    %edx,%eax
 f010d63a:	c1 e0 04             	shl    $0x4,%eax
-f010d63d:	05 2d 20 a9 f0       	add    $0xf0a9202d,%eax
+f010d63d:	05 2d 80 a9 f0       	add    $0xf0a9802d,%eax
 f010d642:	8a 00                	mov    (%eax),%al
 f010d644:	84 c0                	test   %al,%al
 f010d646:	75 68                	jne    f010d6b0 <get_share_object_ID+0xa3>
@@ -25981,7 +25981,7 @@ f010d658:	01 d0                	add    %edx,%eax
 f010d65a:	8d 14 c5 00 00 00 00 	lea    0x0(,%eax,8),%edx
 f010d661:	01 d0                	add    %edx,%eax
 f010d663:	c1 e0 04             	shl    $0x4,%eax
-f010d666:	05 e0 1f a9 f0       	add    $0xf0a91fe0,%eax
+f010d666:	05 e0 7f a9 f0       	add    $0xf0a97fe0,%eax
 f010d66b:	8b 00                	mov    (%eax),%eax
 f010d66d:	3b 45 08             	cmp    0x8(%ebp),%eax
 f010d670:	75 3f                	jne    f010d6b1 <get_share_object_ID+0xa4>
@@ -25996,7 +25996,7 @@ f010d682:	01 d0                	add    %edx,%eax
 f010d684:	8d 14 c5 00 00 00 00 	lea    0x0(,%eax,8),%edx
 f010d68b:	01 d0                	add    %edx,%eax
 f010d68d:	c1 e0 04             	shl    $0x4,%eax
-f010d690:	05 e0 1f a9 f0       	add    $0xf0a91fe0,%eax
+f010d690:	05 e0 7f a9 f0       	add    $0xf0a97fe0,%eax
 f010d695:	83 c0 04             	add    $0x4,%eax
 f010d698:	83 ec 08             	sub    $0x8,%esp
 f010d69b:	50                   	push   %eax
@@ -26068,7 +26068,7 @@ f010d6ed:	8d 14 c5 00 00 00 00 	lea    0x0(,%eax,8),%edx
 f010d6f4:	01 d0                	add    %edx,%eax
 f010d6f6:	c1 e0 04             	shl    $0x4,%eax
 f010d6f9:	83 c0 50             	add    $0x50,%eax
-f010d6fc:	05 e0 1f a9 f0       	add    $0xf0a91fe0,%eax
+f010d6fc:	05 e0 7f a9 f0       	add    $0xf0a97fe0,%eax
 f010d701:	83 ec 0c             	sub    $0xc,%esp
 f010d704:	50                   	push   %eax
 f010d705:	e8 79 7b ff ff       	call   f0105283 <clear_frames_storage>
@@ -26088,7 +26088,7 @@ f010d71d:	01 d0                	add    %edx,%eax
 f010d71f:	8d 14 c5 00 00 00 00 	lea    0x0(,%eax,8),%edx
 f010d726:	01 d0                	add    %edx,%eax
 f010d728:	c1 e0 04             	shl    $0x4,%eax
-f010d72b:	05 e0 1f a9 f0       	add    $0xf0a91fe0,%eax
+f010d72b:	05 e0 7f a9 f0       	add    $0xf0a97fe0,%eax
 f010d730:	83 ec 04             	sub    $0x4,%esp
 f010d733:	68 50 10 00 00       	push   $0x1050
 f010d738:	6a 00                	push   $0x0
@@ -26107,7 +26107,7 @@ f010d753:	01 d0                	add    %edx,%eax
 f010d755:	8d 14 c5 00 00 00 00 	lea    0x0(,%eax,8),%edx
 f010d75c:	01 d0                	add    %edx,%eax
 f010d75e:	c1 e0 04             	shl    $0x4,%eax
-f010d761:	05 2d 20 a9 f0       	add    $0xf0a9202d,%eax
+f010d761:	05 2d 80 a9 f0       	add    $0xf0a9802d,%eax
 f010d766:	c6 00 01             	movb   $0x1,(%eax)
 
 	return 0;
@@ -26331,7 +26331,7 @@ f010d8ed:	e8 89 f6 ff ff       	call   f010cf7b <pf_calculate_free_frames>
 f010d8f2:	89 45 d8             	mov    %eax,-0x28(%ebp)
 		uint32 sizeOfKHeap = (KERNEL_HEAP_MAX - ACTUAL_START + 1) ;
 f010d8f5:	c7 45 d4 00 10 00 00 	movl   $0x1000,-0x2c(%ebp)
-f010d8fc:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010d8fc:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010d901:	0f b6 d0             	movzbl %al,%edx
 f010d904:	8b 45 d4             	mov    -0x2c(%ebp),%eax
 f010d907:	01 d0                	add    %edx,%eax
@@ -26344,7 +26344,7 @@ f010d918:	8b 45 d0             	mov    -0x30(%ebp),%eax
 f010d91b:	29 d0                	sub    %edx,%eax
 f010d91d:	89 c1                	mov    %eax,%ecx
 f010d91f:	c7 45 cc 00 10 00 00 	movl   $0x1000,-0x34(%ebp)
-f010d926:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010d926:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010d92b:	0f b6 c0             	movzbl %al,%eax
 f010d92e:	c1 e0 04             	shl    $0x4,%eax
 f010d931:	89 c2                	mov    %eax,%edx
@@ -26420,7 +26420,7 @@ f010d9fc:	89 85 98 fe ff ff    	mov    %eax,-0x168(%ebp)
 f010da02:	8b 85 98 fe ff ff    	mov    -0x168(%ebp),%eax
 f010da08:	89 c1                	mov    %eax,%ecx
 f010da0a:	c7 45 c0 00 10 00 00 	movl   $0x1000,-0x40(%ebp)
-f010da11:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010da11:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010da16:	0f b6 d0             	movzbl %al,%edx
 f010da19:	8b 45 c0             	mov    -0x40(%ebp),%eax
 f010da1c:	01 d0                	add    %edx,%eax
@@ -26433,7 +26433,7 @@ f010da2d:	8b 45 bc             	mov    -0x44(%ebp),%eax
 f010da30:	29 d0                	sub    %edx,%eax
 f010da32:	89 c3                	mov    %eax,%ebx
 f010da34:	c7 45 b8 00 10 00 00 	movl   $0x1000,-0x48(%ebp)
-f010da3b:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010da3b:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010da40:	0f b6 c0             	movzbl %al,%eax
 f010da43:	c1 e0 04             	shl    $0x4,%eax
 f010da46:	89 c2                	mov    %eax,%edx
@@ -26494,7 +26494,7 @@ f010dae5:	89 85 9c fe ff ff    	mov    %eax,-0x164(%ebp)
 f010daeb:	8b 85 9c fe ff ff    	mov    -0x164(%ebp),%eax
 f010daf1:	89 c1                	mov    %eax,%ecx
 f010daf3:	c7 45 b0 00 10 00 00 	movl   $0x1000,-0x50(%ebp)
-f010dafa:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010dafa:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010daff:	0f b6 d0             	movzbl %al,%edx
 f010db02:	8b 45 b0             	mov    -0x50(%ebp),%eax
 f010db05:	01 d0                	add    %edx,%eax
@@ -26507,7 +26507,7 @@ f010db16:	8b 45 ac             	mov    -0x54(%ebp),%eax
 f010db19:	29 d0                	sub    %edx,%eax
 f010db1b:	89 c3                	mov    %eax,%ebx
 f010db1d:	c7 45 a8 00 10 00 00 	movl   $0x1000,-0x58(%ebp)
-f010db24:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010db24:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010db29:	0f b6 c0             	movzbl %al,%eax
 f010db2c:	c1 e0 04             	shl    $0x4,%eax
 f010db2f:	89 c2                	mov    %eax,%edx
@@ -26568,7 +26568,7 @@ f010dbce:	89 85 a0 fe ff ff    	mov    %eax,-0x160(%ebp)
 f010dbd4:	8b 85 a0 fe ff ff    	mov    -0x160(%ebp),%eax
 f010dbda:	89 c1                	mov    %eax,%ecx
 f010dbdc:	c7 45 a0 00 10 00 00 	movl   $0x1000,-0x60(%ebp)
-f010dbe3:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010dbe3:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010dbe8:	0f b6 d0             	movzbl %al,%edx
 f010dbeb:	8b 45 a0             	mov    -0x60(%ebp),%eax
 f010dbee:	01 d0                	add    %edx,%eax
@@ -26581,7 +26581,7 @@ f010dbff:	8b 45 9c             	mov    -0x64(%ebp),%eax
 f010dc02:	29 d0                	sub    %edx,%eax
 f010dc04:	89 c3                	mov    %eax,%ebx
 f010dc06:	c7 45 98 00 10 00 00 	movl   $0x1000,-0x68(%ebp)
-f010dc0d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010dc0d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010dc12:	0f b6 c0             	movzbl %al,%eax
 f010dc15:	c1 e0 04             	shl    $0x4,%eax
 f010dc18:	89 c2                	mov    %eax,%edx
@@ -26642,7 +26642,7 @@ f010dcb5:	89 85 a4 fe ff ff    	mov    %eax,-0x15c(%ebp)
 f010dcbb:	8b 85 a4 fe ff ff    	mov    -0x15c(%ebp),%eax
 f010dcc1:	89 c1                	mov    %eax,%ecx
 f010dcc3:	c7 45 90 00 10 00 00 	movl   $0x1000,-0x70(%ebp)
-f010dcca:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010dcca:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010dccf:	0f b6 d0             	movzbl %al,%edx
 f010dcd2:	8b 45 90             	mov    -0x70(%ebp),%eax
 f010dcd5:	01 d0                	add    %edx,%eax
@@ -26655,7 +26655,7 @@ f010dce6:	8b 45 8c             	mov    -0x74(%ebp),%eax
 f010dce9:	29 d0                	sub    %edx,%eax
 f010dceb:	89 c3                	mov    %eax,%ebx
 f010dced:	c7 45 88 00 10 00 00 	movl   $0x1000,-0x78(%ebp)
-f010dcf4:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010dcf4:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010dcf9:	0f b6 c0             	movzbl %al,%eax
 f010dcfc:	c1 e0 04             	shl    $0x4,%eax
 f010dcff:	89 c2                	mov    %eax,%edx
@@ -26716,7 +26716,7 @@ f010dd9c:	89 85 a8 fe ff ff    	mov    %eax,-0x158(%ebp)
 f010dda2:	8b 85 a8 fe ff ff    	mov    -0x158(%ebp),%eax
 f010dda8:	89 c1                	mov    %eax,%ecx
 f010ddaa:	c7 45 80 00 10 00 00 	movl   $0x1000,-0x80(%ebp)
-f010ddb1:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010ddb1:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010ddb6:	0f b6 d0             	movzbl %al,%edx
 f010ddb9:	8b 45 80             	mov    -0x80(%ebp),%eax
 f010ddbc:	01 d0                	add    %edx,%eax
@@ -26730,7 +26730,7 @@ f010ddd9:	29 d0                	sub    %edx,%eax
 f010dddb:	89 c3                	mov    %eax,%ebx
 f010dddd:	c7 85 78 ff ff ff 00 	movl   $0x1000,-0x88(%ebp)
 f010dde4:	10 00 00 
-f010dde7:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010dde7:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010ddec:	0f b6 c0             	movzbl %al,%eax
 f010ddef:	c1 e0 04             	shl    $0x4,%eax
 f010ddf2:	89 c2                	mov    %eax,%edx
@@ -26792,7 +26792,7 @@ f010dea4:	8b 85 ac fe ff ff    	mov    -0x154(%ebp),%eax
 f010deaa:	89 c1                	mov    %eax,%ecx
 f010deac:	c7 85 70 ff ff ff 00 	movl   $0x1000,-0x90(%ebp)
 f010deb3:	10 00 00 
-f010deb6:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010deb6:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010debb:	0f b6 d0             	movzbl %al,%edx
 f010debe:	8b 85 70 ff ff ff    	mov    -0x90(%ebp),%eax
 f010dec4:	01 d0                	add    %edx,%eax
@@ -26806,7 +26806,7 @@ f010dee4:	29 d0                	sub    %edx,%eax
 f010dee6:	89 c3                	mov    %eax,%ebx
 f010dee8:	c7 85 68 ff ff ff 00 	movl   $0x1000,-0x98(%ebp)
 f010deef:	10 00 00 
-f010def2:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010def2:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010def7:	0f b6 c0             	movzbl %al,%eax
 f010defa:	c1 e0 04             	shl    $0x4,%eax
 f010defd:	89 c2                	mov    %eax,%edx
@@ -26868,7 +26868,7 @@ f010dfb1:	8b 85 b0 fe ff ff    	mov    -0x150(%ebp),%eax
 f010dfb7:	89 c1                	mov    %eax,%ecx
 f010dfb9:	c7 85 60 ff ff ff 00 	movl   $0x1000,-0xa0(%ebp)
 f010dfc0:	10 00 00 
-f010dfc3:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010dfc3:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010dfc8:	0f b6 d0             	movzbl %al,%edx
 f010dfcb:	8b 85 60 ff ff ff    	mov    -0xa0(%ebp),%eax
 f010dfd1:	01 d0                	add    %edx,%eax
@@ -26882,7 +26882,7 @@ f010dff1:	29 d0                	sub    %edx,%eax
 f010dff3:	89 c3                	mov    %eax,%ebx
 f010dff5:	c7 85 58 ff ff ff 00 	movl   $0x1000,-0xa8(%ebp)
 f010dffc:	10 00 00 
-f010dfff:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010dfff:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010e004:	0f b6 c0             	movzbl %al,%eax
 f010e007:	c1 e0 04             	shl    $0x4,%eax
 f010e00a:	89 c2                	mov    %eax,%edx
@@ -26944,7 +26944,7 @@ f010e0be:	8b 85 b4 fe ff ff    	mov    -0x14c(%ebp),%eax
 f010e0c4:	89 c1                	mov    %eax,%ecx
 f010e0c6:	c7 85 50 ff ff ff 00 	movl   $0x1000,-0xb0(%ebp)
 f010e0cd:	10 00 00 
-f010e0d0:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010e0d0:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010e0d5:	0f b6 d0             	movzbl %al,%edx
 f010e0d8:	8b 85 50 ff ff ff    	mov    -0xb0(%ebp),%eax
 f010e0de:	01 d0                	add    %edx,%eax
@@ -26958,7 +26958,7 @@ f010e0fe:	29 d0                	sub    %edx,%eax
 f010e100:	89 c3                	mov    %eax,%ebx
 f010e102:	c7 85 48 ff ff ff 00 	movl   $0x1000,-0xb8(%ebp)
 f010e109:	10 00 00 
-f010e10c:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010e10c:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010e111:	0f b6 c0             	movzbl %al,%eax
 f010e114:	c1 e0 04             	shl    $0x4,%eax
 f010e117:	89 c2                	mov    %eax,%edx
@@ -27358,7 +27358,7 @@ f010e619:	89 45 d8             	mov    %eax,-0x28(%ebp)
 		uint32 restOfKHeap = (KERNEL_HEAP_MAX - ACTUAL_START + 2*PAGE_SIZE) - (2*Mega+2*Mega+4*kilo+4*kilo+8*kilo+3*Mega+6*Mega+16*kilo) ;
 f010e61c:	c7 85 10 ff ff ff 00 	movl   $0x1000,-0xf0(%ebp)
 f010e623:	10 00 00 
-f010e626:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010e626:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010e62b:	0f b6 d0             	movzbl %al,%edx
 f010e62e:	8b 85 10 ff ff ff    	mov    -0xf0(%ebp),%eax
 f010e634:	01 d0                	add    %edx,%eax
@@ -27372,7 +27372,7 @@ f010e654:	29 d0                	sub    %edx,%eax
 f010e656:	89 c1                	mov    %eax,%ecx
 f010e658:	c7 85 08 ff ff ff 00 	movl   $0x1000,-0xf8(%ebp)
 f010e65f:	10 00 00 
-f010e662:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010e662:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010e667:	0f b6 c0             	movzbl %al,%eax
 f010e66a:	c1 e0 04             	shl    $0x4,%eax
 f010e66d:	89 c2                	mov    %eax,%edx
@@ -27441,7 +27441,7 @@ f010e741:	89 85 fc fe ff ff    	mov    %eax,-0x104(%ebp)
 		for (va = ACTUAL_START; va < lastAllocAddress; va+=PAGE_SIZE)
 f010e747:	c7 85 f8 fe ff ff 00 	movl   $0x1000,-0x108(%ebp)
 f010e74e:	10 00 00 
-f010e751:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010e751:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010e756:	0f b6 d0             	movzbl %al,%edx
 f010e759:	8b 85 f8 fe ff ff    	mov    -0x108(%ebp),%eax
 f010e75f:	01 d0                	add    %edx,%eax
@@ -27455,7 +27455,7 @@ f010e77f:	29 d0                	sub    %edx,%eax
 f010e781:	89 c1                	mov    %eax,%ecx
 f010e783:	c7 85 f0 fe ff ff 00 	movl   $0x1000,-0x110(%ebp)
 f010e78a:	10 00 00 
-f010e78d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010e78d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010e792:	0f b6 c0             	movzbl %al,%eax
 f010e795:	c1 e0 04             	shl    $0x4,%eax
 f010e798:	89 c2                	mov    %eax,%edx
@@ -27476,7 +27476,7 @@ f010e7cc:	eb 6b                	jmp    f010e839 <test_kmalloc+0xfcd>
 			unsigned int * table;
 			get_page_table(ptr_page_directory, (void*)va, &table);
 f010e7ce:	8b 55 f4             	mov    -0xc(%ebp),%edx
-f010e7d1:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f010e7d1:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f010e7d6:	83 ec 04             	sub    $0x4,%esp
 f010e7d9:	8d 8d 94 fe ff ff    	lea    -0x16c(%ebp),%ecx
 f010e7df:	51                   	push   %ecx
@@ -27617,7 +27617,7 @@ f010e90b:	7e db                	jle    f010e8e8 <test_kmalloc_nextfit+0x78>
 	}
 	ptr_allocations[79] = kmalloc(2*Mega - PAGE_SIZE - INITIAL_KHEAB_ALLOCATIONS);
 f010e90d:	c7 45 e8 00 10 00 00 	movl   $0x1000,-0x18(%ebp)
-f010e914:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010e914:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010e919:	0f b6 d0             	movzbl %al,%edx
 f010e91c:	8b 45 e8             	mov    -0x18(%ebp),%eax
 f010e91f:	01 d0                	add    %edx,%eax
@@ -27630,7 +27630,7 @@ f010e930:	8b 45 e4             	mov    -0x1c(%ebp),%eax
 f010e933:	29 d0                	sub    %edx,%eax
 f010e935:	89 c1                	mov    %eax,%ecx
 f010e937:	c7 45 e0 00 10 00 00 	movl   $0x1000,-0x20(%ebp)
-f010e93e:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010e93e:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010e943:	0f b6 c0             	movzbl %al,%eax
 f010e946:	c1 e0 04             	shl    $0x4,%eax
 f010e949:	89 c2                	mov    %eax,%edx
@@ -27659,7 +27659,7 @@ f010e97b:	89 85 64 fd ff ff    	mov    %eax,-0x29c(%ebp)
 f010e981:	8b 85 28 fc ff ff    	mov    -0x3d8(%ebp),%eax
 f010e987:	89 c1                	mov    %eax,%ecx
 f010e989:	c7 45 d8 00 10 00 00 	movl   $0x1000,-0x28(%ebp)
-f010e990:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010e990:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010e995:	0f b6 d0             	movzbl %al,%edx
 f010e998:	8b 45 d8             	mov    -0x28(%ebp),%eax
 f010e99b:	01 d0                	add    %edx,%eax
@@ -27672,7 +27672,7 @@ f010e9ac:	8b 45 d4             	mov    -0x2c(%ebp),%eax
 f010e9af:	29 d0                	sub    %edx,%eax
 f010e9b1:	89 c3                	mov    %eax,%ebx
 f010e9b3:	c7 45 d0 00 10 00 00 	movl   $0x1000,-0x30(%ebp)
-f010e9ba:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010e9ba:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010e9bf:	0f b6 c0             	movzbl %al,%eax
 f010e9c2:	c1 e0 04             	shl    $0x4,%eax
 f010e9c5:	89 c2                	mov    %eax,%edx
@@ -27693,7 +27693,7 @@ f010e9e9:	0f 85 4f 03 00 00    	jne    f010ed3e <test_kmalloc_nextfit+0x4ce>
 f010e9ef:	8b 85 30 fc ff ff    	mov    -0x3d0(%ebp),%eax
 f010e9f5:	89 c1                	mov    %eax,%ecx
 f010e9f7:	c7 45 c8 00 10 00 00 	movl   $0x1000,-0x38(%ebp)
-f010e9fe:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010e9fe:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010ea03:	0f b6 d0             	movzbl %al,%edx
 f010ea06:	8b 45 c8             	mov    -0x38(%ebp),%eax
 f010ea09:	01 d0                	add    %edx,%eax
@@ -27706,7 +27706,7 @@ f010ea1a:	8b 45 c4             	mov    -0x3c(%ebp),%eax
 f010ea1d:	29 d0                	sub    %edx,%eax
 f010ea1f:	89 c3                	mov    %eax,%ebx
 f010ea21:	c7 45 c0 00 10 00 00 	movl   $0x1000,-0x40(%ebp)
-f010ea28:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010ea28:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010ea2d:	0f b6 c0             	movzbl %al,%eax
 f010ea30:	c1 e0 04             	shl    $0x4,%eax
 f010ea33:	89 c2                	mov    %eax,%edx
@@ -27734,7 +27734,7 @@ f010ea57:	0f 85 e1 02 00 00    	jne    f010ed3e <test_kmalloc_nextfit+0x4ce>
 f010ea5d:	8b 85 48 fc ff ff    	mov    -0x3b8(%ebp),%eax
 f010ea63:	89 c1                	mov    %eax,%ecx
 f010ea65:	c7 45 b8 00 10 00 00 	movl   $0x1000,-0x48(%ebp)
-f010ea6c:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010ea6c:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010ea71:	0f b6 d0             	movzbl %al,%edx
 f010ea74:	8b 45 b8             	mov    -0x48(%ebp),%eax
 f010ea77:	01 d0                	add    %edx,%eax
@@ -27747,7 +27747,7 @@ f010ea88:	8b 45 b4             	mov    -0x4c(%ebp),%eax
 f010ea8b:	29 d0                	sub    %edx,%eax
 f010ea8d:	89 c3                	mov    %eax,%ebx
 f010ea8f:	c7 45 b0 00 10 00 00 	movl   $0x1000,-0x50(%ebp)
-f010ea96:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010ea96:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010ea9b:	0f b6 c0             	movzbl %al,%eax
 f010ea9e:	c1 e0 04             	shl    $0x4,%eax
 f010eaa1:	89 c2                	mov    %eax,%edx
@@ -27775,7 +27775,7 @@ f010eac5:	0f 85 73 02 00 00    	jne    f010ed3e <test_kmalloc_nextfit+0x4ce>
 f010eacb:	8b 85 50 fc ff ff    	mov    -0x3b0(%ebp),%eax
 f010ead1:	89 c1                	mov    %eax,%ecx
 f010ead3:	c7 45 a8 00 10 00 00 	movl   $0x1000,-0x58(%ebp)
-f010eada:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010eada:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010eadf:	0f b6 d0             	movzbl %al,%edx
 f010eae2:	8b 45 a8             	mov    -0x58(%ebp),%eax
 f010eae5:	01 d0                	add    %edx,%eax
@@ -27788,7 +27788,7 @@ f010eaf6:	8b 45 a4             	mov    -0x5c(%ebp),%eax
 f010eaf9:	29 d0                	sub    %edx,%eax
 f010eafb:	89 c3                	mov    %eax,%ebx
 f010eafd:	c7 45 a0 00 10 00 00 	movl   $0x1000,-0x60(%ebp)
-f010eb04:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010eb04:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010eb09:	0f b6 c0             	movzbl %al,%eax
 f010eb0c:	c1 e0 04             	shl    $0x4,%eax
 f010eb0f:	89 c2                	mov    %eax,%edx
@@ -27816,7 +27816,7 @@ f010eb33:	0f 85 05 02 00 00    	jne    f010ed3e <test_kmalloc_nextfit+0x4ce>
 f010eb39:	8b 85 64 fc ff ff    	mov    -0x39c(%ebp),%eax
 f010eb3f:	89 c1                	mov    %eax,%ecx
 f010eb41:	c7 45 98 00 10 00 00 	movl   $0x1000,-0x68(%ebp)
-f010eb48:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010eb48:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010eb4d:	0f b6 d0             	movzbl %al,%edx
 f010eb50:	8b 45 98             	mov    -0x68(%ebp),%eax
 f010eb53:	01 d0                	add    %edx,%eax
@@ -27829,7 +27829,7 @@ f010eb64:	8b 45 94             	mov    -0x6c(%ebp),%eax
 f010eb67:	29 d0                	sub    %edx,%eax
 f010eb69:	89 c3                	mov    %eax,%ebx
 f010eb6b:	c7 45 90 00 10 00 00 	movl   $0x1000,-0x70(%ebp)
-f010eb72:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010eb72:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010eb77:	0f b6 c0             	movzbl %al,%eax
 f010eb7a:	c1 e0 04             	shl    $0x4,%eax
 f010eb7d:	89 c2                	mov    %eax,%edx
@@ -27857,7 +27857,7 @@ f010eba1:	0f 85 97 01 00 00    	jne    f010ed3e <test_kmalloc_nextfit+0x4ce>
 f010eba7:	8b 85 78 fc ff ff    	mov    -0x388(%ebp),%eax
 f010ebad:	89 c1                	mov    %eax,%ecx
 f010ebaf:	c7 45 88 00 10 00 00 	movl   $0x1000,-0x78(%ebp)
-f010ebb6:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010ebb6:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010ebbb:	0f b6 d0             	movzbl %al,%edx
 f010ebbe:	8b 45 88             	mov    -0x78(%ebp),%eax
 f010ebc1:	01 d0                	add    %edx,%eax
@@ -27870,7 +27870,7 @@ f010ebd2:	8b 45 84             	mov    -0x7c(%ebp),%eax
 f010ebd5:	29 d0                	sub    %edx,%eax
 f010ebd7:	89 c3                	mov    %eax,%ebx
 f010ebd9:	c7 45 80 00 10 00 00 	movl   $0x1000,-0x80(%ebp)
-f010ebe0:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010ebe0:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010ebe5:	0f b6 c0             	movzbl %al,%eax
 f010ebe8:	c1 e0 04             	shl    $0x4,%eax
 f010ebeb:	89 c2                	mov    %eax,%edx
@@ -27899,7 +27899,7 @@ f010ec1e:	8b 85 8c fc ff ff    	mov    -0x374(%ebp),%eax
 f010ec24:	89 c1                	mov    %eax,%ecx
 f010ec26:	c7 85 78 ff ff ff 00 	movl   $0x1000,-0x88(%ebp)
 f010ec2d:	10 00 00 
-f010ec30:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010ec30:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010ec35:	0f b6 d0             	movzbl %al,%edx
 f010ec38:	8b 85 78 ff ff ff    	mov    -0x88(%ebp),%eax
 f010ec3e:	01 d0                	add    %edx,%eax
@@ -27913,7 +27913,7 @@ f010ec5e:	29 d0                	sub    %edx,%eax
 f010ec60:	89 c3                	mov    %eax,%ebx
 f010ec62:	c7 85 70 ff ff ff 00 	movl   $0x1000,-0x90(%ebp)
 f010ec69:	10 00 00 
-f010ec6c:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010ec6c:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010ec71:	0f b6 c0             	movzbl %al,%eax
 f010ec74:	c1 e0 04             	shl    $0x4,%eax
 f010ec77:	89 c2                	mov    %eax,%edx
@@ -27942,7 +27942,7 @@ f010ecb0:	8b 85 64 fd ff ff    	mov    -0x29c(%ebp),%eax
 f010ecb6:	89 c1                	mov    %eax,%ecx
 f010ecb8:	c7 85 68 ff ff ff 00 	movl   $0x1000,-0x98(%ebp)
 f010ecbf:	10 00 00 
-f010ecc2:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010ecc2:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010ecc7:	0f b6 d0             	movzbl %al,%edx
 f010ecca:	8b 85 68 ff ff ff    	mov    -0x98(%ebp),%eax
 f010ecd0:	01 d0                	add    %edx,%eax
@@ -27956,7 +27956,7 @@ f010ecf0:	29 d0                	sub    %edx,%eax
 f010ecf2:	89 c3                	mov    %eax,%ebx
 f010ecf4:	c7 85 60 ff ff ff 00 	movl   $0x1000,-0xa0(%ebp)
 f010ecfb:	10 00 00 
-f010ecfe:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010ecfe:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010ed03:	0f b6 c0             	movzbl %al,%eax
 f010ed06:	c1 e0 04             	shl    $0x4,%eax
 f010ed09:	89 c2                	mov    %eax,%edx
@@ -28003,7 +28003,7 @@ f010ed7e:	29 c3                	sub    %eax,%ebx
 f010ed80:	89 d9                	mov    %ebx,%ecx
 f010ed82:	c7 85 58 ff ff ff 00 	movl   $0x1000,-0xa8(%ebp)
 f010ed89:	10 00 00 
-f010ed8c:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010ed8c:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010ed91:	0f b6 d0             	movzbl %al,%edx
 f010ed94:	8b 85 58 ff ff ff    	mov    -0xa8(%ebp),%eax
 f010ed9a:	01 d0                	add    %edx,%eax
@@ -28017,7 +28017,7 @@ f010edba:	29 d0                	sub    %edx,%eax
 f010edbc:	89 c3                	mov    %eax,%ebx
 f010edbe:	c7 85 50 ff ff ff 00 	movl   $0x1000,-0xb0(%ebp)
 f010edc5:	10 00 00 
-f010edc8:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010edc8:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010edcd:	0f b6 c0             	movzbl %al,%eax
 f010edd0:	c1 e0 04             	shl    $0x4,%eax
 f010edd3:	89 c2                	mov    %eax,%edx
@@ -28129,7 +28129,7 @@ f010ef15:	89 d1                	mov    %edx,%ecx
 f010ef17:	29 c1                	sub    %eax,%ecx
 f010ef19:	c7 85 48 ff ff ff 00 	movl   $0x1000,-0xb8(%ebp)
 f010ef20:	10 00 00 
-f010ef23:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010ef23:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010ef28:	0f b6 d0             	movzbl %al,%edx
 f010ef2b:	8b 85 48 ff ff ff    	mov    -0xb8(%ebp),%eax
 f010ef31:	01 d0                	add    %edx,%eax
@@ -28143,7 +28143,7 @@ f010ef51:	29 d0                	sub    %edx,%eax
 f010ef53:	89 c3                	mov    %eax,%ebx
 f010ef55:	c7 85 40 ff ff ff 00 	movl   $0x1000,-0xc0(%ebp)
 f010ef5c:	10 00 00 
-f010ef5f:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010ef5f:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010ef64:	0f b6 c0             	movzbl %al,%eax
 f010ef67:	c1 e0 04             	shl    $0x4,%eax
 f010ef6a:	89 c2                	mov    %eax,%edx
@@ -28185,7 +28185,7 @@ f010efdd:	89 85 38 ff ff ff    	mov    %eax,-0xc8(%ebp)
 	if((uint32)tempAddress != ACTUAL_START)
 f010efe3:	c7 85 34 ff ff ff 00 	movl   $0x1000,-0xcc(%ebp)
 f010efea:	10 00 00 
-f010efed:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010efed:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010eff2:	0f b6 d0             	movzbl %al,%edx
 f010eff5:	8b 85 34 ff ff ff    	mov    -0xcc(%ebp),%eax
 f010effb:	01 d0                	add    %edx,%eax
@@ -28199,7 +28199,7 @@ f010f01b:	29 d0                	sub    %edx,%eax
 f010f01d:	89 c1                	mov    %eax,%ecx
 f010f01f:	c7 85 2c ff ff ff 00 	movl   $0x1000,-0xd4(%ebp)
 f010f026:	10 00 00 
-f010f029:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010f029:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010f02e:	0f b6 c0             	movzbl %al,%eax
 f010f031:	c1 e0 04             	shl    $0x4,%eax
 f010f034:	89 c2                	mov    %eax,%edx
@@ -28260,7 +28260,7 @@ f010f0f2:	89 85 38 ff ff ff    	mov    %eax,-0xc8(%ebp)
 	if((uint32)tempAddress != ACTUAL_START + 0x00100000)
 f010f0f8:	c7 85 24 ff ff ff 00 	movl   $0x1000,-0xdc(%ebp)
 f010f0ff:	10 00 00 
-f010f102:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010f102:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010f107:	0f b6 d0             	movzbl %al,%edx
 f010f10a:	8b 85 24 ff ff ff    	mov    -0xdc(%ebp),%eax
 f010f110:	01 d0                	add    %edx,%eax
@@ -28274,7 +28274,7 @@ f010f130:	29 d0                	sub    %edx,%eax
 f010f132:	89 c1                	mov    %eax,%ecx
 f010f134:	c7 85 1c ff ff ff 00 	movl   $0x1000,-0xe4(%ebp)
 f010f13b:	10 00 00 
-f010f13e:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010f13e:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010f143:	0f b6 c0             	movzbl %al,%eax
 f010f146:	c1 e0 04             	shl    $0x4,%eax
 f010f149:	89 c2                	mov    %eax,%edx
@@ -28335,7 +28335,7 @@ f010f205:	89 85 38 ff ff ff    	mov    %eax,-0xc8(%ebp)
 	if((uint32)tempAddress != ACTUAL_START + 0x01400000)
 f010f20b:	c7 85 14 ff ff ff 00 	movl   $0x1000,-0xec(%ebp)
 f010f212:	10 00 00 
-f010f215:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010f215:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010f21a:	0f b6 d0             	movzbl %al,%edx
 f010f21d:	8b 85 14 ff ff ff    	mov    -0xec(%ebp),%eax
 f010f223:	01 d0                	add    %edx,%eax
@@ -28349,7 +28349,7 @@ f010f243:	29 d0                	sub    %edx,%eax
 f010f245:	89 c1                	mov    %eax,%ecx
 f010f247:	c7 85 0c ff ff ff 00 	movl   $0x1000,-0xf4(%ebp)
 f010f24e:	10 00 00 
-f010f251:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010f251:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010f256:	0f b6 c0             	movzbl %al,%eax
 f010f259:	c1 e0 04             	shl    $0x4,%eax
 f010f25c:	89 c2                	mov    %eax,%edx
@@ -28410,7 +28410,7 @@ f010f31a:	89 85 38 ff ff ff    	mov    %eax,-0xc8(%ebp)
 	if((uint32)tempAddress != ACTUAL_START + 0x01900000)
 f010f320:	c7 85 04 ff ff ff 00 	movl   $0x1000,-0xfc(%ebp)
 f010f327:	10 00 00 
-f010f32a:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010f32a:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010f32f:	0f b6 d0             	movzbl %al,%edx
 f010f332:	8b 85 04 ff ff ff    	mov    -0xfc(%ebp),%eax
 f010f338:	01 d0                	add    %edx,%eax
@@ -28424,7 +28424,7 @@ f010f358:	29 d0                	sub    %edx,%eax
 f010f35a:	89 c1                	mov    %eax,%ecx
 f010f35c:	c7 85 fc fe ff ff 00 	movl   $0x1000,-0x104(%ebp)
 f010f363:	10 00 00 
-f010f366:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010f366:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010f36b:	0f b6 c0             	movzbl %al,%eax
 f010f36e:	c1 e0 04             	shl    $0x4,%eax
 f010f371:	89 c2                	mov    %eax,%edx
@@ -28520,7 +28520,7 @@ f010f49e:	89 85 38 ff ff ff    	mov    %eax,-0xc8(%ebp)
 	if((uint32)tempAddress != ACTUAL_START + 0x01E00000)
 f010f4a4:	c7 85 f4 fe ff ff 00 	movl   $0x1000,-0x10c(%ebp)
 f010f4ab:	10 00 00 
-f010f4ae:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010f4ae:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010f4b3:	0f b6 d0             	movzbl %al,%edx
 f010f4b6:	8b 85 f4 fe ff ff    	mov    -0x10c(%ebp),%eax
 f010f4bc:	01 d0                	add    %edx,%eax
@@ -28534,7 +28534,7 @@ f010f4dc:	29 d0                	sub    %edx,%eax
 f010f4de:	89 c1                	mov    %eax,%ecx
 f010f4e0:	c7 85 ec fe ff ff 00 	movl   $0x1000,-0x114(%ebp)
 f010f4e7:	10 00 00 
-f010f4ea:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010f4ea:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010f4ef:	0f b6 c0             	movzbl %al,%eax
 f010f4f2:	c1 e0 04             	shl    $0x4,%eax
 f010f4f5:	89 c2                	mov    %eax,%edx
@@ -28595,7 +28595,7 @@ f010f5b1:	89 85 38 ff ff ff    	mov    %eax,-0xc8(%ebp)
 	if((uint32)tempAddress != ACTUAL_START + 0x01E01000)
 f010f5b7:	c7 85 e4 fe ff ff 00 	movl   $0x1000,-0x11c(%ebp)
 f010f5be:	10 00 00 
-f010f5c1:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010f5c1:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010f5c6:	0f b6 d0             	movzbl %al,%edx
 f010f5c9:	8b 85 e4 fe ff ff    	mov    -0x11c(%ebp),%eax
 f010f5cf:	01 d0                	add    %edx,%eax
@@ -28609,7 +28609,7 @@ f010f5ef:	29 d0                	sub    %edx,%eax
 f010f5f1:	89 c1                	mov    %eax,%ecx
 f010f5f3:	c7 85 dc fe ff ff 00 	movl   $0x1000,-0x124(%ebp)
 f010f5fa:	10 00 00 
-f010f5fd:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010f5fd:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010f602:	0f b6 c0             	movzbl %al,%eax
 f010f605:	c1 e0 04             	shl    $0x4,%eax
 f010f608:	89 c2                	mov    %eax,%edx
@@ -28671,7 +28671,7 @@ f010f6c6:	89 85 38 ff ff ff    	mov    %eax,-0xc8(%ebp)
 	if((uint32)tempAddress != ACTUAL_START + 0x02800000)
 f010f6cc:	c7 85 d4 fe ff ff 00 	movl   $0x1000,-0x12c(%ebp)
 f010f6d3:	10 00 00 
-f010f6d6:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010f6d6:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010f6db:	0f b6 d0             	movzbl %al,%edx
 f010f6de:	8b 85 d4 fe ff ff    	mov    -0x12c(%ebp),%eax
 f010f6e4:	01 d0                	add    %edx,%eax
@@ -28685,7 +28685,7 @@ f010f704:	29 d0                	sub    %edx,%eax
 f010f706:	89 c1                	mov    %eax,%ecx
 f010f708:	c7 85 cc fe ff ff 00 	movl   $0x1000,-0x134(%ebp)
 f010f70f:	10 00 00 
-f010f712:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010f712:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010f717:	0f b6 c0             	movzbl %al,%eax
 f010f71a:	c1 e0 04             	shl    $0x4,%eax
 f010f71d:	89 c2                	mov    %eax,%edx
@@ -28754,7 +28754,7 @@ f010f7eb:	89 85 38 ff ff ff    	mov    %eax,-0xc8(%ebp)
 	if((uint32)tempAddress != ACTUAL_START + 0x00400000)
 f010f7f1:	c7 85 c4 fe ff ff 00 	movl   $0x1000,-0x13c(%ebp)
 f010f7f8:	10 00 00 
-f010f7fb:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010f7fb:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010f800:	0f b6 d0             	movzbl %al,%edx
 f010f803:	8b 85 c4 fe ff ff    	mov    -0x13c(%ebp),%eax
 f010f809:	01 d0                	add    %edx,%eax
@@ -28768,7 +28768,7 @@ f010f829:	29 d0                	sub    %edx,%eax
 f010f82b:	89 c1                	mov    %eax,%ecx
 f010f82d:	c7 85 bc fe ff ff 00 	movl   $0x1000,-0x144(%ebp)
 f010f834:	10 00 00 
-f010f837:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010f837:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010f83c:	0f b6 c0             	movzbl %al,%eax
 f010f83f:	c1 e0 04             	shl    $0x4,%eax
 f010f842:	89 c2                	mov    %eax,%edx
@@ -28864,7 +28864,7 @@ f010f96f:	89 85 38 ff ff ff    	mov    %eax,-0xc8(%ebp)
 	if((uint32)tempAddress != ACTUAL_START + 0x03000000)
 f010f975:	c7 85 b4 fe ff ff 00 	movl   $0x1000,-0x14c(%ebp)
 f010f97c:	10 00 00 
-f010f97f:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010f97f:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010f984:	0f b6 d0             	movzbl %al,%edx
 f010f987:	8b 85 b4 fe ff ff    	mov    -0x14c(%ebp),%eax
 f010f98d:	01 d0                	add    %edx,%eax
@@ -28878,7 +28878,7 @@ f010f9ad:	29 d0                	sub    %edx,%eax
 f010f9af:	89 c1                	mov    %eax,%ecx
 f010f9b1:	c7 85 ac fe ff ff 00 	movl   $0x1000,-0x154(%ebp)
 f010f9b8:	10 00 00 
-f010f9bb:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010f9bb:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010f9c0:	0f b6 c0             	movzbl %al,%eax
 f010f9c3:	c1 e0 04             	shl    $0x4,%eax
 f010f9c6:	89 c2                	mov    %eax,%edx
@@ -29049,7 +29049,7 @@ f010fb9c:	89 85 d0 fe ff ff    	mov    %eax,-0x130(%ebp)
 f010fba2:	8b 85 d0 fe ff ff    	mov    -0x130(%ebp),%eax
 f010fba8:	89 c1                	mov    %eax,%ecx
 f010fbaa:	c7 45 ec 00 10 00 00 	movl   $0x1000,-0x14(%ebp)
-f010fbb1:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010fbb1:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010fbb6:	0f b6 d0             	movzbl %al,%edx
 f010fbb9:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f010fbbc:	01 d0                	add    %edx,%eax
@@ -29062,7 +29062,7 @@ f010fbcd:	8b 45 e8             	mov    -0x18(%ebp),%eax
 f010fbd0:	29 d0                	sub    %edx,%eax
 f010fbd2:	89 c3                	mov    %eax,%ebx
 f010fbd4:	c7 45 e4 00 10 00 00 	movl   $0x1000,-0x1c(%ebp)
-f010fbdb:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010fbdb:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010fbe0:	0f b6 c0             	movzbl %al,%eax
 f010fbe3:	c1 e0 04             	shl    $0x4,%eax
 f010fbe6:	89 c2                	mov    %eax,%edx
@@ -29123,7 +29123,7 @@ f010fc8e:	89 85 d4 fe ff ff    	mov    %eax,-0x12c(%ebp)
 f010fc94:	8b 85 d4 fe ff ff    	mov    -0x12c(%ebp),%eax
 f010fc9a:	89 c1                	mov    %eax,%ecx
 f010fc9c:	c7 45 dc 00 10 00 00 	movl   $0x1000,-0x24(%ebp)
-f010fca3:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010fca3:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010fca8:	0f b6 d0             	movzbl %al,%edx
 f010fcab:	8b 45 dc             	mov    -0x24(%ebp),%eax
 f010fcae:	01 d0                	add    %edx,%eax
@@ -29136,7 +29136,7 @@ f010fcbf:	8b 45 d8             	mov    -0x28(%ebp),%eax
 f010fcc2:	29 d0                	sub    %edx,%eax
 f010fcc4:	89 c3                	mov    %eax,%ebx
 f010fcc6:	c7 45 d4 00 10 00 00 	movl   $0x1000,-0x2c(%ebp)
-f010fccd:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010fccd:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010fcd2:	0f b6 c0             	movzbl %al,%eax
 f010fcd5:	c1 e0 04             	shl    $0x4,%eax
 f010fcd8:	89 c2                	mov    %eax,%edx
@@ -29197,7 +29197,7 @@ f010fd80:	89 85 d8 fe ff ff    	mov    %eax,-0x128(%ebp)
 f010fd86:	8b 85 d8 fe ff ff    	mov    -0x128(%ebp),%eax
 f010fd8c:	89 c1                	mov    %eax,%ecx
 f010fd8e:	c7 45 cc 00 10 00 00 	movl   $0x1000,-0x34(%ebp)
-f010fd95:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010fd95:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010fd9a:	0f b6 d0             	movzbl %al,%edx
 f010fd9d:	8b 45 cc             	mov    -0x34(%ebp),%eax
 f010fda0:	01 d0                	add    %edx,%eax
@@ -29210,7 +29210,7 @@ f010fdb1:	8b 45 c8             	mov    -0x38(%ebp),%eax
 f010fdb4:	29 d0                	sub    %edx,%eax
 f010fdb6:	89 c3                	mov    %eax,%ebx
 f010fdb8:	c7 45 c4 00 10 00 00 	movl   $0x1000,-0x3c(%ebp)
-f010fdbf:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010fdbf:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010fdc4:	0f b6 c0             	movzbl %al,%eax
 f010fdc7:	c1 e0 04             	shl    $0x4,%eax
 f010fdca:	89 c2                	mov    %eax,%edx
@@ -29271,7 +29271,7 @@ f010fe72:	89 85 dc fe ff ff    	mov    %eax,-0x124(%ebp)
 f010fe78:	8b 85 dc fe ff ff    	mov    -0x124(%ebp),%eax
 f010fe7e:	89 c1                	mov    %eax,%ecx
 f010fe80:	c7 45 bc 00 10 00 00 	movl   $0x1000,-0x44(%ebp)
-f010fe87:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010fe87:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010fe8c:	0f b6 d0             	movzbl %al,%edx
 f010fe8f:	8b 45 bc             	mov    -0x44(%ebp),%eax
 f010fe92:	01 d0                	add    %edx,%eax
@@ -29284,7 +29284,7 @@ f010fea3:	8b 45 b8             	mov    -0x48(%ebp),%eax
 f010fea6:	29 d0                	sub    %edx,%eax
 f010fea8:	89 c3                	mov    %eax,%ebx
 f010feaa:	c7 45 b4 00 10 00 00 	movl   $0x1000,-0x4c(%ebp)
-f010feb1:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010feb1:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010feb6:	0f b6 c0             	movzbl %al,%eax
 f010feb9:	c1 e0 04             	shl    $0x4,%eax
 f010febc:	89 c2                	mov    %eax,%edx
@@ -29345,7 +29345,7 @@ f010ff64:	89 85 e0 fe ff ff    	mov    %eax,-0x120(%ebp)
 f010ff6a:	8b 85 e0 fe ff ff    	mov    -0x120(%ebp),%eax
 f010ff70:	89 c1                	mov    %eax,%ecx
 f010ff72:	c7 45 ac 00 10 00 00 	movl   $0x1000,-0x54(%ebp)
-f010ff79:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010ff79:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010ff7e:	0f b6 d0             	movzbl %al,%edx
 f010ff81:	8b 45 ac             	mov    -0x54(%ebp),%eax
 f010ff84:	01 d0                	add    %edx,%eax
@@ -29358,7 +29358,7 @@ f010ff95:	8b 45 a8             	mov    -0x58(%ebp),%eax
 f010ff98:	29 d0                	sub    %edx,%eax
 f010ff9a:	89 c3                	mov    %eax,%ebx
 f010ff9c:	c7 45 a4 00 10 00 00 	movl   $0x1000,-0x5c(%ebp)
-f010ffa3:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f010ffa3:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f010ffa8:	0f b6 c0             	movzbl %al,%eax
 f010ffab:	c1 e0 04             	shl    $0x4,%eax
 f010ffae:	89 c2                	mov    %eax,%edx
@@ -29419,7 +29419,7 @@ f0110056:	89 85 e4 fe ff ff    	mov    %eax,-0x11c(%ebp)
 f011005c:	8b 85 e4 fe ff ff    	mov    -0x11c(%ebp),%eax
 f0110062:	89 c1                	mov    %eax,%ecx
 f0110064:	c7 45 9c 00 10 00 00 	movl   $0x1000,-0x64(%ebp)
-f011006b:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011006b:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0110070:	0f b6 d0             	movzbl %al,%edx
 f0110073:	8b 45 9c             	mov    -0x64(%ebp),%eax
 f0110076:	01 d0                	add    %edx,%eax
@@ -29432,7 +29432,7 @@ f0110087:	8b 45 98             	mov    -0x68(%ebp),%eax
 f011008a:	29 d0                	sub    %edx,%eax
 f011008c:	89 c3                	mov    %eax,%ebx
 f011008e:	c7 45 94 00 10 00 00 	movl   $0x1000,-0x6c(%ebp)
-f0110095:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0110095:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011009a:	0f b6 c0             	movzbl %al,%eax
 f011009d:	c1 e0 04             	shl    $0x4,%eax
 f01100a0:	89 c2                	mov    %eax,%edx
@@ -29493,7 +29493,7 @@ f0110148:	89 85 e8 fe ff ff    	mov    %eax,-0x118(%ebp)
 f011014e:	8b 85 e8 fe ff ff    	mov    -0x118(%ebp),%eax
 f0110154:	89 c1                	mov    %eax,%ecx
 f0110156:	c7 45 8c 00 10 00 00 	movl   $0x1000,-0x74(%ebp)
-f011015d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011015d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0110162:	0f b6 d0             	movzbl %al,%edx
 f0110165:	8b 45 8c             	mov    -0x74(%ebp),%eax
 f0110168:	01 d0                	add    %edx,%eax
@@ -29506,7 +29506,7 @@ f0110179:	8b 45 88             	mov    -0x78(%ebp),%eax
 f011017c:	29 d0                	sub    %edx,%eax
 f011017e:	89 c3                	mov    %eax,%ebx
 f0110180:	c7 45 84 00 10 00 00 	movl   $0x1000,-0x7c(%ebp)
-f0110187:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0110187:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011018c:	0f b6 c0             	movzbl %al,%eax
 f011018f:	c1 e0 04             	shl    $0x4,%eax
 f0110192:	89 c2                	mov    %eax,%edx
@@ -29568,7 +29568,7 @@ f0110240:	8b 85 ec fe ff ff    	mov    -0x114(%ebp),%eax
 f0110246:	89 c1                	mov    %eax,%ecx
 f0110248:	c7 85 7c ff ff ff 00 	movl   $0x1000,-0x84(%ebp)
 f011024f:	10 00 00 
-f0110252:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0110252:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0110257:	0f b6 d0             	movzbl %al,%edx
 f011025a:	8b 85 7c ff ff ff    	mov    -0x84(%ebp),%eax
 f0110260:	01 d0                	add    %edx,%eax
@@ -29582,7 +29582,7 @@ f0110280:	29 d0                	sub    %edx,%eax
 f0110282:	89 c3                	mov    %eax,%ebx
 f0110284:	c7 85 74 ff ff ff 00 	movl   $0x1000,-0x8c(%ebp)
 f011028b:	10 00 00 
-f011028e:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011028e:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0110293:	0f b6 c0             	movzbl %al,%eax
 f0110296:	c1 e0 04             	shl    $0x4,%eax
 f0110299:	89 c2                	mov    %eax,%edx
@@ -29749,7 +29749,7 @@ f0110491:	8b 85 f0 fe ff ff    	mov    -0x110(%ebp),%eax
 f0110497:	89 c1                	mov    %eax,%ecx
 f0110499:	c7 85 6c ff ff ff 00 	movl   $0x1000,-0x94(%ebp)
 f01104a0:	10 00 00 
-f01104a3:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01104a3:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01104a8:	0f b6 d0             	movzbl %al,%edx
 f01104ab:	8b 85 6c ff ff ff    	mov    -0x94(%ebp),%eax
 f01104b1:	01 d0                	add    %edx,%eax
@@ -29763,7 +29763,7 @@ f01104d1:	29 d0                	sub    %edx,%eax
 f01104d3:	89 c3                	mov    %eax,%ebx
 f01104d5:	c7 85 64 ff ff ff 00 	movl   $0x1000,-0x9c(%ebp)
 f01104dc:	10 00 00 
-f01104df:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01104df:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01104e4:	0f b6 c0             	movzbl %al,%eax
 f01104e7:	c1 e0 04             	shl    $0x4,%eax
 f01104ea:	89 c2                	mov    %eax,%edx
@@ -29825,7 +29825,7 @@ f01105a7:	8b 85 f4 fe ff ff    	mov    -0x10c(%ebp),%eax
 f01105ad:	89 c1                	mov    %eax,%ecx
 f01105af:	c7 85 5c ff ff ff 00 	movl   $0x1000,-0xa4(%ebp)
 f01105b6:	10 00 00 
-f01105b9:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01105b9:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01105be:	0f b6 d0             	movzbl %al,%edx
 f01105c1:	8b 85 5c ff ff ff    	mov    -0xa4(%ebp),%eax
 f01105c7:	01 d0                	add    %edx,%eax
@@ -29839,7 +29839,7 @@ f01105e7:	29 d0                	sub    %edx,%eax
 f01105e9:	89 c3                	mov    %eax,%ebx
 f01105eb:	c7 85 54 ff ff ff 00 	movl   $0x1000,-0xac(%ebp)
 f01105f2:	10 00 00 
-f01105f5:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01105f5:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01105fa:	0f b6 c0             	movzbl %al,%eax
 f01105fd:	c1 e0 04             	shl    $0x4,%eax
 f0110600:	89 c2                	mov    %eax,%edx
@@ -29901,7 +29901,7 @@ f01106bd:	8b 85 f8 fe ff ff    	mov    -0x108(%ebp),%eax
 f01106c3:	89 c1                	mov    %eax,%ecx
 f01106c5:	c7 85 4c ff ff ff 00 	movl   $0x1000,-0xb4(%ebp)
 f01106cc:	10 00 00 
-f01106cf:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01106cf:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01106d4:	0f b6 d0             	movzbl %al,%edx
 f01106d7:	8b 85 4c ff ff ff    	mov    -0xb4(%ebp),%eax
 f01106dd:	01 d0                	add    %edx,%eax
@@ -29915,7 +29915,7 @@ f01106fd:	29 d0                	sub    %edx,%eax
 f01106ff:	89 c3                	mov    %eax,%ebx
 f0110701:	c7 85 44 ff ff ff 00 	movl   $0x1000,-0xbc(%ebp)
 f0110708:	10 00 00 
-f011070b:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011070b:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0110710:	0f b6 c0             	movzbl %al,%eax
 f0110713:	c1 e0 04             	shl    $0x4,%eax
 f0110716:	89 c2                	mov    %eax,%edx
@@ -29977,7 +29977,7 @@ f01107d1:	8b 85 fc fe ff ff    	mov    -0x104(%ebp),%eax
 f01107d7:	89 c1                	mov    %eax,%ecx
 f01107d9:	c7 85 3c ff ff ff 00 	movl   $0x1000,-0xc4(%ebp)
 f01107e0:	10 00 00 
-f01107e3:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01107e3:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01107e8:	0f b6 d0             	movzbl %al,%edx
 f01107eb:	8b 85 3c ff ff ff    	mov    -0xc4(%ebp),%eax
 f01107f1:	01 d0                	add    %edx,%eax
@@ -29991,7 +29991,7 @@ f0110811:	29 d0                	sub    %edx,%eax
 f0110813:	89 c3                	mov    %eax,%ebx
 f0110815:	c7 85 34 ff ff ff 00 	movl   $0x1000,-0xcc(%ebp)
 f011081c:	10 00 00 
-f011081f:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011081f:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0110824:	0f b6 c0             	movzbl %al,%eax
 f0110827:	c1 e0 04             	shl    $0x4,%eax
 f011082a:	89 c2                	mov    %eax,%edx
@@ -30125,7 +30125,7 @@ f01109b9:	8b 85 00 ff ff ff    	mov    -0x100(%ebp),%eax
 f01109bf:	89 c1                	mov    %eax,%ecx
 f01109c1:	c7 85 2c ff ff ff 00 	movl   $0x1000,-0xd4(%ebp)
 f01109c8:	10 00 00 
-f01109cb:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01109cb:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01109d0:	0f b6 d0             	movzbl %al,%edx
 f01109d3:	8b 85 2c ff ff ff    	mov    -0xd4(%ebp),%eax
 f01109d9:	01 d0                	add    %edx,%eax
@@ -30139,7 +30139,7 @@ f01109f9:	29 d0                	sub    %edx,%eax
 f01109fb:	89 c3                	mov    %eax,%ebx
 f01109fd:	c7 85 24 ff ff ff 00 	movl   $0x1000,-0xdc(%ebp)
 f0110a04:	10 00 00 
-f0110a07:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0110a07:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0110a0c:	0f b6 c0             	movzbl %al,%eax
 f0110a0f:	c1 e0 04             	shl    $0x4,%eax
 f0110a12:	89 c2                	mov    %eax,%edx
@@ -30238,7 +30238,7 @@ f0110b12:	f3 ab                	rep stos %eax,%es:(%edi)
 	{
 		ptr_allocations[0] = kmalloc(KERNEL_HEAP_MAX - ACTUAL_START + 1);
 f0110b14:	c7 45 f4 00 10 00 00 	movl   $0x1000,-0xc(%ebp)
-f0110b1b:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0110b1b:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0110b20:	0f b6 d0             	movzbl %al,%edx
 f0110b23:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f0110b26:	01 d0                	add    %edx,%eax
@@ -30251,7 +30251,7 @@ f0110b37:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f0110b3a:	29 d0                	sub    %edx,%eax
 f0110b3c:	89 c1                	mov    %eax,%ecx
 f0110b3e:	c7 45 ec 00 10 00 00 	movl   $0x1000,-0x14(%ebp)
-f0110b45:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0110b45:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0110b4a:	0f b6 c0             	movzbl %al,%eax
 f0110b4d:	c1 e0 04             	shl    $0x4,%eax
 f0110b50:	89 c2                	mov    %eax,%edx
@@ -30303,7 +30303,7 @@ f0110bc9:	89 85 c0 fe ff ff    	mov    %eax,-0x140(%ebp)
 f0110bcf:	8b 85 c0 fe ff ff    	mov    -0x140(%ebp),%eax
 f0110bd5:	89 c1                	mov    %eax,%ecx
 f0110bd7:	c7 45 dc 00 10 00 00 	movl   $0x1000,-0x24(%ebp)
-f0110bde:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0110bde:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0110be3:	0f b6 d0             	movzbl %al,%edx
 f0110be6:	8b 45 dc             	mov    -0x24(%ebp),%eax
 f0110be9:	01 d0                	add    %edx,%eax
@@ -30316,7 +30316,7 @@ f0110bfa:	8b 45 d8             	mov    -0x28(%ebp),%eax
 f0110bfd:	29 d0                	sub    %edx,%eax
 f0110bff:	89 c3                	mov    %eax,%ebx
 f0110c01:	c7 45 d4 00 10 00 00 	movl   $0x1000,-0x2c(%ebp)
-f0110c08:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0110c08:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0110c0d:	0f b6 c0             	movzbl %al,%eax
 f0110c10:	c1 e0 04             	shl    $0x4,%eax
 f0110c13:	89 c2                	mov    %eax,%edx
@@ -30377,7 +30377,7 @@ f0110cbb:	89 85 c4 fe ff ff    	mov    %eax,-0x13c(%ebp)
 f0110cc1:	8b 85 c4 fe ff ff    	mov    -0x13c(%ebp),%eax
 f0110cc7:	89 c1                	mov    %eax,%ecx
 f0110cc9:	c7 45 cc 00 10 00 00 	movl   $0x1000,-0x34(%ebp)
-f0110cd0:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0110cd0:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0110cd5:	0f b6 d0             	movzbl %al,%edx
 f0110cd8:	8b 45 cc             	mov    -0x34(%ebp),%eax
 f0110cdb:	01 d0                	add    %edx,%eax
@@ -30390,7 +30390,7 @@ f0110cec:	8b 45 c8             	mov    -0x38(%ebp),%eax
 f0110cef:	29 d0                	sub    %edx,%eax
 f0110cf1:	89 c3                	mov    %eax,%ebx
 f0110cf3:	c7 45 c4 00 10 00 00 	movl   $0x1000,-0x3c(%ebp)
-f0110cfa:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0110cfa:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0110cff:	0f b6 c0             	movzbl %al,%eax
 f0110d02:	c1 e0 04             	shl    $0x4,%eax
 f0110d05:	89 c2                	mov    %eax,%edx
@@ -30451,7 +30451,7 @@ f0110dad:	89 85 c8 fe ff ff    	mov    %eax,-0x138(%ebp)
 f0110db3:	8b 85 c8 fe ff ff    	mov    -0x138(%ebp),%eax
 f0110db9:	89 c1                	mov    %eax,%ecx
 f0110dbb:	c7 45 bc 00 10 00 00 	movl   $0x1000,-0x44(%ebp)
-f0110dc2:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0110dc2:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0110dc7:	0f b6 d0             	movzbl %al,%edx
 f0110dca:	8b 45 bc             	mov    -0x44(%ebp),%eax
 f0110dcd:	01 d0                	add    %edx,%eax
@@ -30464,7 +30464,7 @@ f0110dde:	8b 45 b8             	mov    -0x48(%ebp),%eax
 f0110de1:	29 d0                	sub    %edx,%eax
 f0110de3:	89 c3                	mov    %eax,%ebx
 f0110de5:	c7 45 b4 00 10 00 00 	movl   $0x1000,-0x4c(%ebp)
-f0110dec:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0110dec:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0110df1:	0f b6 c0             	movzbl %al,%eax
 f0110df4:	c1 e0 04             	shl    $0x4,%eax
 f0110df7:	89 c2                	mov    %eax,%edx
@@ -30525,7 +30525,7 @@ f0110e9d:	89 85 cc fe ff ff    	mov    %eax,-0x134(%ebp)
 f0110ea3:	8b 85 cc fe ff ff    	mov    -0x134(%ebp),%eax
 f0110ea9:	89 c1                	mov    %eax,%ecx
 f0110eab:	c7 45 ac 00 10 00 00 	movl   $0x1000,-0x54(%ebp)
-f0110eb2:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0110eb2:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0110eb7:	0f b6 d0             	movzbl %al,%edx
 f0110eba:	8b 45 ac             	mov    -0x54(%ebp),%eax
 f0110ebd:	01 d0                	add    %edx,%eax
@@ -30538,7 +30538,7 @@ f0110ece:	8b 45 a8             	mov    -0x58(%ebp),%eax
 f0110ed1:	29 d0                	sub    %edx,%eax
 f0110ed3:	89 c3                	mov    %eax,%ebx
 f0110ed5:	c7 45 a4 00 10 00 00 	movl   $0x1000,-0x5c(%ebp)
-f0110edc:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0110edc:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0110ee1:	0f b6 c0             	movzbl %al,%eax
 f0110ee4:	c1 e0 04             	shl    $0x4,%eax
 f0110ee7:	89 c2                	mov    %eax,%edx
@@ -30632,7 +30632,7 @@ f0110ff4:	89 85 d0 fe ff ff    	mov    %eax,-0x130(%ebp)
 f0110ffa:	8b 85 d0 fe ff ff    	mov    -0x130(%ebp),%eax
 f0111000:	89 c1                	mov    %eax,%ecx
 f0111002:	c7 45 9c 00 10 00 00 	movl   $0x1000,-0x64(%ebp)
-f0111009:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111009:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011100e:	0f b6 d0             	movzbl %al,%edx
 f0111011:	8b 45 9c             	mov    -0x64(%ebp),%eax
 f0111014:	01 d0                	add    %edx,%eax
@@ -30645,7 +30645,7 @@ f0111025:	8b 45 98             	mov    -0x68(%ebp),%eax
 f0111028:	29 d0                	sub    %edx,%eax
 f011102a:	89 c3                	mov    %eax,%ebx
 f011102c:	c7 45 94 00 10 00 00 	movl   $0x1000,-0x6c(%ebp)
-f0111033:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111033:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111038:	0f b6 c0             	movzbl %al,%eax
 f011103b:	c1 e0 04             	shl    $0x4,%eax
 f011103e:	89 c2                	mov    %eax,%edx
@@ -30739,7 +30739,7 @@ f011114d:	89 85 d4 fe ff ff    	mov    %eax,-0x12c(%ebp)
 f0111153:	8b 85 d4 fe ff ff    	mov    -0x12c(%ebp),%eax
 f0111159:	89 c1                	mov    %eax,%ecx
 f011115b:	c7 45 8c 00 10 00 00 	movl   $0x1000,-0x74(%ebp)
-f0111162:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111162:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111167:	0f b6 d0             	movzbl %al,%edx
 f011116a:	8b 45 8c             	mov    -0x74(%ebp),%eax
 f011116d:	01 d0                	add    %edx,%eax
@@ -30752,7 +30752,7 @@ f011117e:	8b 45 88             	mov    -0x78(%ebp),%eax
 f0111181:	29 d0                	sub    %edx,%eax
 f0111183:	89 c3                	mov    %eax,%ebx
 f0111185:	c7 45 84 00 10 00 00 	movl   $0x1000,-0x7c(%ebp)
-f011118c:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011118c:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111191:	0f b6 c0             	movzbl %al,%eax
 f0111194:	c1 e0 04             	shl    $0x4,%eax
 f0111197:	89 c2                	mov    %eax,%edx
@@ -30814,7 +30814,7 @@ f0111245:	8b 85 d8 fe ff ff    	mov    -0x128(%ebp),%eax
 f011124b:	89 c1                	mov    %eax,%ecx
 f011124d:	c7 85 7c ff ff ff 00 	movl   $0x1000,-0x84(%ebp)
 f0111254:	10 00 00 
-f0111257:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111257:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011125c:	0f b6 d0             	movzbl %al,%edx
 f011125f:	8b 85 7c ff ff ff    	mov    -0x84(%ebp),%eax
 f0111265:	01 d0                	add    %edx,%eax
@@ -30828,7 +30828,7 @@ f0111285:	29 d0                	sub    %edx,%eax
 f0111287:	89 c3                	mov    %eax,%ebx
 f0111289:	c7 85 74 ff ff ff 00 	movl   $0x1000,-0x8c(%ebp)
 f0111290:	10 00 00 
-f0111293:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111293:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111298:	0f b6 c0             	movzbl %al,%eax
 f011129b:	c1 e0 04             	shl    $0x4,%eax
 f011129e:	89 c2                	mov    %eax,%edx
@@ -30890,7 +30890,7 @@ f011135b:	8b 85 dc fe ff ff    	mov    -0x124(%ebp),%eax
 f0111361:	89 c1                	mov    %eax,%ecx
 f0111363:	c7 85 6c ff ff ff 00 	movl   $0x1000,-0x94(%ebp)
 f011136a:	10 00 00 
-f011136d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011136d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111372:	0f b6 d0             	movzbl %al,%edx
 f0111375:	8b 85 6c ff ff ff    	mov    -0x94(%ebp),%eax
 f011137b:	01 d0                	add    %edx,%eax
@@ -30904,7 +30904,7 @@ f011139b:	29 d0                	sub    %edx,%eax
 f011139d:	89 c3                	mov    %eax,%ebx
 f011139f:	c7 85 64 ff ff ff 00 	movl   $0x1000,-0x9c(%ebp)
 f01113a6:	10 00 00 
-f01113a9:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01113a9:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01113ae:	0f b6 c0             	movzbl %al,%eax
 f01113b1:	c1 e0 04             	shl    $0x4,%eax
 f01113b4:	89 c2                	mov    %eax,%edx
@@ -31032,7 +31032,7 @@ f0111543:	8b 85 e0 fe ff ff    	mov    -0x120(%ebp),%eax
 f0111549:	89 c1                	mov    %eax,%ecx
 f011154b:	c7 85 5c ff ff ff 00 	movl   $0x1000,-0xa4(%ebp)
 f0111552:	10 00 00 
-f0111555:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111555:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011155a:	0f b6 d0             	movzbl %al,%edx
 f011155d:	8b 85 5c ff ff ff    	mov    -0xa4(%ebp),%eax
 f0111563:	01 d0                	add    %edx,%eax
@@ -31046,7 +31046,7 @@ f0111583:	29 d0                	sub    %edx,%eax
 f0111585:	89 c3                	mov    %eax,%ebx
 f0111587:	c7 85 54 ff ff ff 00 	movl   $0x1000,-0xac(%ebp)
 f011158e:	10 00 00 
-f0111591:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111591:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111596:	0f b6 c0             	movzbl %al,%eax
 f0111599:	c1 e0 04             	shl    $0x4,%eax
 f011159c:	89 c2                	mov    %eax,%edx
@@ -31108,7 +31108,7 @@ f0111659:	8b 85 e4 fe ff ff    	mov    -0x11c(%ebp),%eax
 f011165f:	89 c1                	mov    %eax,%ecx
 f0111661:	c7 85 4c ff ff ff 00 	movl   $0x1000,-0xb4(%ebp)
 f0111668:	10 00 00 
-f011166b:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011166b:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111670:	0f b6 d0             	movzbl %al,%edx
 f0111673:	8b 85 4c ff ff ff    	mov    -0xb4(%ebp),%eax
 f0111679:	01 d0                	add    %edx,%eax
@@ -31122,7 +31122,7 @@ f0111699:	29 d0                	sub    %edx,%eax
 f011169b:	89 c3                	mov    %eax,%ebx
 f011169d:	c7 85 44 ff ff ff 00 	movl   $0x1000,-0xbc(%ebp)
 f01116a4:	10 00 00 
-f01116a7:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01116a7:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01116ac:	0f b6 c0             	movzbl %al,%eax
 f01116af:	c1 e0 04             	shl    $0x4,%eax
 f01116b2:	89 c2                	mov    %eax,%edx
@@ -31217,7 +31217,7 @@ f01117d6:	8b 85 e8 fe ff ff    	mov    -0x118(%ebp),%eax
 f01117dc:	89 c1                	mov    %eax,%ecx
 f01117de:	c7 85 3c ff ff ff 00 	movl   $0x1000,-0xc4(%ebp)
 f01117e5:	10 00 00 
-f01117e8:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01117e8:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01117ed:	0f b6 d0             	movzbl %al,%edx
 f01117f0:	8b 85 3c ff ff ff    	mov    -0xc4(%ebp),%eax
 f01117f6:	01 d0                	add    %edx,%eax
@@ -31231,7 +31231,7 @@ f0111816:	29 d0                	sub    %edx,%eax
 f0111818:	89 c3                	mov    %eax,%ebx
 f011181a:	c7 85 34 ff ff ff 00 	movl   $0x1000,-0xcc(%ebp)
 f0111821:	10 00 00 
-f0111824:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111824:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111829:	0f b6 c0             	movzbl %al,%eax
 f011182c:	c1 e0 04             	shl    $0x4,%eax
 f011182f:	89 c2                	mov    %eax,%edx
@@ -31293,7 +31293,7 @@ f01118ec:	8b 85 ec fe ff ff    	mov    -0x114(%ebp),%eax
 f01118f2:	89 c1                	mov    %eax,%ecx
 f01118f4:	c7 85 2c ff ff ff 00 	movl   $0x1000,-0xd4(%ebp)
 f01118fb:	10 00 00 
-f01118fe:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01118fe:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111903:	0f b6 d0             	movzbl %al,%edx
 f0111906:	8b 85 2c ff ff ff    	mov    -0xd4(%ebp),%eax
 f011190c:	01 d0                	add    %edx,%eax
@@ -31307,7 +31307,7 @@ f011192c:	29 d0                	sub    %edx,%eax
 f011192e:	89 c3                	mov    %eax,%ebx
 f0111930:	c7 85 24 ff ff ff 00 	movl   $0x1000,-0xdc(%ebp)
 f0111937:	10 00 00 
-f011193a:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011193a:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011193f:	0f b6 c0             	movzbl %al,%eax
 f0111942:	c1 e0 04             	shl    $0x4,%eax
 f0111945:	89 c2                	mov    %eax,%edx
@@ -31358,7 +31358,7 @@ f01119d7:	e8 98 e7 fe ff       	call   f0100174 <_panic>
 		ptr_allocations[12] = kmalloc((KERNEL_HEAP_MAX - ACTUAL_START - 14*Mega));
 f01119dc:	c7 85 1c ff ff ff 00 	movl   $0x1000,-0xe4(%ebp)
 f01119e3:	10 00 00 
-f01119e6:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01119e6:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01119eb:	0f b6 d0             	movzbl %al,%edx
 f01119ee:	8b 85 1c ff ff ff    	mov    -0xe4(%ebp),%eax
 f01119f4:	01 d0                	add    %edx,%eax
@@ -31372,7 +31372,7 @@ f0111a14:	29 d0                	sub    %edx,%eax
 f0111a16:	89 c1                	mov    %eax,%ecx
 f0111a18:	c7 85 14 ff ff ff 00 	movl   $0x1000,-0xec(%ebp)
 f0111a1f:	10 00 00 
-f0111a22:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111a22:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111a27:	0f b6 c0             	movzbl %al,%eax
 f0111a2a:	c1 e0 04             	shl    $0x4,%eax
 f0111a2d:	89 c2                	mov    %eax,%edx
@@ -31472,7 +31472,7 @@ f0111b20:	89 85 c0 fe ff ff    	mov    %eax,-0x140(%ebp)
 f0111b26:	8b 85 c0 fe ff ff    	mov    -0x140(%ebp),%eax
 f0111b2c:	89 c1                	mov    %eax,%ecx
 f0111b2e:	c7 45 ec 00 10 00 00 	movl   $0x1000,-0x14(%ebp)
-f0111b35:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111b35:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111b3a:	0f b6 d0             	movzbl %al,%edx
 f0111b3d:	8b 45 ec             	mov    -0x14(%ebp),%eax
 f0111b40:	01 d0                	add    %edx,%eax
@@ -31485,7 +31485,7 @@ f0111b51:	8b 45 e8             	mov    -0x18(%ebp),%eax
 f0111b54:	29 d0                	sub    %edx,%eax
 f0111b56:	89 c3                	mov    %eax,%ebx
 f0111b58:	c7 45 e4 00 10 00 00 	movl   $0x1000,-0x1c(%ebp)
-f0111b5f:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111b5f:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111b64:	0f b6 c0             	movzbl %al,%eax
 f0111b67:	c1 e0 04             	shl    $0x4,%eax
 f0111b6a:	89 c2                	mov    %eax,%edx
@@ -31546,7 +31546,7 @@ f0111c12:	89 85 c4 fe ff ff    	mov    %eax,-0x13c(%ebp)
 f0111c18:	8b 85 c4 fe ff ff    	mov    -0x13c(%ebp),%eax
 f0111c1e:	89 c1                	mov    %eax,%ecx
 f0111c20:	c7 45 dc 00 10 00 00 	movl   $0x1000,-0x24(%ebp)
-f0111c27:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111c27:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111c2c:	0f b6 d0             	movzbl %al,%edx
 f0111c2f:	8b 45 dc             	mov    -0x24(%ebp),%eax
 f0111c32:	01 d0                	add    %edx,%eax
@@ -31559,7 +31559,7 @@ f0111c43:	8b 45 d8             	mov    -0x28(%ebp),%eax
 f0111c46:	29 d0                	sub    %edx,%eax
 f0111c48:	89 c3                	mov    %eax,%ebx
 f0111c4a:	c7 45 d4 00 10 00 00 	movl   $0x1000,-0x2c(%ebp)
-f0111c51:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111c51:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111c56:	0f b6 c0             	movzbl %al,%eax
 f0111c59:	c1 e0 04             	shl    $0x4,%eax
 f0111c5c:	89 c2                	mov    %eax,%edx
@@ -31620,7 +31620,7 @@ f0111d04:	89 85 c8 fe ff ff    	mov    %eax,-0x138(%ebp)
 f0111d0a:	8b 85 c8 fe ff ff    	mov    -0x138(%ebp),%eax
 f0111d10:	89 c1                	mov    %eax,%ecx
 f0111d12:	c7 45 cc 00 10 00 00 	movl   $0x1000,-0x34(%ebp)
-f0111d19:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111d19:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111d1e:	0f b6 d0             	movzbl %al,%edx
 f0111d21:	8b 45 cc             	mov    -0x34(%ebp),%eax
 f0111d24:	01 d0                	add    %edx,%eax
@@ -31633,7 +31633,7 @@ f0111d35:	8b 45 c8             	mov    -0x38(%ebp),%eax
 f0111d38:	29 d0                	sub    %edx,%eax
 f0111d3a:	89 c3                	mov    %eax,%ebx
 f0111d3c:	c7 45 c4 00 10 00 00 	movl   $0x1000,-0x3c(%ebp)
-f0111d43:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111d43:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111d48:	0f b6 c0             	movzbl %al,%eax
 f0111d4b:	c1 e0 04             	shl    $0x4,%eax
 f0111d4e:	89 c2                	mov    %eax,%edx
@@ -31694,7 +31694,7 @@ f0111df6:	89 85 cc fe ff ff    	mov    %eax,-0x134(%ebp)
 f0111dfc:	8b 85 cc fe ff ff    	mov    -0x134(%ebp),%eax
 f0111e02:	89 c1                	mov    %eax,%ecx
 f0111e04:	c7 45 bc 00 10 00 00 	movl   $0x1000,-0x44(%ebp)
-f0111e0b:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111e0b:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111e10:	0f b6 d0             	movzbl %al,%edx
 f0111e13:	8b 45 bc             	mov    -0x44(%ebp),%eax
 f0111e16:	01 d0                	add    %edx,%eax
@@ -31707,7 +31707,7 @@ f0111e27:	8b 45 b8             	mov    -0x48(%ebp),%eax
 f0111e2a:	29 d0                	sub    %edx,%eax
 f0111e2c:	89 c3                	mov    %eax,%ebx
 f0111e2e:	c7 45 b4 00 10 00 00 	movl   $0x1000,-0x4c(%ebp)
-f0111e35:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111e35:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111e3a:	0f b6 c0             	movzbl %al,%eax
 f0111e3d:	c1 e0 04             	shl    $0x4,%eax
 f0111e40:	89 c2                	mov    %eax,%edx
@@ -31768,7 +31768,7 @@ f0111ee8:	89 85 d0 fe ff ff    	mov    %eax,-0x130(%ebp)
 f0111eee:	8b 85 d0 fe ff ff    	mov    -0x130(%ebp),%eax
 f0111ef4:	89 c1                	mov    %eax,%ecx
 f0111ef6:	c7 45 ac 00 10 00 00 	movl   $0x1000,-0x54(%ebp)
-f0111efd:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111efd:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111f02:	0f b6 d0             	movzbl %al,%edx
 f0111f05:	8b 45 ac             	mov    -0x54(%ebp),%eax
 f0111f08:	01 d0                	add    %edx,%eax
@@ -31781,7 +31781,7 @@ f0111f19:	8b 45 a8             	mov    -0x58(%ebp),%eax
 f0111f1c:	29 d0                	sub    %edx,%eax
 f0111f1e:	89 c3                	mov    %eax,%ebx
 f0111f20:	c7 45 a4 00 10 00 00 	movl   $0x1000,-0x5c(%ebp)
-f0111f27:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111f27:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111f2c:	0f b6 c0             	movzbl %al,%eax
 f0111f2f:	c1 e0 04             	shl    $0x4,%eax
 f0111f32:	89 c2                	mov    %eax,%edx
@@ -31842,7 +31842,7 @@ f0111fda:	89 85 d4 fe ff ff    	mov    %eax,-0x12c(%ebp)
 f0111fe0:	8b 85 d4 fe ff ff    	mov    -0x12c(%ebp),%eax
 f0111fe6:	89 c1                	mov    %eax,%ecx
 f0111fe8:	c7 45 9c 00 10 00 00 	movl   $0x1000,-0x64(%ebp)
-f0111fef:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0111fef:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0111ff4:	0f b6 d0             	movzbl %al,%edx
 f0111ff7:	8b 45 9c             	mov    -0x64(%ebp),%eax
 f0111ffa:	01 d0                	add    %edx,%eax
@@ -31855,7 +31855,7 @@ f011200b:	8b 45 98             	mov    -0x68(%ebp),%eax
 f011200e:	29 d0                	sub    %edx,%eax
 f0112010:	89 c3                	mov    %eax,%ebx
 f0112012:	c7 45 94 00 10 00 00 	movl   $0x1000,-0x6c(%ebp)
-f0112019:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0112019:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011201e:	0f b6 c0             	movzbl %al,%eax
 f0112021:	c1 e0 04             	shl    $0x4,%eax
 f0112024:	89 c2                	mov    %eax,%edx
@@ -31916,7 +31916,7 @@ f01120cc:	89 85 d8 fe ff ff    	mov    %eax,-0x128(%ebp)
 f01120d2:	8b 85 d8 fe ff ff    	mov    -0x128(%ebp),%eax
 f01120d8:	89 c1                	mov    %eax,%ecx
 f01120da:	c7 45 8c 00 10 00 00 	movl   $0x1000,-0x74(%ebp)
-f01120e1:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01120e1:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01120e6:	0f b6 d0             	movzbl %al,%edx
 f01120e9:	8b 45 8c             	mov    -0x74(%ebp),%eax
 f01120ec:	01 d0                	add    %edx,%eax
@@ -31929,7 +31929,7 @@ f01120fd:	8b 45 88             	mov    -0x78(%ebp),%eax
 f0112100:	29 d0                	sub    %edx,%eax
 f0112102:	89 c3                	mov    %eax,%ebx
 f0112104:	c7 45 84 00 10 00 00 	movl   $0x1000,-0x7c(%ebp)
-f011210b:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011210b:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0112110:	0f b6 c0             	movzbl %al,%eax
 f0112113:	c1 e0 04             	shl    $0x4,%eax
 f0112116:	89 c2                	mov    %eax,%edx
@@ -31991,7 +31991,7 @@ f01121c4:	8b 85 dc fe ff ff    	mov    -0x124(%ebp),%eax
 f01121ca:	89 c1                	mov    %eax,%ecx
 f01121cc:	c7 85 7c ff ff ff 00 	movl   $0x1000,-0x84(%ebp)
 f01121d3:	10 00 00 
-f01121d6:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01121d6:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01121db:	0f b6 d0             	movzbl %al,%edx
 f01121de:	8b 85 7c ff ff ff    	mov    -0x84(%ebp),%eax
 f01121e4:	01 d0                	add    %edx,%eax
@@ -32005,7 +32005,7 @@ f0112204:	29 d0                	sub    %edx,%eax
 f0112206:	89 c3                	mov    %eax,%ebx
 f0112208:	c7 85 74 ff ff ff 00 	movl   $0x1000,-0x8c(%ebp)
 f011220f:	10 00 00 
-f0112212:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0112212:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0112217:	0f b6 c0             	movzbl %al,%eax
 f011221a:	c1 e0 04             	shl    $0x4,%eax
 f011221d:	89 c2                	mov    %eax,%edx
@@ -32172,7 +32172,7 @@ f0112415:	8b 85 e0 fe ff ff    	mov    -0x120(%ebp),%eax
 f011241b:	89 c1                	mov    %eax,%ecx
 f011241d:	c7 85 6c ff ff ff 00 	movl   $0x1000,-0x94(%ebp)
 f0112424:	10 00 00 
-f0112427:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0112427:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011242c:	0f b6 d0             	movzbl %al,%edx
 f011242f:	8b 85 6c ff ff ff    	mov    -0x94(%ebp),%eax
 f0112435:	01 d0                	add    %edx,%eax
@@ -32186,7 +32186,7 @@ f0112455:	29 d0                	sub    %edx,%eax
 f0112457:	89 c3                	mov    %eax,%ebx
 f0112459:	c7 85 64 ff ff ff 00 	movl   $0x1000,-0x9c(%ebp)
 f0112460:	10 00 00 
-f0112463:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0112463:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0112468:	0f b6 c0             	movzbl %al,%eax
 f011246b:	c1 e0 04             	shl    $0x4,%eax
 f011246e:	89 c2                	mov    %eax,%edx
@@ -32248,7 +32248,7 @@ f011252b:	8b 85 e4 fe ff ff    	mov    -0x11c(%ebp),%eax
 f0112531:	89 c1                	mov    %eax,%ecx
 f0112533:	c7 85 5c ff ff ff 00 	movl   $0x1000,-0xa4(%ebp)
 f011253a:	10 00 00 
-f011253d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011253d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0112542:	0f b6 d0             	movzbl %al,%edx
 f0112545:	8b 85 5c ff ff ff    	mov    -0xa4(%ebp),%eax
 f011254b:	01 d0                	add    %edx,%eax
@@ -32262,7 +32262,7 @@ f011256b:	29 d0                	sub    %edx,%eax
 f011256d:	89 c3                	mov    %eax,%ebx
 f011256f:	c7 85 54 ff ff ff 00 	movl   $0x1000,-0xac(%ebp)
 f0112576:	10 00 00 
-f0112579:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0112579:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011257e:	0f b6 c0             	movzbl %al,%eax
 f0112581:	c1 e0 04             	shl    $0x4,%eax
 f0112584:	89 c2                	mov    %eax,%edx
@@ -32325,7 +32325,7 @@ f0112641:	8b 85 e8 fe ff ff    	mov    -0x118(%ebp),%eax
 f0112647:	89 c1                	mov    %eax,%ecx
 f0112649:	c7 85 4c ff ff ff 00 	movl   $0x1000,-0xb4(%ebp)
 f0112650:	10 00 00 
-f0112653:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0112653:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0112658:	0f b6 d0             	movzbl %al,%edx
 f011265b:	8b 85 4c ff ff ff    	mov    -0xb4(%ebp),%eax
 f0112661:	01 d0                	add    %edx,%eax
@@ -32339,7 +32339,7 @@ f0112681:	29 d0                	sub    %edx,%eax
 f0112683:	89 c3                	mov    %eax,%ebx
 f0112685:	c7 85 44 ff ff ff 00 	movl   $0x1000,-0xbc(%ebp)
 f011268c:	10 00 00 
-f011268f:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011268f:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0112694:	0f b6 c0             	movzbl %al,%eax
 f0112697:	c1 e0 04             	shl    $0x4,%eax
 f011269a:	89 c2                	mov    %eax,%edx
@@ -32401,7 +32401,7 @@ f0112755:	8b 85 ec fe ff ff    	mov    -0x114(%ebp),%eax
 f011275b:	89 c1                	mov    %eax,%ecx
 f011275d:	c7 85 3c ff ff ff 00 	movl   $0x1000,-0xc4(%ebp)
 f0112764:	10 00 00 
-f0112767:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0112767:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011276c:	0f b6 d0             	movzbl %al,%edx
 f011276f:	8b 85 3c ff ff ff    	mov    -0xc4(%ebp),%eax
 f0112775:	01 d0                	add    %edx,%eax
@@ -32415,7 +32415,7 @@ f0112795:	29 d0                	sub    %edx,%eax
 f0112797:	89 c3                	mov    %eax,%ebx
 f0112799:	c7 85 34 ff ff ff 00 	movl   $0x1000,-0xcc(%ebp)
 f01127a0:	10 00 00 
-f01127a3:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01127a3:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01127a8:	0f b6 c0             	movzbl %al,%eax
 f01127ab:	c1 e0 04             	shl    $0x4,%eax
 f01127ae:	89 c2                	mov    %eax,%edx
@@ -32478,7 +32478,7 @@ f011286b:	8b 85 f0 fe ff ff    	mov    -0x110(%ebp),%eax
 f0112871:	89 c1                	mov    %eax,%ecx
 f0112873:	c7 85 2c ff ff ff 00 	movl   $0x1000,-0xd4(%ebp)
 f011287a:	10 00 00 
-f011287d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011287d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0112882:	0f b6 d0             	movzbl %al,%edx
 f0112885:	8b 85 2c ff ff ff    	mov    -0xd4(%ebp),%eax
 f011288b:	01 d0                	add    %edx,%eax
@@ -32492,7 +32492,7 @@ f01128ab:	29 d0                	sub    %edx,%eax
 f01128ad:	89 c3                	mov    %eax,%ebx
 f01128af:	c7 85 24 ff ff ff 00 	movl   $0x1000,-0xdc(%ebp)
 f01128b6:	10 00 00 
-f01128b9:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01128b9:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01128be:	0f b6 c0             	movzbl %al,%eax
 f01128c1:	c1 e0 04             	shl    $0x4,%eax
 f01128c4:	89 c2                	mov    %eax,%edx
@@ -32626,7 +32626,7 @@ f0112a53:	8b 85 f4 fe ff ff    	mov    -0x10c(%ebp),%eax
 f0112a59:	89 c1                	mov    %eax,%ecx
 f0112a5b:	c7 85 1c ff ff ff 00 	movl   $0x1000,-0xe4(%ebp)
 f0112a62:	10 00 00 
-f0112a65:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0112a65:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0112a6a:	0f b6 d0             	movzbl %al,%edx
 f0112a6d:	8b 85 1c ff ff ff    	mov    -0xe4(%ebp),%eax
 f0112a73:	01 d0                	add    %edx,%eax
@@ -32640,7 +32640,7 @@ f0112a93:	29 d0                	sub    %edx,%eax
 f0112a95:	89 c3                	mov    %eax,%ebx
 f0112a97:	c7 85 14 ff ff ff 00 	movl   $0x1000,-0xec(%ebp)
 f0112a9e:	10 00 00 
-f0112aa1:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0112aa1:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0112aa6:	0f b6 c0             	movzbl %al,%eax
 f0112aa9:	c1 e0 04             	shl    $0x4,%eax
 f0112aac:	89 c2                	mov    %eax,%edx
@@ -32738,7 +32738,7 @@ f0112bac:	f3 ab                	rep stos %eax,%es:(%edi)
 	{
 		ptr_allocations[0] = kmalloc(KERNEL_HEAP_MAX - ACTUAL_START + 1);
 f0112bae:	c7 45 f4 00 10 00 00 	movl   $0x1000,-0xc(%ebp)
-f0112bb5:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0112bb5:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0112bba:	0f b6 d0             	movzbl %al,%edx
 f0112bbd:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f0112bc0:	01 d0                	add    %edx,%eax
@@ -32751,7 +32751,7 @@ f0112bd1:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f0112bd4:	29 d0                	sub    %edx,%eax
 f0112bd6:	89 c1                	mov    %eax,%ecx
 f0112bd8:	c7 45 ec 00 10 00 00 	movl   $0x1000,-0x14(%ebp)
-f0112bdf:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0112bdf:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0112be4:	0f b6 c0             	movzbl %al,%eax
 f0112be7:	c1 e0 04             	shl    $0x4,%eax
 f0112bea:	89 c2                	mov    %eax,%edx
@@ -32803,7 +32803,7 @@ f0112c63:	89 85 f0 fe ff ff    	mov    %eax,-0x110(%ebp)
 f0112c69:	8b 85 f0 fe ff ff    	mov    -0x110(%ebp),%eax
 f0112c6f:	89 c1                	mov    %eax,%ecx
 f0112c71:	c7 45 dc 00 10 00 00 	movl   $0x1000,-0x24(%ebp)
-f0112c78:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0112c78:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0112c7d:	0f b6 d0             	movzbl %al,%edx
 f0112c80:	8b 45 dc             	mov    -0x24(%ebp),%eax
 f0112c83:	01 d0                	add    %edx,%eax
@@ -32816,7 +32816,7 @@ f0112c94:	8b 45 d8             	mov    -0x28(%ebp),%eax
 f0112c97:	29 d0                	sub    %edx,%eax
 f0112c99:	89 c3                	mov    %eax,%ebx
 f0112c9b:	c7 45 d4 00 10 00 00 	movl   $0x1000,-0x2c(%ebp)
-f0112ca2:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0112ca2:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0112ca7:	0f b6 c0             	movzbl %al,%eax
 f0112caa:	c1 e0 04             	shl    $0x4,%eax
 f0112cad:	89 c2                	mov    %eax,%edx
@@ -32877,7 +32877,7 @@ f0112d55:	89 85 f4 fe ff ff    	mov    %eax,-0x10c(%ebp)
 f0112d5b:	8b 85 f4 fe ff ff    	mov    -0x10c(%ebp),%eax
 f0112d61:	89 c1                	mov    %eax,%ecx
 f0112d63:	c7 45 cc 00 10 00 00 	movl   $0x1000,-0x34(%ebp)
-f0112d6a:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0112d6a:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0112d6f:	0f b6 d0             	movzbl %al,%edx
 f0112d72:	8b 45 cc             	mov    -0x34(%ebp),%eax
 f0112d75:	01 d0                	add    %edx,%eax
@@ -32890,7 +32890,7 @@ f0112d86:	8b 45 c8             	mov    -0x38(%ebp),%eax
 f0112d89:	29 d0                	sub    %edx,%eax
 f0112d8b:	89 c3                	mov    %eax,%ebx
 f0112d8d:	c7 45 c4 00 10 00 00 	movl   $0x1000,-0x3c(%ebp)
-f0112d94:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0112d94:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0112d99:	0f b6 c0             	movzbl %al,%eax
 f0112d9c:	c1 e0 04             	shl    $0x4,%eax
 f0112d9f:	89 c2                	mov    %eax,%edx
@@ -32951,7 +32951,7 @@ f0112e47:	89 85 f8 fe ff ff    	mov    %eax,-0x108(%ebp)
 f0112e4d:	8b 85 f8 fe ff ff    	mov    -0x108(%ebp),%eax
 f0112e53:	89 c1                	mov    %eax,%ecx
 f0112e55:	c7 45 bc 00 10 00 00 	movl   $0x1000,-0x44(%ebp)
-f0112e5c:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0112e5c:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0112e61:	0f b6 d0             	movzbl %al,%edx
 f0112e64:	8b 45 bc             	mov    -0x44(%ebp),%eax
 f0112e67:	01 d0                	add    %edx,%eax
@@ -32964,7 +32964,7 @@ f0112e78:	8b 45 b8             	mov    -0x48(%ebp),%eax
 f0112e7b:	29 d0                	sub    %edx,%eax
 f0112e7d:	89 c3                	mov    %eax,%ebx
 f0112e7f:	c7 45 b4 00 10 00 00 	movl   $0x1000,-0x4c(%ebp)
-f0112e86:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0112e86:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0112e8b:	0f b6 c0             	movzbl %al,%eax
 f0112e8e:	c1 e0 04             	shl    $0x4,%eax
 f0112e91:	89 c2                	mov    %eax,%edx
@@ -33025,7 +33025,7 @@ f0112f37:	89 85 fc fe ff ff    	mov    %eax,-0x104(%ebp)
 f0112f3d:	8b 85 fc fe ff ff    	mov    -0x104(%ebp),%eax
 f0112f43:	89 c1                	mov    %eax,%ecx
 f0112f45:	c7 45 ac 00 10 00 00 	movl   $0x1000,-0x54(%ebp)
-f0112f4c:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0112f4c:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0112f51:	0f b6 d0             	movzbl %al,%edx
 f0112f54:	8b 45 ac             	mov    -0x54(%ebp),%eax
 f0112f57:	01 d0                	add    %edx,%eax
@@ -33038,7 +33038,7 @@ f0112f68:	8b 45 a8             	mov    -0x58(%ebp),%eax
 f0112f6b:	29 d0                	sub    %edx,%eax
 f0112f6d:	89 c3                	mov    %eax,%ebx
 f0112f6f:	c7 45 a4 00 10 00 00 	movl   $0x1000,-0x5c(%ebp)
-f0112f76:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0112f76:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0112f7b:	0f b6 c0             	movzbl %al,%eax
 f0112f7e:	c1 e0 04             	shl    $0x4,%eax
 f0112f81:	89 c2                	mov    %eax,%edx
@@ -33132,7 +33132,7 @@ f011308e:	89 85 00 ff ff ff    	mov    %eax,-0x100(%ebp)
 f0113094:	8b 85 00 ff ff ff    	mov    -0x100(%ebp),%eax
 f011309a:	89 c1                	mov    %eax,%ecx
 f011309c:	c7 45 9c 00 10 00 00 	movl   $0x1000,-0x64(%ebp)
-f01130a3:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01130a3:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01130a8:	0f b6 d0             	movzbl %al,%edx
 f01130ab:	8b 45 9c             	mov    -0x64(%ebp),%eax
 f01130ae:	01 d0                	add    %edx,%eax
@@ -33145,7 +33145,7 @@ f01130bf:	8b 45 98             	mov    -0x68(%ebp),%eax
 f01130c2:	29 d0                	sub    %edx,%eax
 f01130c4:	89 c3                	mov    %eax,%ebx
 f01130c6:	c7 45 94 00 10 00 00 	movl   $0x1000,-0x6c(%ebp)
-f01130cd:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01130cd:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01130d2:	0f b6 c0             	movzbl %al,%eax
 f01130d5:	c1 e0 04             	shl    $0x4,%eax
 f01130d8:	89 c2                	mov    %eax,%edx
@@ -33239,7 +33239,7 @@ f01131e7:	89 85 04 ff ff ff    	mov    %eax,-0xfc(%ebp)
 f01131ed:	8b 85 04 ff ff ff    	mov    -0xfc(%ebp),%eax
 f01131f3:	89 c1                	mov    %eax,%ecx
 f01131f5:	c7 45 8c 00 10 00 00 	movl   $0x1000,-0x74(%ebp)
-f01131fc:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01131fc:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0113201:	0f b6 d0             	movzbl %al,%edx
 f0113204:	8b 45 8c             	mov    -0x74(%ebp),%eax
 f0113207:	01 d0                	add    %edx,%eax
@@ -33252,7 +33252,7 @@ f0113218:	8b 45 88             	mov    -0x78(%ebp),%eax
 f011321b:	29 d0                	sub    %edx,%eax
 f011321d:	89 c3                	mov    %eax,%ebx
 f011321f:	c7 45 84 00 10 00 00 	movl   $0x1000,-0x7c(%ebp)
-f0113226:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0113226:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011322b:	0f b6 c0             	movzbl %al,%eax
 f011322e:	c1 e0 04             	shl    $0x4,%eax
 f0113231:	89 c2                	mov    %eax,%edx
@@ -33314,7 +33314,7 @@ f01132df:	8b 85 08 ff ff ff    	mov    -0xf8(%ebp),%eax
 f01132e5:	89 c1                	mov    %eax,%ecx
 f01132e7:	c7 85 7c ff ff ff 00 	movl   $0x1000,-0x84(%ebp)
 f01132ee:	10 00 00 
-f01132f1:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01132f1:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01132f6:	0f b6 d0             	movzbl %al,%edx
 f01132f9:	8b 85 7c ff ff ff    	mov    -0x84(%ebp),%eax
 f01132ff:	01 d0                	add    %edx,%eax
@@ -33328,7 +33328,7 @@ f011331f:	29 d0                	sub    %edx,%eax
 f0113321:	89 c3                	mov    %eax,%ebx
 f0113323:	c7 85 74 ff ff ff 00 	movl   $0x1000,-0x8c(%ebp)
 f011332a:	10 00 00 
-f011332d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011332d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0113332:	0f b6 c0             	movzbl %al,%eax
 f0113335:	c1 e0 04             	shl    $0x4,%eax
 f0113338:	89 c2                	mov    %eax,%edx
@@ -33456,7 +33456,7 @@ f01134c7:	8b 85 0c ff ff ff    	mov    -0xf4(%ebp),%eax
 f01134cd:	89 c1                	mov    %eax,%ecx
 f01134cf:	c7 85 6c ff ff ff 00 	movl   $0x1000,-0x94(%ebp)
 f01134d6:	10 00 00 
-f01134d9:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01134d9:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01134de:	0f b6 d0             	movzbl %al,%edx
 f01134e1:	8b 85 6c ff ff ff    	mov    -0x94(%ebp),%eax
 f01134e7:	01 d0                	add    %edx,%eax
@@ -33470,7 +33470,7 @@ f0113507:	29 d0                	sub    %edx,%eax
 f0113509:	89 c3                	mov    %eax,%ebx
 f011350b:	c7 85 64 ff ff ff 00 	movl   $0x1000,-0x9c(%ebp)
 f0113512:	10 00 00 
-f0113515:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0113515:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011351a:	0f b6 c0             	movzbl %al,%eax
 f011351d:	c1 e0 04             	shl    $0x4,%eax
 f0113520:	89 c2                	mov    %eax,%edx
@@ -33535,7 +33535,7 @@ f01135dd:	8b 85 10 ff ff ff    	mov    -0xf0(%ebp),%eax
 f01135e3:	89 c1                	mov    %eax,%ecx
 f01135e5:	c7 85 5c ff ff ff 00 	movl   $0x1000,-0xa4(%ebp)
 f01135ec:	10 00 00 
-f01135ef:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01135ef:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01135f4:	0f b6 d0             	movzbl %al,%edx
 f01135f7:	8b 85 5c ff ff ff    	mov    -0xa4(%ebp),%eax
 f01135fd:	01 d0                	add    %edx,%eax
@@ -33549,7 +33549,7 @@ f011361d:	29 d0                	sub    %edx,%eax
 f011361f:	89 c3                	mov    %eax,%ebx
 f0113621:	c7 85 54 ff ff ff 00 	movl   $0x1000,-0xac(%ebp)
 f0113628:	10 00 00 
-f011362b:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011362b:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0113630:	0f b6 c0             	movzbl %al,%eax
 f0113633:	c1 e0 04             	shl    $0x4,%eax
 f0113636:	89 c2                	mov    %eax,%edx
@@ -33599,7 +33599,7 @@ f01136c8:	e8 a7 ca fe ff       	call   f0100174 <_panic>
 		ptr_allocations[9] = kmalloc((KERNEL_HEAP_MAX - ACTUAL_START - 14*Mega));
 f01136cd:	c7 85 4c ff ff ff 00 	movl   $0x1000,-0xb4(%ebp)
 f01136d4:	10 00 00 
-f01136d7:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01136d7:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01136dc:	0f b6 d0             	movzbl %al,%edx
 f01136df:	8b 85 4c ff ff ff    	mov    -0xb4(%ebp),%eax
 f01136e5:	01 d0                	add    %edx,%eax
@@ -33613,7 +33613,7 @@ f0113705:	29 d0                	sub    %edx,%eax
 f0113707:	89 c1                	mov    %eax,%ecx
 f0113709:	c7 85 44 ff ff ff 00 	movl   $0x1000,-0xbc(%ebp)
 f0113710:	10 00 00 
-f0113713:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0113713:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0113718:	0f b6 c0             	movzbl %al,%eax
 f011371b:	c1 e0 04             	shl    $0x4,%eax
 f011371e:	89 c2                	mov    %eax,%edx
@@ -33739,7 +33739,7 @@ f0113846:	89 85 80 fd ff ff    	mov    %eax,-0x280(%ebp)
 f011384c:	8b 85 44 fc ff ff    	mov    -0x3bc(%ebp),%eax
 f0113852:	89 c1                	mov    %eax,%ecx
 f0113854:	c7 45 e4 00 10 00 00 	movl   $0x1000,-0x1c(%ebp)
-f011385b:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011385b:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0113860:	0f b6 d0             	movzbl %al,%edx
 f0113863:	8b 45 e4             	mov    -0x1c(%ebp),%eax
 f0113866:	01 d0                	add    %edx,%eax
@@ -33752,7 +33752,7 @@ f0113877:	8b 45 e0             	mov    -0x20(%ebp),%eax
 f011387a:	29 d0                	sub    %edx,%eax
 f011387c:	89 c3                	mov    %eax,%ebx
 f011387e:	c7 45 dc 00 10 00 00 	movl   $0x1000,-0x24(%ebp)
-f0113885:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0113885:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011388a:	0f b6 c0             	movzbl %al,%eax
 f011388d:	c1 e0 04             	shl    $0x4,%eax
 f0113890:	89 c2                	mov    %eax,%edx
@@ -33773,7 +33773,7 @@ f01138b4:	0f 85 34 03 00 00    	jne    f0113bee <test_kmalloc_worstfit+0x44c>
 f01138ba:	8b 85 4c fc ff ff    	mov    -0x3b4(%ebp),%eax
 f01138c0:	89 c1                	mov    %eax,%ecx
 f01138c2:	c7 45 d4 00 10 00 00 	movl   $0x1000,-0x2c(%ebp)
-f01138c9:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01138c9:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01138ce:	0f b6 d0             	movzbl %al,%edx
 f01138d1:	8b 45 d4             	mov    -0x2c(%ebp),%eax
 f01138d4:	01 d0                	add    %edx,%eax
@@ -33786,7 +33786,7 @@ f01138e5:	8b 45 d0             	mov    -0x30(%ebp),%eax
 f01138e8:	29 d0                	sub    %edx,%eax
 f01138ea:	89 c3                	mov    %eax,%ebx
 f01138ec:	c7 45 cc 00 10 00 00 	movl   $0x1000,-0x34(%ebp)
-f01138f3:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01138f3:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01138f8:	0f b6 c0             	movzbl %al,%eax
 f01138fb:	c1 e0 04             	shl    $0x4,%eax
 f01138fe:	89 c2                	mov    %eax,%edx
@@ -33814,7 +33814,7 @@ f0113922:	0f 85 c6 02 00 00    	jne    f0113bee <test_kmalloc_worstfit+0x44c>
 f0113928:	8b 85 64 fc ff ff    	mov    -0x39c(%ebp),%eax
 f011392e:	89 c1                	mov    %eax,%ecx
 f0113930:	c7 45 c4 00 10 00 00 	movl   $0x1000,-0x3c(%ebp)
-f0113937:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0113937:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011393c:	0f b6 d0             	movzbl %al,%edx
 f011393f:	8b 45 c4             	mov    -0x3c(%ebp),%eax
 f0113942:	01 d0                	add    %edx,%eax
@@ -33827,7 +33827,7 @@ f0113953:	8b 45 c0             	mov    -0x40(%ebp),%eax
 f0113956:	29 d0                	sub    %edx,%eax
 f0113958:	89 c3                	mov    %eax,%ebx
 f011395a:	c7 45 bc 00 10 00 00 	movl   $0x1000,-0x44(%ebp)
-f0113961:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0113961:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0113966:	0f b6 c0             	movzbl %al,%eax
 f0113969:	c1 e0 04             	shl    $0x4,%eax
 f011396c:	89 c2                	mov    %eax,%edx
@@ -33855,7 +33855,7 @@ f0113990:	0f 85 58 02 00 00    	jne    f0113bee <test_kmalloc_worstfit+0x44c>
 f0113996:	8b 85 6c fc ff ff    	mov    -0x394(%ebp),%eax
 f011399c:	89 c1                	mov    %eax,%ecx
 f011399e:	c7 45 b4 00 10 00 00 	movl   $0x1000,-0x4c(%ebp)
-f01139a5:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01139a5:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01139aa:	0f b6 d0             	movzbl %al,%edx
 f01139ad:	8b 45 b4             	mov    -0x4c(%ebp),%eax
 f01139b0:	01 d0                	add    %edx,%eax
@@ -33868,7 +33868,7 @@ f01139c1:	8b 45 b0             	mov    -0x50(%ebp),%eax
 f01139c4:	29 d0                	sub    %edx,%eax
 f01139c6:	89 c3                	mov    %eax,%ebx
 f01139c8:	c7 45 ac 00 10 00 00 	movl   $0x1000,-0x54(%ebp)
-f01139cf:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01139cf:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01139d4:	0f b6 c0             	movzbl %al,%eax
 f01139d7:	c1 e0 04             	shl    $0x4,%eax
 f01139da:	89 c2                	mov    %eax,%edx
@@ -33896,7 +33896,7 @@ f01139fe:	0f 85 ea 01 00 00    	jne    f0113bee <test_kmalloc_worstfit+0x44c>
 f0113a04:	8b 85 80 fc ff ff    	mov    -0x380(%ebp),%eax
 f0113a0a:	89 c1                	mov    %eax,%ecx
 f0113a0c:	c7 45 a4 00 10 00 00 	movl   $0x1000,-0x5c(%ebp)
-f0113a13:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0113a13:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0113a18:	0f b6 d0             	movzbl %al,%edx
 f0113a1b:	8b 45 a4             	mov    -0x5c(%ebp),%eax
 f0113a1e:	01 d0                	add    %edx,%eax
@@ -33909,7 +33909,7 @@ f0113a2f:	8b 45 a0             	mov    -0x60(%ebp),%eax
 f0113a32:	29 d0                	sub    %edx,%eax
 f0113a34:	89 c3                	mov    %eax,%ebx
 f0113a36:	c7 45 9c 00 10 00 00 	movl   $0x1000,-0x64(%ebp)
-f0113a3d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0113a3d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0113a42:	0f b6 c0             	movzbl %al,%eax
 f0113a45:	c1 e0 04             	shl    $0x4,%eax
 f0113a48:	89 c2                	mov    %eax,%edx
@@ -33937,7 +33937,7 @@ f0113a6c:	0f 85 7c 01 00 00    	jne    f0113bee <test_kmalloc_worstfit+0x44c>
 f0113a72:	8b 85 94 fc ff ff    	mov    -0x36c(%ebp),%eax
 f0113a78:	89 c1                	mov    %eax,%ecx
 f0113a7a:	c7 45 94 00 10 00 00 	movl   $0x1000,-0x6c(%ebp)
-f0113a81:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0113a81:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0113a86:	0f b6 d0             	movzbl %al,%edx
 f0113a89:	8b 45 94             	mov    -0x6c(%ebp),%eax
 f0113a8c:	01 d0                	add    %edx,%eax
@@ -33950,7 +33950,7 @@ f0113a9d:	8b 45 90             	mov    -0x70(%ebp),%eax
 f0113aa0:	29 d0                	sub    %edx,%eax
 f0113aa2:	89 c3                	mov    %eax,%ebx
 f0113aa4:	c7 45 8c 00 10 00 00 	movl   $0x1000,-0x74(%ebp)
-f0113aab:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0113aab:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0113ab0:	0f b6 c0             	movzbl %al,%eax
 f0113ab3:	c1 e0 04             	shl    $0x4,%eax
 f0113ab6:	89 c2                	mov    %eax,%edx
@@ -33978,7 +33978,7 @@ f0113ada:	0f 85 0e 01 00 00    	jne    f0113bee <test_kmalloc_worstfit+0x44c>
 f0113ae0:	8b 85 0c fd ff ff    	mov    -0x2f4(%ebp),%eax
 f0113ae6:	89 c1                	mov    %eax,%ecx
 f0113ae8:	c7 45 84 00 10 00 00 	movl   $0x1000,-0x7c(%ebp)
-f0113aef:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0113aef:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0113af4:	0f b6 d0             	movzbl %al,%edx
 f0113af7:	8b 45 84             	mov    -0x7c(%ebp),%eax
 f0113afa:	01 d0                	add    %edx,%eax
@@ -33992,7 +33992,7 @@ f0113b0e:	29 d0                	sub    %edx,%eax
 f0113b10:	89 c3                	mov    %eax,%ebx
 f0113b12:	c7 85 7c ff ff ff 00 	movl   $0x1000,-0x84(%ebp)
 f0113b19:	10 00 00 
-f0113b1c:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0113b1c:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0113b21:	0f b6 c0             	movzbl %al,%eax
 f0113b24:	c1 e0 04             	shl    $0x4,%eax
 f0113b27:	89 c2                	mov    %eax,%edx
@@ -34021,7 +34021,7 @@ f0113b60:	8b 85 80 fd ff ff    	mov    -0x280(%ebp),%eax
 f0113b66:	89 c1                	mov    %eax,%ecx
 f0113b68:	c7 85 74 ff ff ff 00 	movl   $0x1000,-0x8c(%ebp)
 f0113b6f:	10 00 00 
-f0113b72:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0113b72:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0113b77:	0f b6 d0             	movzbl %al,%edx
 f0113b7a:	8b 85 74 ff ff ff    	mov    -0x8c(%ebp),%eax
 f0113b80:	01 d0                	add    %edx,%eax
@@ -34035,7 +34035,7 @@ f0113ba0:	29 d0                	sub    %edx,%eax
 f0113ba2:	89 c3                	mov    %eax,%ebx
 f0113ba4:	c7 85 6c ff ff ff 00 	movl   $0x1000,-0x94(%ebp)
 f0113bab:	10 00 00 
-f0113bae:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0113bae:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0113bb3:	0f b6 c0             	movzbl %al,%eax
 f0113bb6:	c1 e0 04             	shl    $0x4,%eax
 f0113bb9:	89 c2                	mov    %eax,%edx
@@ -34226,7 +34226,7 @@ f0113ddb:	89 85 64 ff ff ff    	mov    %eax,-0x9c(%ebp)
 	if((uint32)tempAddress != ACTUAL_START + 0x03C00000)
 f0113de1:	c7 85 60 ff ff ff 00 	movl   $0x1000,-0xa0(%ebp)
 f0113de8:	10 00 00 
-f0113deb:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0113deb:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0113df0:	0f b6 d0             	movzbl %al,%edx
 f0113df3:	8b 85 60 ff ff ff    	mov    -0xa0(%ebp),%eax
 f0113df9:	01 d0                	add    %edx,%eax
@@ -34240,7 +34240,7 @@ f0113e19:	29 d0                	sub    %edx,%eax
 f0113e1b:	89 c1                	mov    %eax,%ecx
 f0113e1d:	c7 85 58 ff ff ff 00 	movl   $0x1000,-0xa8(%ebp)
 f0113e24:	10 00 00 
-f0113e27:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0113e27:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0113e2c:	0f b6 c0             	movzbl %al,%eax
 f0113e2f:	c1 e0 04             	shl    $0x4,%eax
 f0113e32:	89 c2                	mov    %eax,%edx
@@ -34308,7 +34308,7 @@ f0113f06:	89 85 64 ff ff ff    	mov    %eax,-0x9c(%ebp)
 	if((uint32)tempAddress != ACTUAL_START + 0x03D00000)
 f0113f0c:	c7 85 50 ff ff ff 00 	movl   $0x1000,-0xb0(%ebp)
 f0113f13:	10 00 00 
-f0113f16:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0113f16:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0113f1b:	0f b6 d0             	movzbl %al,%edx
 f0113f1e:	8b 85 50 ff ff ff    	mov    -0xb0(%ebp),%eax
 f0113f24:	01 d0                	add    %edx,%eax
@@ -34322,7 +34322,7 @@ f0113f44:	29 d0                	sub    %edx,%eax
 f0113f46:	89 c1                	mov    %eax,%ecx
 f0113f48:	c7 85 48 ff ff ff 00 	movl   $0x1000,-0xb8(%ebp)
 f0113f4f:	10 00 00 
-f0113f52:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0113f52:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0113f57:	0f b6 c0             	movzbl %al,%eax
 f0113f5a:	c1 e0 04             	shl    $0x4,%eax
 f0113f5d:	89 c2                	mov    %eax,%edx
@@ -34390,7 +34390,7 @@ f0114031:	89 85 64 ff ff ff    	mov    %eax,-0x9c(%ebp)
 	if((uint32)tempAddress != ACTUAL_START + 0x08C00000)
 f0114037:	c7 85 40 ff ff ff 00 	movl   $0x1000,-0xc0(%ebp)
 f011403e:	10 00 00 
-f0114041:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0114041:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0114046:	0f b6 d0             	movzbl %al,%edx
 f0114049:	8b 85 40 ff ff ff    	mov    -0xc0(%ebp),%eax
 f011404f:	01 d0                	add    %edx,%eax
@@ -34404,7 +34404,7 @@ f011406f:	29 d0                	sub    %edx,%eax
 f0114071:	89 c1                	mov    %eax,%ecx
 f0114073:	c7 85 38 ff ff ff 00 	movl   $0x1000,-0xc8(%ebp)
 f011407a:	10 00 00 
-f011407d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011407d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0114082:	0f b6 c0             	movzbl %al,%eax
 f0114085:	c1 e0 04             	shl    $0x4,%eax
 f0114088:	89 c2                	mov    %eax,%edx
@@ -34472,7 +34472,7 @@ f011415c:	89 85 64 ff ff ff    	mov    %eax,-0x9c(%ebp)
 	if((uint32)tempAddress != ACTUAL_START + 0x01400000)
 f0114162:	c7 85 30 ff ff ff 00 	movl   $0x1000,-0xd0(%ebp)
 f0114169:	10 00 00 
-f011416c:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011416c:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0114171:	0f b6 d0             	movzbl %al,%edx
 f0114174:	8b 85 30 ff ff ff    	mov    -0xd0(%ebp),%eax
 f011417a:	01 d0                	add    %edx,%eax
@@ -34486,7 +34486,7 @@ f011419a:	29 d0                	sub    %edx,%eax
 f011419c:	89 c1                	mov    %eax,%ecx
 f011419e:	c7 85 28 ff ff ff 00 	movl   $0x1000,-0xd8(%ebp)
 f01141a5:	10 00 00 
-f01141a8:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01141a8:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01141ad:	0f b6 c0             	movzbl %al,%eax
 f01141b0:	c1 e0 04             	shl    $0x4,%eax
 f01141b3:	89 c2                	mov    %eax,%edx
@@ -34554,7 +34554,7 @@ f0114287:	89 85 64 ff ff ff    	mov    %eax,-0x9c(%ebp)
 	if((uint32)tempAddress != ACTUAL_START + 0x04100000)
 f011428d:	c7 85 20 ff ff ff 00 	movl   $0x1000,-0xe0(%ebp)
 f0114294:	10 00 00 
-f0114297:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0114297:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011429c:	0f b6 d0             	movzbl %al,%edx
 f011429f:	8b 85 20 ff ff ff    	mov    -0xe0(%ebp),%eax
 f01142a5:	01 d0                	add    %edx,%eax
@@ -34568,7 +34568,7 @@ f01142c5:	29 d0                	sub    %edx,%eax
 f01142c7:	89 c1                	mov    %eax,%ecx
 f01142c9:	c7 85 18 ff ff ff 00 	movl   $0x1000,-0xe8(%ebp)
 f01142d0:	10 00 00 
-f01142d3:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01142d3:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01142d8:	0f b6 c0             	movzbl %al,%eax
 f01142db:	c1 e0 04             	shl    $0x4,%eax
 f01142de:	89 c2                	mov    %eax,%edx
@@ -34636,7 +34636,7 @@ f01143b2:	89 85 64 ff ff ff    	mov    %eax,-0x9c(%ebp)
 	if((uint32)tempAddress != ACTUAL_START + 0x00400000)
 f01143b8:	c7 85 10 ff ff ff 00 	movl   $0x1000,-0xf0(%ebp)
 f01143bf:	10 00 00 
-f01143c2:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01143c2:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01143c7:	0f b6 d0             	movzbl %al,%edx
 f01143ca:	8b 85 10 ff ff ff    	mov    -0xf0(%ebp),%eax
 f01143d0:	01 d0                	add    %edx,%eax
@@ -34650,7 +34650,7 @@ f01143f0:	29 d0                	sub    %edx,%eax
 f01143f2:	89 c1                	mov    %eax,%ecx
 f01143f4:	c7 85 08 ff ff ff 00 	movl   $0x1000,-0xf8(%ebp)
 f01143fb:	10 00 00 
-f01143fe:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01143fe:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0114403:	0f b6 c0             	movzbl %al,%eax
 f0114406:	c1 e0 04             	shl    $0x4,%eax
 f0114409:	89 c2                	mov    %eax,%edx
@@ -34718,7 +34718,7 @@ f01144dd:	89 85 64 ff ff ff    	mov    %eax,-0x9c(%ebp)
 	if((uint32)tempAddress != ACTUAL_START)
 f01144e3:	c7 85 00 ff ff ff 00 	movl   $0x1000,-0x100(%ebp)
 f01144ea:	10 00 00 
-f01144ed:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01144ed:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01144f2:	0f b6 d0             	movzbl %al,%edx
 f01144f5:	8b 85 00 ff ff ff    	mov    -0x100(%ebp),%eax
 f01144fb:	01 d0                	add    %edx,%eax
@@ -34732,7 +34732,7 @@ f011451b:	29 d0                	sub    %edx,%eax
 f011451d:	89 c1                	mov    %eax,%ecx
 f011451f:	c7 85 f8 fe ff ff 00 	movl   $0x1000,-0x108(%ebp)
 f0114526:	10 00 00 
-f0114529:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0114529:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011452e:	0f b6 c0             	movzbl %al,%eax
 f0114531:	c1 e0 04             	shl    $0x4,%eax
 f0114534:	89 c2                	mov    %eax,%edx
@@ -34800,7 +34800,7 @@ f0114608:	89 85 64 ff ff ff    	mov    %eax,-0x9c(%ebp)
 	if((uint32)tempAddress != ACTUAL_START + 0x00600000)
 f011460e:	c7 85 f0 fe ff ff 00 	movl   $0x1000,-0x110(%ebp)
 f0114615:	10 00 00 
-f0114618:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0114618:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011461d:	0f b6 d0             	movzbl %al,%edx
 f0114620:	8b 85 f0 fe ff ff    	mov    -0x110(%ebp),%eax
 f0114626:	01 d0                	add    %edx,%eax
@@ -34814,7 +34814,7 @@ f0114646:	29 d0                	sub    %edx,%eax
 f0114648:	89 c1                	mov    %eax,%ecx
 f011464a:	c7 85 e8 fe ff ff 00 	movl   $0x1000,-0x118(%ebp)
 f0114651:	10 00 00 
-f0114654:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0114654:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0114659:	0f b6 c0             	movzbl %al,%eax
 f011465c:	c1 e0 04             	shl    $0x4,%eax
 f011465f:	89 c2                	mov    %eax,%edx
@@ -34882,7 +34882,7 @@ f0114733:	89 85 64 ff ff ff    	mov    %eax,-0x9c(%ebp)
 	if((uint32)tempAddress != ACTUAL_START + 0x09200000)
 f0114739:	c7 85 e0 fe ff ff 00 	movl   $0x1000,-0x120(%ebp)
 f0114740:	10 00 00 
-f0114743:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0114743:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0114748:	0f b6 d0             	movzbl %al,%edx
 f011474b:	8b 85 e0 fe ff ff    	mov    -0x120(%ebp),%eax
 f0114751:	01 d0                	add    %edx,%eax
@@ -34896,7 +34896,7 @@ f0114771:	29 d0                	sub    %edx,%eax
 f0114773:	89 c1                	mov    %eax,%ecx
 f0114775:	c7 85 d8 fe ff ff 00 	movl   $0x1000,-0x128(%ebp)
 f011477c:	10 00 00 
-f011477f:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011477f:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0114784:	0f b6 c0             	movzbl %al,%eax
 f0114787:	c1 e0 04             	shl    $0x4,%eax
 f011478a:	89 c2                	mov    %eax,%edx
@@ -34964,7 +34964,7 @@ f011485c:	89 85 64 ff ff ff    	mov    %eax,-0x9c(%ebp)
 	if((uint32)tempAddress != ACTUAL_START + 0x09201000)
 f0114862:	c7 85 d0 fe ff ff 00 	movl   $0x1000,-0x130(%ebp)
 f0114869:	10 00 00 
-f011486c:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011486c:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0114871:	0f b6 d0             	movzbl %al,%edx
 f0114874:	8b 85 d0 fe ff ff    	mov    -0x130(%ebp),%eax
 f011487a:	01 d0                	add    %edx,%eax
@@ -34978,7 +34978,7 @@ f011489a:	29 d0                	sub    %edx,%eax
 f011489c:	89 c1                	mov    %eax,%ecx
 f011489e:	c7 85 c8 fe ff ff 00 	movl   $0x1000,-0x138(%ebp)
 f01148a5:	10 00 00 
-f01148a8:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01148a8:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01148ad:	0f b6 c0             	movzbl %al,%eax
 f01148b0:	c1 e0 04             	shl    $0x4,%eax
 f01148b3:	89 c2                	mov    %eax,%edx
@@ -35183,7 +35183,7 @@ f0114ae7:	89 85 30 fe ff ff    	mov    %eax,-0x1d0(%ebp)
 f0114aed:	8b 85 30 fe ff ff    	mov    -0x1d0(%ebp),%eax
 f0114af3:	89 c1                	mov    %eax,%ecx
 f0114af5:	c7 45 c8 00 10 00 00 	movl   $0x1000,-0x38(%ebp)
-f0114afc:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0114afc:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0114b01:	0f b6 d0             	movzbl %al,%edx
 f0114b04:	8b 45 c8             	mov    -0x38(%ebp),%eax
 f0114b07:	01 d0                	add    %edx,%eax
@@ -35196,7 +35196,7 @@ f0114b18:	8b 45 c4             	mov    -0x3c(%ebp),%eax
 f0114b1b:	29 d0                	sub    %edx,%eax
 f0114b1d:	89 c3                	mov    %eax,%ebx
 f0114b1f:	c7 45 c0 00 10 00 00 	movl   $0x1000,-0x40(%ebp)
-f0114b26:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0114b26:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0114b2b:	0f b6 c0             	movzbl %al,%eax
 f0114b2e:	c1 e0 04             	shl    $0x4,%eax
 f0114b31:	89 c2                	mov    %eax,%edx
@@ -35260,7 +35260,7 @@ f0114be3:	89 85 34 fe ff ff    	mov    %eax,-0x1cc(%ebp)
 f0114be9:	8b 85 34 fe ff ff    	mov    -0x1cc(%ebp),%eax
 f0114bef:	89 c1                	mov    %eax,%ecx
 f0114bf1:	c7 45 b8 00 10 00 00 	movl   $0x1000,-0x48(%ebp)
-f0114bf8:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0114bf8:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0114bfd:	0f b6 d0             	movzbl %al,%edx
 f0114c00:	8b 45 b8             	mov    -0x48(%ebp),%eax
 f0114c03:	01 d0                	add    %edx,%eax
@@ -35273,7 +35273,7 @@ f0114c14:	8b 45 b4             	mov    -0x4c(%ebp),%eax
 f0114c17:	29 d0                	sub    %edx,%eax
 f0114c19:	89 c3                	mov    %eax,%ebx
 f0114c1b:	c7 45 b0 00 10 00 00 	movl   $0x1000,-0x50(%ebp)
-f0114c22:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0114c22:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0114c27:	0f b6 c0             	movzbl %al,%eax
 f0114c2a:	c1 e0 04             	shl    $0x4,%eax
 f0114c2d:	89 c2                	mov    %eax,%edx
@@ -35337,7 +35337,7 @@ f0114cdf:	89 85 38 fe ff ff    	mov    %eax,-0x1c8(%ebp)
 f0114ce5:	8b 85 38 fe ff ff    	mov    -0x1c8(%ebp),%eax
 f0114ceb:	89 c1                	mov    %eax,%ecx
 f0114ced:	c7 45 a8 00 10 00 00 	movl   $0x1000,-0x58(%ebp)
-f0114cf4:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0114cf4:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0114cf9:	0f b6 d0             	movzbl %al,%edx
 f0114cfc:	8b 45 a8             	mov    -0x58(%ebp),%eax
 f0114cff:	01 d0                	add    %edx,%eax
@@ -35350,7 +35350,7 @@ f0114d10:	8b 45 a4             	mov    -0x5c(%ebp),%eax
 f0114d13:	29 d0                	sub    %edx,%eax
 f0114d15:	89 c3                	mov    %eax,%ebx
 f0114d17:	c7 45 a0 00 10 00 00 	movl   $0x1000,-0x60(%ebp)
-f0114d1e:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0114d1e:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0114d23:	0f b6 c0             	movzbl %al,%eax
 f0114d26:	c1 e0 04             	shl    $0x4,%eax
 f0114d29:	89 c2                	mov    %eax,%edx
@@ -35439,7 +35439,7 @@ f0114e04:	89 85 3c fe ff ff    	mov    %eax,-0x1c4(%ebp)
 f0114e0a:	8b 85 3c fe ff ff    	mov    -0x1c4(%ebp),%eax
 f0114e10:	89 c1                	mov    %eax,%ecx
 f0114e12:	c7 45 94 00 10 00 00 	movl   $0x1000,-0x6c(%ebp)
-f0114e19:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0114e19:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0114e1e:	0f b6 d0             	movzbl %al,%edx
 f0114e21:	8b 45 94             	mov    -0x6c(%ebp),%eax
 f0114e24:	01 d0                	add    %edx,%eax
@@ -35452,7 +35452,7 @@ f0114e35:	8b 45 90             	mov    -0x70(%ebp),%eax
 f0114e38:	29 d0                	sub    %edx,%eax
 f0114e3a:	89 c3                	mov    %eax,%ebx
 f0114e3c:	c7 45 8c 00 10 00 00 	movl   $0x1000,-0x74(%ebp)
-f0114e43:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0114e43:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0114e48:	0f b6 c0             	movzbl %al,%eax
 f0114e4b:	c1 e0 04             	shl    $0x4,%eax
 f0114e4e:	89 c2                	mov    %eax,%edx
@@ -35541,7 +35541,7 @@ f0114f29:	89 85 40 fe ff ff    	mov    %eax,-0x1c0(%ebp)
 f0114f2f:	8b 85 40 fe ff ff    	mov    -0x1c0(%ebp),%eax
 f0114f35:	89 c1                	mov    %eax,%ecx
 f0114f37:	c7 45 84 00 10 00 00 	movl   $0x1000,-0x7c(%ebp)
-f0114f3e:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0114f3e:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0114f43:	0f b6 d0             	movzbl %al,%edx
 f0114f46:	8b 45 84             	mov    -0x7c(%ebp),%eax
 f0114f49:	01 d0                	add    %edx,%eax
@@ -35555,7 +35555,7 @@ f0114f5d:	29 d0                	sub    %edx,%eax
 f0114f5f:	89 c3                	mov    %eax,%ebx
 f0114f61:	c7 85 7c ff ff ff 00 	movl   $0x1000,-0x84(%ebp)
 f0114f68:	10 00 00 
-f0114f6b:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0114f6b:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0114f70:	0f b6 c0             	movzbl %al,%eax
 f0114f73:	c1 e0 04             	shl    $0x4,%eax
 f0114f76:	89 c2                	mov    %eax,%edx
@@ -35645,7 +35645,7 @@ f0115066:	8b 85 44 fe ff ff    	mov    -0x1bc(%ebp),%eax
 f011506c:	89 c1                	mov    %eax,%ecx
 f011506e:	c7 85 74 ff ff ff 00 	movl   $0x1000,-0x8c(%ebp)
 f0115075:	10 00 00 
-f0115078:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0115078:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011507d:	0f b6 d0             	movzbl %al,%edx
 f0115080:	8b 85 74 ff ff ff    	mov    -0x8c(%ebp),%eax
 f0115086:	01 d0                	add    %edx,%eax
@@ -35659,7 +35659,7 @@ f01150a6:	29 d0                	sub    %edx,%eax
 f01150a8:	89 c3                	mov    %eax,%ebx
 f01150aa:	c7 85 6c ff ff ff 00 	movl   $0x1000,-0x94(%ebp)
 f01150b1:	10 00 00 
-f01150b4:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01150b4:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01150b9:	0f b6 c0             	movzbl %al,%eax
 f01150bc:	c1 e0 04             	shl    $0x4,%eax
 f01150bf:	89 c2                	mov    %eax,%edx
@@ -35749,7 +35749,7 @@ f01151b1:	8b 85 48 fe ff ff    	mov    -0x1b8(%ebp),%eax
 f01151b7:	89 c1                	mov    %eax,%ecx
 f01151b9:	c7 85 64 ff ff ff 00 	movl   $0x1000,-0x9c(%ebp)
 f01151c0:	10 00 00 
-f01151c3:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01151c3:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01151c8:	0f b6 d0             	movzbl %al,%edx
 f01151cb:	8b 85 64 ff ff ff    	mov    -0x9c(%ebp),%eax
 f01151d1:	01 d0                	add    %edx,%eax
@@ -35763,7 +35763,7 @@ f01151f1:	29 d0                	sub    %edx,%eax
 f01151f3:	89 c3                	mov    %eax,%ebx
 f01151f5:	c7 85 5c ff ff ff 00 	movl   $0x1000,-0xa4(%ebp)
 f01151fc:	10 00 00 
-f01151ff:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01151ff:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0115204:	0f b6 c0             	movzbl %al,%eax
 f0115207:	c1 e0 04             	shl    $0x4,%eax
 f011520a:	89 c2                	mov    %eax,%edx
@@ -35828,7 +35828,7 @@ f01152d1:	8b 85 4c fe ff ff    	mov    -0x1b4(%ebp),%eax
 f01152d7:	89 c1                	mov    %eax,%ecx
 f01152d9:	c7 85 54 ff ff ff 00 	movl   $0x1000,-0xac(%ebp)
 f01152e0:	10 00 00 
-f01152e3:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01152e3:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01152e8:	0f b6 d0             	movzbl %al,%edx
 f01152eb:	8b 85 54 ff ff ff    	mov    -0xac(%ebp),%eax
 f01152f1:	01 d0                	add    %edx,%eax
@@ -35842,7 +35842,7 @@ f0115311:	29 d0                	sub    %edx,%eax
 f0115313:	89 c3                	mov    %eax,%ebx
 f0115315:	c7 85 4c ff ff ff 00 	movl   $0x1000,-0xb4(%ebp)
 f011531c:	10 00 00 
-f011531f:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011531f:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0115324:	0f b6 c0             	movzbl %al,%eax
 f0115327:	c1 e0 04             	shl    $0x4,%eax
 f011532a:	89 c2                	mov    %eax,%edx
@@ -36275,7 +36275,7 @@ f01157b1:	8b 85 50 fe ff ff    	mov    -0x1b0(%ebp),%eax
 f01157b7:	89 c1                	mov    %eax,%ecx
 f01157b9:	c7 85 3c ff ff ff 00 	movl   $0x1000,-0xc4(%ebp)
 f01157c0:	10 00 00 
-f01157c3:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01157c3:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01157c8:	0f b6 d0             	movzbl %al,%edx
 f01157cb:	8b 85 3c ff ff ff    	mov    -0xc4(%ebp),%eax
 f01157d1:	01 d0                	add    %edx,%eax
@@ -36289,7 +36289,7 @@ f01157f1:	29 d0                	sub    %edx,%eax
 f01157f3:	89 c3                	mov    %eax,%ebx
 f01157f5:	c7 85 34 ff ff ff 00 	movl   $0x1000,-0xcc(%ebp)
 f01157fc:	10 00 00 
-f01157ff:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01157ff:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0115804:	0f b6 c0             	movzbl %al,%eax
 f0115807:	c1 e0 04             	shl    $0x4,%eax
 f011580a:	89 c2                	mov    %eax,%edx
@@ -36379,7 +36379,7 @@ f01158fa:	8b 85 54 fe ff ff    	mov    -0x1ac(%ebp),%eax
 f0115900:	89 c1                	mov    %eax,%ecx
 f0115902:	c7 85 2c ff ff ff 00 	movl   $0x1000,-0xd4(%ebp)
 f0115909:	10 00 00 
-f011590c:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011590c:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0115911:	0f b6 d0             	movzbl %al,%edx
 f0115914:	8b 85 2c ff ff ff    	mov    -0xd4(%ebp),%eax
 f011591a:	01 d0                	add    %edx,%eax
@@ -36393,7 +36393,7 @@ f011593a:	29 d0                	sub    %edx,%eax
 f011593c:	89 c3                	mov    %eax,%ebx
 f011593e:	c7 85 24 ff ff ff 00 	movl   $0x1000,-0xdc(%ebp)
 f0115945:	10 00 00 
-f0115948:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0115948:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011594d:	0f b6 c0             	movzbl %al,%eax
 f0115950:	c1 e0 04             	shl    $0x4,%eax
 f0115953:	89 c2                	mov    %eax,%edx
@@ -36981,7 +36981,7 @@ f0115fe3:	eb 4a                	jmp    f011602f <test_kfree+0x1609>
 			get_page_table(ptr_page_directory, (void*)(uint32)va, &ptr_table);
 f0115fe5:	8b 45 e8             	mov    -0x18(%ebp),%eax
 f0115fe8:	89 c1                	mov    %eax,%ecx
-f0115fea:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f0115fea:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f0115fef:	83 ec 04             	sub    $0x4,%esp
 f0115ff2:	8d 95 2c fe ff ff    	lea    -0x1d4(%ebp),%edx
 f0115ff8:	52                   	push   %edx
@@ -37128,7 +37128,7 @@ f0116131:	89 85 30 fe ff ff    	mov    %eax,-0x1d0(%ebp)
 f0116137:	8b 85 30 fe ff ff    	mov    -0x1d0(%ebp),%eax
 f011613d:	89 c1                	mov    %eax,%ecx
 f011613f:	c7 45 c8 00 10 00 00 	movl   $0x1000,-0x38(%ebp)
-f0116146:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0116146:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011614b:	0f b6 d0             	movzbl %al,%edx
 f011614e:	8b 45 c8             	mov    -0x38(%ebp),%eax
 f0116151:	01 d0                	add    %edx,%eax
@@ -37141,7 +37141,7 @@ f0116162:	8b 45 c4             	mov    -0x3c(%ebp),%eax
 f0116165:	29 d0                	sub    %edx,%eax
 f0116167:	89 c3                	mov    %eax,%ebx
 f0116169:	c7 45 c0 00 10 00 00 	movl   $0x1000,-0x40(%ebp)
-f0116170:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0116170:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0116175:	0f b6 c0             	movzbl %al,%eax
 f0116178:	c1 e0 04             	shl    $0x4,%eax
 f011617b:	89 c2                	mov    %eax,%edx
@@ -37205,7 +37205,7 @@ f011622d:	89 85 34 fe ff ff    	mov    %eax,-0x1cc(%ebp)
 f0116233:	8b 85 34 fe ff ff    	mov    -0x1cc(%ebp),%eax
 f0116239:	89 c1                	mov    %eax,%ecx
 f011623b:	c7 45 b8 00 10 00 00 	movl   $0x1000,-0x48(%ebp)
-f0116242:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0116242:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0116247:	0f b6 d0             	movzbl %al,%edx
 f011624a:	8b 45 b8             	mov    -0x48(%ebp),%eax
 f011624d:	01 d0                	add    %edx,%eax
@@ -37218,7 +37218,7 @@ f011625e:	8b 45 b4             	mov    -0x4c(%ebp),%eax
 f0116261:	29 d0                	sub    %edx,%eax
 f0116263:	89 c3                	mov    %eax,%ebx
 f0116265:	c7 45 b0 00 10 00 00 	movl   $0x1000,-0x50(%ebp)
-f011626c:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011626c:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0116271:	0f b6 c0             	movzbl %al,%eax
 f0116274:	c1 e0 04             	shl    $0x4,%eax
 f0116277:	89 c2                	mov    %eax,%edx
@@ -37282,7 +37282,7 @@ f0116329:	89 85 38 fe ff ff    	mov    %eax,-0x1c8(%ebp)
 f011632f:	8b 85 38 fe ff ff    	mov    -0x1c8(%ebp),%eax
 f0116335:	89 c1                	mov    %eax,%ecx
 f0116337:	c7 45 a8 00 10 00 00 	movl   $0x1000,-0x58(%ebp)
-f011633e:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011633e:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0116343:	0f b6 d0             	movzbl %al,%edx
 f0116346:	8b 45 a8             	mov    -0x58(%ebp),%eax
 f0116349:	01 d0                	add    %edx,%eax
@@ -37295,7 +37295,7 @@ f011635a:	8b 45 a4             	mov    -0x5c(%ebp),%eax
 f011635d:	29 d0                	sub    %edx,%eax
 f011635f:	89 c3                	mov    %eax,%ebx
 f0116361:	c7 45 a0 00 10 00 00 	movl   $0x1000,-0x60(%ebp)
-f0116368:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0116368:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011636d:	0f b6 c0             	movzbl %al,%eax
 f0116370:	c1 e0 04             	shl    $0x4,%eax
 f0116373:	89 c2                	mov    %eax,%edx
@@ -37384,7 +37384,7 @@ f011644e:	89 85 3c fe ff ff    	mov    %eax,-0x1c4(%ebp)
 f0116454:	8b 85 3c fe ff ff    	mov    -0x1c4(%ebp),%eax
 f011645a:	89 c1                	mov    %eax,%ecx
 f011645c:	c7 45 94 00 10 00 00 	movl   $0x1000,-0x6c(%ebp)
-f0116463:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0116463:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0116468:	0f b6 d0             	movzbl %al,%edx
 f011646b:	8b 45 94             	mov    -0x6c(%ebp),%eax
 f011646e:	01 d0                	add    %edx,%eax
@@ -37397,7 +37397,7 @@ f011647f:	8b 45 90             	mov    -0x70(%ebp),%eax
 f0116482:	29 d0                	sub    %edx,%eax
 f0116484:	89 c3                	mov    %eax,%ebx
 f0116486:	c7 45 8c 00 10 00 00 	movl   $0x1000,-0x74(%ebp)
-f011648d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011648d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0116492:	0f b6 c0             	movzbl %al,%eax
 f0116495:	c1 e0 04             	shl    $0x4,%eax
 f0116498:	89 c2                	mov    %eax,%edx
@@ -37486,7 +37486,7 @@ f0116573:	89 85 40 fe ff ff    	mov    %eax,-0x1c0(%ebp)
 f0116579:	8b 85 40 fe ff ff    	mov    -0x1c0(%ebp),%eax
 f011657f:	89 c1                	mov    %eax,%ecx
 f0116581:	c7 45 84 00 10 00 00 	movl   $0x1000,-0x7c(%ebp)
-f0116588:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0116588:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011658d:	0f b6 d0             	movzbl %al,%edx
 f0116590:	8b 45 84             	mov    -0x7c(%ebp),%eax
 f0116593:	01 d0                	add    %edx,%eax
@@ -37500,7 +37500,7 @@ f01165a7:	29 d0                	sub    %edx,%eax
 f01165a9:	89 c3                	mov    %eax,%ebx
 f01165ab:	c7 85 7c ff ff ff 00 	movl   $0x1000,-0x84(%ebp)
 f01165b2:	10 00 00 
-f01165b5:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01165b5:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01165ba:	0f b6 c0             	movzbl %al,%eax
 f01165bd:	c1 e0 04             	shl    $0x4,%eax
 f01165c0:	89 c2                	mov    %eax,%edx
@@ -37590,7 +37590,7 @@ f01166b0:	8b 85 44 fe ff ff    	mov    -0x1bc(%ebp),%eax
 f01166b6:	89 c1                	mov    %eax,%ecx
 f01166b8:	c7 85 74 ff ff ff 00 	movl   $0x1000,-0x8c(%ebp)
 f01166bf:	10 00 00 
-f01166c2:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01166c2:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01166c7:	0f b6 d0             	movzbl %al,%edx
 f01166ca:	8b 85 74 ff ff ff    	mov    -0x8c(%ebp),%eax
 f01166d0:	01 d0                	add    %edx,%eax
@@ -37604,7 +37604,7 @@ f01166f0:	29 d0                	sub    %edx,%eax
 f01166f2:	89 c3                	mov    %eax,%ebx
 f01166f4:	c7 85 6c ff ff ff 00 	movl   $0x1000,-0x94(%ebp)
 f01166fb:	10 00 00 
-f01166fe:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01166fe:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0116703:	0f b6 c0             	movzbl %al,%eax
 f0116706:	c1 e0 04             	shl    $0x4,%eax
 f0116709:	89 c2                	mov    %eax,%edx
@@ -37694,7 +37694,7 @@ f01167fb:	8b 85 48 fe ff ff    	mov    -0x1b8(%ebp),%eax
 f0116801:	89 c1                	mov    %eax,%ecx
 f0116803:	c7 85 64 ff ff ff 00 	movl   $0x1000,-0x9c(%ebp)
 f011680a:	10 00 00 
-f011680d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011680d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0116812:	0f b6 d0             	movzbl %al,%edx
 f0116815:	8b 85 64 ff ff ff    	mov    -0x9c(%ebp),%eax
 f011681b:	01 d0                	add    %edx,%eax
@@ -37708,7 +37708,7 @@ f011683b:	29 d0                	sub    %edx,%eax
 f011683d:	89 c3                	mov    %eax,%ebx
 f011683f:	c7 85 5c ff ff ff 00 	movl   $0x1000,-0xa4(%ebp)
 f0116846:	10 00 00 
-f0116849:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0116849:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011684e:	0f b6 c0             	movzbl %al,%eax
 f0116851:	c1 e0 04             	shl    $0x4,%eax
 f0116854:	89 c2                	mov    %eax,%edx
@@ -37773,7 +37773,7 @@ f011691b:	8b 85 4c fe ff ff    	mov    -0x1b4(%ebp),%eax
 f0116921:	89 c1                	mov    %eax,%ecx
 f0116923:	c7 85 54 ff ff ff 00 	movl   $0x1000,-0xac(%ebp)
 f011692a:	10 00 00 
-f011692d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011692d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0116932:	0f b6 d0             	movzbl %al,%edx
 f0116935:	8b 85 54 ff ff ff    	mov    -0xac(%ebp),%eax
 f011693b:	01 d0                	add    %edx,%eax
@@ -37787,7 +37787,7 @@ f011695b:	29 d0                	sub    %edx,%eax
 f011695d:	89 c3                	mov    %eax,%ebx
 f011695f:	c7 85 4c ff ff ff 00 	movl   $0x1000,-0xb4(%ebp)
 f0116966:	10 00 00 
-f0116969:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0116969:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011696e:	0f b6 c0             	movzbl %al,%eax
 f0116971:	c1 e0 04             	shl    $0x4,%eax
 f0116974:	89 c2                	mov    %eax,%edx
@@ -38220,7 +38220,7 @@ f0116dfb:	8b 85 50 fe ff ff    	mov    -0x1b0(%ebp),%eax
 f0116e01:	89 c1                	mov    %eax,%ecx
 f0116e03:	c7 85 3c ff ff ff 00 	movl   $0x1000,-0xc4(%ebp)
 f0116e0a:	10 00 00 
-f0116e0d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0116e0d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0116e12:	0f b6 d0             	movzbl %al,%edx
 f0116e15:	8b 85 3c ff ff ff    	mov    -0xc4(%ebp),%eax
 f0116e1b:	01 d0                	add    %edx,%eax
@@ -38234,7 +38234,7 @@ f0116e3b:	29 d0                	sub    %edx,%eax
 f0116e3d:	89 c3                	mov    %eax,%ebx
 f0116e3f:	c7 85 34 ff ff ff 00 	movl   $0x1000,-0xcc(%ebp)
 f0116e46:	10 00 00 
-f0116e49:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0116e49:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0116e4e:	0f b6 c0             	movzbl %al,%eax
 f0116e51:	c1 e0 04             	shl    $0x4,%eax
 f0116e54:	89 c2                	mov    %eax,%edx
@@ -38324,7 +38324,7 @@ f0116f44:	8b 85 54 fe ff ff    	mov    -0x1ac(%ebp),%eax
 f0116f4a:	89 c1                	mov    %eax,%ecx
 f0116f4c:	c7 85 2c ff ff ff 00 	movl   $0x1000,-0xd4(%ebp)
 f0116f53:	10 00 00 
-f0116f56:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0116f56:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0116f5b:	0f b6 d0             	movzbl %al,%edx
 f0116f5e:	8b 85 2c ff ff ff    	mov    -0xd4(%ebp),%eax
 f0116f64:	01 d0                	add    %edx,%eax
@@ -38338,7 +38338,7 @@ f0116f84:	29 d0                	sub    %edx,%eax
 f0116f86:	89 c3                	mov    %eax,%ebx
 f0116f88:	c7 85 24 ff ff ff 00 	movl   $0x1000,-0xdc(%ebp)
 f0116f8f:	10 00 00 
-f0116f92:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0116f92:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0116f97:	0f b6 c0             	movzbl %al,%eax
 f0116f9a:	c1 e0 04             	shl    $0x4,%eax
 f0116f9d:	89 c2                	mov    %eax,%edx
@@ -38926,7 +38926,7 @@ f011762d:	eb 4a                	jmp    f0117679 <test_kfree_bestfit+0x1609>
 			get_page_table(ptr_page_directory, (void*)(uint32)va, &ptr_table);
 f011762f:	8b 45 e8             	mov    -0x18(%ebp),%eax
 f0117632:	89 c1                	mov    %eax,%ecx
-f0117634:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f0117634:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f0117639:	83 ec 04             	sub    $0x4,%esp
 f011763c:	8d 95 2c fe ff ff    	lea    -0x1d4(%ebp),%edx
 f0117642:	52                   	push   %edx
@@ -39074,7 +39074,7 @@ f011777c:	89 85 ac fd ff ff    	mov    %eax,-0x254(%ebp)
 f0117782:	8b 85 ac fd ff ff    	mov    -0x254(%ebp),%eax
 f0117788:	89 c1                	mov    %eax,%ecx
 f011778a:	c7 45 a0 00 10 00 00 	movl   $0x1000,-0x60(%ebp)
-f0117791:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0117791:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0117796:	0f b6 d0             	movzbl %al,%edx
 f0117799:	8b 45 a0             	mov    -0x60(%ebp),%eax
 f011779c:	01 d0                	add    %edx,%eax
@@ -39087,7 +39087,7 @@ f01177ad:	8b 45 9c             	mov    -0x64(%ebp),%eax
 f01177b0:	29 d0                	sub    %edx,%eax
 f01177b2:	89 c3                	mov    %eax,%ebx
 f01177b4:	c7 45 98 00 10 00 00 	movl   $0x1000,-0x68(%ebp)
-f01177bb:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01177bb:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01177c0:	0f b6 c0             	movzbl %al,%eax
 f01177c3:	c1 e0 04             	shl    $0x4,%eax
 f01177c6:	89 c2                	mov    %eax,%edx
@@ -39148,7 +39148,7 @@ f011786e:	89 85 b0 fd ff ff    	mov    %eax,-0x250(%ebp)
 f0117874:	8b 85 b0 fd ff ff    	mov    -0x250(%ebp),%eax
 f011787a:	89 c1                	mov    %eax,%ecx
 f011787c:	c7 45 90 00 10 00 00 	movl   $0x1000,-0x70(%ebp)
-f0117883:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0117883:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0117888:	0f b6 d0             	movzbl %al,%edx
 f011788b:	8b 45 90             	mov    -0x70(%ebp),%eax
 f011788e:	01 d0                	add    %edx,%eax
@@ -39161,7 +39161,7 @@ f011789f:	8b 45 8c             	mov    -0x74(%ebp),%eax
 f01178a2:	29 d0                	sub    %edx,%eax
 f01178a4:	89 c3                	mov    %eax,%ebx
 f01178a6:	c7 45 88 00 10 00 00 	movl   $0x1000,-0x78(%ebp)
-f01178ad:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01178ad:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01178b2:	0f b6 c0             	movzbl %al,%eax
 f01178b5:	c1 e0 04             	shl    $0x4,%eax
 f01178b8:	89 c2                	mov    %eax,%edx
@@ -39222,7 +39222,7 @@ f0117960:	89 85 b4 fd ff ff    	mov    %eax,-0x24c(%ebp)
 f0117966:	8b 85 b4 fd ff ff    	mov    -0x24c(%ebp),%eax
 f011796c:	89 c1                	mov    %eax,%ecx
 f011796e:	c7 45 80 00 10 00 00 	movl   $0x1000,-0x80(%ebp)
-f0117975:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0117975:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011797a:	0f b6 d0             	movzbl %al,%edx
 f011797d:	8b 45 80             	mov    -0x80(%ebp),%eax
 f0117980:	01 d0                	add    %edx,%eax
@@ -39236,7 +39236,7 @@ f011799d:	29 d0                	sub    %edx,%eax
 f011799f:	89 c3                	mov    %eax,%ebx
 f01179a1:	c7 85 78 ff ff ff 00 	movl   $0x1000,-0x88(%ebp)
 f01179a8:	10 00 00 
-f01179ab:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01179ab:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01179b0:	0f b6 c0             	movzbl %al,%eax
 f01179b3:	c1 e0 04             	shl    $0x4,%eax
 f01179b6:	89 c2                	mov    %eax,%edx
@@ -39298,7 +39298,7 @@ f0117a71:	8b 85 b8 fd ff ff    	mov    -0x248(%ebp),%eax
 f0117a77:	89 c1                	mov    %eax,%ecx
 f0117a79:	c7 85 70 ff ff ff 00 	movl   $0x1000,-0x90(%ebp)
 f0117a80:	10 00 00 
-f0117a83:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0117a83:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0117a88:	0f b6 d0             	movzbl %al,%edx
 f0117a8b:	8b 85 70 ff ff ff    	mov    -0x90(%ebp),%eax
 f0117a91:	01 d0                	add    %edx,%eax
@@ -39312,7 +39312,7 @@ f0117ab1:	29 d0                	sub    %edx,%eax
 f0117ab3:	89 c3                	mov    %eax,%ebx
 f0117ab5:	c7 85 68 ff ff ff 00 	movl   $0x1000,-0x98(%ebp)
 f0117abc:	10 00 00 
-f0117abf:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0117abf:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0117ac4:	0f b6 c0             	movzbl %al,%eax
 f0117ac7:	c1 e0 04             	shl    $0x4,%eax
 f0117aca:	89 c2                	mov    %eax,%edx
@@ -39374,7 +39374,7 @@ f0117b85:	8b 85 bc fd ff ff    	mov    -0x244(%ebp),%eax
 f0117b8b:	89 c1                	mov    %eax,%ecx
 f0117b8d:	c7 85 60 ff ff ff 00 	movl   $0x1000,-0xa0(%ebp)
 f0117b94:	10 00 00 
-f0117b97:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0117b97:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0117b9c:	0f b6 d0             	movzbl %al,%edx
 f0117b9f:	8b 85 60 ff ff ff    	mov    -0xa0(%ebp),%eax
 f0117ba5:	01 d0                	add    %edx,%eax
@@ -39388,7 +39388,7 @@ f0117bc5:	29 d0                	sub    %edx,%eax
 f0117bc7:	89 c3                	mov    %eax,%ebx
 f0117bc9:	c7 85 58 ff ff ff 00 	movl   $0x1000,-0xa8(%ebp)
 f0117bd0:	10 00 00 
-f0117bd3:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0117bd3:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0117bd8:	0f b6 c0             	movzbl %al,%eax
 f0117bdb:	c1 e0 04             	shl    $0x4,%eax
 f0117bde:	89 c2                	mov    %eax,%edx
@@ -39450,7 +39450,7 @@ f0117c99:	8b 85 c0 fd ff ff    	mov    -0x240(%ebp),%eax
 f0117c9f:	89 c1                	mov    %eax,%ecx
 f0117ca1:	c7 85 50 ff ff ff 00 	movl   $0x1000,-0xb0(%ebp)
 f0117ca8:	10 00 00 
-f0117cab:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0117cab:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0117cb0:	0f b6 d0             	movzbl %al,%edx
 f0117cb3:	8b 85 50 ff ff ff    	mov    -0xb0(%ebp),%eax
 f0117cb9:	01 d0                	add    %edx,%eax
@@ -39464,7 +39464,7 @@ f0117cd9:	29 d0                	sub    %edx,%eax
 f0117cdb:	89 c3                	mov    %eax,%ebx
 f0117cdd:	c7 85 48 ff ff ff 00 	movl   $0x1000,-0xb8(%ebp)
 f0117ce4:	10 00 00 
-f0117ce7:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0117ce7:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0117cec:	0f b6 c0             	movzbl %al,%eax
 f0117cef:	c1 e0 04             	shl    $0x4,%eax
 f0117cf2:	89 c2                	mov    %eax,%edx
@@ -39526,7 +39526,7 @@ f0117daf:	8b 85 c4 fd ff ff    	mov    -0x23c(%ebp),%eax
 f0117db5:	89 c1                	mov    %eax,%ecx
 f0117db7:	c7 85 40 ff ff ff 00 	movl   $0x1000,-0xc0(%ebp)
 f0117dbe:	10 00 00 
-f0117dc1:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0117dc1:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0117dc6:	0f b6 d0             	movzbl %al,%edx
 f0117dc9:	8b 85 40 ff ff ff    	mov    -0xc0(%ebp),%eax
 f0117dcf:	01 d0                	add    %edx,%eax
@@ -39540,7 +39540,7 @@ f0117def:	29 d0                	sub    %edx,%eax
 f0117df1:	89 c3                	mov    %eax,%ebx
 f0117df3:	c7 85 38 ff ff ff 00 	movl   $0x1000,-0xc8(%ebp)
 f0117dfa:	10 00 00 
-f0117dfd:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0117dfd:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0117e02:	0f b6 c0             	movzbl %al,%eax
 f0117e05:	c1 e0 04             	shl    $0x4,%eax
 f0117e08:	89 c2                	mov    %eax,%edx
@@ -39602,7 +39602,7 @@ f0117ec5:	8b 85 c8 fd ff ff    	mov    -0x238(%ebp),%eax
 f0117ecb:	89 c1                	mov    %eax,%ecx
 f0117ecd:	c7 85 30 ff ff ff 00 	movl   $0x1000,-0xd0(%ebp)
 f0117ed4:	10 00 00 
-f0117ed7:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0117ed7:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0117edc:	0f b6 d0             	movzbl %al,%edx
 f0117edf:	8b 85 30 ff ff ff    	mov    -0xd0(%ebp),%eax
 f0117ee5:	01 d0                	add    %edx,%eax
@@ -39616,7 +39616,7 @@ f0117f05:	29 d0                	sub    %edx,%eax
 f0117f07:	89 c3                	mov    %eax,%ebx
 f0117f09:	c7 85 28 ff ff ff 00 	movl   $0x1000,-0xd8(%ebp)
 f0117f10:	10 00 00 
-f0117f13:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0117f13:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0117f18:	0f b6 c0             	movzbl %al,%eax
 f0117f1b:	c1 e0 04             	shl    $0x4,%eax
 f0117f1e:	89 c2                	mov    %eax,%edx
@@ -39669,7 +39669,7 @@ f0117fb5:	89 c6                	mov    %eax,%esi
 		uint32 endVA = ACTUAL_START + 13*Mega + 32*kilo;
 f0117fb7:	c7 85 20 ff ff ff 00 	movl   $0x1000,-0xe0(%ebp)
 f0117fbe:	10 00 00 
-f0117fc1:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0117fc1:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0117fc6:	0f b6 d0             	movzbl %al,%edx
 f0117fc9:	8b 85 20 ff ff ff    	mov    -0xe0(%ebp),%eax
 f0117fcf:	01 d0                	add    %edx,%eax
@@ -39683,7 +39683,7 @@ f0117fef:	29 d0                	sub    %edx,%eax
 f0117ff1:	89 c1                	mov    %eax,%ecx
 f0117ff3:	c7 85 18 ff ff ff 00 	movl   $0x1000,-0xe8(%ebp)
 f0117ffa:	10 00 00 
-f0117ffd:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0117ffd:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0118002:	0f b6 c0             	movzbl %al,%eax
 f0118005:	c1 e0 04             	shl    $0x4,%eax
 f0118008:	89 c2                	mov    %eax,%edx
@@ -39702,7 +39702,7 @@ f0118039:	89 85 10 ff ff ff    	mov    %eax,-0xf0(%ebp)
 		uint32 allPAs[(13*Mega + 32*kilo+INITIAL_KHEAB_ALLOCATIONS)/PAGE_SIZE] ;
 f011803f:	c7 85 0c ff ff ff 00 	movl   $0x1000,-0xf4(%ebp)
 f0118046:	10 00 00 
-f0118049:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0118049:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011804e:	0f b6 d0             	movzbl %al,%edx
 f0118051:	8b 85 0c ff ff ff    	mov    -0xf4(%ebp),%eax
 f0118057:	01 d0                	add    %edx,%eax
@@ -39716,7 +39716,7 @@ f0118077:	29 d0                	sub    %edx,%eax
 f0118079:	89 c1                	mov    %eax,%ecx
 f011807b:	c7 85 04 ff ff ff 00 	movl   $0x1000,-0xfc(%ebp)
 f0118082:	10 00 00 
-f0118085:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0118085:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011808a:	0f b6 c0             	movzbl %al,%eax
 f011808d:	c1 e0 04             	shl    $0x4,%eax
 f0118090:	89 c2                	mov    %eax,%edx
@@ -39793,7 +39793,7 @@ f0118158:	e9 a5 00 00 00       	jmp    f0118202 <test_kheap_phys_addr+0xb48>
 			uint32 *ptr_table ;
 			get_page_table(ptr_page_directory, (void*)va, &ptr_table);
 f011815d:	8b 55 e0             	mov    -0x20(%ebp),%edx
-f0118160:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f0118160:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f0118165:	83 ec 04             	sub    $0x4,%esp
 f0118168:	8d 8d a8 fd ff ff    	lea    -0x258(%ebp),%ecx
 f011816e:	51                   	push   %ecx
@@ -39992,7 +39992,7 @@ f0118396:	89 c6                	mov    %eax,%esi
 		uint32 endVA = ACTUAL_START + 13*Mega + 32*kilo;
 f0118398:	c7 85 e8 fe ff ff 00 	movl   $0x1000,-0x118(%ebp)
 f011839f:	10 00 00 
-f01183a2:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01183a2:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01183a7:	0f b6 d0             	movzbl %al,%edx
 f01183aa:	8b 85 e8 fe ff ff    	mov    -0x118(%ebp),%eax
 f01183b0:	01 d0                	add    %edx,%eax
@@ -40006,7 +40006,7 @@ f01183d0:	29 d0                	sub    %edx,%eax
 f01183d2:	89 c1                	mov    %eax,%ecx
 f01183d4:	c7 85 e0 fe ff ff 00 	movl   $0x1000,-0x120(%ebp)
 f01183db:	10 00 00 
-f01183de:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01183de:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01183e3:	0f b6 c0             	movzbl %al,%eax
 f01183e6:	c1 e0 04             	shl    $0x4,%eax
 f01183e9:	89 c2                	mov    %eax,%edx
@@ -40025,7 +40025,7 @@ f011841a:	89 85 d8 fe ff ff    	mov    %eax,-0x128(%ebp)
 		uint32 allPAs[(13*Mega + 32*kilo+INITIAL_KHEAB_ALLOCATIONS)/PAGE_SIZE] ;
 f0118420:	c7 85 d4 fe ff ff 00 	movl   $0x1000,-0x12c(%ebp)
 f0118427:	10 00 00 
-f011842a:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011842a:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011842f:	0f b6 d0             	movzbl %al,%edx
 f0118432:	8b 85 d4 fe ff ff    	mov    -0x12c(%ebp),%eax
 f0118438:	01 d0                	add    %edx,%eax
@@ -40039,7 +40039,7 @@ f0118458:	29 d0                	sub    %edx,%eax
 f011845a:	89 c1                	mov    %eax,%ecx
 f011845c:	c7 85 cc fe ff ff 00 	movl   $0x1000,-0x134(%ebp)
 f0118463:	10 00 00 
-f0118466:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0118466:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011846b:	0f b6 c0             	movzbl %al,%eax
 f011846e:	c1 e0 04             	shl    $0x4,%eax
 f0118471:	89 c2                	mov    %eax,%edx
@@ -40116,7 +40116,7 @@ f0118539:	e9 a5 00 00 00       	jmp    f01185e3 <test_kheap_phys_addr+0xf29>
 			uint32 *ptr_table ;
 			get_page_table(ptr_page_directory, (void*)va, &ptr_table);
 f011853e:	8b 55 d8             	mov    -0x28(%ebp),%edx
-f0118541:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f0118541:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f0118546:	83 ec 04             	sub    $0x4,%esp
 f0118549:	8d 8d a4 fd ff ff    	lea    -0x25c(%ebp),%ecx
 f011854f:	51                   	push   %ecx
@@ -40201,7 +40201,7 @@ f0118601:	83 c4 10             	add    $0x10,%esp
 		uint32 startVA = ACTUAL_START + 16*Mega;
 f0118604:	c7 85 b8 fe ff ff 00 	movl   $0x1000,-0x148(%ebp)
 f011860b:	10 00 00 
-f011860e:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011860e:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0118613:	0f b6 d0             	movzbl %al,%edx
 f0118616:	8b 85 b8 fe ff ff    	mov    -0x148(%ebp),%eax
 f011861c:	01 d0                	add    %edx,%eax
@@ -40215,7 +40215,7 @@ f011863c:	29 d0                	sub    %edx,%eax
 f011863e:	89 c1                	mov    %eax,%ecx
 f0118640:	c7 85 b0 fe ff ff 00 	movl   $0x1000,-0x150(%ebp)
 f0118647:	10 00 00 
-f011864a:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011864a:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011864f:	0f b6 c0             	movzbl %al,%eax
 f0118652:	c1 e0 04             	shl    $0x4,%eax
 f0118655:	89 c2                	mov    %eax,%edx
@@ -40269,7 +40269,7 @@ f01186d1:	e9 ce 00 00 00       	jmp    f01187a4 <test_kheap_phys_addr+0x10ea>
 			get_page_table(ptr_page_directory, (void*)(uint32)va2, &ptr_table);
 f01186d6:	8b 45 c0             	mov    -0x40(%ebp),%eax
 f01186d9:	89 c1                	mov    %eax,%ecx
-f01186db:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f01186db:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f01186e0:	83 ec 04             	sub    $0x4,%esp
 f01186e3:	8d 95 a0 fd ff ff    	lea    -0x260(%ebp),%edx
 f01186e9:	52                   	push   %edx
@@ -40467,7 +40467,7 @@ f01188b4:	89 85 c0 fd ff ff    	mov    %eax,-0x240(%ebp)
 f01188ba:	8b 85 c0 fd ff ff    	mov    -0x240(%ebp),%eax
 f01188c0:	89 c1                	mov    %eax,%ecx
 f01188c2:	c7 45 b4 00 10 00 00 	movl   $0x1000,-0x4c(%ebp)
-f01188c9:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01188c9:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01188ce:	0f b6 d0             	movzbl %al,%edx
 f01188d1:	8b 45 b4             	mov    -0x4c(%ebp),%eax
 f01188d4:	01 d0                	add    %edx,%eax
@@ -40480,7 +40480,7 @@ f01188e5:	8b 45 b0             	mov    -0x50(%ebp),%eax
 f01188e8:	29 d0                	sub    %edx,%eax
 f01188ea:	89 c3                	mov    %eax,%ebx
 f01188ec:	c7 45 ac 00 10 00 00 	movl   $0x1000,-0x54(%ebp)
-f01188f3:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01188f3:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01188f8:	0f b6 c0             	movzbl %al,%eax
 f01188fb:	c1 e0 04             	shl    $0x4,%eax
 f01188fe:	89 c2                	mov    %eax,%edx
@@ -40541,7 +40541,7 @@ f01189a6:	89 85 c4 fd ff ff    	mov    %eax,-0x23c(%ebp)
 f01189ac:	8b 85 c4 fd ff ff    	mov    -0x23c(%ebp),%eax
 f01189b2:	89 c1                	mov    %eax,%ecx
 f01189b4:	c7 45 a4 00 10 00 00 	movl   $0x1000,-0x5c(%ebp)
-f01189bb:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01189bb:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01189c0:	0f b6 d0             	movzbl %al,%edx
 f01189c3:	8b 45 a4             	mov    -0x5c(%ebp),%eax
 f01189c6:	01 d0                	add    %edx,%eax
@@ -40554,7 +40554,7 @@ f01189d7:	8b 45 a0             	mov    -0x60(%ebp),%eax
 f01189da:	29 d0                	sub    %edx,%eax
 f01189dc:	89 c3                	mov    %eax,%ebx
 f01189de:	c7 45 9c 00 10 00 00 	movl   $0x1000,-0x64(%ebp)
-f01189e5:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01189e5:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01189ea:	0f b6 c0             	movzbl %al,%eax
 f01189ed:	c1 e0 04             	shl    $0x4,%eax
 f01189f0:	89 c2                	mov    %eax,%edx
@@ -40615,7 +40615,7 @@ f0118a98:	89 85 c8 fd ff ff    	mov    %eax,-0x238(%ebp)
 f0118a9e:	8b 85 c8 fd ff ff    	mov    -0x238(%ebp),%eax
 f0118aa4:	89 c1                	mov    %eax,%ecx
 f0118aa6:	c7 45 94 00 10 00 00 	movl   $0x1000,-0x6c(%ebp)
-f0118aad:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0118aad:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0118ab2:	0f b6 d0             	movzbl %al,%edx
 f0118ab5:	8b 45 94             	mov    -0x6c(%ebp),%eax
 f0118ab8:	01 d0                	add    %edx,%eax
@@ -40628,7 +40628,7 @@ f0118ac9:	8b 45 90             	mov    -0x70(%ebp),%eax
 f0118acc:	29 d0                	sub    %edx,%eax
 f0118ace:	89 c3                	mov    %eax,%ebx
 f0118ad0:	c7 45 8c 00 10 00 00 	movl   $0x1000,-0x74(%ebp)
-f0118ad7:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0118ad7:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0118adc:	0f b6 c0             	movzbl %al,%eax
 f0118adf:	c1 e0 04             	shl    $0x4,%eax
 f0118ae2:	89 c2                	mov    %eax,%edx
@@ -40689,7 +40689,7 @@ f0118b88:	89 85 cc fd ff ff    	mov    %eax,-0x234(%ebp)
 f0118b8e:	8b 85 cc fd ff ff    	mov    -0x234(%ebp),%eax
 f0118b94:	89 c1                	mov    %eax,%ecx
 f0118b96:	c7 45 84 00 10 00 00 	movl   $0x1000,-0x7c(%ebp)
-f0118b9d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0118b9d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0118ba2:	0f b6 d0             	movzbl %al,%edx
 f0118ba5:	8b 45 84             	mov    -0x7c(%ebp),%eax
 f0118ba8:	01 d0                	add    %edx,%eax
@@ -40703,7 +40703,7 @@ f0118bbc:	29 d0                	sub    %edx,%eax
 f0118bbe:	89 c3                	mov    %eax,%ebx
 f0118bc0:	c7 85 7c ff ff ff 00 	movl   $0x1000,-0x84(%ebp)
 f0118bc7:	10 00 00 
-f0118bca:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0118bca:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0118bcf:	0f b6 c0             	movzbl %al,%eax
 f0118bd2:	c1 e0 04             	shl    $0x4,%eax
 f0118bd5:	89 c2                	mov    %eax,%edx
@@ -40765,7 +40765,7 @@ f0118c90:	8b 85 d0 fd ff ff    	mov    -0x230(%ebp),%eax
 f0118c96:	89 c1                	mov    %eax,%ecx
 f0118c98:	c7 85 74 ff ff ff 00 	movl   $0x1000,-0x8c(%ebp)
 f0118c9f:	10 00 00 
-f0118ca2:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0118ca2:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0118ca7:	0f b6 d0             	movzbl %al,%edx
 f0118caa:	8b 85 74 ff ff ff    	mov    -0x8c(%ebp),%eax
 f0118cb0:	01 d0                	add    %edx,%eax
@@ -40779,7 +40779,7 @@ f0118cd0:	29 d0                	sub    %edx,%eax
 f0118cd2:	89 c3                	mov    %eax,%ebx
 f0118cd4:	c7 85 6c ff ff ff 00 	movl   $0x1000,-0x94(%ebp)
 f0118cdb:	10 00 00 
-f0118cde:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0118cde:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0118ce3:	0f b6 c0             	movzbl %al,%eax
 f0118ce6:	c1 e0 04             	shl    $0x4,%eax
 f0118ce9:	89 c2                	mov    %eax,%edx
@@ -40841,7 +40841,7 @@ f0118da4:	8b 85 d4 fd ff ff    	mov    -0x22c(%ebp),%eax
 f0118daa:	89 c1                	mov    %eax,%ecx
 f0118dac:	c7 85 64 ff ff ff 00 	movl   $0x1000,-0x9c(%ebp)
 f0118db3:	10 00 00 
-f0118db6:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0118db6:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0118dbb:	0f b6 d0             	movzbl %al,%edx
 f0118dbe:	8b 85 64 ff ff ff    	mov    -0x9c(%ebp),%eax
 f0118dc4:	01 d0                	add    %edx,%eax
@@ -40855,7 +40855,7 @@ f0118de4:	29 d0                	sub    %edx,%eax
 f0118de6:	89 c3                	mov    %eax,%ebx
 f0118de8:	c7 85 5c ff ff ff 00 	movl   $0x1000,-0xa4(%ebp)
 f0118def:	10 00 00 
-f0118df2:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0118df2:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0118df7:	0f b6 c0             	movzbl %al,%eax
 f0118dfa:	c1 e0 04             	shl    $0x4,%eax
 f0118dfd:	89 c2                	mov    %eax,%edx
@@ -40917,7 +40917,7 @@ f0118eba:	8b 85 d8 fd ff ff    	mov    -0x228(%ebp),%eax
 f0118ec0:	89 c1                	mov    %eax,%ecx
 f0118ec2:	c7 85 54 ff ff ff 00 	movl   $0x1000,-0xac(%ebp)
 f0118ec9:	10 00 00 
-f0118ecc:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0118ecc:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0118ed1:	0f b6 d0             	movzbl %al,%edx
 f0118ed4:	8b 85 54 ff ff ff    	mov    -0xac(%ebp),%eax
 f0118eda:	01 d0                	add    %edx,%eax
@@ -40931,7 +40931,7 @@ f0118efa:	29 d0                	sub    %edx,%eax
 f0118efc:	89 c3                	mov    %eax,%ebx
 f0118efe:	c7 85 4c ff ff ff 00 	movl   $0x1000,-0xb4(%ebp)
 f0118f05:	10 00 00 
-f0118f08:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0118f08:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0118f0d:	0f b6 c0             	movzbl %al,%eax
 f0118f10:	c1 e0 04             	shl    $0x4,%eax
 f0118f13:	89 c2                	mov    %eax,%edx
@@ -40993,7 +40993,7 @@ f0118fd0:	8b 85 dc fd ff ff    	mov    -0x224(%ebp),%eax
 f0118fd6:	89 c1                	mov    %eax,%ecx
 f0118fd8:	c7 85 44 ff ff ff 00 	movl   $0x1000,-0xbc(%ebp)
 f0118fdf:	10 00 00 
-f0118fe2:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0118fe2:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0118fe7:	0f b6 d0             	movzbl %al,%edx
 f0118fea:	8b 85 44 ff ff ff    	mov    -0xbc(%ebp),%eax
 f0118ff0:	01 d0                	add    %edx,%eax
@@ -41007,7 +41007,7 @@ f0119010:	29 d0                	sub    %edx,%eax
 f0119012:	89 c3                	mov    %eax,%ebx
 f0119014:	c7 85 3c ff ff ff 00 	movl   $0x1000,-0xc4(%ebp)
 f011901b:	10 00 00 
-f011901e:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011901e:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0119023:	0f b6 c0             	movzbl %al,%eax
 f0119026:	c1 e0 04             	shl    $0x4,%eax
 f0119029:	89 c2                	mov    %eax,%edx
@@ -41055,7 +41055,7 @@ f01190b9:	e8 b6 70 fe ff       	call   f0100174 <_panic>
 	uint32 allPAs[(13*Mega + 32*kilo+ INITIAL_KHEAB_ALLOCATIONS)/PAGE_SIZE] ;
 f01190be:	c7 85 34 ff ff ff 00 	movl   $0x1000,-0xcc(%ebp)
 f01190c5:	10 00 00 
-f01190c8:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01190c8:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01190cd:	0f b6 d0             	movzbl %al,%edx
 f01190d0:	8b 85 34 ff ff ff    	mov    -0xcc(%ebp),%eax
 f01190d6:	01 d0                	add    %edx,%eax
@@ -41069,7 +41069,7 @@ f01190f6:	29 d0                	sub    %edx,%eax
 f01190f8:	89 c1                	mov    %eax,%ecx
 f01190fa:	c7 85 2c ff ff ff 00 	movl   $0x1000,-0xd4(%ebp)
 f0119101:	10 00 00 
-f0119104:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0119104:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0119109:	0f b6 c0             	movzbl %al,%eax
 f011910c:	c1 e0 04             	shl    $0x4,%eax
 f011910f:	89 c2                	mov    %eax,%edx
@@ -41106,7 +41106,7 @@ f0119176:	89 85 20 ff ff ff    	mov    %eax,-0xe0(%ebp)
 	int numOfFrames = (13*Mega + 32*kilo+INITIAL_KHEAB_ALLOCATIONS)/PAGE_SIZE ;
 f011917c:	c7 85 1c ff ff ff 00 	movl   $0x1000,-0xe4(%ebp)
 f0119183:	10 00 00 
-f0119186:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0119186:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011918b:	0f b6 d0             	movzbl %al,%edx
 f011918e:	8b 85 1c ff ff ff    	mov    -0xe4(%ebp),%eax
 f0119194:	01 d0                	add    %edx,%eax
@@ -41120,7 +41120,7 @@ f01191b4:	29 d0                	sub    %edx,%eax
 f01191b6:	89 c1                	mov    %eax,%ecx
 f01191b8:	c7 85 14 ff ff ff 00 	movl   $0x1000,-0xec(%ebp)
 f01191bf:	10 00 00 
-f01191c2:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01191c2:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01191c7:	0f b6 c0             	movzbl %al,%eax
 f01191ca:	c1 e0 04             	shl    $0x4,%eax
 f01191cd:	89 c2                	mov    %eax,%edx
@@ -41144,7 +41144,7 @@ f0119201:	89 85 0c ff ff ff    	mov    %eax,-0xf4(%ebp)
 		uint32 endVA = ACTUAL_START + 13*Mega + 32*kilo;
 f0119207:	c7 85 08 ff ff ff 00 	movl   $0x1000,-0xf8(%ebp)
 f011920e:	10 00 00 
-f0119211:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0119211:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0119216:	0f b6 d0             	movzbl %al,%edx
 f0119219:	8b 85 08 ff ff ff    	mov    -0xf8(%ebp),%eax
 f011921f:	01 d0                	add    %edx,%eax
@@ -41158,7 +41158,7 @@ f011923f:	29 d0                	sub    %edx,%eax
 f0119241:	89 c1                	mov    %eax,%ecx
 f0119243:	c7 85 00 ff ff ff 00 	movl   $0x1000,-0x100(%ebp)
 f011924a:	10 00 00 
-f011924d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011924d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0119252:	0f b6 c0             	movzbl %al,%eax
 f0119255:	c1 e0 04             	shl    $0x4,%eax
 f0119258:	89 c2                	mov    %eax,%edx
@@ -41184,7 +41184,7 @@ f011929d:	e9 d8 00 00 00       	jmp    f011937a <test_kheap_virt_addr+0xb8c>
 			uint32 *ptr_table ;
 			get_page_table(ptr_page_directory, (void*)va, &ptr_table);
 f01192a2:	8b 55 e4             	mov    -0x1c(%ebp),%edx
-f01192a5:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f01192a5:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f01192aa:	83 ec 04             	sub    $0x4,%esp
 f01192ad:	8d 8d bc fd ff ff    	lea    -0x244(%ebp),%ecx
 f01192b3:	51                   	push   %ecx
@@ -41395,7 +41395,7 @@ f0119505:	e8 6a 6c fe ff       	call   f0100174 <_panic>
 		uint32 endVA = ACTUAL_START + 13*Mega + 32*kilo;
 f011950a:	c7 85 e8 fe ff ff 00 	movl   $0x1000,-0x118(%ebp)
 f0119511:	10 00 00 
-f0119514:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0119514:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0119519:	0f b6 d0             	movzbl %al,%edx
 f011951c:	8b 85 e8 fe ff ff    	mov    -0x118(%ebp),%eax
 f0119522:	01 d0                	add    %edx,%eax
@@ -41409,7 +41409,7 @@ f0119542:	29 d0                	sub    %edx,%eax
 f0119544:	89 c1                	mov    %eax,%ecx
 f0119546:	c7 85 e0 fe ff ff 00 	movl   $0x1000,-0x120(%ebp)
 f011954d:	10 00 00 
-f0119550:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0119550:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0119555:	0f b6 c0             	movzbl %al,%eax
 f0119558:	c1 e0 04             	shl    $0x4,%eax
 f011955b:	89 c2                	mov    %eax,%edx
@@ -41432,7 +41432,7 @@ f0119592:	c7 45 d8 00 00 00 00 	movl   $0x0,-0x28(%ebp)
 		uint32 startIndex = (INITIAL_KHEAB_ALLOCATIONS) / PAGE_SIZE;
 f0119599:	c7 85 d4 fe ff ff 00 	movl   $0x1000,-0x12c(%ebp)
 f01195a0:	10 00 00 
-f01195a3:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01195a3:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01195a8:	0f b6 d0             	movzbl %al,%edx
 f01195ab:	8b 85 d4 fe ff ff    	mov    -0x12c(%ebp),%eax
 f01195b1:	01 d0                	add    %edx,%eax
@@ -41446,7 +41446,7 @@ f01195d1:	29 d0                	sub    %edx,%eax
 f01195d3:	89 c1                	mov    %eax,%ecx
 f01195d5:	c7 85 cc fe ff ff 00 	movl   $0x1000,-0x134(%ebp)
 f01195dc:	10 00 00 
-f01195df:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01195df:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01195e4:	0f b6 c0             	movzbl %al,%eax
 f01195e7:	c1 e0 04             	shl    $0x4,%eax
 f01195ea:	89 c2                	mov    %eax,%edx
@@ -41679,7 +41679,7 @@ f0119824:	e8 4b 69 fe ff       	call   f0100174 <_panic>
 		uint32 i;
 		for (i = 1*Mega; i < (uint32)(end_of_kernel - KERNEL_BASE); i+=PAGE_SIZE)
 f0119829:	81 45 d4 00 10 00 00 	addl   $0x1000,-0x2c(%ebp)
-f0119830:	b8 d0 88 b1 00       	mov    $0xb188d0,%eax
+f0119830:	b8 d0 e8 b1 00       	mov    $0xb1e8d0,%eax
 f0119835:	39 45 d4             	cmp    %eax,-0x2c(%ebp)
 f0119838:	72 a2                	jb     f01197dc <test_kheap_virt_addr+0xfee>
 				panic("Wrong kheap_virtual_address");
@@ -41733,10 +41733,10 @@ f011987c:	74 56                	je     f01198d4 <test_three_creation_functions+0
 f011987e:	c6 05 72 5a 16 f0 00 	movb   $0x0,0xf0165a72
 		initFreeFrames = sys_calculate_free_frames() ;
 f0119885:	e8 29 1b ff ff       	call   f010b3b3 <sys_calculate_free_frames>
-f011988a:	a3 cc 88 b1 f0       	mov    %eax,0xf0b188cc
+f011988a:	a3 cc e8 b1 f0       	mov    %eax,0xf0b1e8cc
 		initFreeDiskFrames = pf_calculate_free_frames() ;
 f011988f:	e8 e7 36 ff ff       	call   f010cf7b <pf_calculate_free_frames>
-f0119894:	a3 c8 88 b1 f0       	mov    %eax,0xf0b188c8
+f0119894:	a3 c8 e8 b1 f0       	mov    %eax,0xf0b1e8c8
 		//Run simple user program
 		{
 			char command[100] = "run fos_add 4096";
@@ -41767,7 +41767,7 @@ f01198d4:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
 		struct Env * ptr_env = NULL;
 f01198db:	c7 45 e0 00 00 00 00 	movl   $0x0,-0x20(%ebp)
 		LIST_FOREACH(ptr_env, &env_exit_queue)
-f01198e2:	a1 24 7f af f0       	mov    0xf0af7f24,%eax
+f01198e2:	a1 24 df af f0       	mov    0xf0afdf24,%eax
 f01198e7:	89 45 e0             	mov    %eax,-0x20(%ebp)
 f01198ea:	eb 2d                	jmp    f0119919 <test_three_creation_functions+0xb0>
 		{
@@ -41793,7 +41793,7 @@ f011990f:	eb 2f                	jmp    f0119940 <test_three_creation_functions+0
 		struct Env * e = NULL;
 		struct Env * ptr_env = NULL;
 		LIST_FOREACH(ptr_env, &env_exit_queue)
-f0119911:	a1 2c 7f af f0       	mov    0xf0af7f2c,%eax
+f0119911:	a1 2c df af f0       	mov    0xf0afdf2c,%eax
 f0119916:	89 45 e0             	mov    %eax,-0x20(%ebp)
 f0119919:	83 7d e0 00          	cmpl   $0x0,-0x20(%ebp)
 f011991d:	74 08                	je     f0119927 <test_three_creation_functions+0xbe>
@@ -41801,8 +41801,8 @@ f011991f:	8b 45 e0             	mov    -0x20(%ebp),%eax
 f0119922:	8b 40 44             	mov    0x44(%eax),%eax
 f0119925:	eb 05                	jmp    f011992c <test_three_creation_functions+0xc3>
 f0119927:	b8 00 00 00 00       	mov    $0x0,%eax
-f011992c:	a3 2c 7f af f0       	mov    %eax,0xf0af7f2c
-f0119931:	a1 2c 7f af f0       	mov    0xf0af7f2c,%eax
+f011992c:	a3 2c df af f0       	mov    %eax,0xf0afdf2c
+f0119931:	a1 2c df af f0       	mov    0xf0afdf2c,%eax
 f0119936:	85 c0                	test   %eax,%eax
 f0119938:	75 b2                	jne    f01198ec <test_three_creation_functions+0x83>
 f011993a:	83 7d e0 00          	cmpl   $0x0,-0x20(%ebp)
@@ -41838,7 +41838,7 @@ f011997d:	e8 f9 35 ff ff       	call   f010cf7b <pf_calculate_free_frames>
 f0119982:	89 45 d4             	mov    %eax,-0x2c(%ebp)
 		//cprintf("\ndiff in page file = %d, pages in WS = %d\n", initFreeDiskFrames - curFreeDiskFrames, pagesInWS);
 		if ((initFreeDiskFrames - curFreeDiskFrames) != pagesInWS) panic("Page file is changed while it's not expected to. (pages are wrongly allocated/de-allocated in PageFile)");
-f0119985:	a1 c8 88 b1 f0       	mov    0xf0b188c8,%eax
+f0119985:	a1 c8 e8 b1 f0       	mov    0xf0b1e8c8,%eax
 f011998a:	2b 45 d4             	sub    -0x2c(%ebp),%eax
 f011998d:	3b 45 dc             	cmp    -0x24(%ebp),%eax
 f0119990:	74 17                	je     f01199a9 <test_three_creation_functions+0x140>
@@ -41849,7 +41849,7 @@ f011999f:	68 76 5d 12 f0       	push   $0xf0125d76
 f01199a4:	e8 cb 67 fe ff       	call   f0100174 <_panic>
 		//cprintf("\ndiff in mem frames = %d, pages in WS = %d\n", initFreeFrames - curFreeFrames, pagesInWS);
 		if ((initFreeFrames - curFreeFrames) != 12/*WS*/ + 2*1/*DIR*/ + 2*3/*Tables*/ + 1 /*user WS table*/ + pagesInWS) panic("Wrong allocation: pages are not loaded successfully into memory");
-f01199a9:	a1 cc 88 b1 f0       	mov    0xf0b188cc,%eax
+f01199a9:	a1 cc e8 b1 f0       	mov    0xf0b1e8cc,%eax
 f01199ae:	2b 45 d8             	sub    -0x28(%ebp),%eax
 f01199b1:	8b 55 dc             	mov    -0x24(%ebp),%edx
 f01199b4:	83 c2 15             	add    $0x15,%edx
@@ -41870,7 +41870,7 @@ f01199df:	83 c4 10             	add    $0x10,%esp
 f01199e2:	89 45 d0             	mov    %eax,-0x30(%ebp)
 		if ((uint32) ptr !=  (ACTUAL_START + (12+2*1+2*3+1)*PAGE_SIZE)) panic("Wrong start address for the allocated space... make sure you create the dir, table and page WS in KERNEL HEAP");
 f01199e5:	c7 45 cc 00 10 00 00 	movl   $0x1000,-0x34(%ebp)
-f01199ec:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f01199ec:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01199f1:	0f b6 d0             	movzbl %al,%edx
 f01199f4:	8b 45 cc             	mov    -0x34(%ebp),%eax
 f01199f7:	01 d0                	add    %edx,%eax
@@ -41883,7 +41883,7 @@ f0119a08:	8b 45 c8             	mov    -0x38(%ebp),%eax
 f0119a0b:	29 d0                	sub    %edx,%eax
 f0119a0d:	89 c1                	mov    %eax,%ecx
 f0119a0f:	c7 45 c4 00 10 00 00 	movl   $0x1000,-0x3c(%ebp)
-f0119a16:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0119a16:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0119a1b:	0f b6 c0             	movzbl %al,%eax
 f0119a1e:	c1 e0 04             	shl    $0x4,%eax
 f0119a21:	89 c2                	mov    %eax,%edx
@@ -42054,7 +42054,7 @@ f0119b2e:	89 85 e4 fd ff ff    	mov    %eax,-0x21c(%ebp)
 f0119b34:	8b 85 e4 fd ff ff    	mov    -0x21c(%ebp),%eax
 f0119b3a:	89 c1                	mov    %eax,%ecx
 f0119b3c:	c7 45 cc 00 10 00 00 	movl   $0x1000,-0x34(%ebp)
-f0119b43:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0119b43:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0119b48:	0f b6 d0             	movzbl %al,%edx
 f0119b4b:	8b 45 cc             	mov    -0x34(%ebp),%eax
 f0119b4e:	01 d0                	add    %edx,%eax
@@ -42067,7 +42067,7 @@ f0119b5f:	8b 45 c8             	mov    -0x38(%ebp),%eax
 f0119b62:	29 d0                	sub    %edx,%eax
 f0119b64:	89 c3                	mov    %eax,%ebx
 f0119b66:	c7 45 c4 00 10 00 00 	movl   $0x1000,-0x3c(%ebp)
-f0119b6d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0119b6d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0119b72:	0f b6 c0             	movzbl %al,%eax
 f0119b75:	c1 e0 04             	shl    $0x4,%eax
 f0119b78:	89 c2                	mov    %eax,%edx
@@ -42131,7 +42131,7 @@ f0119c2a:	89 85 e8 fd ff ff    	mov    %eax,-0x218(%ebp)
 f0119c30:	8b 85 e8 fd ff ff    	mov    -0x218(%ebp),%eax
 f0119c36:	89 c1                	mov    %eax,%ecx
 f0119c38:	c7 45 bc 00 10 00 00 	movl   $0x1000,-0x44(%ebp)
-f0119c3f:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0119c3f:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0119c44:	0f b6 d0             	movzbl %al,%edx
 f0119c47:	8b 45 bc             	mov    -0x44(%ebp),%eax
 f0119c4a:	01 d0                	add    %edx,%eax
@@ -42144,7 +42144,7 @@ f0119c5b:	8b 45 b8             	mov    -0x48(%ebp),%eax
 f0119c5e:	29 d0                	sub    %edx,%eax
 f0119c60:	89 c3                	mov    %eax,%ebx
 f0119c62:	c7 45 b4 00 10 00 00 	movl   $0x1000,-0x4c(%ebp)
-f0119c69:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0119c69:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0119c6e:	0f b6 c0             	movzbl %al,%eax
 f0119c71:	c1 e0 04             	shl    $0x4,%eax
 f0119c74:	89 c2                	mov    %eax,%edx
@@ -42208,7 +42208,7 @@ f0119d26:	89 85 ec fd ff ff    	mov    %eax,-0x214(%ebp)
 f0119d2c:	8b 85 ec fd ff ff    	mov    -0x214(%ebp),%eax
 f0119d32:	89 c1                	mov    %eax,%ecx
 f0119d34:	c7 45 ac 00 10 00 00 	movl   $0x1000,-0x54(%ebp)
-f0119d3b:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0119d3b:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0119d40:	0f b6 d0             	movzbl %al,%edx
 f0119d43:	8b 45 ac             	mov    -0x54(%ebp),%eax
 f0119d46:	01 d0                	add    %edx,%eax
@@ -42221,7 +42221,7 @@ f0119d57:	8b 45 a8             	mov    -0x58(%ebp),%eax
 f0119d5a:	29 d0                	sub    %edx,%eax
 f0119d5c:	89 c3                	mov    %eax,%ebx
 f0119d5e:	c7 45 a4 00 10 00 00 	movl   $0x1000,-0x5c(%ebp)
-f0119d65:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0119d65:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0119d6a:	0f b6 c0             	movzbl %al,%eax
 f0119d6d:	c1 e0 04             	shl    $0x4,%eax
 f0119d70:	89 c2                	mov    %eax,%edx
@@ -42310,7 +42310,7 @@ f0119e4b:	89 85 f0 fd ff ff    	mov    %eax,-0x210(%ebp)
 f0119e51:	8b 85 f0 fd ff ff    	mov    -0x210(%ebp),%eax
 f0119e57:	89 c1                	mov    %eax,%ecx
 f0119e59:	c7 45 98 00 10 00 00 	movl   $0x1000,-0x68(%ebp)
-f0119e60:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0119e60:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0119e65:	0f b6 d0             	movzbl %al,%edx
 f0119e68:	8b 45 98             	mov    -0x68(%ebp),%eax
 f0119e6b:	01 d0                	add    %edx,%eax
@@ -42323,7 +42323,7 @@ f0119e7c:	8b 45 94             	mov    -0x6c(%ebp),%eax
 f0119e7f:	29 d0                	sub    %edx,%eax
 f0119e81:	89 c3                	mov    %eax,%ebx
 f0119e83:	c7 45 90 00 10 00 00 	movl   $0x1000,-0x70(%ebp)
-f0119e8a:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0119e8a:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0119e8f:	0f b6 c0             	movzbl %al,%eax
 f0119e92:	c1 e0 04             	shl    $0x4,%eax
 f0119e95:	89 c2                	mov    %eax,%edx
@@ -42412,7 +42412,7 @@ f0119f70:	89 85 f4 fd ff ff    	mov    %eax,-0x20c(%ebp)
 f0119f76:	8b 85 f4 fd ff ff    	mov    -0x20c(%ebp),%eax
 f0119f7c:	89 c1                	mov    %eax,%ecx
 f0119f7e:	c7 45 88 00 10 00 00 	movl   $0x1000,-0x78(%ebp)
-f0119f85:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0119f85:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0119f8a:	0f b6 d0             	movzbl %al,%edx
 f0119f8d:	8b 45 88             	mov    -0x78(%ebp),%eax
 f0119f90:	01 d0                	add    %edx,%eax
@@ -42425,7 +42425,7 @@ f0119fa1:	8b 45 84             	mov    -0x7c(%ebp),%eax
 f0119fa4:	29 d0                	sub    %edx,%eax
 f0119fa6:	89 c3                	mov    %eax,%ebx
 f0119fa8:	c7 45 80 00 10 00 00 	movl   $0x1000,-0x80(%ebp)
-f0119faf:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0119faf:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0119fb4:	0f b6 c0             	movzbl %al,%eax
 f0119fb7:	c1 e0 04             	shl    $0x4,%eax
 f0119fba:	89 c2                	mov    %eax,%edx
@@ -42515,7 +42515,7 @@ f011a0a4:	8b 85 f8 fd ff ff    	mov    -0x208(%ebp),%eax
 f011a0aa:	89 c1                	mov    %eax,%ecx
 f011a0ac:	c7 85 78 ff ff ff 00 	movl   $0x1000,-0x88(%ebp)
 f011a0b3:	10 00 00 
-f011a0b6:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011a0b6:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011a0bb:	0f b6 d0             	movzbl %al,%edx
 f011a0be:	8b 85 78 ff ff ff    	mov    -0x88(%ebp),%eax
 f011a0c4:	01 d0                	add    %edx,%eax
@@ -42529,7 +42529,7 @@ f011a0e4:	29 d0                	sub    %edx,%eax
 f011a0e6:	89 c3                	mov    %eax,%ebx
 f011a0e8:	c7 85 70 ff ff ff 00 	movl   $0x1000,-0x90(%ebp)
 f011a0ef:	10 00 00 
-f011a0f2:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011a0f2:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011a0f7:	0f b6 c0             	movzbl %al,%eax
 f011a0fa:	c1 e0 04             	shl    $0x4,%eax
 f011a0fd:	89 c2                	mov    %eax,%edx
@@ -42619,7 +42619,7 @@ f011a1ef:	8b 85 fc fd ff ff    	mov    -0x204(%ebp),%eax
 f011a1f5:	89 c1                	mov    %eax,%ecx
 f011a1f7:	c7 85 68 ff ff ff 00 	movl   $0x1000,-0x98(%ebp)
 f011a1fe:	10 00 00 
-f011a201:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011a201:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011a206:	0f b6 d0             	movzbl %al,%edx
 f011a209:	8b 85 68 ff ff ff    	mov    -0x98(%ebp),%eax
 f011a20f:	01 d0                	add    %edx,%eax
@@ -42633,7 +42633,7 @@ f011a22f:	29 d0                	sub    %edx,%eax
 f011a231:	89 c3                	mov    %eax,%ebx
 f011a233:	c7 85 60 ff ff ff 00 	movl   $0x1000,-0xa0(%ebp)
 f011a23a:	10 00 00 
-f011a23d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011a23d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011a242:	0f b6 c0             	movzbl %al,%eax
 f011a245:	c1 e0 04             	shl    $0x4,%eax
 f011a248:	89 c2                	mov    %eax,%edx
@@ -42698,7 +42698,7 @@ f011a30f:	8b 85 00 fe ff ff    	mov    -0x200(%ebp),%eax
 f011a315:	89 c1                	mov    %eax,%ecx
 f011a317:	c7 85 58 ff ff ff 00 	movl   $0x1000,-0xa8(%ebp)
 f011a31e:	10 00 00 
-f011a321:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011a321:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011a326:	0f b6 d0             	movzbl %al,%edx
 f011a329:	8b 85 58 ff ff ff    	mov    -0xa8(%ebp),%eax
 f011a32f:	01 d0                	add    %edx,%eax
@@ -42712,7 +42712,7 @@ f011a34f:	29 d0                	sub    %edx,%eax
 f011a351:	89 c3                	mov    %eax,%ebx
 f011a353:	c7 85 50 ff ff ff 00 	movl   $0x1000,-0xb0(%ebp)
 f011a35a:	10 00 00 
-f011a35d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011a35d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011a362:	0f b6 c0             	movzbl %al,%eax
 f011a365:	c1 e0 04             	shl    $0x4,%eax
 f011a368:	89 c2                	mov    %eax,%edx
@@ -43134,7 +43134,7 @@ f011a7cf:	8b 85 04 fe ff ff    	mov    -0x1fc(%ebp),%eax
 f011a7d5:	89 c1                	mov    %eax,%ecx
 f011a7d7:	c7 85 40 ff ff ff 00 	movl   $0x1000,-0xc0(%ebp)
 f011a7de:	10 00 00 
-f011a7e1:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011a7e1:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011a7e6:	0f b6 d0             	movzbl %al,%edx
 f011a7e9:	8b 85 40 ff ff ff    	mov    -0xc0(%ebp),%eax
 f011a7ef:	01 d0                	add    %edx,%eax
@@ -43148,7 +43148,7 @@ f011a80f:	29 d0                	sub    %edx,%eax
 f011a811:	89 c3                	mov    %eax,%ebx
 f011a813:	c7 85 38 ff ff ff 00 	movl   $0x1000,-0xc8(%ebp)
 f011a81a:	10 00 00 
-f011a81d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011a81d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011a822:	0f b6 c0             	movzbl %al,%eax
 f011a825:	c1 e0 04             	shl    $0x4,%eax
 f011a828:	89 c2                	mov    %eax,%edx
@@ -43238,7 +43238,7 @@ f011a918:	8b 85 08 fe ff ff    	mov    -0x1f8(%ebp),%eax
 f011a91e:	89 c1                	mov    %eax,%ecx
 f011a920:	c7 85 30 ff ff ff 00 	movl   $0x1000,-0xd0(%ebp)
 f011a927:	10 00 00 
-f011a92a:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011a92a:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011a92f:	0f b6 d0             	movzbl %al,%edx
 f011a932:	8b 85 30 ff ff ff    	mov    -0xd0(%ebp),%eax
 f011a938:	01 d0                	add    %edx,%eax
@@ -43252,7 +43252,7 @@ f011a958:	29 d0                	sub    %edx,%eax
 f011a95a:	89 c3                	mov    %eax,%ebx
 f011a95c:	c7 85 28 ff ff ff 00 	movl   $0x1000,-0xd8(%ebp)
 f011a963:	10 00 00 
-f011a966:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011a966:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011a96b:	0f b6 c0             	movzbl %al,%eax
 f011a96e:	c1 e0 04             	shl    $0x4,%eax
 f011a971:	89 c2                	mov    %eax,%edx
@@ -43386,7 +43386,7 @@ f011aad9:	8b 85 0c fe ff ff    	mov    -0x1f4(%ebp),%eax
 f011aadf:	89 c1                	mov    %eax,%ecx
 f011aae1:	c7 85 20 ff ff ff 00 	movl   $0x1000,-0xe0(%ebp)
 f011aae8:	10 00 00 
-f011aaeb:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011aaeb:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011aaf0:	0f b6 d0             	movzbl %al,%edx
 f011aaf3:	8b 85 20 ff ff ff    	mov    -0xe0(%ebp),%eax
 f011aaf9:	01 d0                	add    %edx,%eax
@@ -43400,7 +43400,7 @@ f011ab19:	29 d0                	sub    %edx,%eax
 f011ab1b:	89 c3                	mov    %eax,%ebx
 f011ab1d:	c7 85 18 ff ff ff 00 	movl   $0x1000,-0xe8(%ebp)
 f011ab24:	10 00 00 
-f011ab27:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011ab27:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011ab2c:	0f b6 c0             	movzbl %al,%eax
 f011ab2f:	c1 e0 04             	shl    $0x4,%eax
 f011ab32:	89 c2                	mov    %eax,%edx
@@ -43490,7 +43490,7 @@ f011ac22:	8b 85 10 fe ff ff    	mov    -0x1f0(%ebp),%eax
 f011ac28:	89 c1                	mov    %eax,%ecx
 f011ac2a:	c7 85 10 ff ff ff 00 	movl   $0x1000,-0xf0(%ebp)
 f011ac31:	10 00 00 
-f011ac34:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011ac34:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011ac39:	0f b6 d0             	movzbl %al,%edx
 f011ac3c:	8b 85 10 ff ff ff    	mov    -0xf0(%ebp),%eax
 f011ac42:	01 d0                	add    %edx,%eax
@@ -43504,7 +43504,7 @@ f011ac62:	29 d0                	sub    %edx,%eax
 f011ac64:	89 c3                	mov    %eax,%ebx
 f011ac66:	c7 85 08 ff ff ff 00 	movl   $0x1000,-0xf8(%ebp)
 f011ac6d:	10 00 00 
-f011ac70:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011ac70:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011ac75:	0f b6 c0             	movzbl %al,%eax
 f011ac78:	c1 e0 04             	shl    $0x4,%eax
 f011ac7b:	89 c2                	mov    %eax,%edx
@@ -43690,7 +43690,7 @@ f011ae7f:	8b 85 14 fe ff ff    	mov    -0x1ec(%ebp),%eax
 f011ae85:	89 c1                	mov    %eax,%ecx
 f011ae87:	c7 85 00 ff ff ff 00 	movl   $0x1000,-0x100(%ebp)
 f011ae8e:	10 00 00 
-f011ae91:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011ae91:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011ae96:	0f b6 d0             	movzbl %al,%edx
 f011ae99:	8b 85 00 ff ff ff    	mov    -0x100(%ebp),%eax
 f011ae9f:	01 d0                	add    %edx,%eax
@@ -43704,7 +43704,7 @@ f011aebf:	29 d0                	sub    %edx,%eax
 f011aec1:	89 c3                	mov    %eax,%ebx
 f011aec3:	c7 85 f8 fe ff ff 00 	movl   $0x1000,-0x108(%ebp)
 f011aeca:	10 00 00 
-f011aecd:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011aecd:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011aed2:	0f b6 c0             	movzbl %al,%eax
 f011aed5:	c1 e0 04             	shl    $0x4,%eax
 f011aed8:	89 c2                	mov    %eax,%edx
@@ -44057,7 +44057,7 @@ f011b274:	8b 85 18 fe ff ff    	mov    -0x1e8(%ebp),%eax
 f011b27a:	89 c1                	mov    %eax,%ecx
 f011b27c:	c7 85 f0 fe ff ff 00 	movl   $0x1000,-0x110(%ebp)
 f011b283:	10 00 00 
-f011b286:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011b286:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011b28b:	0f b6 d0             	movzbl %al,%edx
 f011b28e:	8b 85 f0 fe ff ff    	mov    -0x110(%ebp),%eax
 f011b294:	01 d0                	add    %edx,%eax
@@ -44071,7 +44071,7 @@ f011b2b4:	29 d0                	sub    %edx,%eax
 f011b2b6:	89 c3                	mov    %eax,%ebx
 f011b2b8:	c7 85 e8 fe ff ff 00 	movl   $0x1000,-0x118(%ebp)
 f011b2bf:	10 00 00 
-f011b2c2:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011b2c2:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011b2c7:	0f b6 c0             	movzbl %al,%eax
 f011b2ca:	c1 e0 04             	shl    $0x4,%eax
 f011b2cd:	89 c2                	mov    %eax,%edx
@@ -44167,7 +44167,7 @@ f011b3cf:	8b 85 1c fe ff ff    	mov    -0x1e4(%ebp),%eax
 f011b3d5:	89 c1                	mov    %eax,%ecx
 f011b3d7:	c7 85 e0 fe ff ff 00 	movl   $0x1000,-0x120(%ebp)
 f011b3de:	10 00 00 
-f011b3e1:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011b3e1:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011b3e6:	0f b6 d0             	movzbl %al,%edx
 f011b3e9:	8b 85 e0 fe ff ff    	mov    -0x120(%ebp),%eax
 f011b3ef:	01 d0                	add    %edx,%eax
@@ -44181,7 +44181,7 @@ f011b40f:	29 d0                	sub    %edx,%eax
 f011b411:	89 c3                	mov    %eax,%ebx
 f011b413:	c7 85 d8 fe ff ff 00 	movl   $0x1000,-0x128(%ebp)
 f011b41a:	10 00 00 
-f011b41d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011b41d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011b422:	0f b6 c0             	movzbl %al,%eax
 f011b425:	c1 e0 04             	shl    $0x4,%eax
 f011b428:	89 c2                	mov    %eax,%edx
@@ -45000,7 +45000,7 @@ f011bcd5:	e8 9a 44 fe ff       	call   f0100174 <_panic>
 f011bcda:	8b 85 a8 fe ff ff    	mov    -0x158(%ebp),%eax
 f011bce0:	89 c1                	mov    %eax,%ecx
 f011bce2:	c7 45 b4 00 10 00 00 	movl   $0x1000,-0x4c(%ebp)
-f011bce9:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011bce9:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011bcee:	0f b6 d0             	movzbl %al,%edx
 f011bcf1:	8b 45 b4             	mov    -0x4c(%ebp),%eax
 f011bcf4:	01 d0                	add    %edx,%eax
@@ -45013,7 +45013,7 @@ f011bd05:	8b 45 b0             	mov    -0x50(%ebp),%eax
 f011bd08:	29 d0                	sub    %edx,%eax
 f011bd0a:	89 c3                	mov    %eax,%ebx
 f011bd0c:	c7 45 ac 00 10 00 00 	movl   $0x1000,-0x54(%ebp)
-f011bd13:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011bd13:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011bd18:	0f b6 c0             	movzbl %al,%eax
 f011bd1b:	c1 e0 04             	shl    $0x4,%eax
 f011bd1e:	89 c2                	mov    %eax,%edx
@@ -45080,7 +45080,7 @@ f011bdce:	e8 a1 43 fe ff       	call   f0100174 <_panic>
 f011bdd3:	8b 85 ac fe ff ff    	mov    -0x154(%ebp),%eax
 f011bdd9:	89 c1                	mov    %eax,%ecx
 f011bddb:	c7 45 a4 00 10 00 00 	movl   $0x1000,-0x5c(%ebp)
-f011bde2:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011bde2:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011bde7:	0f b6 d0             	movzbl %al,%edx
 f011bdea:	8b 45 a4             	mov    -0x5c(%ebp),%eax
 f011bded:	01 d0                	add    %edx,%eax
@@ -45093,7 +45093,7 @@ f011bdfe:	8b 45 a0             	mov    -0x60(%ebp),%eax
 f011be01:	29 d0                	sub    %edx,%eax
 f011be03:	89 c3                	mov    %eax,%ebx
 f011be05:	c7 45 9c 00 10 00 00 	movl   $0x1000,-0x64(%ebp)
-f011be0c:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011be0c:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011be11:	0f b6 c0             	movzbl %al,%eax
 f011be14:	c1 e0 04             	shl    $0x4,%eax
 f011be17:	89 c2                	mov    %eax,%edx
@@ -45159,7 +45159,7 @@ f011bec7:	e8 a8 42 fe ff       	call   f0100174 <_panic>
 f011becc:	8b 85 b0 fe ff ff    	mov    -0x150(%ebp),%eax
 f011bed2:	89 c1                	mov    %eax,%ecx
 f011bed4:	c7 45 94 00 10 00 00 	movl   $0x1000,-0x6c(%ebp)
-f011bedb:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011bedb:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011bee0:	0f b6 d0             	movzbl %al,%edx
 f011bee3:	8b 45 94             	mov    -0x6c(%ebp),%eax
 f011bee6:	01 d0                	add    %edx,%eax
@@ -45172,7 +45172,7 @@ f011bef7:	8b 45 90             	mov    -0x70(%ebp),%eax
 f011befa:	29 d0                	sub    %edx,%eax
 f011befc:	89 c3                	mov    %eax,%ebx
 f011befe:	c7 45 8c 00 10 00 00 	movl   $0x1000,-0x74(%ebp)
-f011bf05:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011bf05:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011bf0a:	0f b6 c0             	movzbl %al,%eax
 f011bf0d:	c1 e0 04             	shl    $0x4,%eax
 f011bf10:	89 c2                	mov    %eax,%edx
@@ -45237,7 +45237,7 @@ f011bfc0:	e8 af 41 fe ff       	call   f0100174 <_panic>
 f011bfc5:	8b 85 b4 fe ff ff    	mov    -0x14c(%ebp),%eax
 f011bfcb:	89 c1                	mov    %eax,%ecx
 f011bfcd:	c7 45 84 00 10 00 00 	movl   $0x1000,-0x7c(%ebp)
-f011bfd4:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011bfd4:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011bfd9:	0f b6 d0             	movzbl %al,%edx
 f011bfdc:	8b 45 84             	mov    -0x7c(%ebp),%eax
 f011bfdf:	01 d0                	add    %edx,%eax
@@ -45251,7 +45251,7 @@ f011bff3:	29 d0                	sub    %edx,%eax
 f011bff5:	89 c3                	mov    %eax,%ebx
 f011bff7:	c7 85 7c ff ff ff 00 	movl   $0x1000,-0x84(%ebp)
 f011bffe:	10 00 00 
-f011c001:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011c001:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011c006:	0f b6 c0             	movzbl %al,%eax
 f011c009:	c1 e0 04             	shl    $0x4,%eax
 f011c00c:	89 c2                	mov    %eax,%edx
@@ -45317,7 +45317,7 @@ f011c0d0:	8b 85 b8 fe ff ff    	mov    -0x148(%ebp),%eax
 f011c0d6:	89 c1                	mov    %eax,%ecx
 f011c0d8:	c7 85 74 ff ff ff 00 	movl   $0x1000,-0x8c(%ebp)
 f011c0df:	10 00 00 
-f011c0e2:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011c0e2:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011c0e7:	0f b6 d0             	movzbl %al,%edx
 f011c0ea:	8b 85 74 ff ff ff    	mov    -0x8c(%ebp),%eax
 f011c0f0:	01 d0                	add    %edx,%eax
@@ -45331,7 +45331,7 @@ f011c110:	29 d0                	sub    %edx,%eax
 f011c112:	89 c3                	mov    %eax,%ebx
 f011c114:	c7 85 6c ff ff ff 00 	movl   $0x1000,-0x94(%ebp)
 f011c11b:	10 00 00 
-f011c11e:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011c11e:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011c123:	0f b6 c0             	movzbl %al,%eax
 f011c126:	c1 e0 04             	shl    $0x4,%eax
 f011c129:	89 c2                	mov    %eax,%edx
@@ -45397,7 +45397,7 @@ f011c1ed:	8b 85 bc fe ff ff    	mov    -0x144(%ebp),%eax
 f011c1f3:	89 c1                	mov    %eax,%ecx
 f011c1f5:	c7 85 64 ff ff ff 00 	movl   $0x1000,-0x9c(%ebp)
 f011c1fc:	10 00 00 
-f011c1ff:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011c1ff:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011c204:	0f b6 d0             	movzbl %al,%edx
 f011c207:	8b 85 64 ff ff ff    	mov    -0x9c(%ebp),%eax
 f011c20d:	01 d0                	add    %edx,%eax
@@ -45411,7 +45411,7 @@ f011c22d:	29 d0                	sub    %edx,%eax
 f011c22f:	89 c3                	mov    %eax,%ebx
 f011c231:	c7 85 5c ff ff ff 00 	movl   $0x1000,-0xa4(%ebp)
 f011c238:	10 00 00 
-f011c23b:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011c23b:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011c240:	0f b6 c0             	movzbl %al,%eax
 f011c243:	c1 e0 04             	shl    $0x4,%eax
 f011c246:	89 c2                	mov    %eax,%edx
@@ -45477,7 +45477,7 @@ f011c30a:	8b 85 c0 fe ff ff    	mov    -0x140(%ebp),%eax
 f011c310:	89 c1                	mov    %eax,%ecx
 f011c312:	c7 85 54 ff ff ff 00 	movl   $0x1000,-0xac(%ebp)
 f011c319:	10 00 00 
-f011c31c:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011c31c:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011c321:	0f b6 d0             	movzbl %al,%edx
 f011c324:	8b 85 54 ff ff ff    	mov    -0xac(%ebp),%eax
 f011c32a:	01 d0                	add    %edx,%eax
@@ -45491,7 +45491,7 @@ f011c34a:	29 d0                	sub    %edx,%eax
 f011c34c:	89 c3                	mov    %eax,%ebx
 f011c34e:	c7 85 4c ff ff ff 00 	movl   $0x1000,-0xb4(%ebp)
 f011c355:	10 00 00 
-f011c358:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011c358:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011c35d:	0f b6 c0             	movzbl %al,%eax
 f011c360:	c1 e0 04             	shl    $0x4,%eax
 f011c363:	89 c2                	mov    %eax,%edx
@@ -45557,7 +45557,7 @@ f011c427:	8b 85 c4 fe ff ff    	mov    -0x13c(%ebp),%eax
 f011c42d:	89 c1                	mov    %eax,%ecx
 f011c42f:	c7 85 44 ff ff ff 00 	movl   $0x1000,-0xbc(%ebp)
 f011c436:	10 00 00 
-f011c439:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011c439:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011c43e:	0f b6 d0             	movzbl %al,%edx
 f011c441:	8b 85 44 ff ff ff    	mov    -0xbc(%ebp),%eax
 f011c447:	01 d0                	add    %edx,%eax
@@ -45571,7 +45571,7 @@ f011c467:	29 d0                	sub    %edx,%eax
 f011c469:	89 c3                	mov    %eax,%ebx
 f011c46b:	c7 85 3c ff ff ff 00 	movl   $0x1000,-0xc4(%ebp)
 f011c472:	10 00 00 
-f011c475:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011c475:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011c47a:	0f b6 c0             	movzbl %al,%eax
 f011c47d:	c1 e0 04             	shl    $0x4,%eax
 f011c480:	89 c2                	mov    %eax,%edx
@@ -46276,7 +46276,7 @@ f011cca4:	eb 4a                	jmp    f011ccf0 <test_krealloc+0x10fa>
 				get_page_table(ptr_page_directory, (void*) (uint32) va,
 f011cca6:	8b 45 e0             	mov    -0x20(%ebp),%eax
 f011cca9:	89 c1                	mov    %eax,%ecx
-f011ccab:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f011ccab:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f011ccb0:	83 ec 04             	sub    $0x4,%esp
 f011ccb3:	8d 95 04 fe ff ff    	lea    -0x1fc(%ebp),%edx
 f011ccb9:	52                   	push   %edx
@@ -46884,7 +46884,7 @@ f011d333:	e8 3c 2e fe ff       	call   f0100174 <_panic>
 		if ((uint32) newAddress != ACTUAL_START + (14 * Mega))
 f011d338:	c7 85 14 ff ff ff 00 	movl   $0x1000,-0xec(%ebp)
 f011d33f:	10 00 00 
-f011d342:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011d342:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011d347:	0f b6 d0             	movzbl %al,%edx
 f011d34a:	8b 85 14 ff ff ff    	mov    -0xec(%ebp),%eax
 f011d350:	01 d0                	add    %edx,%eax
@@ -46898,7 +46898,7 @@ f011d370:	29 d0                	sub    %edx,%eax
 f011d372:	89 c1                	mov    %eax,%ecx
 f011d374:	c7 85 0c ff ff ff 00 	movl   $0x1000,-0xf4(%ebp)
 f011d37b:	10 00 00 
-f011d37e:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011d37e:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011d383:	0f b6 c0             	movzbl %al,%eax
 f011d386:	c1 e0 04             	shl    $0x4,%eax
 f011d389:	89 c2                	mov    %eax,%edx
@@ -47041,7 +47041,7 @@ f011d51e:	e8 51 2c fe ff       	call   f0100174 <_panic>
 		if ((uint32) newAddress != ACTUAL_START + (24 * Mega))
 f011d523:	c7 85 04 ff ff ff 00 	movl   $0x1000,-0xfc(%ebp)
 f011d52a:	10 00 00 
-f011d52d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011d52d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011d532:	0f b6 d0             	movzbl %al,%edx
 f011d535:	8b 85 04 ff ff ff    	mov    -0xfc(%ebp),%eax
 f011d53b:	01 d0                	add    %edx,%eax
@@ -47055,7 +47055,7 @@ f011d55b:	29 d0                	sub    %edx,%eax
 f011d55d:	89 c1                	mov    %eax,%ecx
 f011d55f:	c7 85 fc fe ff ff 00 	movl   $0x1000,-0x104(%ebp)
 f011d566:	10 00 00 
-f011d569:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011d569:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011d56e:	0f b6 c0             	movzbl %al,%eax
 f011d571:	c1 e0 04             	shl    $0x4,%eax
 f011d574:	89 c2                	mov    %eax,%edx
@@ -47389,7 +47389,7 @@ f011d901:	eb 4a                	jmp    f011d94d <test_krealloc+0x1d57>
 				get_page_table(ptr_page_directory, (void*) (uint32) va,
 f011d903:	8b 45 d0             	mov    -0x30(%ebp),%eax
 f011d906:	89 c1                	mov    %eax,%ecx
-f011d908:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f011d908:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f011d90d:	83 ec 04             	sub    $0x4,%esp
 f011d910:	8d 95 00 fe ff ff    	lea    -0x200(%ebp),%edx
 f011d916:	52                   	push   %edx
@@ -47541,7 +47541,7 @@ f011da6d:	e8 02 27 fe ff       	call   f0100174 <_panic>
 f011da72:	8b 85 98 fe ff ff    	mov    -0x168(%ebp),%eax
 f011da78:	89 c1                	mov    %eax,%ecx
 f011da7a:	c7 45 b4 00 10 00 00 	movl   $0x1000,-0x4c(%ebp)
-f011da81:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011da81:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011da86:	0f b6 d0             	movzbl %al,%edx
 f011da89:	8b 45 b4             	mov    -0x4c(%ebp),%eax
 f011da8c:	01 d0                	add    %edx,%eax
@@ -47554,7 +47554,7 @@ f011da9d:	8b 45 b0             	mov    -0x50(%ebp),%eax
 f011daa0:	29 d0                	sub    %edx,%eax
 f011daa2:	89 c3                	mov    %eax,%ebx
 f011daa4:	c7 45 ac 00 10 00 00 	movl   $0x1000,-0x54(%ebp)
-f011daab:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011daab:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011dab0:	0f b6 c0             	movzbl %al,%eax
 f011dab3:	c1 e0 04             	shl    $0x4,%eax
 f011dab6:	89 c2                	mov    %eax,%edx
@@ -47621,7 +47621,7 @@ f011db66:	e8 09 26 fe ff       	call   f0100174 <_panic>
 f011db6b:	8b 85 9c fe ff ff    	mov    -0x164(%ebp),%eax
 f011db71:	89 c1                	mov    %eax,%ecx
 f011db73:	c7 45 a4 00 10 00 00 	movl   $0x1000,-0x5c(%ebp)
-f011db7a:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011db7a:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011db7f:	0f b6 d0             	movzbl %al,%edx
 f011db82:	8b 45 a4             	mov    -0x5c(%ebp),%eax
 f011db85:	01 d0                	add    %edx,%eax
@@ -47634,7 +47634,7 @@ f011db96:	8b 45 a0             	mov    -0x60(%ebp),%eax
 f011db99:	29 d0                	sub    %edx,%eax
 f011db9b:	89 c3                	mov    %eax,%ebx
 f011db9d:	c7 45 9c 00 10 00 00 	movl   $0x1000,-0x64(%ebp)
-f011dba4:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011dba4:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011dba9:	0f b6 c0             	movzbl %al,%eax
 f011dbac:	c1 e0 04             	shl    $0x4,%eax
 f011dbaf:	89 c2                	mov    %eax,%edx
@@ -47700,7 +47700,7 @@ f011dc5f:	e8 10 25 fe ff       	call   f0100174 <_panic>
 f011dc64:	8b 85 a0 fe ff ff    	mov    -0x160(%ebp),%eax
 f011dc6a:	89 c1                	mov    %eax,%ecx
 f011dc6c:	c7 45 94 00 10 00 00 	movl   $0x1000,-0x6c(%ebp)
-f011dc73:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011dc73:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011dc78:	0f b6 d0             	movzbl %al,%edx
 f011dc7b:	8b 45 94             	mov    -0x6c(%ebp),%eax
 f011dc7e:	01 d0                	add    %edx,%eax
@@ -47713,7 +47713,7 @@ f011dc8f:	8b 45 90             	mov    -0x70(%ebp),%eax
 f011dc92:	29 d0                	sub    %edx,%eax
 f011dc94:	89 c3                	mov    %eax,%ebx
 f011dc96:	c7 45 8c 00 10 00 00 	movl   $0x1000,-0x74(%ebp)
-f011dc9d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011dc9d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011dca2:	0f b6 c0             	movzbl %al,%eax
 f011dca5:	c1 e0 04             	shl    $0x4,%eax
 f011dca8:	89 c2                	mov    %eax,%edx
@@ -47778,7 +47778,7 @@ f011dd58:	e8 17 24 fe ff       	call   f0100174 <_panic>
 f011dd5d:	8b 85 a4 fe ff ff    	mov    -0x15c(%ebp),%eax
 f011dd63:	89 c1                	mov    %eax,%ecx
 f011dd65:	c7 45 84 00 10 00 00 	movl   $0x1000,-0x7c(%ebp)
-f011dd6c:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011dd6c:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011dd71:	0f b6 d0             	movzbl %al,%edx
 f011dd74:	8b 45 84             	mov    -0x7c(%ebp),%eax
 f011dd77:	01 d0                	add    %edx,%eax
@@ -47792,7 +47792,7 @@ f011dd8b:	29 d0                	sub    %edx,%eax
 f011dd8d:	89 c3                	mov    %eax,%ebx
 f011dd8f:	c7 85 7c ff ff ff 00 	movl   $0x1000,-0x84(%ebp)
 f011dd96:	10 00 00 
-f011dd99:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011dd99:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011dd9e:	0f b6 c0             	movzbl %al,%eax
 f011dda1:	c1 e0 04             	shl    $0x4,%eax
 f011dda4:	89 c2                	mov    %eax,%edx
@@ -47858,7 +47858,7 @@ f011de68:	8b 85 a8 fe ff ff    	mov    -0x158(%ebp),%eax
 f011de6e:	89 c1                	mov    %eax,%ecx
 f011de70:	c7 85 74 ff ff ff 00 	movl   $0x1000,-0x8c(%ebp)
 f011de77:	10 00 00 
-f011de7a:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011de7a:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011de7f:	0f b6 d0             	movzbl %al,%edx
 f011de82:	8b 85 74 ff ff ff    	mov    -0x8c(%ebp),%eax
 f011de88:	01 d0                	add    %edx,%eax
@@ -47872,7 +47872,7 @@ f011dea8:	29 d0                	sub    %edx,%eax
 f011deaa:	89 c3                	mov    %eax,%ebx
 f011deac:	c7 85 6c ff ff ff 00 	movl   $0x1000,-0x94(%ebp)
 f011deb3:	10 00 00 
-f011deb6:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011deb6:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011debb:	0f b6 c0             	movzbl %al,%eax
 f011debe:	c1 e0 04             	shl    $0x4,%eax
 f011dec1:	89 c2                	mov    %eax,%edx
@@ -47938,7 +47938,7 @@ f011df85:	8b 85 ac fe ff ff    	mov    -0x154(%ebp),%eax
 f011df8b:	89 c1                	mov    %eax,%ecx
 f011df8d:	c7 85 64 ff ff ff 00 	movl   $0x1000,-0x9c(%ebp)
 f011df94:	10 00 00 
-f011df97:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011df97:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011df9c:	0f b6 d0             	movzbl %al,%edx
 f011df9f:	8b 85 64 ff ff ff    	mov    -0x9c(%ebp),%eax
 f011dfa5:	01 d0                	add    %edx,%eax
@@ -47952,7 +47952,7 @@ f011dfc5:	29 d0                	sub    %edx,%eax
 f011dfc7:	89 c3                	mov    %eax,%ebx
 f011dfc9:	c7 85 5c ff ff ff 00 	movl   $0x1000,-0xa4(%ebp)
 f011dfd0:	10 00 00 
-f011dfd3:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011dfd3:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011dfd8:	0f b6 c0             	movzbl %al,%eax
 f011dfdb:	c1 e0 04             	shl    $0x4,%eax
 f011dfde:	89 c2                	mov    %eax,%edx
@@ -48018,7 +48018,7 @@ f011e0a2:	8b 85 b0 fe ff ff    	mov    -0x150(%ebp),%eax
 f011e0a8:	89 c1                	mov    %eax,%ecx
 f011e0aa:	c7 85 54 ff ff ff 00 	movl   $0x1000,-0xac(%ebp)
 f011e0b1:	10 00 00 
-f011e0b4:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011e0b4:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011e0b9:	0f b6 d0             	movzbl %al,%edx
 f011e0bc:	8b 85 54 ff ff ff    	mov    -0xac(%ebp),%eax
 f011e0c2:	01 d0                	add    %edx,%eax
@@ -48032,7 +48032,7 @@ f011e0e2:	29 d0                	sub    %edx,%eax
 f011e0e4:	89 c3                	mov    %eax,%ebx
 f011e0e6:	c7 85 4c ff ff ff 00 	movl   $0x1000,-0xb4(%ebp)
 f011e0ed:	10 00 00 
-f011e0f0:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011e0f0:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011e0f5:	0f b6 c0             	movzbl %al,%eax
 f011e0f8:	c1 e0 04             	shl    $0x4,%eax
 f011e0fb:	89 c2                	mov    %eax,%edx
@@ -48098,7 +48098,7 @@ f011e1bf:	8b 85 b4 fe ff ff    	mov    -0x14c(%ebp),%eax
 f011e1c5:	89 c1                	mov    %eax,%ecx
 f011e1c7:	c7 85 44 ff ff ff 00 	movl   $0x1000,-0xbc(%ebp)
 f011e1ce:	10 00 00 
-f011e1d1:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011e1d1:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011e1d6:	0f b6 d0             	movzbl %al,%edx
 f011e1d9:	8b 85 44 ff ff ff    	mov    -0xbc(%ebp),%eax
 f011e1df:	01 d0                	add    %edx,%eax
@@ -48112,7 +48112,7 @@ f011e1ff:	29 d0                	sub    %edx,%eax
 f011e201:	89 c3                	mov    %eax,%ebx
 f011e203:	c7 85 3c ff ff ff 00 	movl   $0x1000,-0xc4(%ebp)
 f011e20a:	10 00 00 
-f011e20d:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011e20d:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011e212:	0f b6 c0             	movzbl %al,%eax
 f011e215:	c1 e0 04             	shl    $0x4,%eax
 f011e218:	89 c2                	mov    %eax,%edx
@@ -48817,7 +48817,7 @@ f011ea3c:	eb 4a                	jmp    f011ea88 <test_krealloc_BF+0x10fa>
 				get_page_table(ptr_page_directory, (void*) (uint32) va,
 f011ea3e:	8b 45 e0             	mov    -0x20(%ebp),%eax
 f011ea41:	89 c1                	mov    %eax,%ecx
-f011ea43:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f011ea43:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f011ea48:	83 ec 04             	sub    $0x4,%esp
 f011ea4b:	8d 95 f4 fd ff ff    	lea    -0x20c(%ebp),%edx
 f011ea51:	52                   	push   %edx
@@ -49425,7 +49425,7 @@ f011f0cb:	e8 a4 10 fe ff       	call   f0100174 <_panic>
 		if ((uint32) newAddress != ACTUAL_START + (11 * Mega))
 f011f0d0:	c7 85 14 ff ff ff 00 	movl   $0x1000,-0xec(%ebp)
 f011f0d7:	10 00 00 
-f011f0da:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011f0da:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011f0df:	0f b6 d0             	movzbl %al,%edx
 f011f0e2:	8b 85 14 ff ff ff    	mov    -0xec(%ebp),%eax
 f011f0e8:	01 d0                	add    %edx,%eax
@@ -49439,7 +49439,7 @@ f011f108:	29 d0                	sub    %edx,%eax
 f011f10a:	89 c1                	mov    %eax,%ecx
 f011f10c:	c7 85 0c ff ff ff 00 	movl   $0x1000,-0xf4(%ebp)
 f011f113:	10 00 00 
-f011f116:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011f116:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011f11b:	0f b6 c0             	movzbl %al,%eax
 f011f11e:	c1 e0 04             	shl    $0x4,%eax
 f011f121:	89 c2                	mov    %eax,%edx
@@ -49533,7 +49533,7 @@ f011f227:	e8 48 0f fe ff       	call   f0100174 <_panic>
 		if ((uint32)newAddress != ACTUAL_START + 4 * Mega)
 f011f22c:	c7 85 04 ff ff ff 00 	movl   $0x1000,-0xfc(%ebp)
 f011f233:	10 00 00 
-f011f236:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011f236:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011f23b:	0f b6 d0             	movzbl %al,%edx
 f011f23e:	8b 85 04 ff ff ff    	mov    -0xfc(%ebp),%eax
 f011f244:	01 d0                	add    %edx,%eax
@@ -49547,7 +49547,7 @@ f011f264:	29 d0                	sub    %edx,%eax
 f011f266:	89 c1                	mov    %eax,%ecx
 f011f268:	c7 85 fc fe ff ff 00 	movl   $0x1000,-0x104(%ebp)
 f011f26f:	10 00 00 
-f011f272:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011f272:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011f277:	0f b6 c0             	movzbl %al,%eax
 f011f27a:	c1 e0 04             	shl    $0x4,%eax
 f011f27d:	89 c2                	mov    %eax,%edx
@@ -49626,7 +49626,7 @@ f011f360:	e8 0f 0e fe ff       	call   f0100174 <_panic>
 		if ((uint32) newAddress != ACTUAL_START + (21 * Mega))
 f011f365:	c7 85 f4 fe ff ff 00 	movl   $0x1000,-0x10c(%ebp)
 f011f36c:	10 00 00 
-f011f36f:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011f36f:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011f374:	0f b6 d0             	movzbl %al,%edx
 f011f377:	8b 85 f4 fe ff ff    	mov    -0x10c(%ebp),%eax
 f011f37d:	01 d0                	add    %edx,%eax
@@ -49640,7 +49640,7 @@ f011f39d:	29 d0                	sub    %edx,%eax
 f011f39f:	89 c1                	mov    %eax,%ecx
 f011f3a1:	c7 85 ec fe ff ff 00 	movl   $0x1000,-0x114(%ebp)
 f011f3a8:	10 00 00 
-f011f3ab:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f011f3ab:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f011f3b0:	0f b6 c0             	movzbl %al,%eax
 f011f3b3:	c1 e0 04             	shl    $0x4,%eax
 f011f3b6:	89 c2                	mov    %eax,%edx
@@ -49974,7 +49974,7 @@ f011f743:	eb 4a                	jmp    f011f78f <test_krealloc_BF+0x1e01>
 				get_page_table(ptr_page_directory, (void*) (uint32) va,
 f011f745:	8b 45 d0             	mov    -0x30(%ebp),%eax
 f011f748:	89 c1                	mov    %eax,%ecx
-f011f74a:	a1 d0 87 b1 f0       	mov    0xf0b187d0,%eax
+f011f74a:	a1 d0 e7 b1 f0       	mov    0xf0b1e7d0,%eax
 f011f74f:	83 ec 04             	sub    $0x4,%esp
 f011f752:	8d 95 f0 fd ff ff    	lea    -0x210(%ebp),%edx
 f011f758:	52                   	push   %edx
@@ -52515,7 +52515,7 @@ f01207dd:	8a 45 d5             	mov    -0x2b(%ebp),%al
 f01207e0:	8b 55 e4             	mov    -0x1c(%ebp),%edx
 f01207e3:	ee                   	out    %al,(%dx)
 	outb(0x1F6, 0xE0 | ((diskno&1)<<4) | ((secno>>24)&0x0F));
-f01207e4:	a1 a8 1f a9 f0       	mov    0xf0a91fa8,%eax
+f01207e4:	a1 a8 7f a9 f0       	mov    0xf0a97fa8,%eax
 f01207e9:	83 e0 01             	and    $0x1,%eax
 f01207ec:	c1 e0 04             	shl    $0x4,%eax
 f01207ef:	88 c2                	mov    %al,%dl
@@ -52666,7 +52666,7 @@ f012091d:	8a 45 d5             	mov    -0x2b(%ebp),%al
 f0120920:	8b 55 e4             	mov    -0x1c(%ebp),%edx
 f0120923:	ee                   	out    %al,(%dx)
 	outb(0x1F6, 0xE0 | ((diskno&1)<<4) | ((secno>>24)&0x0F));
-f0120924:	a1 a8 1f a9 f0       	mov    0xf0a91fa8,%eax
+f0120924:	a1 a8 7f a9 f0       	mov    0xf0a97fa8,%eax
 f0120929:	83 e0 01             	and    $0x1,%eax
 f012092c:	c1 e0 04             	shl    $0x4,%eax
 f012092f:	88 c2                	mov    %al,%dl
@@ -52761,10 +52761,10 @@ f01209ce:	55                   	push   %ebp
 f01209cf:	89 e5                	mov    %esp,%ebp
 f01209d1:	83 ec 28             	sub    $0x28,%esp
 	uint32 total_size_tobe_allocated = ((100 - memory_scarce_threshold_percentage)*number_of_frames)/100;
-f01209d4:	a1 20 7f af f0       	mov    0xf0af7f20,%eax
+f01209d4:	a1 20 df af f0       	mov    0xf0afdf20,%eax
 f01209d9:	ba 64 00 00 00       	mov    $0x64,%edx
 f01209de:	29 c2                	sub    %eax,%edx
-f01209e0:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f01209e0:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f01209e5:	0f af c2             	imul   %edx,%eax
 f01209e8:	ba 1f 85 eb 51       	mov    $0x51eb851f,%edx
 f01209ed:	f7 e2                	mul    %edx
@@ -52773,10 +52773,10 @@ f01209f1:	c1 e8 05             	shr    $0x5,%eax
 f01209f4:	89 45 f4             	mov    %eax,-0xc(%ebp)
 //	cprintf("total_size_tobe_allocated %d\n", number_of_frames);
 	if (((100 - memory_scarce_threshold_percentage)*number_of_frames) % 100 > 0)
-f01209f7:	a1 20 7f af f0       	mov    0xf0af7f20,%eax
+f01209f7:	a1 20 df af f0       	mov    0xf0afdf20,%eax
 f01209fc:	ba 64 00 00 00       	mov    $0x64,%edx
 f0120a01:	29 c2                	sub    %eax,%edx
-f0120a03:	a1 30 a3 af f0       	mov    0xf0afa330,%eax
+f0120a03:	a1 30 03 b0 f0       	mov    0xf0b00330,%eax
 f0120a08:	89 d1                	mov    %edx,%ecx
 f0120a0a:	0f af c8             	imul   %eax,%ecx
 f0120a0d:	b8 1f 85 eb 51       	mov    $0x51eb851f,%eax
@@ -52796,8 +52796,8 @@ f0120a30:	74 03                	je     f0120a35 <scarce_memory+0x67>
 f0120a32:	ff 45 f4             	incl   -0xc(%ebp)
 
 	uint32 size_of_already_allocated = number_of_frames - LIST_SIZE(&free_frame_list) ;
-f0120a35:	8b 15 30 a3 af f0    	mov    0xf0afa330,%edx
-f0120a3b:	a1 c0 87 b1 f0       	mov    0xf0b187c0,%eax
+f0120a35:	8b 15 30 03 b0 f0    	mov    0xf0b00330,%edx
+f0120a3b:	a1 c0 e7 b1 f0       	mov    0xf0b1e7c0,%eax
 f0120a40:	29 c2                	sub    %eax,%edx
 f0120a42:	89 d0                	mov    %edx,%eax
 f0120a44:	89 45 ec             	mov    %eax,-0x14(%ebp)
@@ -52863,7 +52863,7 @@ f0120aa7:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
 			LIST_FOREACH(ptr_ready_env, &(env_ready_queues[i]))
 f0120aae:	8b 45 e8             	mov    -0x18(%ebp),%eax
 f0120ab1:	c1 e0 04             	shl    $0x4,%eax
-f0120ab4:	05 c4 1f a9 f0       	add    $0xf0a91fc4,%eax
+f0120ab4:	05 c4 7f a9 f0       	add    $0xf0a97fc4,%eax
 f0120ab9:	8b 00                	mov    (%eax),%eax
 f0120abb:	89 45 e4             	mov    %eax,-0x1c(%ebp)
 f0120abe:	e9 82 00 00 00       	jmp    f0120b45 <calc_no_pages_tobe_removed_from_ready_exit_queues+0xcf>
@@ -52875,7 +52875,7 @@ f0120ac9:	e8 95 3a fe ff       	call   f0104563 <env_page_ws_get_size>
 f0120ace:	83 c4 10             	add    $0x10,%esp
 f0120ad1:	89 45 d0             	mov    %eax,-0x30(%ebp)
 				int num_of_pages_to_be_removed = curenv->percentage_of_WS_pages_to_be_removed * num_of_pages_in_WS / 100;
-f0120ad4:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0120ad4:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0120ad9:	8b 90 84 3c 01 00    	mov    0x13c84(%eax),%edx
 f0120adf:	8b 45 d0             	mov    -0x30(%ebp),%eax
 f0120ae2:	0f af c2             	imul   %edx,%eax
@@ -52885,7 +52885,7 @@ f0120aec:	89 d0                	mov    %edx,%eax
 f0120aee:	c1 e8 05             	shr    $0x5,%eax
 f0120af1:	89 45 e0             	mov    %eax,-0x20(%ebp)
 				if ((curenv->percentage_of_WS_pages_to_be_removed * num_of_pages_in_WS) % 100 > 0)
-f0120af4:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0120af4:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0120af9:	8b 90 84 3c 01 00    	mov    0x13c84(%eax),%edx
 f0120aff:	8b 45 d0             	mov    -0x30(%ebp),%eax
 f0120b02:	89 d1                	mov    %edx,%ecx
@@ -52916,7 +52916,7 @@ f0120b32:	01 45 f4             	add    %eax,-0xc(%ebp)
 			LIST_FOREACH(ptr_ready_env, &(env_ready_queues[i]))
 f0120b35:	8b 45 e8             	mov    -0x18(%ebp),%eax
 f0120b38:	c1 e0 04             	shl    $0x4,%eax
-f0120b3b:	05 cc 1f a9 f0       	add    $0xf0a91fcc,%eax
+f0120b3b:	05 cc 7f a9 f0       	add    $0xf0a97fcc,%eax
 f0120b40:	8b 00                	mov    (%eax),%eax
 f0120b42:	89 45 e4             	mov    %eax,-0x1c(%ebp)
 f0120b45:	83 7d e4 00          	cmpl   $0x0,-0x1c(%ebp)
@@ -52927,11 +52927,11 @@ f0120b51:	eb 05                	jmp    f0120b58 <calc_no_pages_tobe_removed_from
 f0120b53:	b8 00 00 00 00       	mov    $0x0,%eax
 f0120b58:	8b 55 e8             	mov    -0x18(%ebp),%edx
 f0120b5b:	c1 e2 04             	shl    $0x4,%edx
-f0120b5e:	81 c2 cc 1f a9 f0    	add    $0xf0a91fcc,%edx
+f0120b5e:	81 c2 cc 7f a9 f0    	add    $0xf0a97fcc,%edx
 f0120b64:	89 02                	mov    %eax,(%edx)
 f0120b66:	8b 45 e8             	mov    -0x18(%ebp),%eax
 f0120b69:	c1 e0 04             	shl    $0x4,%eax
-f0120b6c:	05 cc 1f a9 f0       	add    $0xf0a91fcc,%eax
+f0120b6c:	05 cc 7f a9 f0       	add    $0xf0a97fcc,%eax
 f0120b71:	8b 00                	mov    (%eax),%eax
 f0120b73:	85 c0                	test   %eax,%eax
 f0120b75:	0f 85 48 ff ff ff    	jne    f0120ac3 <calc_no_pages_tobe_removed_from_ready_exit_queues+0x4d>
@@ -52944,7 +52944,7 @@ f0120b7f:	0f 85 3e ff ff ff    	jne    f0120ac3 <calc_no_pages_tobe_removed_from
 	{
 		for(int i = 0; i < num_of_ready_queues; i++)
 f0120b85:	ff 45 e8             	incl   -0x18(%ebp)
-f0120b88:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0120b88:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0120b8d:	0f b6 c0             	movzbl %al,%eax
 f0120b90:	3b 45 e8             	cmp    -0x18(%ebp),%eax
 f0120b93:	0f 8f 0e ff ff ff    	jg     f0120aa7 <calc_no_pages_tobe_removed_from_ready_exit_queues+0x31>
@@ -52956,7 +52956,7 @@ f0120b93:	0f 8f 0e ff ff ff    	jg     f0120aa7 <calc_no_pages_tobe_removed_from
 		struct Env * ptr_exit_env = NULL;
 f0120b99:	c7 45 dc 00 00 00 00 	movl   $0x0,-0x24(%ebp)
 		LIST_FOREACH(ptr_exit_env, &env_exit_queue)
-f0120ba0:	a1 24 7f af f0       	mov    0xf0af7f24,%eax
+f0120ba0:	a1 24 df af f0       	mov    0xf0afdf24,%eax
 f0120ba5:	89 45 dc             	mov    %eax,-0x24(%ebp)
 f0120ba8:	eb 19                	jmp    f0120bc3 <calc_no_pages_tobe_removed_from_ready_exit_queues+0x14d>
 		{
@@ -52972,7 +52972,7 @@ f0120bb8:	01 45 f0             	add    %eax,-0x10(%ebp)
 
 		struct Env * ptr_exit_env = NULL;
 		LIST_FOREACH(ptr_exit_env, &env_exit_queue)
-f0120bbb:	a1 2c 7f af f0       	mov    0xf0af7f2c,%eax
+f0120bbb:	a1 2c df af f0       	mov    0xf0afdf2c,%eax
 f0120bc0:	89 45 dc             	mov    %eax,-0x24(%ebp)
 f0120bc3:	83 7d dc 00          	cmpl   $0x0,-0x24(%ebp)
 f0120bc7:	74 08                	je     f0120bd1 <calc_no_pages_tobe_removed_from_ready_exit_queues+0x15b>
@@ -52980,8 +52980,8 @@ f0120bc9:	8b 45 dc             	mov    -0x24(%ebp),%eax
 f0120bcc:	8b 40 44             	mov    0x44(%eax),%eax
 f0120bcf:	eb 05                	jmp    f0120bd6 <calc_no_pages_tobe_removed_from_ready_exit_queues+0x160>
 f0120bd1:	b8 00 00 00 00       	mov    $0x0,%eax
-f0120bd6:	a3 2c 7f af f0       	mov    %eax,0xf0af7f2c
-f0120bdb:	a1 2c 7f af f0       	mov    0xf0af7f2c,%eax
+f0120bd6:	a3 2c df af f0       	mov    %eax,0xf0afdf2c
+f0120bdb:	a1 2c df af f0       	mov    0xf0afdf2c,%eax
 f0120be0:	85 c0                	test   %eax,%eax
 f0120be2:	75 c6                	jne    f0120baa <calc_no_pages_tobe_removed_from_ready_exit_queues+0x134>
 f0120be4:	83 7d dc 00          	cmpl   $0x0,-0x24(%ebp)
@@ -52991,19 +52991,19 @@ f0120be8:	75 c0                	jne    f0120baa <calc_no_pages_tobe_removed_from
 		}
 
 		if(curenv != NULL)
-f0120bea:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0120bea:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0120bef:	85 c0                	test   %eax,%eax
 f0120bf1:	0f 84 ec 00 00 00    	je     f0120ce3 <calc_no_pages_tobe_removed_from_ready_exit_queues+0x26d>
 		{
 			int num_of_pages_in_WS = env_page_ws_get_size(curenv);
-f0120bf7:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0120bf7:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0120bfc:	83 ec 0c             	sub    $0xc,%esp
 f0120bff:	50                   	push   %eax
 f0120c00:	e8 5e 39 fe ff       	call   f0104563 <env_page_ws_get_size>
 f0120c05:	83 c4 10             	add    $0x10,%esp
 f0120c08:	89 45 cc             	mov    %eax,-0x34(%ebp)
 			int num_of_pages_to_be_removed = curenv->percentage_of_WS_pages_to_be_removed * num_of_pages_in_WS / 100;
-f0120c0b:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0120c0b:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0120c10:	8b 90 84 3c 01 00    	mov    0x13c84(%eax),%edx
 f0120c16:	8b 45 cc             	mov    -0x34(%ebp),%eax
 f0120c19:	0f af c2             	imul   %edx,%eax
@@ -53013,7 +53013,7 @@ f0120c23:	89 d0                	mov    %edx,%eax
 f0120c25:	c1 e8 05             	shr    $0x5,%eax
 f0120c28:	89 45 d8             	mov    %eax,-0x28(%ebp)
 			if ((curenv->percentage_of_WS_pages_to_be_removed * num_of_pages_in_WS) % 100 > 0)
-f0120c2b:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0120c2b:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0120c30:	8b 90 84 3c 01 00    	mov    0x13c84(%eax),%edx
 f0120c36:	8b 45 cc             	mov    -0x34(%ebp),%eax
 f0120c39:	89 d1                	mov    %edx,%ecx
@@ -53042,14 +53042,14 @@ f0120c6c:	eb 75                	jmp    f0120ce3 <calc_no_pages_tobe_removed_from
 	else	// THEN RAPID PROCESS SHALL BE FREED ONLY
 	{
 		int num_of_pages_in_WS = env_page_ws_get_size(curenv);
-f0120c6e:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0120c6e:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0120c73:	83 ec 0c             	sub    $0xc,%esp
 f0120c76:	50                   	push   %eax
 f0120c77:	e8 e7 38 fe ff       	call   f0104563 <env_page_ws_get_size>
 f0120c7c:	83 c4 10             	add    $0x10,%esp
 f0120c7f:	89 45 c8             	mov    %eax,-0x38(%ebp)
 		int num_of_pages_to_be_removed = curenv->percentage_of_WS_pages_to_be_removed * num_of_pages_in_WS / 100;
-f0120c82:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0120c82:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0120c87:	8b 90 84 3c 01 00    	mov    0x13c84(%eax),%edx
 f0120c8d:	8b 45 c8             	mov    -0x38(%ebp),%eax
 f0120c90:	0f af c2             	imul   %edx,%eax
@@ -53059,7 +53059,7 @@ f0120c9a:	89 d0                	mov    %edx,%eax
 f0120c9c:	c1 e8 05             	shr    $0x5,%eax
 f0120c9f:	89 45 d4             	mov    %eax,-0x2c(%ebp)
 		if ((curenv->percentage_of_WS_pages_to_be_removed * num_of_pages_in_WS) % 100 > 0)
-f0120ca2:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0120ca2:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0120ca7:	8b 90 84 3c 01 00    	mov    0x13c84(%eax),%edx
 f0120cad:	8b 45 c8             	mov    -0x38(%ebp),%eax
 f0120cb0:	89 d1                	mov    %edx,%ecx
@@ -53103,9 +53103,9 @@ f0120cf2:	55                   	push   %ebp
 f0120cf3:	89 e5                	mov    %esp,%ebp
 f0120cf5:	83 ec 18             	sub    $0x18,%esp
 	__nl = 0;
-f0120cf8:	c6 05 74 a3 af f0 00 	movb   $0x0,0xf0afa374
+f0120cf8:	c6 05 74 03 b0 f0 00 	movb   $0x0,0xf0b00374
 	__ne = NULL;
-f0120cff:	c7 05 40 a3 af f0 00 	movl   $0x0,0xf0afa340
+f0120cff:	c7 05 40 03 b0 f0 00 	movl   $0x0,0xf0b00340
 f0120d06:	00 00 00 
 	for (int i = 0; i < num_of_ready_queues; ++i)
 f0120d09:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
@@ -53114,7 +53114,7 @@ f0120d10:	eb 3a                	jmp    f0120d4c <schenv+0x5a>
 		if (queue_size(&(env_ready_queues[i])))
 f0120d12:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f0120d15:	c1 e0 04             	shl    $0x4,%eax
-f0120d18:	05 c4 1f a9 f0       	add    $0xf0a91fc4,%eax
+f0120d18:	05 c4 7f a9 f0       	add    $0xf0a97fc4,%eax
 f0120d1d:	83 ec 0c             	sub    $0xc,%esp
 f0120d20:	50                   	push   %eax
 f0120d21:	e8 7d 8f fe ff       	call   f0109ca3 <queue_size>
@@ -53125,12 +53125,12 @@ f0120d2b:	74 1c                	je     f0120d49 <schenv+0x57>
 			__ne = LIST_LAST(&(env_ready_queues[i]));
 f0120d2d:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f0120d30:	c1 e0 04             	shl    $0x4,%eax
-f0120d33:	05 c8 1f a9 f0       	add    $0xf0a91fc8,%eax
+f0120d33:	05 c8 7f a9 f0       	add    $0xf0a97fc8,%eax
 f0120d38:	8b 00                	mov    (%eax),%eax
-f0120d3a:	a3 40 a3 af f0       	mov    %eax,0xf0afa340
+f0120d3a:	a3 40 03 b0 f0       	mov    %eax,0xf0b00340
 			__nl = i;
 f0120d3f:	8b 45 f4             	mov    -0xc(%ebp),%eax
-f0120d42:	a2 74 a3 af f0       	mov    %al,0xf0afa374
+f0120d42:	a2 74 03 b0 f0       	mov    %al,0xf0b00374
 			break;
 f0120d47:	eb 10                	jmp    f0120d59 <schenv+0x67>
 
@@ -53140,7 +53140,7 @@ void schenv()
 	__ne = NULL;
 	for (int i = 0; i < num_of_ready_queues; ++i)
 f0120d49:	ff 45 f4             	incl   -0xc(%ebp)
-f0120d4c:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0120d4c:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0120d51:	0f b6 c0             	movzbl %al,%eax
 f0120d54:	3b 45 f4             	cmp    -0xc(%ebp),%eax
 f0120d57:	7f b9                	jg     f0120d12 <schenv+0x20>
@@ -53150,40 +53150,40 @@ f0120d57:	7f b9                	jg     f0120d12 <schenv+0x20>
 		}
 	}
 	if (curenv != NULL)
-f0120d59:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
+f0120d59:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
 f0120d5e:	85 c0                	test   %eax,%eax
 f0120d60:	0f 84 86 00 00 00    	je     f0120dec <schenv+0xfa>
 	{
 		if (__ne != NULL)
-f0120d66:	a1 40 a3 af f0       	mov    0xf0afa340,%eax
+f0120d66:	a1 40 03 b0 f0       	mov    0xf0b00340,%eax
 f0120d6b:	85 c0                	test   %eax,%eax
 f0120d6d:	74 4b                	je     f0120dba <schenv+0xc8>
 		{
 			if ((__pl + 1) < __nl)
-f0120d6f:	a0 c0 1f a9 f0       	mov    0xf0a91fc0,%al
+f0120d6f:	a0 c0 7f a9 f0       	mov    0xf0a97fc0,%al
 f0120d74:	0f b6 c0             	movzbl %al,%eax
 f0120d77:	8d 50 01             	lea    0x1(%eax),%edx
-f0120d7a:	a0 74 a3 af f0       	mov    0xf0afa374,%al
+f0120d7a:	a0 74 03 b0 f0       	mov    0xf0b00374,%al
 f0120d7f:	0f b6 c0             	movzbl %al,%eax
 f0120d82:	39 c2                	cmp    %eax,%edx
 f0120d84:	7d 66                	jge    f0120dec <schenv+0xfa>
 			{
 				__ne = curenv;
-f0120d86:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
-f0120d8b:	a3 40 a3 af f0       	mov    %eax,0xf0afa340
+f0120d86:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
+f0120d8b:	a3 40 03 b0 f0       	mov    %eax,0xf0b00340
 				__nl = __pl < num_of_ready_queues-1? __pl + 1 : __pl ;
-f0120d90:	a0 c0 1f a9 f0       	mov    0xf0a91fc0,%al
+f0120d90:	a0 c0 7f a9 f0       	mov    0xf0a97fc0,%al
 f0120d95:	0f b6 c0             	movzbl %al,%eax
-f0120d98:	8a 15 64 a3 af f0    	mov    0xf0afa364,%dl
+f0120d98:	8a 15 64 03 b0 f0    	mov    0xf0b00364,%dl
 f0120d9e:	0f b6 d2             	movzbl %dl,%edx
 f0120da1:	4a                   	dec    %edx
 f0120da2:	39 d0                	cmp    %edx,%eax
 f0120da4:	7d 08                	jge    f0120dae <schenv+0xbc>
-f0120da6:	a0 c0 1f a9 f0       	mov    0xf0a91fc0,%al
+f0120da6:	a0 c0 7f a9 f0       	mov    0xf0a97fc0,%al
 f0120dab:	40                   	inc    %eax
 f0120dac:	eb 05                	jmp    f0120db3 <schenv+0xc1>
-f0120dae:	a0 c0 1f a9 f0       	mov    0xf0a91fc0,%al
-f0120db3:	a2 74 a3 af f0       	mov    %al,0xf0afa374
+f0120dae:	a0 c0 7f a9 f0       	mov    0xf0a97fc0,%al
+f0120db3:	a2 74 03 b0 f0       	mov    %al,0xf0b00374
 		{
 			__ne = curenv;
 			__nl = __pl < num_of_ready_queues-1? __pl + 1 : __pl ;
@@ -53197,21 +53197,21 @@ f0120db8:	eb 32                	jmp    f0120dec <schenv+0xfa>
 		else
 		{
 			__ne = curenv;
-f0120dba:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
-f0120dbf:	a3 40 a3 af f0       	mov    %eax,0xf0afa340
+f0120dba:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
+f0120dbf:	a3 40 03 b0 f0       	mov    %eax,0xf0b00340
 			__nl = __pl < num_of_ready_queues-1? __pl + 1 : __pl ;
-f0120dc4:	a0 c0 1f a9 f0       	mov    0xf0a91fc0,%al
+f0120dc4:	a0 c0 7f a9 f0       	mov    0xf0a97fc0,%al
 f0120dc9:	0f b6 c0             	movzbl %al,%eax
-f0120dcc:	8a 15 64 a3 af f0    	mov    0xf0afa364,%dl
+f0120dcc:	8a 15 64 03 b0 f0    	mov    0xf0b00364,%dl
 f0120dd2:	0f b6 d2             	movzbl %dl,%edx
 f0120dd5:	4a                   	dec    %edx
 f0120dd6:	39 d0                	cmp    %edx,%eax
 f0120dd8:	7d 08                	jge    f0120de2 <schenv+0xf0>
-f0120dda:	a0 c0 1f a9 f0       	mov    0xf0a91fc0,%al
+f0120dda:	a0 c0 7f a9 f0       	mov    0xf0a97fc0,%al
 f0120ddf:	40                   	inc    %eax
 f0120de0:	eb 05                	jmp    f0120de7 <schenv+0xf5>
-f0120de2:	a0 c0 1f a9 f0       	mov    0xf0a91fc0,%al
-f0120de7:	a2 74 a3 af f0       	mov    %al,0xf0afa374
+f0120de2:	a0 c0 7f a9 f0       	mov    0xf0a97fc0,%al
+f0120de7:	a2 74 03 b0 f0       	mov    %al,0xf0b00374
 		}
 	}
 }
@@ -53229,18 +53229,18 @@ f0120df2:	83 ec 04             	sub    $0x4,%esp
 f0120df5:	8b 45 08             	mov    0x8(%ebp),%eax
 f0120df8:	88 45 fc             	mov    %al,-0x4(%ebp)
 	__pe = NULL;
-f0120dfb:	c7 05 70 a3 af f0 00 	movl   $0x0,0xf0afa370
+f0120dfb:	c7 05 70 03 b0 f0 00 	movl   $0x0,0xf0b00370
 f0120e02:	00 00 00 
 	__ne = NULL;
-f0120e05:	c7 05 40 a3 af f0 00 	movl   $0x0,0xf0afa340
+f0120e05:	c7 05 40 03 b0 f0 00 	movl   $0x0,0xf0b00340
 f0120e0c:	00 00 00 
 	__pl = 0 ;
-f0120e0f:	c6 05 c0 1f a9 f0 00 	movb   $0x0,0xf0a91fc0
+f0120e0f:	c6 05 c0 7f a9 f0 00 	movb   $0x0,0xf0a97fc0
 	__nl = 0 ;
-f0120e16:	c6 05 74 a3 af f0 00 	movb   $0x0,0xf0afa374
+f0120e16:	c6 05 74 03 b0 f0 00 	movb   $0x0,0xf0b00374
 	__chkstatus = onoff;
 f0120e1d:	8a 45 fc             	mov    -0x4(%ebp),%al
-f0120e20:	a2 3c a3 af f0       	mov    %al,0xf0afa33c
+f0120e20:	a2 3c 03 b0 f0       	mov    %al,0xf0b0033c
 }
 f0120e25:	90                   	nop
 f0120e26:	c9                   	leave  
@@ -53253,23 +53253,23 @@ f0120e28:	55                   	push   %ebp
 f0120e29:	89 e5                	mov    %esp,%ebp
 f0120e2b:	83 ec 08             	sub    $0x8,%esp
 	if (__chkstatus == 0)
-f0120e2e:	a0 3c a3 af f0       	mov    0xf0afa33c,%al
+f0120e2e:	a0 3c 03 b0 f0       	mov    0xf0b0033c,%al
 f0120e33:	84 c0                	test   %al,%al
 f0120e35:	74 2b                	je     f0120e62 <chk1+0x3a>
 		return ;
 	__pe = curenv;
-f0120e37:	a1 f0 16 a9 f0       	mov    0xf0a916f0,%eax
-f0120e3c:	a3 70 a3 af f0       	mov    %eax,0xf0afa370
+f0120e37:	a1 f0 76 a9 f0       	mov    0xf0a976f0,%eax
+f0120e3c:	a3 70 03 b0 f0       	mov    %eax,0xf0b00370
 	__pl = __nl ;
-f0120e41:	a0 74 a3 af f0       	mov    0xf0afa374,%al
-f0120e46:	a2 c0 1f a9 f0       	mov    %al,0xf0a91fc0
+f0120e41:	a0 74 03 b0 f0       	mov    0xf0b00374,%al
+f0120e46:	a2 c0 7f a9 f0       	mov    %al,0xf0a97fc0
 	if (__pe == NULL)
-f0120e4b:	a1 70 a3 af f0       	mov    0xf0afa370,%eax
+f0120e4b:	a1 70 03 b0 f0       	mov    0xf0b00370,%eax
 f0120e50:	85 c0                	test   %eax,%eax
 f0120e52:	75 07                	jne    f0120e5b <chk1+0x33>
 	{
 		__pl = 0;
-f0120e54:	c6 05 c0 1f a9 f0 00 	movb   $0x0,0xf0a91fc0
+f0120e54:	c6 05 c0 7f a9 f0 00 	movb   $0x0,0xf0a97fc0
 	}
 	//cprintf("chk1: current = %s @ level %d\n", __pe == NULL? "NULL" : __pe->prog_name, __pl);
 	schenv();
@@ -53299,7 +53299,7 @@ f0120e66:	89 e5                	mov    %esp,%ebp
 f0120e68:	53                   	push   %ebx
 f0120e69:	83 ec 14             	sub    $0x14,%esp
 	if (__chkstatus == 0)
-f0120e6c:	a0 3c a3 af f0       	mov    0xf0afa33c,%al
+f0120e6c:	a0 3c 03 b0 f0       	mov    0xf0b0033c,%al
 f0120e71:	84 c0                	test   %al,%al
 f0120e73:	0f 84 35 02 00 00    	je     f01210ae <chk2+0x249>
 		return ;
@@ -53307,7 +53307,7 @@ f0120e73:	0f 84 35 02 00 00    	je     f01210ae <chk2+0x249>
 	//cprintf("chk2: next = %s @ level %d\n", __ne == NULL? "NULL" : __ne->prog_name, __nl);
 
 	assert_endall(__se == __ne);
-f0120e79:	a1 40 a3 af f0       	mov    0xf0afa340,%eax
+f0120e79:	a1 40 03 b0 f0       	mov    0xf0b00340,%eax
 f0120e7e:	39 45 08             	cmp    %eax,0x8(%ebp)
 f0120e81:	74 19                	je     f0120e9c <chk2+0x37>
 f0120e83:	68 90 76 12 f0       	push   $0xf0127690
@@ -53318,22 +53318,22 @@ f0120e97:	e8 47 f3 fd ff       	call   f01001e3 <_panic_all>
 	//cprintf("%d - %d\n", kclock_read_cnt0_latch() , TIMER_DIV((1000/quantums[__nl])));
 
 	if (__ne != NULL)
-f0120e9c:	a1 40 a3 af f0       	mov    0xf0afa340,%eax
+f0120e9c:	a1 40 03 b0 f0       	mov    0xf0b00340,%eax
 f0120ea1:	85 c0                	test   %eax,%eax
 f0120ea3:	0f 84 1b 01 00 00    	je     f0120fc4 <chk2+0x15f>
 	{
 		uint16 upper = TIMER_DIV((1000/quantums[__nl])) ;
-f0120ea9:	a0 74 a3 af f0       	mov    0xf0afa374,%al
+f0120ea9:	a0 74 03 b0 f0       	mov    0xf0b00374,%al
 f0120eae:	0f b6 c0             	movzbl %al,%eax
-f0120eb1:	8a 80 34 a3 af f0    	mov    -0xf505ccc(%eax),%al
+f0120eb1:	8a 80 34 03 b0 f0    	mov    -0xf4ffccc(%eax),%al
 f0120eb7:	0f b6 d8             	movzbl %al,%ebx
 f0120eba:	b8 f4 01 00 00       	mov    $0x1f4,%eax
 f0120ebf:	99                   	cltd   
 f0120ec0:	f7 fb                	idiv   %ebx
 f0120ec2:	8d 88 de 34 12 00    	lea    0x1234de(%eax),%ecx
-f0120ec8:	a0 74 a3 af f0       	mov    0xf0afa374,%al
+f0120ec8:	a0 74 03 b0 f0       	mov    0xf0b00374,%al
 f0120ecd:	0f b6 c0             	movzbl %al,%eax
-f0120ed0:	8a 80 34 a3 af f0    	mov    -0xf505ccc(%eax),%al
+f0120ed0:	8a 80 34 03 b0 f0    	mov    -0xf4ffccc(%eax),%al
 f0120ed6:	0f b6 d8             	movzbl %al,%ebx
 f0120ed9:	b8 e8 03 00 00       	mov    $0x3e8,%eax
 f0120ede:	99                   	cltd   
@@ -53394,12 +53394,12 @@ f0120f6c:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
 f0120f73:	eb 42                	jmp    f0120fb7 <chk2+0x152>
 		{
 			assert_endall(find_env_in_queue(&(env_ready_queues[i]), __ne->env_id) == NULL);
-f0120f75:	a1 40 a3 af f0       	mov    0xf0afa340,%eax
+f0120f75:	a1 40 03 b0 f0       	mov    0xf0b00340,%eax
 f0120f7a:	8b 40 4c             	mov    0x4c(%eax),%eax
 f0120f7d:	89 c2                	mov    %eax,%edx
 f0120f7f:	8b 45 f4             	mov    -0xc(%ebp),%eax
 f0120f82:	c1 e0 04             	shl    $0x4,%eax
-f0120f85:	05 c4 1f a9 f0       	add    $0xf0a91fc4,%eax
+f0120f85:	05 c4 7f a9 f0       	add    $0xf0a97fc4,%eax
 f0120f8a:	83 ec 08             	sub    $0x8,%esp
 f0120f8d:	52                   	push   %edx
 f0120f8e:	50                   	push   %eax
@@ -53419,7 +53419,7 @@ f0120faf:	e8 2f f2 fd ff       	call   f01001e3 <_panic_all>
 
 		for (int i = 0; i < num_of_ready_queues; ++i)
 f0120fb4:	ff 45 f4             	incl   -0xc(%ebp)
-f0120fb7:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f0120fb7:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f0120fbc:	0f b6 c0             	movzbl %al,%eax
 f0120fbf:	3b 45 f4             	cmp    -0xc(%ebp),%eax
 f0120fc2:	7f b1                	jg     f0120f75 <chk2+0x110>
@@ -53428,34 +53428,34 @@ f0120fc2:	7f b1                	jg     f0120f75 <chk2+0x110>
 		}
 	}
 	if (__pe != NULL && __pe != __ne)
-f0120fc4:	a1 70 a3 af f0       	mov    0xf0afa370,%eax
+f0120fc4:	a1 70 03 b0 f0       	mov    0xf0b00370,%eax
 f0120fc9:	85 c0                	test   %eax,%eax
 f0120fcb:	0f 84 de 00 00 00    	je     f01210af <chk2+0x24a>
-f0120fd1:	8b 15 70 a3 af f0    	mov    0xf0afa370,%edx
-f0120fd7:	a1 40 a3 af f0       	mov    0xf0afa340,%eax
+f0120fd1:	8b 15 70 03 b0 f0    	mov    0xf0b00370,%edx
+f0120fd7:	a1 40 03 b0 f0       	mov    0xf0b00340,%eax
 f0120fdc:	39 c2                	cmp    %eax,%edx
 f0120fde:	0f 84 cb 00 00 00    	je     f01210af <chk2+0x24a>
 	{
 		uint8 __tl = __pl == num_of_ready_queues-1 ? __pl : __pl + 1 ;
-f0120fe4:	a0 c0 1f a9 f0       	mov    0xf0a91fc0,%al
+f0120fe4:	a0 c0 7f a9 f0       	mov    0xf0a97fc0,%al
 f0120fe9:	0f b6 c0             	movzbl %al,%eax
-f0120fec:	8a 15 64 a3 af f0    	mov    0xf0afa364,%dl
+f0120fec:	8a 15 64 03 b0 f0    	mov    0xf0b00364,%dl
 f0120ff2:	0f b6 d2             	movzbl %dl,%edx
 f0120ff5:	4a                   	dec    %edx
 f0120ff6:	39 d0                	cmp    %edx,%eax
 f0120ff8:	74 08                	je     f0121002 <chk2+0x19d>
-f0120ffa:	a0 c0 1f a9 f0       	mov    0xf0a91fc0,%al
+f0120ffa:	a0 c0 7f a9 f0       	mov    0xf0a97fc0,%al
 f0120fff:	40                   	inc    %eax
 f0121000:	eb 05                	jmp    f0121007 <chk2+0x1a2>
-f0121002:	a0 c0 1f a9 f0       	mov    0xf0a91fc0,%al
+f0121002:	a0 c0 7f a9 f0       	mov    0xf0a97fc0,%al
 f0121007:	88 45 e9             	mov    %al,-0x17(%ebp)
 		assert_endall(find_env_in_queue(&(env_ready_queues[__tl]), __pe->env_id) != NULL);
-f012100a:	a1 70 a3 af f0       	mov    0xf0afa370,%eax
+f012100a:	a1 70 03 b0 f0       	mov    0xf0b00370,%eax
 f012100f:	8b 40 4c             	mov    0x4c(%eax),%eax
 f0121012:	89 c2                	mov    %eax,%edx
 f0121014:	0f b6 45 e9          	movzbl -0x17(%ebp),%eax
 f0121018:	c1 e0 04             	shl    $0x4,%eax
-f012101b:	05 c4 1f a9 f0       	add    $0xf0a91fc4,%eax
+f012101b:	05 c4 7f a9 f0       	add    $0xf0a97fc4,%eax
 f0121020:	83 ec 08             	sub    $0x8,%esp
 f0121023:	52                   	push   %edx
 f0121024:	50                   	push   %eax
@@ -53477,12 +53477,12 @@ f0121053:	0f b6 45 e9          	movzbl -0x17(%ebp),%eax
 f0121057:	3b 45 f0             	cmp    -0x10(%ebp),%eax
 f012105a:	74 3f                	je     f012109b <chk2+0x236>
 			assert_endall(find_env_in_queue(&(env_ready_queues[i]), __pe->env_id) == NULL) ;
-f012105c:	a1 70 a3 af f0       	mov    0xf0afa370,%eax
+f012105c:	a1 70 03 b0 f0       	mov    0xf0b00370,%eax
 f0121061:	8b 40 4c             	mov    0x4c(%eax),%eax
 f0121064:	89 c2                	mov    %eax,%edx
 f0121066:	8b 45 f0             	mov    -0x10(%ebp),%eax
 f0121069:	c1 e0 04             	shl    $0x4,%eax
-f012106c:	05 c4 1f a9 f0       	add    $0xf0a91fc4,%eax
+f012106c:	05 c4 7f a9 f0       	add    $0xf0a97fc4,%eax
 f0121071:	83 ec 08             	sub    $0x8,%esp
 f0121074:	52                   	push   %edx
 f0121075:	50                   	push   %eax
@@ -53509,7 +53509,7 @@ f012109b:	90                   	nop
 		assert_endall(find_env_in_queue(&(env_ready_queues[__tl]), __pe->env_id) != NULL);
 		for (int i = 0; i < num_of_ready_queues; ++i)
 f012109c:	ff 45 f0             	incl   -0x10(%ebp)
-f012109f:	a0 64 a3 af f0       	mov    0xf0afa364,%al
+f012109f:	a0 64 03 b0 f0       	mov    0xf0b00364,%al
 f01210a4:	0f b6 c0             	movzbl %al,%eax
 f01210a7:	3b 45 f0             	cmp    -0x10(%ebp),%eax
 f01210aa:	7f a7                	jg     f0121053 <chk2+0x1ee>
