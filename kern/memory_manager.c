@@ -788,11 +788,9 @@ void allocateMem(struct Env* e, uint32 virtual_address, uint32 size)
 
 void freeMem(struct Env* e, uint32 virtual_address, uint32 size)
 {
-
+	panic("freeMem() is not implemented yet...!!");
 	//TODO: [PROJECT 2021 - [2] User Heap] freeMem() [Kernel Side]
 	// Write your code here, remove the panic and write your code
-	panic("freeMem() is not implemented yet...!!");
-
 	//This function should:
 	//1. Free ALL pages of the given range from the Page File
 	//2. Free ONLY pages that are resident in the working set from the memory

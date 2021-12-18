@@ -19,14 +19,16 @@
 uint32 last_addres=USER_HEAP_START;
 int changes=0;
 int sizeofarray=0;
-uint32 addresses[100];
-int changed[100];
+uint32 addresses[1000];
+int changed[1000];
+int numOfPages[1000];
 void* malloc(uint32 size)
 {
 	//TODO: [PROJECT 2021 - [2] User Heap] malloc() [User Side]
 		// Write your code here, remove the panic and write your code
 		int num = size /PAGE_SIZE;
 		uint32 return_addres;
+
 		if(size%PAGE_SIZE!=0)
 			num++;
 		if(last_addres==USER_HEAP_START)
@@ -34,6 +36,7 @@ void* malloc(uint32 size)
 			sys_allocateMem(USER_HEAP_START,size);
 			return_addres=last_addres;
 			last_addres+=num*PAGE_SIZE;
+			numOfPages[sizeofarray]=num;
 			addresses[sizeofarray]=last_addres;
 			changed[sizeofarray]=1;
 			sizeofarray++;
@@ -46,6 +49,7 @@ void* malloc(uint32 size)
 				sys_allocateMem(last_addres,size);
 				return_addres=last_addres;
 				last_addres+=num*PAGE_SIZE;
+				numOfPages[sizeofarray]=num;
 				addresses[sizeofarray]=return_addres;
 				changed[sizeofarray]=1;
 				sizeofarray++;
@@ -93,7 +97,10 @@ void* malloc(uint32 size)
 					}
 
 				sys_allocateMem(min_addresss,size);
-
+				numOfPages[sizeofarray]=num;
+				addresses[sizeofarray]=last_addres;
+				changed[sizeofarray]=1;
+				sizeofarray++;
 				return(void*) min_addresss;
 			}
 		}
@@ -120,8 +127,6 @@ void free(void* virtual_address)
 {
 	//TODO: [PROJECT 2021 - [2] User Heap] free() [User Side]
 	// Write your code here, remove the panic and write your code
-	panic("free() is not implemented yet...!!");
-
 	//you should get the size of the given allocation using its address
 
 	//refer to the project presentation and documentation for details
