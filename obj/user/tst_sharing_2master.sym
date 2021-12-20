@@ -1,7 +1,7 @@
 00200010 R __STAB_BEGIN__
 00204cf0 R __STAB_END__
 00204cf1 R __STABSTR_BEGIN__
-00207bac R __STABSTR_END__
+00207bb0 R __STABSTR_END__
 00800020 T _start
 00800031 t args_exist
 00800038 T _main
@@ -118,8 +118,8 @@
 00803114 B _ModifiedBufferLength
 00803118 B argv0
 00803120 B addresses
-008040c0 B changed
-00805060 B numOfPages
+00864ba0 B changed
+008c6620 B numOfPages
 eec00000 A envs
 ef400000 A vpt
 ef7bd000 A vpd

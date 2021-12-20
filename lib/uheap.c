@@ -19,9 +19,9 @@
 uint32 last_addres=USER_HEAP_START;
 int changes=0;
 int sizeofarray=0;
-uint32 addresses[1000];
-int changed[1000];
-int numOfPages[1000];
+uint32 addresses[100000];
+int changed[100000];
+int numOfPages[100000];
 void* malloc(uint32 size)
 {
 	//TODO: [PROJECT 2021 - [2] User Heap] malloc() [User Side]

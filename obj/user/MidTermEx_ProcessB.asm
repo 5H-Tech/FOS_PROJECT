@@ -2605,9 +2605,9 @@ int strsplit(char *string, char *SPLIT_CHARS, char **argv, int * argc)
 
 0080110e <malloc>:
 int sizeofarray=0;
-uint32 addresses[1000];
-int changed[1000];
-int numOfPages[1000];
+uint32 addresses[100000];
+int changed[100000];
+int numOfPages[100000];
 void* malloc(uint32 size)
 {
   80110e:	55                   	push   %ebp
@@ -2652,14 +2652,14 @@ void* malloc(uint32 size)
 			numOfPages[sizeofarray]=num;
   801167:	a1 2c 30 80 00       	mov    0x80302c,%eax
   80116c:	8b 55 f4             	mov    -0xc(%ebp),%edx
-  80116f:	89 14 85 60 50 80 00 	mov    %edx,0x805060(,%eax,4)
+  80116f:	89 14 85 20 66 8c 00 	mov    %edx,0x8c6620(,%eax,4)
 			addresses[sizeofarray]=last_addres;
   801176:	a1 2c 30 80 00       	mov    0x80302c,%eax
   80117b:	8b 15 04 30 80 00    	mov    0x803004,%edx
   801181:	89 14 85 20 31 80 00 	mov    %edx,0x803120(,%eax,4)
 			changed[sizeofarray]=1;
   801188:	a1 2c 30 80 00       	mov    0x80302c,%eax
-  80118d:	c7 04 85 c0 40 80 00 	movl   $0x1,0x8040c0(,%eax,4)
+  80118d:	c7 04 85 a0 4b 86 00 	movl   $0x1,0x864ba0(,%eax,4)
   801194:	01 00 00 00 
 			sizeofarray++;
   801198:	a1 2c 30 80 00       	mov    0x80302c,%eax
@@ -2696,14 +2696,14 @@ void* malloc(uint32 size)
 				numOfPages[sizeofarray]=num;
   8011e4:	a1 2c 30 80 00       	mov    0x80302c,%eax
   8011e9:	8b 55 f4             	mov    -0xc(%ebp),%edx
-  8011ec:	89 14 85 60 50 80 00 	mov    %edx,0x805060(,%eax,4)
+  8011ec:	89 14 85 20 66 8c 00 	mov    %edx,0x8c6620(,%eax,4)
 				addresses[sizeofarray]=return_addres;
   8011f3:	a1 2c 30 80 00       	mov    0x80302c,%eax
   8011f8:	8b 55 d8             	mov    -0x28(%ebp),%edx
   8011fb:	89 14 85 20 31 80 00 	mov    %edx,0x803120(,%eax,4)
 				changed[sizeofarray]=1;
   801202:	a1 2c 30 80 00       	mov    0x80302c,%eax
-  801207:	c7 04 85 c0 40 80 00 	movl   $0x1,0x8040c0(,%eax,4)
+  801207:	c7 04 85 a0 4b 86 00 	movl   $0x1,0x864ba0(,%eax,4)
   80120e:	01 00 00 00 
 				sizeofarray++;
   801212:	a1 2c 30 80 00       	mov    0x80302c,%eax
@@ -2769,7 +2769,7 @@ void* malloc(uint32 size)
 					{
 						if(changed[index]==0)
   801282:	8b 45 e8             	mov    -0x18(%ebp),%eax
-  801285:	8b 04 85 c0 40 80 00 	mov    0x8040c0(,%eax,4),%eax
+  801285:	8b 04 85 a0 4b 86 00 	mov    0x864ba0(,%eax,4),%eax
   80128c:	85 c0                	test   %eax,%eax
   80128e:	75 05                	jne    801295 <malloc+0x187>
 						{
@@ -2819,14 +2819,14 @@ void* malloc(uint32 size)
 				numOfPages[sizeofarray]=num;
   8012dd:	a1 2c 30 80 00       	mov    0x80302c,%eax
   8012e2:	8b 55 f4             	mov    -0xc(%ebp),%edx
-  8012e5:	89 14 85 60 50 80 00 	mov    %edx,0x805060(,%eax,4)
+  8012e5:	89 14 85 20 66 8c 00 	mov    %edx,0x8c6620(,%eax,4)
 				addresses[sizeofarray]=last_addres;
   8012ec:	a1 2c 30 80 00       	mov    0x80302c,%eax
   8012f1:	8b 15 04 30 80 00    	mov    0x803004,%edx
   8012f7:	89 14 85 20 31 80 00 	mov    %edx,0x803120(,%eax,4)
 				changed[sizeofarray]=1;
   8012fe:	a1 2c 30 80 00       	mov    0x80302c,%eax
-  801303:	c7 04 85 c0 40 80 00 	movl   $0x1,0x8040c0(,%eax,4)
+  801303:	c7 04 85 a0 4b 86 00 	movl   $0x1,0x864ba0(,%eax,4)
   80130a:	01 00 00 00 
 				sizeofarray++;
   80130e:	a1 2c 30 80 00       	mov    0x80302c,%eax
@@ -2872,7 +2872,7 @@ void free(void* virtual_address)
   801344:	3b 45 e8             	cmp    -0x18(%ebp),%eax
   801347:	75 1e                	jne    801367 <free+0x49>
   801349:	8b 45 ec             	mov    -0x14(%ebp),%eax
-  80134c:	8b 04 85 c0 40 80 00 	mov    0x8040c0(,%eax,4),%eax
+  80134c:	8b 04 85 a0 4b 86 00 	mov    0x864ba0(,%eax,4),%eax
   801353:	83 f8 01             	cmp    $0x1,%eax
   801356:	75 0f                	jne    801367 <free+0x49>
     		is_found=1;
@@ -2902,7 +2902,7 @@ void free(void* virtual_address)
   801378:	75 3b                	jne    8013b5 <free+0x97>
     	size=numOfPages[index]*PAGE_SIZE;
   80137a:	8b 45 f0             	mov    -0x10(%ebp),%eax
-  80137d:	8b 04 85 60 50 80 00 	mov    0x805060(,%eax,4),%eax
+  80137d:	8b 04 85 20 66 8c 00 	mov    0x8c6620(,%eax,4),%eax
   801384:	c1 e0 0c             	shl    $0xc,%eax
   801387:	89 45 e4             	mov    %eax,-0x1c(%ebp)
     	sys_freeMem(va,size);
@@ -2914,7 +2914,7 @@ void free(void* virtual_address)
   801399:	83 c4 10             	add    $0x10,%esp
     	changed[index]=0;
   80139c:	8b 45 f0             	mov    -0x10(%ebp),%eax
-  80139f:	c7 04 85 c0 40 80 00 	movl   $0x0,0x8040c0(,%eax,4)
+  80139f:	c7 04 85 a0 4b 86 00 	movl   $0x0,0x864ba0(,%eax,4)
   8013a6:	00 00 00 00 
     	changes++;
   8013aa:	a1 28 30 80 00       	mov    0x803028,%eax
@@ -4350,11 +4350,11 @@ _panic(const char *file, int line, const char *fmt,...)
   801ba6:	89 45 f4             	mov    %eax,-0xc(%ebp)
 	// Print the panic message
 	if (argv0)
-  801ba9:	a1 00 60 80 00       	mov    0x806000,%eax
+  801ba9:	a1 a0 80 92 00       	mov    0x9280a0,%eax
   801bae:	85 c0                	test   %eax,%eax
   801bb0:	74 16                	je     801bc8 <_panic+0x2e>
 		cprintf("%s: ", argv0);
-  801bb2:	a1 00 60 80 00       	mov    0x806000,%eax
+  801bb2:	a1 a0 80 92 00       	mov    0x9280a0,%eax
   801bb7:	83 ec 08             	sub    $0x8,%esp
   801bba:	50                   	push   %eax
   801bbb:	68 80 24 80 00       	push   $0x802480
