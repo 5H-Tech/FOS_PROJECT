@@ -825,6 +825,16 @@ void freeMem(struct Env* e, uint32 virtual_address, uint32 size)
 		    }
 
 		    pt_clear_page_table_entry(e,va);
+	        int is_used=pd_is_table_used(e, virtual_address);
+	        uint32 virtual_add =virtual_address;
+	        if(is_used==0)
+	        {
+		     for(int j=0;j<1024;j++)
+		     {
+		      unmap_frame(ptr_page_directory,(void*)virtual_add);
+		      virtual_add+=PAGE_SIZE;
+		     }
+	       }
 			va+=PAGE_SIZE;
 		}
 	//2. Free ONLY pages that are resident in the working set from the memory
