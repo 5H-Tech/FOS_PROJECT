@@ -792,54 +792,67 @@ void freeMem(struct Env* e, uint32 virtual_address, uint32 size)
 	//TODO: [PROJECT 2021 - [2] User Heap] freeMem() [Kernel Side]
 	// Write your code here, remove the panic and write your code
 	//This function should:
-	//1. Free ALL pages of the given range from the Page File
+
+
 	int num=size/PAGE_SIZE;
 	if(size%PAGE_SIZE!=0)
 		num++;
-		uint32 va=virtual_address;
-		for(int i=0;i<num;i++)
+	uint32 va=virtual_address;
+	for(int i=0;i<num;i++)
+	{
+		//1. Free ALL pages of the given range from the Page File
+		pf_remove_env_page(e,va);
+
+		//2. Free ONLY pages that are resident in the working set from the memory
+		struct WorkingSetElement *Ws_ptr=NULL;
+		int flag=0;
+		LIST_FOREACH(Ws_ptr,&e->ActiveList)
 		{
-			struct WorkingSetElement *Ws_ptr=NULL;
-			int flag=0;
-			pf_remove_env_page(e,va);
-		    LIST_FOREACH(Ws_ptr,&e->ActiveList){
-		    	if(Ws_ptr->virtual_address==va){
-		    		LIST_REMOVE(&e->ActiveList,Ws_ptr);
-		    		LIST_INSERT_HEAD(&e->PageWorkingSetList,Ws_ptr);
-		    		pt_set_page_permissions(e,va,0,PERM_USER|PERM_PRESENT|PERM_WRITEABLE);
-		    		flag=1;
-		    		break;
-		    	}
-		    }
-		    if(flag==0){
-		    	struct WorkingSetElement *Ws_ptr2=NULL;
-		    	LIST_FOREACH(Ws_ptr2,&e->SecondList){
-		    		if(Ws_ptr2->virtual_address==va){
-		    			LIST_REMOVE(&e->SecondList,Ws_ptr2);
-		    			LIST_INSERT_HEAD(&e->PageWorkingSetList,Ws_ptr2);
-		    			pt_set_page_permissions(e,va,0,PERM_USER|PERM_PRESENT|PERM_WRITEABLE);
-		    			flag=1;
-		    			break;
-		    		}
-		      }
-		    }
-
-		    pt_clear_page_table_entry(e,va);
-	        int is_used=pd_is_table_used(e, virtual_address);
-	        uint32 virtual_add =virtual_address;
-	        if(is_used==0)
-	        {
-		     for(int j=0;j<1024;j++)
-		     {
-		      unmap_frame(ptr_page_directory,(void*)virtual_add);
-		      virtual_add+=PAGE_SIZE;
-		     }
-	       }
-			va+=PAGE_SIZE;
+			if(Ws_ptr->virtual_address==va)
+			{
+				LIST_REMOVE(&e->ActiveList,Ws_ptr);
+				LIST_INSERT_HEAD(&e->PageWorkingSetList,Ws_ptr);
+				pt_set_page_permissions(e,va,0,PERM_USER|PERM_PRESENT|PERM_WRITEABLE);
+				flag=1;
+				break;
+			}
 		}
-	//2. Free ONLY pages that are resident in the working set from the memory
+		if(flag==0)
+		{
+			struct WorkingSetElement *Ws_ptr2=NULL;
+			LIST_FOREACH(Ws_ptr2,&e->SecondList)
+			{
+				if(Ws_ptr2->virtual_address==va)
+				{
+					LIST_REMOVE(&e->SecondList,Ws_ptr2);
+					LIST_INSERT_HEAD(&e->PageWorkingSetList,Ws_ptr2);
+					pt_set_page_permissions(e,va,0,PERM_USER|PERM_PRESENT|PERM_WRITEABLE);
+					flag=1;
+					break;
+				}
+			}
+		}
 
-	//3. Removes ONLY the empty page tables (i.e. not used) (no pages are mapped in the table)
+		pt_clear_page_table_entry(e,va);
+		int is_used=pd_is_table_used(e, virtual_address);
+		uint32 virtual_add =virtual_address;
+		if(is_used==0)
+		{
+		 for(int j=0;j<1024;j++)
+		 {
+		  unmap_frame(ptr_page_directory,(void*)virtual_add);
+		  virtual_add+=PAGE_SIZE;
+		 }
+	   }
+		va+=PAGE_SIZE;
+		//3. Removes ONLY the empty page tables (i.e. not used) (no pages are mapped in the table)
+		pt_clear_page_table_entry(e, va);
+		if(!pd_is_table_used(e, va))
+		{
+			pd_clear_page_dir_entry(e, va);
+		}
+
+	}
 }
 
 void __freeMem_with_buffering(struct Env* e, uint32 virtual_address, uint32 size)
