@@ -129,7 +129,7 @@ void free(void* virtual_address)
 	// Write your code here, remove the panic and write your code
 	//you should get the size of the given allocation using its address
     uint32 va=(uint32)virtual_address;
-    int size;
+    uint32 size;
     int is_found=0;
     int index;
     for(int i=0;i<sizeofarray;i++){

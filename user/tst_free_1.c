@@ -56,18 +56,18 @@ void _main(void)
 		//2 MB
 		int usedDiskPages = sys_pf_calculate_allocated_pages() ;
 		ptr_allocations[0] = malloc(2*Mega-kilo);
-		cprintf("1-I am here\n");
+
 		if ((uint32) ptr_allocations[0] <  (USER_HEAP_START) || (uint32) ptr_allocations[0] > (USER_HEAP_START+PAGE_SIZE)) panic("Wrong start address for the allocated space... check return address of malloc & updating of heap ptr");
 		if ((sys_pf_calculate_allocated_pages() - usedDiskPages) != 512) panic("Extra or less pages are allocated in PageFile");
 		int freeFrames = sys_calculate_free_frames() ;
-		cprintf("Hadi Ehab\n");
+
 		lastIndexOfByte = (2*Mega-kilo)/sizeof(char) - 1;
 		byteArr = (char *) ptr_allocations[0];
 		byteArr[0] = minByte ;
 		byteArr[lastIndexOfByte] = maxByte ;
 		if ((freeFrames - sys_calculate_free_frames()) != 2 + 1) panic("Wrong allocation: pages are not loaded successfully into memory/WS");
 		int var;
-		cprintf("Hadi Atef\n");
+
 		int found = 0;
 
 		for (var = 0; var < (myEnv->page_WS_max_size); ++var)
@@ -78,7 +78,7 @@ void _main(void)
 				found++;
 		}
 		if (found != 2) panic("malloc: page is not added to WS");
-		cprintf("Fares Ahmed\n");
+
 
 		//2 MB
 		usedDiskPages = sys_pf_calculate_allocated_pages() ;
@@ -100,7 +100,7 @@ void _main(void)
 				found++;
 		}
 		if (found != 2) panic("malloc: page is not added to WS");
-		cprintf("Finished 2nd allocation\n");
+
 		//3 KB
 		usedDiskPages = sys_pf_calculate_allocated_pages() ;
 		ptr_allocations[2] = malloc(3*kilo);
@@ -121,7 +121,7 @@ void _main(void)
 				found++;
 		}
 		if (found != 2) panic("malloc: page is not added to WS");
-		cprintf("malloc 3\n");
+
 		//3 KB
 		freeFrames = sys_calculate_free_frames() ;
 		usedDiskPages = sys_pf_calculate_allocated_pages() ;
@@ -129,7 +129,7 @@ void _main(void)
 		if ((uint32) ptr_allocations[3] < (USER_HEAP_START + 4*Mega + 4*kilo) || (uint32) ptr_allocations[3] > (USER_HEAP_START+ 4*Mega + 4*kilo +PAGE_SIZE)) panic("Wrong start address for the allocated space... check return address of malloc & updating of heap ptr");
 		if ((sys_pf_calculate_allocated_pages() - usedDiskPages) != 1) panic("Extra or less pages are allocated in PageFile");
 		//if ((freeFrames - sys_calculate_free_frames()) != 0) panic("Wrong allocation: ");
-		cprintf("malloc 4\n");
+
 		//7 KB
 		usedDiskPages = sys_pf_calculate_allocated_pages() ;
 		ptr_allocations[4] = malloc(7*kilo);
@@ -150,28 +150,24 @@ void _main(void)
 				found++;
 		}
 		if (found != 2) panic("malloc: page is not added to WS");
-		cprintf("malloc 5\n");
+
 		//3 MB
 		freeFrames = sys_calculate_free_frames() ;
-		cprintf("1\n");
 		usedDiskPages = sys_pf_calculate_allocated_pages() ;
-		cprintf("2\n");
 		ptr_allocations[5] = malloc(3*Mega-kilo);
-		cprintf("3\n");
 		if ((uint32) ptr_allocations[5] < (USER_HEAP_START + 4*Mega + 16*kilo) || (uint32) ptr_allocations[5] > (USER_HEAP_START+ 4*Mega + 16*kilo +PAGE_SIZE)) panic("Wrong start address for the allocated space... check return address of malloc & updating of heap ptr");
-		cprintf("4\n");
 		if ((sys_pf_calculate_allocated_pages() - usedDiskPages) != 3*Mega/4096) panic("Extra or less pages are allocated in PageFile");
-		cprintf("5\n");
+
 		//if ((freeFrames - sys_calculate_free_frames()) != 0) panic("Wrong allocation: ");
 		byteArr3 = (char*)ptr_allocations[5];
-		cprintf("shashbs %d\n",toAccess);
+
 		for(int i = 0; i < toAccess; i++)
 		{
 			*byteArr3 = '@';
 			byteArr3 += PAGE_SIZE;
-			cprintf("%d\n",i);
+
 		}
-		cprintf("malloc 6\n");
+
 		//6 MB
 		usedDiskPages = sys_pf_calculate_allocated_pages() ;
 		ptr_allocations[6] = malloc(6*Mega-kilo);
@@ -195,7 +191,7 @@ void _main(void)
 				found++;
 		}
 		if (found != 3) panic("malloc: page is not added to WS");
-		cprintf("malloc 7\n");
+
 		//14 KB
 		usedDiskPages = sys_pf_calculate_allocated_pages() ;
 		ptr_allocations[7] = malloc(14*kilo);
@@ -220,7 +216,6 @@ void _main(void)
 
 	{
 		uint32 tmp_addresses[3] = {0};
-		cprintf("malloc 8\n");
 		//Free 6 MB
 		int freeFrames = sys_calculate_free_frames() ;
 		int usedDiskPages = sys_pf_calculate_allocated_pages() ;

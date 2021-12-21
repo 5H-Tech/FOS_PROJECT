@@ -25,6 +25,14 @@ FUNCTIONS:	to_physical_address, get_frame_info, tlb_invalidate
 #include <kern/kheap.h>
 #include <kern/file_manager.h>
 
+#define K_PHYSICAL_ADDRESS(kva)						\
+({								\
+	uint32 __m_kva = (uint32) (kva);		\
+	if (__m_kva < KERNEL_BASE)					\
+		panic("K_PHYSICAL_ADDRESS called with invalid kva %08lx", __m_kva);\
+	__m_kva - KERNEL_BASE;					\
+})
+
 extern uint32 number_of_frames;	// Amount of physical memory (in frames_info)
 extern uint32 size_of_base_mem;		// Amount of base memory (in bytes)
 extern uint32 size_of_extended_mem;		// Amount of extended memory (in bytes)
@@ -792,8 +800,6 @@ void freeMem(struct Env* e, uint32 virtual_address, uint32 size)
 	//TODO: [PROJECT 2021 - [2] User Heap] freeMem() [Kernel Side]
 	// Write your code here, remove the panic and write your code
 	//This function should:
-
-
 	int num=size/PAGE_SIZE;
 	if(size%PAGE_SIZE!=0)
 		num++;
@@ -802,8 +808,18 @@ void freeMem(struct Env* e, uint32 virtual_address, uint32 size)
 	{
 		//1. Free ALL pages of the given range from the Page File
 		pf_remove_env_page(e,va);
+		va+=PAGE_SIZE;
+	}
+		//unmap_frame(e->env_page_directory,(void *)va);
 		int flag=0;
+		va = virtual_address;
+		uint32 *ptr_page_table=NULL;
 		//2. Free ONLY pages that are resident in the working set from the memory
+		struct Frame_Info *frame_ptr=NULL;
+
+	for(int i=0;i<num;i++)
+	{
+
 		struct WorkingSetElement *Ws_ptr=NULL;
 
 		LIST_FOREACH(Ws_ptr,&e->ActiveList)
@@ -818,6 +834,7 @@ void freeMem(struct Env* e, uint32 virtual_address, uint32 size)
 				LIST_REMOVE(&e->SecondList,sec);
 				pt_set_page_permissions(e,sec->virtual_address,PERM_PRESENT|PERM_WRITEABLE|PERM_USER,0);
 				LIST_INSERT_TAIL(&e->ActiveList,sec);
+				unmap_frame(e->env_page_directory,(void*)va);
 				flag=1;
 				break;
 
@@ -833,22 +850,215 @@ void freeMem(struct Env* e, uint32 virtual_address, uint32 size)
 					LIST_REMOVE(&e->SecondList,Ws_ptr2);
 					LIST_INSERT_HEAD(&e->PageWorkingSetList,Ws_ptr2);
 					pt_set_page_permissions(e,va,0,PERM_USER|PERM_PRESENT|PERM_WRITEABLE);
+					unmap_frame(ptr_page_directory,(void*)va);
 					break;
 				}
 			}
 		}
-
-		pt_clear_page_table_entry(e,va);
-				//3. Removes ONLY the empty page tables (i.e. not used) (no pages are mapped in the table)
-				if(!pd_is_table_used(e, va))
-				{
-					pd_clear_page_dir_entry(e, va);
-				}
-
-
-
 		va+=PAGE_SIZE;
 	}
+	va = virtual_address;
+	for(int i=0;i<num;i++)
+	{
+		pt_clear_page_table_entry(e,va);
+		uint32 *ptr_page_table=NULL;
+		int re = get_page_table(e->env_page_directory,(void *)va,&ptr_page_table);
+		int f=0;
+		if(ptr_page_table!=NULL){
+			for(int j=0;j<1024;j++){
+						if(ptr_page_table[j]==0){
+							continue;
+						}else{
+							f = 1;
+							break;
+						}
+
+
+
+			}
+		}
+
+		if(f == 0)
+		{
+
+
+			unmap_frame(e->env_page_directory,ptr_page_table);
+			pd_clear_page_dir_entry(e, va);
+			pd_set_table_unused(e,va);
+
+
+		}
+		va+=PAGE_SIZE;
+	}
+
+		/*uint32* dir = e->env_page_directory;
+
+		int S = ROUNDUP(size , PAGE_SIZE ) / PAGE_SIZE;
+		int i;
+		uint32 * va = (uint32 *) virtual_address;
+		for (i = 0; i < S; i++) {
+			unmap_frame(dir, va);
+			va += 1024;
+		}
+		uint32 stable = ROUNDDOWN(virtual_address , PTSIZE), ftable =
+				ROUNDUP(virtual_address+size , PTSIZE), noftable =
+				(ftable - stable) / PTSIZE;
+		va = (uint32 *) virtual_address;
+
+		for (i = 0; i <= noftable; ++i) {
+			//Remove the page table itself
+			uint32 *ptr_table = NULL;
+			get_page_table(dir, (void*) va, &ptr_table);
+			int b = 1;
+			int j;
+			if (ptr_table != NULL) {
+				for (j = 0; j < 1024; ++j) {
+					if ((ptr_table[j] & PERM_PRESENT) != 0) {
+						b = 0;
+						break;
+					}
+				}
+				if (!b) {
+					va += (1024 * PAGE_SIZE) / 4;
+					continue;
+				}
+				uint32 pa = K_PHYSICAL_ADDRESS(ptr_table);
+				//uint32 pa =
+				struct Frame_Info *ptr = to_frame_info(pa);
+				ptr->references = 0;
+				free_frame(ptr);
+				dir[PDX(va)] = 0;
+
+				//Refresh the whole cache memory
+				tlbflush();
+			}
+			va += (1024 * PAGE_SIZE) / 4;
+		}
+		//This function should free ALL pages of the required size starting at virtual_address
+		//and then removes all page tables that are empty (i.e. not used) (no pages are mapped in the table)
+		//return;*/
+
+//	uint32 n=ROUNDUP(size, PAGE_SIZE)/PAGE_SIZE;
+//		uint32 va=virtual_address;
+//		for(int i=0; i<n;i++){
+//			pf_remove_env_page(e,va);
+//			va +=PAGE_SIZE;
+//		}
+//
+//		//2. Free ONLY pages that are resident in the working set from the memory
+//		struct Frame_Info* ptr_frame_info = NULL;
+//		uint32* ptr_page_table;
+//		va=virtual_address;
+//		/*for(int i=0; i<e->page_WS_max_size; i++) {
+//			//ptr_frame_info=NULL;
+//			//Get Virtual Address of Page in Working Set
+//			//e: pointer to an environment
+//			//i: working set entry index
+//			uint32 va_of_ws=env_page_ws_get_virtual_address(e,i);
+//			if((va_of_ws>=va) && (va_of_ws<(va+ROUNDUP(size,PAGE_SIZE)))){
+//				//ptr_frame_info =get_frame_info(e->env_page_directory,(void*)va_of_ws,&ptr_page_table);
+//				//if(ptr_frame_info != NULL){
+//				unmap_frame(e->env_page_directory,(void*)va_of_ws);
+//				env_page_ws_clear_entry(e,i);
+//				//}
+//			}
+//		}*/
+//
+//		for(int i=0;i<n;i++)
+//		{
+//
+//			struct WorkingSetElement *Ws_ptr=NULL;
+//			int flag = 0;
+//			LIST_FOREACH(Ws_ptr,&e->ActiveList)
+//			{
+//				if(Ws_ptr->virtual_address==va)
+//				{
+//					LIST_REMOVE(&e->ActiveList,Ws_ptr);
+//					LIST_INSERT_HEAD(&e->PageWorkingSetList,Ws_ptr);
+//					pt_set_page_permissions(e,va,0,PERM_USER|PERM_PRESENT|PERM_WRITEABLE);
+//					struct WorkingSetElement * sec=NULL;
+//					sec=e->SecondList.lh_first;
+//					LIST_REMOVE(&e->SecondList,sec);
+//					pt_set_page_permissions(e,sec->virtual_address,PERM_PRESENT|PERM_WRITEABLE|PERM_USER,0);
+//					LIST_INSERT_TAIL(&e->ActiveList,sec);
+//					unmap_frame(e->env_page_directory,(void*)va);
+//					flag=1;
+//					break;
+//
+//				}
+//			}
+//			if(flag==0)
+//			{
+//				struct WorkingSetElement *Ws_ptr2=NULL;
+//				LIST_FOREACH(Ws_ptr2,&e->SecondList)
+//				{
+//					if(Ws_ptr2->virtual_address==va)
+//					{
+//						LIST_REMOVE(&e->SecondList,Ws_ptr2);
+//						LIST_INSERT_HEAD(&e->PageWorkingSetList,Ws_ptr2);
+//						pt_set_page_permissions(e,va,0,PERM_USER|PERM_PRESENT|PERM_WRITEABLE);
+//						unmap_frame(ptr_page_directory,(void*)va);
+//						break;
+//					}
+//				}
+//			}
+//			va+=PAGE_SIZE;
+//		}
+//		//3. Removes ONLY the empty page tables (i.e. not used) (no pages are mapped in the table)
+//		va= virtual_address;
+//		/*for(int i=0; i<n; i++)
+//		{
+////			int flag=1;
+////			ptr_page_table=NULL;
+////			get_page_table(e->env_page_directory,(void*)va,&ptr_page_table);
+////			if(ptr_page_table !=NULL){
+////				for(int j=0; j<1024; j++){
+////					if(ptr_page_table[j] != 0) {
+////						flag=0;
+////						break;
+////					}
+////				}
+////				if(flag){
+////					kfree((void*)ptr_page_table);
+////					pd_clear_page_dir_entry(e,(uint32)va);
+////				}
+////			}
+////			va+=PAGE_SIZE;
+//
+//
+//		}*/
+//
+//		for (int i = 0; i <= n; ++i)
+//		{
+//			//Remove the page table itself
+//			uint32 *ptr_table = NULL;
+//			get_page_table(e->env_page_directory, (void*) va, &ptr_table);
+//			int b = 1;
+//			int j;
+//			if (ptr_table != NULL) {
+//				for (j = 0; j < 1024; ++j) {
+//					if ((ptr_table[j] & PERM_PRESENT) != 0) {
+//						b = 0;
+//						break;
+//					}
+//				}
+//				if (!b) {
+//					va += (1024 * PAGE_SIZE) / 4;
+//					continue;
+//				}
+//				uint32 pa = K_PHYSICAL_ADDRESS(ptr_table);
+//				struct Frame_Info *ptr = to_frame_info(pa);
+//				ptr->references = 0;
+//				free_frame(ptr);
+//				e->env_page_directory[PDX(va)] = 0;
+//
+//				//Refresh the whole cache memory
+//				//tlbflush();
+//			}
+//			va += (1024 * PAGE_SIZE) / 4;
+//		}
+//		//Refresh the cache memory
+//		tlbflush();
 }
 
 void __freeMem_with_buffering(struct Env* e, uint32 virtual_address, uint32 size)
