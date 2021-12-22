@@ -532,6 +532,7 @@ void Placement(struct Env * curenv,uint32 fault_va)
 				}
 				else
 				{
+					cprintf("fault va is: %x\n",fault_va);
 					panic("illegal access \n");
 					return;
 				}
