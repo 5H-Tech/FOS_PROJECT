@@ -220,8 +220,12 @@ void _main(void)
 		int freeFrames = sys_calculate_free_frames() ;
 		int usedDiskPages = sys_pf_calculate_allocated_pages() ;
 		free(ptr_allocations[6]);
-		if ((usedDiskPages - sys_pf_calculate_allocated_pages()) != 6*Mega/4096) panic("Wrong free: Extra or less pages are removed from PageFile");
-		if ((sys_calculate_free_frames() - freeFrames) != 3 + 1) panic("Wrong free: WS pages in memory and/or page tables are not freed correctly");
+		cprintf("i Expetct %d and found %d \n ------------\n",6*Mega/4096,(usedDiskPages - sys_pf_calculate_allocated_pages()));
+		if ((usedDiskPages - sys_pf_calculate_allocated_pages()) != 6*Mega/4096)
+			panic("Wrong free: Extra or less pages are removed from PageFile");
+		cprintf("i Expetct %d and found %d \n ------------\n",3+1,(sys_calculate_free_frames() - freeFrames));
+		if ((sys_calculate_free_frames() - freeFrames) != 3 + 1)
+			panic("Wrong free: WS pages in memory and/or page tables are not freed correctly");
 //		for (var = 0; var < (myEnv->page_WS_max_size); ++var)
 //		{
 //			if(ROUNDDOWN(myEnv->__uptr_pws[var].virtual_address,PAGE_SIZE) == ROUNDDOWN((uint32)(&(byteArr2[0])), PAGE_SIZE))

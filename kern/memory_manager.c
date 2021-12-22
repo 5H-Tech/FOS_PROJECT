@@ -96,8 +96,8 @@ void initialize_kernel_VM() {
 	//     Permissions: kernel RW, user NONE
 	// Your code goes here:
 	boot_map_range(ptr_page_directory, KERNEL_STACK_TOP - KERNEL_STACK_SIZE,
-			KERNEL_STACK_SIZE, STATIC_KERNEL_PHYSICAL_ADDRESS(ptr_stack_bottom),
-			PERM_WRITEABLE);
+	KERNEL_STACK_SIZE, STATIC_KERNEL_PHYSICAL_ADDRESS(ptr_stack_bottom),
+	PERM_WRITEABLE);
 
 	//////////////////////////////////////////////////////////////////////
 	// Map all of physical memory at KERNEL_BASE.
@@ -771,113 +771,206 @@ void allocateMem(struct Env* e, uint32 virtual_address, uint32 size) {
 
 // [2] freeMem
 
+#define ActList e->ActiveList
+#define Seclist e->SecondList
+#define Worklist e->PageWorkingSetList
+
 void freeMem(struct Env* e, uint32 virtual_address, uint32 size) {
+
 	//TODO: [PROJECT 2021 - [2] User Heap] freeMem() [Kernel Side]
 	// Write your code here, remove the panic and write your code
 	//This function should:
-	int num = size / PAGE_SIZE;
-	if (size % PAGE_SIZE != 0)
-		num++;
+	/*int num = size / PAGE_SIZE;
+	 if (size % PAGE_SIZE != 0)
+	 num++;
+	 uint32 va = virtual_address;
+	 for (int i = 0; i < num; i++) {
+	 //1. Free ALL pages of the given range from the Page File
+	 pf_remove_env_page(e, va);
+	 va += PAGE_SIZE;
+	 }
+
+	 //unmap_frame(e->env_page_directory,(void *)va);
+	 int flag = 0;
+	 va = virtual_address;
+	 uint32 *ptr_page_table = NULL;
+	 uint32 address = virtual_address + size;
+	 //2. Free ONLY pages that are resident in the working set from the memory
+	 struct WorkingSetElement *Ws_ptr = NULL;
+	 LIST_FOREACH(Ws_ptr,&e->ActiveList)
+	 {
+	 if (Ws_ptr->virtual_address >= virtual_address
+	 && Ws_ptr->virtual_address < address)
+	 {
+	 unmap_frame(e->env_page_directory, (void*) Ws_ptr->virtual_address);
+	 LIST_REMOVE(&(e->ActiveList), Ws_ptr);
+	 LIST_INSERT_HEAD(&(e->PageWorkingSetList), Ws_ptr);
+	 pt_set_page_permissions(e, Ws_ptr->virtual_address,0,
+	 PERM_PRESENT | PERM_WRITEABLE | PERM_USER);
+	 struct WorkingSetElement * sec = NULL;
+	 if (LIST_SIZE(&(e->SecondList)) !=0)
+	 {
+	 sec = LIST_LAST((&e->SecondList));
+	 LIST_REMOVE(&(e->SecondList), sec);
+	 LIST_INSERT_TAIL(&e->ActiveList, sec);
+	 pt_set_page_permissions(e, sec->virtual_address,
+	 PERM_PRESENT | PERM_WRITEABLE | PERM_USER, 0);
+
+	 }
+	 pt_clear_page_table_entry(e, Ws_ptr->virtual_address);
+	 uint32 *ptr_page_table = NULL;
+	 int re = get_page_table(e->env_page_directory, (void *) Ws_ptr->virtual_address,
+	 &ptr_page_table);
+	 for (int j = 0; j < 1024; j++)
+	 {
+	 if (ptr_page_table[j] == 0)
+	 {
+
+	 } else
+	 {
+	 if(j==1023)
+	 {
+	 struct Frame_Info*f = to_frame_info((uint32)ptr_page_table & 0xffff000);
+	 free_frame(f);
+	 pd_clear_page_dir_entry(e,Ws_ptr->virtual_address);
+	 pd_set_table_unused(e,Ws_ptr->virtual_address);
+	 }
+	 }
+	 }
+	 }
+	 }
+	 struct WorkingSetElement *Ws_ptr2 = NULL;
+	 uint32 *ptr_page=NULL;
+	 LIST_FOREACH(Ws_ptr2,&(e->SecondList))
+	 {
+	 if (Ws_ptr2->virtual_address >= virtual_address
+	 && Ws_ptr2->virtual_address < address)
+	 {
+	 unmap_frame(e->env_page_directory, (void*) Ws_ptr2->virtual_address);
+	 LIST_REMOVE(&(e->SecondList), Ws_ptr2);
+	 LIST_INSERT_HEAD(&(e->PageWorkingSetList), Ws_ptr2);
+	 pt_set_page_permissions(e, Ws_ptr2->virtual_address, 0,
+	 PERM_USER | PERM_PRESENT | PERM_WRITEABLE);
+
+
+	 pt_clear_page_table_entry(e, Ws_ptr2->virtual_address);
+
+
+	 int re = get_page_table(e->env_page_directory, (void *) Ws_ptr2->virtual_address,
+	 &ptr_page);
+
+	 if (ptr_page != NULL)
+	 {
+	 for (int j = 0; j < 1024; j++)
+	 {
+	 if (ptr_page[j] != 0)
+	 {
+	 break;
+	 }
+	 else
+	 {
+	 if(j==1023)
+	 {
+	 //struct Frame_Info*f = to_frame_info((uint32)ptr_page &0xffff000);
+	 uint32 pa = e->env_page_directory[PTX(va)]>>12;
+	 struct Frame_Info*f = to_frame_info(pa);
+	 free_frame(f);
+	 pd_clear_page_dir_entry(e, Ws_ptr2->virtual_address);
+	 pd_set_table_unused(e,Ws_ptr2->virtual_address);
+	 }
+	 }
+	 }
+	 }
+	 }
+
+	 }*/
+	//1. Free ALL pages of the given range from the Page File
+	//virtual_address = ROUNDUP(virtual_address,PAGE_SIZE);
+	uint32 n_pages = ROUNDUP(size, PAGE_SIZE) / PAGE_SIZE;
+	 cprintf("size %d npagesv%d \n",size,n_pages);
+
 	uint32 va = virtual_address;
-	for (int i = 0; i < num; i++) {
-		//1. Free ALL pages of the given range from the Page File
+	for (int i = 0; i < n_pages; i++) {
 		pf_remove_env_page(e, va);
 		va += PAGE_SIZE;
 	}
-
-	//unmap_frame(e->env_page_directory,(void *)va);
-	int flag = 0;
-	va = virtual_address;
-	uint32 *ptr_page_table = NULL;
-	uint32 address = virtual_address + size;
 	//2. Free ONLY pages that are resident in the working set from the memory
-	struct WorkingSetElement *Ws_ptr = NULL;
-	LIST_FOREACH(Ws_ptr,&e->ActiveList)
-	{
-		if (Ws_ptr->virtual_address >= virtual_address
-				&& Ws_ptr->virtual_address < address) {
-			unmap_frame(e->env_page_directory, (void*) Ws_ptr->virtual_address);
-			LIST_REMOVE(&(e->ActiveList), Ws_ptr);
-			LIST_INSERT_HEAD(&(e->PageWorkingSetList), Ws_ptr);
-			pt_set_page_permissions(e, Ws_ptr->virtual_address,0,
-									PERM_PRESENT | PERM_WRITEABLE | PERM_USER);
-			struct WorkingSetElement * sec = NULL;
-			if (LIST_SIZE(&(e->SecondList)) !=0)
-			{
-				sec = LIST_LAST((&e->SecondList));
-				LIST_REMOVE(&(e->SecondList), sec);
-				LIST_INSERT_TAIL(&e->ActiveList, sec);
-				pt_set_page_permissions(e, sec->virtual_address,
-						PERM_PRESENT | PERM_WRITEABLE | PERM_USER, 0);
+	for (int i = 0; i < n_pages; i++) {
+		struct WorkingSetElement * ptr_WS_element;
+		int found = 0;
+		LIST_FOREACH(ptr_WS_element, &(e->ActiveList))
+		{
+			if (ptr_WS_element->virtual_address == va) {
+				found = 1;
+				//Remove it form the active list
+				LIST_REMOVE(&e->ActiveList, ptr_WS_element);
 
-			}
-			pt_clear_page_table_entry(e, Ws_ptr->virtual_address);
-			uint32 *ptr_page_table = NULL;
-			int re = get_page_table(e->env_page_directory, (void *) Ws_ptr->virtual_address,
-					&ptr_page_table);
-				for (int j = 0; j < 1024; j++) {
-					if (ptr_page_table[j] == 0) {
+				//Reassemble the active list
+				struct WorkingSetElement * tmp;
 
-					} else {
-						if(j==1023)
-						{
-							struct Frame_Info*f = to_frame_info((uint32)ptr_page_table & 0xffff000);
-							free_frame(f);
-							pd_clear_page_dir_entry(e,Ws_ptr->virtual_address);
-							pd_set_table_unused(e,Ws_ptr->virtual_address);
-						}
-					}
+				if (LIST_SIZE(&e->SecondList) > 0) {
+					ptr_WS_element = LIST_FIRST(&e->SecondList);
+					LIST_REMOVE(&e->SecondList, ptr_WS_element);
+					LIST_INSERT_TAIL(&e->ActiveList, ptr_WS_element);
+					//LIST_REMOVE(&e->SecondList,tmp);
+					pt_set_page_permissions(e, ptr_WS_element->virtual_address,
+					PERM_PRESENT | PERM_WRITEABLE | PERM_USER, 0);
 				}
 
-
-
+				//removing the page by unmaping it
+				unmap_frame(e->env_page_directory, (void*) va);
+			}
 		}
+
+		//if (!found) {
+			LIST_FOREACH(ptr_WS_element, &(e->SecondList))
+			{
+				if (ptr_WS_element->virtual_address == va) {
+					found = 1;
+					//Remove it form the active list
+					LIST_REMOVE(&e->SecondList, ptr_WS_element);
+					LIST_INSERT_HEAD(&e->PageWorkingSetList,ptr_WS_element);
+					//removing the page by unmaping it
+					unmap_frame(e->env_page_directory, (void*) va);
+				}
+			}
+		//}
+		va += PAGE_SIZE;
 	}
-	struct WorkingSetElement *Ws_ptr2 = NULL;
-	uint32 *ptr_page=NULL;
-	LIST_FOREACH(Ws_ptr2,&(e->SecondList))
-	{
-		if (Ws_ptr2->virtual_address >= virtual_address
-				&& Ws_ptr2->virtual_address < address) {
-			unmap_frame(e->env_page_directory, (void*) Ws_ptr2->virtual_address);
-			LIST_REMOVE(&(e->SecondList), Ws_ptr2);
-			LIST_INSERT_HEAD(&(e->PageWorkingSetList), Ws_ptr2);
-			pt_set_page_permissions(e, Ws_ptr2->virtual_address, 0,
-					PERM_USER | PERM_PRESENT | PERM_WRITEABLE);
 
+	//3. Removes ONLY the empty page tables (i.e. not used) (no pages are mapped in the table)
+	va = virtual_address;
+	struct Frame_Info* ptr_frame_info = NULL;
+	uint32* ptr_page_table;
+	va = virtual_address;
+	uint32 end= va+(n_pages*PAGE_SIZE);
+	va = ROUNDDOWN(va,PAGE_SIZE*1024);
+	//for (int i = 0; i < n_pages; i++) {
+	while(va<end){
+	int flag = 1;
+	cprintf("checking table\n");
+		ptr_page_table = NULL;
+		get_page_table(e->env_page_directory, (void*) va, &ptr_page_table);
 
-					pt_clear_page_table_entry(e, Ws_ptr2->virtual_address);
-
-
-						int re = get_page_table(e->env_page_directory, (void *) Ws_ptr2->virtual_address,
-								&ptr_page);
-
-						if (ptr_page != NULL) {
-							for (int j = 0; j < 1024; j++) {
-								if (ptr_page[j] != 0) {
-									break;
-								} else {
-									if(j==1023)
-									{
-										struct Frame_Info*f = to_frame_info((uint32)ptr_page &0xffff000);
-										free_frame(f);
-										pd_clear_page_dir_entry(e, Ws_ptr2->virtual_address);
-									    pd_set_table_unused(e,Ws_ptr2->virtual_address);
-									}
-								}
-							}
-
-
-
-
-
-
-
+		if(ptr_page_table!=NULL){
+		//make sure that all the page table is empty
+		for (int j = 0; j < 1024; j++) {
+			if ((ptr_page_table[j] & PERM_PRESENT) == PERM_PRESENT) {
+				flag = 0;
+				break;
+			}
 		}
+		//if (flag == 1) {
+			cprintf("del the page tabel\n");
+			uint32 pa = (e->env_page_directory[PDX(va)] >> 12) * PAGE_SIZE;
+			ptr_frame_info = to_frame_info(pa);
+			pd_clear_page_dir_entry(e, (uint32) va);
+			free_frame(ptr_frame_info);
+		//}
+		}
+		va += PAGE_SIZE * 1024;
 	}
 
-
-	}
 }
 
 void __freeMem_with_buffering(struct Env* e, uint32 virtual_address,
@@ -1020,7 +1113,7 @@ inline void env_page_ws_invalidate(struct Env* e, uint32 virtual_address) {
 	int i = 0;
 	for (; i < e->page_WS_max_size; i++) {
 		if (ROUNDDOWN(e->ptr_pageWorkingSet[i].virtual_address,
-				PAGE_SIZE) == ROUNDDOWN(virtual_address,PAGE_SIZE)) {
+				PAGE_SIZE) == ROUNDDOWN(virtual_address, PAGE_SIZE)) {
 			env_page_ws_clear_entry(e, i);
 			break;
 		}
@@ -1125,7 +1218,7 @@ inline void env_table_ws_invalidate(struct Env* e, uint32 virtual_address) {
 	int i = 0;
 	for (; i < __TWS_MAX_SIZE; i++) {
 		if (ROUNDDOWN(e->__ptr_tws[i].virtual_address,
-				PAGE_SIZE*1024) == ROUNDDOWN(virtual_address,PAGE_SIZE*1024)) {
+				PAGE_SIZE*1024) == ROUNDDOWN(virtual_address, PAGE_SIZE*1024)) {
 			env_table_ws_clear_entry(e, i);
 			break;
 		}
@@ -1244,7 +1337,8 @@ inline void pt_set_page_permissions(struct Env* ptr_env, uint32 virtual_address,
 		__pf_write_env_table(ptr_env, virtual_address, (void*) ptr_temp_page);
 	} else {
 		//cprintf("[%s] va = %x\n", ptr_env->prog_name, virtual_address) ;
-		panic("function pt_set_page_permissions() called with invalid virtual address. The corresponding page table doesn't exist\n");
+		panic(
+				"function pt_set_page_permissions() called with invalid virtual address. The corresponding page table doesn't exist\n");
 	}
 
 	tlb_invalidate((void *) NULL, (void *) virtual_address);
@@ -1285,7 +1379,8 @@ inline void pt_clear_page_table_entry(struct Env* ptr_env,
 
 		__pf_write_env_table(ptr_env, virtual_address, (void*) ptr_temp_page);
 	} else
-		panic("function pt_clear_page_table_entry() called with invalid virtual address. The corresponding page table doesn't exist\n");
+		panic(
+				"function pt_clear_page_table_entry() called with invalid virtual address. The corresponding page table doesn't exist\n");
 
 	tlb_invalidate((void *) NULL, (void *) virtual_address);
 }
