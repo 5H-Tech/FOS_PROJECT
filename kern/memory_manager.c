@@ -837,7 +837,7 @@ void freeMem(struct Env* e, uint32 virtual_address, uint32 size) {
 	va = virtual_address;
 	va = ROUNDDOWN(va, PAGE_SIZE*1024);
 	uint32 end = va + size;
-	//for (int i = 0; i < n_pages; i++) {
+
 	while (va <= end) {
 		int flag = 1;
 		cprintf("checking table\n");

@@ -95,7 +95,7 @@ void _main(void)
 			sys_enable_interrupt();
 		}
 
-		free(Elements) ;
+		//free(Elements) ;
 
 		sys_disable_interrupt();
 		Chose = 0 ;
