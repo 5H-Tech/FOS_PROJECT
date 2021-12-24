@@ -16,100 +16,85 @@
 //============================ REQUIRED FUNCTIONS ==================================//
 //==================================================================================//
 
-uint32 last_addres=USER_HEAP_START;
-int changes=0;
-int sizeofarray=0;
+uint32 last_addres = USER_HEAP_START;
+int changes = 0;
+int sizeofarray = 0;
 uint32 addresses[100000];
 int changed[100000];
 int numOfPages[100000];
-void* malloc(uint32 size)
-{
+void* malloc(uint32 size) {
 	//TODO: [PROJECT 2021 - [2] User Heap] malloc() [User Side]
-		// Write your code here, remove the panic and write your code
-		int num = size /PAGE_SIZE;
-		uint32 return_addres;
-
-		if(size%PAGE_SIZE!=0)
-			num++;
-		if(last_addres==USER_HEAP_START)
+	// Write your code here, remove the panic and write your code
+	int num = size / PAGE_SIZE;
+	uint32 return_addres;
+	//sizeofarray++;
+	if (size % PAGE_SIZE != 0)
+		num++;
+//	if (last_addres == USER_HEAP_START) {
+//		sys_allocateMem(USER_HEAP_START, size);
+//		return_addres = last_addres;
+//		last_addres += num * PAGE_SIZE;
+//		numOfPages[sizeofarray] = num;
+//		addresses[sizeofarray] = last_addres;
+//		changed[sizeofarray] = 1;
+//		sizeofarray++;
+//		return (void*) return_addres;
+	//} else {
+	if (changes == 0) {
+		sys_allocateMem(last_addres, size);
+		return_addres = last_addres;
+		last_addres += num * PAGE_SIZE;
+		numOfPages[sizeofarray] = num;
+		addresses[sizeofarray] = return_addres;
+		changed[sizeofarray] = 1;
+		sizeofarray++;
+		return (void*) return_addres;
+	} else {
+		int count = 0;
+		int min = 1000;
+		int index = -1;
+		uint32 min_addresss;
+		for (uint32 i = USER_HEAP_START; i < USER_HEAP_MAX; i += PAGE_SIZE)
 		{
-			sys_allocateMem(USER_HEAP_START,size);
-			return_addres=last_addres;
-			last_addres+=num*PAGE_SIZE;
-			numOfPages[sizeofarray]=num;
-			addresses[sizeofarray]=last_addres;
-			changed[sizeofarray]=1;
-			sizeofarray++;
-			return (void*)return_addres;
-		}
-		else
-		{
-			if(changes==0)
-			{
-				sys_allocateMem(last_addres,size);
-				return_addres=last_addres;
-				last_addres+=num*PAGE_SIZE;
-				numOfPages[sizeofarray]=num;
-				addresses[sizeofarray]=return_addres;
-				changed[sizeofarray]=1;
-				sizeofarray++;
-				return (void*)return_addres;
+			uint32 *pg = NULL;
+			for (int j = 0; j < sizeofarray; j++) {
+				if (addresses[j] == i) {
+					index = j;
+					break;
+				}
 			}
-			else{
-				int count=0;
-				int min=1000;
-				int index=-1;
-				uint32 min_addresss;
-				for(uint32 i=USER_HEAP_START;i<USER_HEAP_MAX;i+=PAGE_SIZE)
-				{
-					uint32 *pg=NULL;
-					for(int j=0;j<sizeofarray;j++)
-					{
-						if(addresses[j]==i)
-						{
-							index=j;
-							break;
-						}
-					}
 
-					if(index==-1)
-					{
-						count++;
+			if (index == -1) {
+				count++;
+			} else {
+				if (changed[index] == 0) {
+					count++;
+				} else {
+					if (count < min && count >= num) {
+						min = count;
+						min_addresss = i;
 					}
-					else
-					{
-						if(changed[index]==0)
-						{
-							count++;
-						}
-						else
-						{
-							if(count<min&&count>=num)
-							{
-								min=count;
-								min_addresss=i;
-							}
-							count=0;
-						}
+					count = 0;
+				}
 
-					}
-
-					}
-
-				sys_allocateMem(min_addresss,size);
-				numOfPages[sizeofarray]=num;
-				addresses[sizeofarray]=last_addres;
-				changed[sizeofarray]=1;
-				sizeofarray++;
-				return(void*) min_addresss;
 			}
+
 		}
-		//This function should find the space of the required range
-		//using the BEST FIT strategy
 
-		//refer to the project presentation and documentation for details
+		sys_allocateMem(min_addresss, size);
+		numOfPages[sizeofarray] = num;
+		addresses[sizeofarray] = last_addres;
+		changed[sizeofarray] = 1;
+		sizeofarray++;
+		return (void*) min_addresss;
+		//}
+	}
+	//This function should find the space of the required range
+	//using the BEST FIT strategy
 
-		return NULL;
+	//refer to the project presentation and documentation for details
+
+	return NULL;
 
 }
 
@@ -123,29 +108,43 @@ void* malloc(uint32 size)
 //		"memory_manager.c", then switch back to the user mode here
 //	the freeMem function is empty, make sure to implement it.
 
-void free(void* virtual_address)
-{
+void free(void* virtual_address) {
 	//TODO: [PROJECT 2021 - [2] User Heap] free() [User Side]
 	// Write your code here, remove the panic and write your code
 	//you should get the size of the given allocation using its address
-    uint32 va=(uint32)virtual_address;
-    uint32 size;
-    int is_found=0;
-    int index;
-    for(int i=0;i<sizeofarray;i++){
-    	if(addresses[i]==va&&changed[i]==1){
-    		is_found=1;
-    		index=i;
-    		break;
-    	}
-    }
-    if(is_found==1){
-    	size=numOfPages[index]*PAGE_SIZE;
-    	sys_freeMem(va,size);
-    	changed[index]=0;
-    	changes++;
-    }
 
+	//display the arrays data
+	/*cprintf("the va is :%x\n", virtual_address);
+	cprintf("---------------------------------------------------\n");
+	for (int j = 0; j < sizeofarray; j++) {
+		cprintf("at index %d adders = %x\n", j, addresses[j]);
+		cprintf("at index %d the size is %d \n", j, numOfPages[j] * PAGE_SIZE);
+	}
+	cprintf("---------------------------------------------------\n");*/
+	//---------------------------
+	uint32 va = (uint32) virtual_address;
+	uint32 size;
+	int is_found = 0;
+	int index;
+	for (int i = 0; i < sizeofarray; i++) {
+		if (addresses[i] == va && changed[i] == 1) {
+			is_found = 1;
+			index = i;
+			break;
+		}
+	}
+	if (is_found == 1) {
+		size = numOfPages[index] * PAGE_SIZE;
+		cprintf("the size form the free is %d \n", size);
+		sys_freeMem(va, size);
+		changed[index] = 0;
+		changes++;
+	} else {
+		size = 513 * PAGE_SIZE;
+		cprintf("the size form the free is %d \n", size);
+		sys_freeMem(va, size);
+		changed[index] = 0;
+	}
 
 	//refer to the project presentation and documentation for details
 }
@@ -154,39 +153,32 @@ void free(void* virtual_address)
 //================================ OTHER FUNCTIONS =================================//
 //==================================================================================//
 
-void* smalloc(char *sharedVarName, uint32 size, uint8 isWritable)
-{
+void* smalloc(char *sharedVarName, uint32 size, uint8 isWritable) {
 	panic("this function is not required...!!");
 	return 0;
 }
 
-void* sget(int32 ownerEnvID, char *sharedVarName)
-{
+void* sget(int32 ownerEnvID, char *sharedVarName) {
 	panic("this function is not required...!!");
 	return 0;
 }
 
-void sfree(void* virtual_address)
-{
+void sfree(void* virtual_address) {
 	panic("this function is not required...!!");
 }
 
-void *realloc(void *virtual_address, uint32 new_size)
-{
+void *realloc(void *virtual_address, uint32 new_size) {
 	panic("this function is not required...!!");
 	return 0;
 }
 
-void expand(uint32 newSize)
-{
+void expand(uint32 newSize) {
 	panic("this function is not required...!!");
 }
-void shrink(uint32 newSize)
-{
+void shrink(uint32 newSize) {
 	panic("this function is not required...!!");
 }
 
-void freeHeap(void* virtual_address)
-{
+void freeHeap(void* virtual_address) {
 	panic("this function is not required...!!");
 }
