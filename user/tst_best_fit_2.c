@@ -97,7 +97,7 @@ void _main(void)
 		freeFrames = sys_calculate_free_frames() ;
 		usedDiskPages = sys_pf_calculate_allocated_pages();
 		ptr_allocations[5] = malloc(3*Mega-kilo);
-		if ((uint32) ptr_allocations[5] != (USER_HEAP_START + 4*Mega + 16*kilo)) panic("Wrong start address for the allocated space... ");
+		if ((uint32) ptr_allocations[5] != (USER_HEAP_START + 4*Mega + 	16*kilo)) panic("Wrong start address for the allocated space... ");
 		//if ((freeFrames - sys_calculate_free_frames()) != 3*Mega/4096 ) panic("Wrong allocation: ");
 		if( (sys_pf_calculate_allocated_pages() - usedDiskPages) !=  3*Mega/4096) panic("Wrong page file allocation: ");
 

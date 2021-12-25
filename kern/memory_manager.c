@@ -764,6 +764,7 @@ void allocateMem(struct Env* e, uint32 virtual_address, uint32 size) {
 		pf_add_empty_env_page(e, va, 0);
 		va += PAGE_SIZE;
 	}
+	cprintf("allocated address  and size%x%d\n",virtual_address,size);
 
 	//This function should allocate ALL pages of the required range in the PAGE FILE
 	//and allocate NOTHING in the main memory

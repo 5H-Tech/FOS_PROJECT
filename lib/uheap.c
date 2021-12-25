@@ -13,7 +13,8 @@
 //	the allocateMem function is empty, make sure to implement it.
 
 //==================================================================================//
-//============================ REQUIRED FUNCTIONS ==================================//
+//=======================
+//===== REQUIRED FUNCTIONS ==================================//
 //==================================================================================//
 
 uint32 last_addres = USER_HEAP_START;
@@ -22,24 +23,19 @@ int sizeofarray = 0;
 uint32 addresses[100000];
 int changed[100000];
 int numOfPages[100000];
+uint32 freeArray[100000];
+
+
 void* malloc(uint32 size) {
+
+	if(size>USER_HEAP_MAX - USER_HEAP_START)
+		return NULL;
 	//TODO: [PROJECT 2021 - [2] User Heap] malloc() [User Side]
 	// Write your code here, remove the panic and write your code
 	int num = size / PAGE_SIZE;
 	uint32 return_addres;
-	//sizeofarray++;
 	if (size % PAGE_SIZE != 0)
 		num++;
-//	if (last_addres == USER_HEAP_START) {
-//		sys_allocateMem(USER_HEAP_START, size);
-//		return_addres = last_addres;
-//		last_addres += num * PAGE_SIZE;
-//		numOfPages[sizeofarray] = num;
-//		addresses[sizeofarray] = last_addres;
-//		changed[sizeofarray] = 1;
-//		sizeofarray++;
-//		return (void*) return_addres;
-	//} else {
 	if (changes == 0) {
 		sys_allocateMem(last_addres, size);
 		return_addres = last_addres;
@@ -49,45 +45,80 @@ void* malloc(uint32 size) {
 		changed[sizeofarray] = 1;
 		sizeofarray++;
 		return (void*) return_addres;
-	} else {
+	}
+	else
+	{
+
 		int count = 0;
-		int min = 1000;
+		int min = 4000;
+		int lastindex;
 		int index = -1;
 		uint32 min_addresss;
-		for (uint32 i = USER_HEAP_START; i < USER_HEAP_MAX; i += PAGE_SIZE)
-		{
-			uint32 *pg = NULL;
-			for (int j = 0; j < sizeofarray; j++) {
-				if (addresses[j] == i) {
-					index = j;
-					break;
+		int f=0;
+		int bool=0;
+			for(int i=0;i<sizeofarray;i++)
+			{
+				//cprintf("size of array and changed and num of pages %d %d %d  \n\n",sizeofarray,changed[i],numOfPages[i]);
+				if(changed[i]==0)
+				{
+					/*cprintf("yes   \n\n");
+					cprintf("size of changed %d\n   \n\n",numOfPages[i]*PAGE_SIZE);*/
+					count+=numOfPages[i];
+					f++;
 				}
-			}
-
-			if (index == -1) {
-				count++;
-			} else {
-				if (changed[index] == 0) {
-					count++;
-				} else {
-					if (count < min && count >= num) {
-						min = count;
-						min_addresss = i;
+				else
+				{
+					//cprintf("no   \n\n");
+					if(count<min&&count>=num)
+					{
+						min=count;
+						min_addresss=addresses[i]-count*PAGE_SIZE;
+						index=i-f;
+						bool=1;
+						lastindex=i;
+						//cprintf("now address is: and count is %x %d\n",min_addresss,count);
 					}
-					count = 0;
+					f=0;
+					count=0;
 				}
-
 			}
+			if(bool==1)
+			{
 
-		}
-
-		sys_allocateMem(min_addresss, size);
-		numOfPages[sizeofarray] = num;
-		addresses[sizeofarray] = last_addres;
-		changed[sizeofarray] = 1;
-		sizeofarray++;
-		return (void*) min_addresss;
-		//}
+				sys_allocateMem(min_addresss, size);
+				sizeofarray++;
+				for(int i=sizeofarray-1;i>index;i--)
+				{
+					addresses[i]=addresses[i-1];
+					numOfPages[i]=numOfPages[i-1];
+					changed[i]=changed[i-1];
+				}
+				addresses[index+1]=min_addresss+size;
+				numOfPages[index+1]=numOfPages[index]-num;
+				changed[index+1]=0;
+				/*cprintf("\n\n\n index is: %x\n\n\n",min_addresss+size);
+				cprintf("\n\n\n index33 is: %x\n\n\n",addresses[sizeofarray-1]);
+				cprintf("\n\n\n numpages is: %d\n\n\n",numOfPages[sizeofarray-1]);*/
+				numOfPages[index] = num;
+				for(int i=index;i<lastindex;i++)
+				{
+					changed[index] = 1;
+				}
+				return (void*) min_addresss;
+					}
+				else
+				{
+					if(size>(USER_HEAP_MAX-last_addres))
+						return NULL;
+					sys_allocateMem(last_addres, size);
+					return_addres = last_addres;
+					last_addres += num * PAGE_SIZE;
+					numOfPages[sizeofarray] = num;
+					addresses[sizeofarray] = return_addres;
+					changed[sizeofarray] = 1;
+					sizeofarray++;
+					return (void*) return_addres;
+				}
 	}
 	//This function should find the space of the required range
 	//using the BEST FIT strategy
@@ -135,17 +166,11 @@ void free(void* virtual_address) {
 	}
 	if (is_found == 1) {
 		size = numOfPages[index] * PAGE_SIZE;
-		cprintf("the size form the free is %d \n", size);
+		//cprintf("the size form the free is %d \n", size);
 		sys_freeMem(va, size);
 		changed[index] = 0;
 		changes++;
-	} else {
-		size = 513 * PAGE_SIZE;
-		cprintf("the size form the free is %d \n", size);
-		sys_freeMem(va, size);
-		changed[index] = 0;
 	}
-
 	//refer to the project presentation and documentation for details
 }
 
