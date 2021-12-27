@@ -849,7 +849,7 @@ void freeMem(struct Env* e, uint32 virtual_address, uint32 size) {
 		if (ptr_page_table != NULL) {
 			//make sure that all the page table is empty
 			for (int j = 0; j < 1024; j++) {
-				if ((ptr_page_table[j] & PERM_PRESENT)) {
+				if ((ptr_page_table[j] != 0)) {
 					//cprintf("the entry is exeis at index %d its value is %x\n",j,ptr_page_table[j]);
 					flag = 0;
 					break;

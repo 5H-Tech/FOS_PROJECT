@@ -830,51 +830,41 @@ void env_free(struct Env *e)
 	//__remove_pws_user_pages(e);
 	//TODO: [PROJECT 2021 - BONUS1] Exit [env_free()]
 	//YOUR CODE STARTS HERE, remove the panic and write your code ----
-	//panic("env_free() is not implemented yet...!!");
-	struct WorkingSetElement* ptr_ws1 = NULL;
-	struct WorkingSetElement* ptr_ws2 = NULL;
-	struct Frame_Info* informationforframe1 = NULL;
-	struct Frame_Info* informationforframe2 = NULL;
+	struct WorkingSetElement* WSE1 = NULL,*WSE2 = NULL;
+	struct Frame_Info* frame_info1 = NULL, * frame_info2 = NULL;
 	// [1] Free the pages in the PAGE working set from the main memory
 	// [2] Free LRU lists
 
-	LIST_FOREACH(ptr_ws1,&e->ActiveList){
-		ptr_ws1->empty=1;
-		LIST_REMOVE(&e->ActiveList,ptr_ws1);
-		LIST_INSERT_HEAD(&e->PageWorkingSetList,ptr_ws1);
-		pt_set_page_permissions(e,ptr_ws1->virtual_address,0,PERM_PRESENT|PERM_USER|PERM_WRITEABLE);
-		unmap_frame(e->env_page_directory, (void*) ptr_ws1->virtual_address);
+	LIST_FOREACH(WSE1,&e->ActiveList){
+		WSE1->empty=1;
+		LIST_REMOVE(&e->ActiveList,WSE1);
+		LIST_INSERT_HEAD(&e->PageWorkingSetList,WSE1);
+		unmap_frame(e->env_page_directory, (void*) WSE1->virtual_address);
 	}
-	LIST_FOREACH(ptr_ws2,&e->SecondList){
-		ptr_ws2->empty=1;
-		LIST_REMOVE(&e->SecondList,ptr_ws2);
-		LIST_INSERT_HEAD(&e->PageWorkingSetList,ptr_ws2);
-		unmap_frame(e->env_page_directory, (void*) ptr_ws2->virtual_address);
+	LIST_FOREACH(WSE2,&e->SecondList){
+		WSE2->empty=1;
+		LIST_REMOVE(&e->SecondList,WSE2);
+		LIST_INSERT_HEAD(&e->PageWorkingSetList,WSE2);
+		unmap_frame(e->env_page_directory, (void*) WSE2->virtual_address);
 	}
 
 	// [3] Free all TABLES from the main memory
 
-	for (int i = 0 ; i < PDX(USER_TOP) ; i++)
+	for (int i = 0 ; i < PDX(USER_TOP /*from 0 to 1024 - kernel*/) ; i++)
 	{
-		//0xFFFFF000 ->3*4 = perm , FFFFF = frame number ,and physical address is  32 bit
-		//((e->env_page_directory[i])>>12)*PAGE_SIZE = (e->env_page_directory[i])&0xFFFFF000
-		if(((e->env_page_directory[i])>>12)*PAGE_SIZE ==0 )//check this entry is already free
+		if(((e->env_page_directory[i])>>12)*PAGE_SIZE !=0 )//check that this entry has already been freed
 		{
-			continue;
-		}
-		informationforframe1=to_frame_info(((e->env_page_directory[i])>>12)*PAGE_SIZE);//physical add of page table is : e->env_page_directory[i]
-		e->env_page_directory[i] = 0 ;
-		if(informationforframe1->references!=0){
-			informationforframe1->references=0;
-			free_frame(informationforframe1);
+			frame_info1=to_frame_info(((e->env_page_directory[i])>>12)*PAGE_SIZE);
+			frame_info1->references =0;
+			free_frame(frame_info1);
 		}
 	}
 
 	// [4] Free the page DIRECTORY from the main memory
 
-	informationforframe2=to_frame_info(e->env_cr3);
-	informationforframe2->references=0;
-	free_frame(informationforframe2);
+	frame_info2=to_frame_info(e->env_cr3);
+	frame_info2->references=0;
+	free_frame(frame_info2);
 
 	//YOUR CODE ENDS HERE --------------------------------------------
 	//Don't change these lines:
