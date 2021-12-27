@@ -827,54 +827,60 @@ void start_env_free(struct Env *e)
 
 void env_free(struct Env *e)
 {
-	__remove_pws_user_pages(e);
-
+	//__remove_pws_user_pages(e);
 	//TODO: [PROJECT 2021 - BONUS1] Exit [env_free()]
-
 	//YOUR CODE STARTS HERE, remove the panic and write your code ----
 	//panic("env_free() is not implemented yet...!!");
-	struct WorkingSetElement * ptr_WS;
+	struct WorkingSetElement* ptr_ws1 = NULL;
+	struct WorkingSetElement* ptr_ws2 = NULL;
+	struct Frame_Info* informationforframe1 = NULL;
+	struct Frame_Info* informationforframe2 = NULL;
 	// [1] Free the pages in the PAGE working set from the main memory
-	LIST_FOREACH(ptr_WS, &(e->PageWorkingSetList))
-	{
-		LIST_REMOVE(&e->PageWorkingSetList, ptr_WS);
-    }
 	// [2] Free LRU lists
-	LIST_FOREACH(ptr_WS, &(e->ActiveList))
-	{
-		//Remove it form the active list
-		LIST_REMOVE(&e->ActiveList, ptr_WS);
-		pt_set_page_permissions(e, ptr_WS->virtual_address, 0,PERM_PRESENT | PERM_WRITEABLE | PERM_USER);
-		unmap_frame(e->env_page_directory, (void*)ptr_WS->virtual_address);
 
-    }
-	LIST_FOREACH(ptr_WS, &(e->SecondList))
-	{
-		//Remove it form the second chance list
-		LIST_REMOVE(&e->SecondList, ptr_WS);
-		unmap_frame(e->env_page_directory, (void*) ptr_WS->virtual_address);
+	LIST_FOREACH(ptr_ws1,&e->ActiveList){
+		ptr_ws1->empty=1;
+		LIST_REMOVE(&e->ActiveList,ptr_ws1);
+		LIST_INSERT_HEAD(&e->PageWorkingSetList,ptr_ws1);
+		pt_set_page_permissions(e,ptr_ws1->virtual_address,0,PERM_PRESENT|PERM_USER|PERM_WRITEABLE);
+		unmap_frame(e->env_page_directory, (void*) ptr_ws1->virtual_address);
 	}
+	LIST_FOREACH(ptr_ws2,&e->SecondList){
+		ptr_ws2->empty=1;
+		LIST_REMOVE(&e->SecondList,ptr_ws2);
+		LIST_INSERT_HEAD(&e->PageWorkingSetList,ptr_ws2);
+		unmap_frame(e->env_page_directory, (void*) ptr_ws2->virtual_address);
+	}
+
 	// [3] Free all TABLES from the main memory
-	struct Frame_Info* ptr_frame_info = NULL;
-	uint32 dir_va = (uint32) e->env_page_directory;
-	for (int j = 0; j < 1024; j++)
+
+	for (int i = 0 ; i < PDX(USER_TOP) ; i++)
 	{
-		ptr_frame_info = to_frame_info(dir_va);
-		free_frame(ptr_frame_info);
-        dir_va+=PAGE_SIZE;
+		//0xFFFFF000 ->3*4 = perm , FFFFF = frame number ,and physical address is  32 bit
+		//((e->env_page_directory[i])>>12)*PAGE_SIZE = (e->env_page_directory[i])&0xFFFFF000
+		if(((e->env_page_directory[i])>>12)*PAGE_SIZE ==0 )//check this entry is already free
+		{
+			continue;
+		}
+		informationforframe1=to_frame_info(((e->env_page_directory[i])>>12)*PAGE_SIZE);//physical add of page table is : e->env_page_directory[i]
+		e->env_page_directory[i] = 0 ;
+		if(informationforframe1->references!=0){
+			informationforframe1->references=0;
+			free_frame(informationforframe1);
+		}
 	}
 
 	// [4] Free the page DIRECTORY from the main memory
 
-	unmap_frame(e->env_page_directory,(void*)e->env_page_directory);
+	informationforframe2=to_frame_info(e->env_cr3);
+	informationforframe2->references=0;
+	free_frame(informationforframe2);
 
 	//YOUR CODE ENDS HERE --------------------------------------------
-
 	//Don't change these lines:
 	pf_free_env(e); /*(ALREADY DONE for you)*/ // (removes all of the program pages from the page file)
 	free_environment(e); /*(ALREADY DONE for you)*/ // (frees the environment (returns it back to the free environment list))
 }
-
 void __env_free_with_buffering(struct Env *e)
 {
 	__remove_pws_user_pages(e);
